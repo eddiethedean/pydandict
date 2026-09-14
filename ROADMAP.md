@@ -90,17 +90,22 @@ contract fails, record the case and revise the design openly before promotion.
 
 ## 0.3 — Minimal scalar core
 
+The [Phase 0.3 architecture and implementation contract](docs/phase-0.3-plan.md)
+defines the scalar qualification boundary, AC-001–028 and W05–W07 verification.
+Build on Phase 0.2 and preserve its shipped nested behavior; this milestone does
+not introduce a scalar-only runtime mode or remove existing ownership support.
+
 Harden the root `src/pydandict` package and its build metadata. Carry forward the
 relevant prototype tests while finalizing reads, class namespace policy, scalar field/extra writes,
 bulk changes, errors, defaults/reset, metadata, frozen handling, and safe copies.
-Resolve trusted/deprecated APIs and review the selected MIT license and
-Python/Pydantic floor before distributing the first package. Keep FastAPI and quality tooling in
-development/integration dependencies; Pydantic is the proposed sole direct runtime
-dependency unless a documented implementation need justifies another.
+Qualify trusted/deprecated APIs and retain the selected MIT license and exact
+Python/Pydantic policy for the next checkpoint. Keep FastAPI and quality tooling in
+development/integration dependencies; retain Pydantic as the sole direct runtime
+dependency.
 
-Exit: T1–T6/T10 pass for the explicitly supported scalar subset; unsupported
-mutable values fail clearly. The `0.3` release must advertise that subset and
-must not claim full lifetime support for arbitrary nested data. G1/G2 must pass
+Exit: T1–T6/T10 pass for the explicitly qualified scalar subset; mutable values
+outside the existing closed envelope fail clearly. The `0.3` release must advertise
+that subset and must not claim full lifetime support for arbitrary nested data. G1/G2 must pass
 for this subset, G4 must cover its advertised matrix, and G5 must be resolved.
 
 ## 0.4 — Ownership and ecosystem integration

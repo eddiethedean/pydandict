@@ -7,6 +7,9 @@ now implemented at the repository root. Phase 0.2 finalizes those contracts and
 hardens the baseline; the remaining W05–W13 qualification work stays open. IDs
 remain stable references for issues and PRs.
 
+The [Phase 0.3 implementation contract](phase-0.3-plan.md) defines the next bounded
+W05 qualification/W06–W07 change, preserving the completed Phase 0.2 baseline.
+
 ## Priority and dependency order
 
 **P0:** harden the integrated transaction/ownership baseline and finalize contracts

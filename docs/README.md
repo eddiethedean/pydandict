@@ -42,6 +42,7 @@ is the authority for mutator behavior; examples elsewhere must agree with it.
 [contributing](../CONTRIBUTING.md), [upstream evidence](research/upstream-behavior.md).
 
 **Starting implementation:** [work packages](implementation-plan.md),
+[Phase 0.3 scalar-core contract](phase-0.3-plan.md),
 [Phase 0.2 contract and acceptance criteria](phase-0.2-plan.md),
 [roadmap priorities](../ROADMAP.md#priorities-and-critical-path),
 [gate decisions](decisions/README.md#open-gates). W01–W05 form the Phase 0.1
