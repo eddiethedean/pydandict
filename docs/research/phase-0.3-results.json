@@ -1,0 +1,326 @@
+{
+  "ac_evidence": {
+    "AC-024": [
+      "direct_library_example",
+      "rebuilt_library_example"
+    ],
+    "AC-025": [
+      "source_commit",
+      "commands",
+      "resolved_dependencies",
+      "artifact_sha256"
+    ],
+    "AC-028": [
+      "direct_library_example",
+      "rebuilt_library_example"
+    ]
+  },
+  "commands": [
+    {
+      "argv": [
+        "/opt/homebrew/opt/python@3.11/bin/python3.11",
+        "-m",
+        "build",
+        "--sdist",
+        "--wheel",
+        "--outdir",
+        "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-44l3vbmg/direct"
+      ],
+      "cwd": "/Volumes/T7/coding/pydandict",
+      "source_path_injection": false
+    },
+    {
+      "argv": [
+        "/opt/homebrew/opt/python@3.11/bin/python3.11",
+        "-m",
+        "twine",
+        "check",
+        "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-44l3vbmg/direct/pydandict.tar.gz",
+        "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-44l3vbmg/direct/pydandict.whl"
+      ],
+      "cwd": "/Volumes/T7/coding/pydandict",
+      "source_path_injection": false
+    },
+    {
+      "argv": [
+        "/opt/homebrew/opt/python@3.11/bin/python3.11",
+        "-m",
+        "build",
+        "--wheel",
+        "--outdir",
+        "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-44l3vbmg/rebuilt"
+      ],
+      "cwd": "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-44l3vbmg/source",
+      "source_path_injection": false
+    },
+    {
+      "argv": [
+        "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-44l3vbmg/direct-bare/bin/python",
+        "-m",
+        "pip",
+        "install",
+        "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-44l3vbmg/direct/pydandict.whl"
+      ],
+      "cwd": "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-44l3vbmg",
+      "source_path_injection": false
+    },
+    {
+      "argv": [
+        "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-44l3vbmg/direct-bare/bin/python",
+        "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-44l3vbmg/direct-library_config.py"
+      ],
+      "cwd": "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-44l3vbmg",
+      "source_path_injection": false
+    },
+    {
+      "argv": [
+        "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-44l3vbmg/direct-bare/bin/python",
+        "-c",
+        "from pathlib import Path\nfrom collections.abc import Mapping, MutableSequence\nimport sys, pydandict\nfrom pydantic import BaseModel, ValidationError\nfrom pydandict import DictModel\nmodule = Path(pydandict.__file__).resolve()\nassert module.is_relative_to(Path(sys.prefix).resolve())\nassert not module.is_relative_to(Path('/Volumes/T7/coding/pydandict').resolve())\nclass Item(DictModel):\n    numbers: MutableSequence[int]\nitem = Item(numbers=[1])\nassert isinstance(item, BaseModel) and isinstance(item, Mapping)\nhandle = item.numbers\nitem.numbers.append(2)\nassert item.numbers is handle and item.model_dump() == {'numbers': [1, 2]}\ntry:\n    item.numbers.append('bad')\nexcept ValidationError:\n    assert item.numbers == [1, 2]\nelse:\n    raise AssertionError('invalid library edit committed')\nclass Config(DictModel):\n    low: int = 1\n    high: int = 3\ncfg = Config()\nassert dict(cfg) == {'low': 1, 'high': 3} and cfg.model_fields_set == set()\ncfg.update(low=5, high=8)\nassert (cfg.low, cfg.high) == (5, 8)\ncopy_cfg = cfg.model_copy(update={'low': 6})\nassert copy_cfg.low == 6 and cfg.low == 5\ncfg.reset('low', 'high')\nassert dict(cfg) == {'low': 1, 'high': 3}\nprint(module)\n"
+      ],
+      "cwd": "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-44l3vbmg",
+      "source_path_injection": false
+    },
+    {
+      "argv": [
+        "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-44l3vbmg/direct-bare/bin/python",
+        "-m",
+        "pip",
+        "freeze"
+      ],
+      "cwd": "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-44l3vbmg",
+      "source_path_injection": false
+    },
+    {
+      "argv": [
+        "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-44l3vbmg/direct-http/bin/python",
+        "-m",
+        "pip",
+        "install",
+        "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-44l3vbmg/direct/pydandict.whl",
+        "fastapi==0.141.1",
+        "httpx==0.28.1",
+        "pyright==1.1.411"
+      ],
+      "cwd": "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-44l3vbmg",
+      "source_path_injection": false
+    },
+    {
+      "argv": [
+        "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-44l3vbmg/direct-http/bin/python",
+        "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-44l3vbmg/direct-consumer.py"
+      ],
+      "cwd": "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-44l3vbmg",
+      "source_path_injection": false
+    },
+    {
+      "argv": [
+        "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-44l3vbmg/direct-http/bin/python",
+        "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-44l3vbmg/direct-typing.py"
+      ],
+      "cwd": "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-44l3vbmg",
+      "source_path_injection": false
+    },
+    {
+      "argv": [
+        "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-44l3vbmg/direct-http/bin/python",
+        "-c",
+        "import site; print(site.getsitepackages()[0])"
+      ],
+      "cwd": "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-44l3vbmg",
+      "source_path_injection": false
+    },
+    {
+      "argv": [
+        "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-44l3vbmg/direct-http/bin/python",
+        "-m",
+        "pyright",
+        "--project",
+        "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-44l3vbmg/direct-pyrightconfig.json"
+      ],
+      "cwd": "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-44l3vbmg",
+      "source_path_injection": false
+    },
+    {
+      "argv": [
+        "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-44l3vbmg/direct-http/bin/python",
+        "-m",
+        "pyright",
+        "--verifytypes",
+        "pydandict",
+        "--ignoreexternal"
+      ],
+      "cwd": "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-44l3vbmg",
+      "source_path_injection": false
+    },
+    {
+      "argv": [
+        "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-44l3vbmg/direct-http/bin/python",
+        "-c",
+        "\nimport json, subprocess, sys\nfrom pathlib import Path\nfixture = Path('/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-44l3vbmg/direct-negative.py')\nexpected = sorted([(14, 'reportAttributeAccessIssue'), (15, 'reportArgumentType'), (16, 'reportAssignmentType'), (17, 'reportAssertTypeFailure')])\nresult = subprocess.run(\n    [sys.executable, \"-m\", \"pyright\", \"--project\", '/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-44l3vbmg/direct-negative-config.json', \"--outputjson\"],\n    text=True, capture_output=True, check=False,\n)\nassert result.returncode == 1, result.stdout + result.stderr\nreport = json.loads(result.stdout)\ndiagnostics = report[\"generalDiagnostics\"]\nactual = []\nfor diagnostic in diagnostics:\n    assert diagnostic[\"severity\"] == \"error\", diagnostic\n    assert Path(diagnostic[\"file\"]).resolve() == fixture.resolve(), diagnostic\n    actual.append((diagnostic[\"range\"][\"start\"][\"line\"] + 1, diagnostic[\"rule\"]))\nassert sorted(actual) == expected, (actual, expected)\nassert report[\"summary\"][\"errorCount\"] == len(expected), report\nassert report[\"summary\"][\"filesAnalyzed\"] == 1, report\nprint(json.dumps({\"expected_errors\": len(expected), \"actual_errors\": len(actual)}))\n"
+      ],
+      "cwd": "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-44l3vbmg",
+      "source_path_injection": false
+    },
+    {
+      "argv": [
+        "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-44l3vbmg/direct-http/bin/python",
+        "-m",
+        "pip",
+        "freeze"
+      ],
+      "cwd": "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-44l3vbmg",
+      "source_path_injection": false
+    },
+    {
+      "argv": [
+        "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-44l3vbmg/rebuilt-bare/bin/python",
+        "-m",
+        "pip",
+        "install",
+        "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-44l3vbmg/rebuilt/pydandict.whl"
+      ],
+      "cwd": "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-44l3vbmg",
+      "source_path_injection": false
+    },
+    {
+      "argv": [
+        "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-44l3vbmg/rebuilt-bare/bin/python",
+        "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-44l3vbmg/rebuilt-library_config.py"
+      ],
+      "cwd": "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-44l3vbmg",
+      "source_path_injection": false
+    },
+    {
+      "argv": [
+        "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-44l3vbmg/rebuilt-bare/bin/python",
+        "-c",
+        "from pathlib import Path\nfrom collections.abc import Mapping, MutableSequence\nimport sys, pydandict\nfrom pydantic import BaseModel, ValidationError\nfrom pydandict import DictModel\nmodule = Path(pydandict.__file__).resolve()\nassert module.is_relative_to(Path(sys.prefix).resolve())\nassert not module.is_relative_to(Path('/Volumes/T7/coding/pydandict').resolve())\nclass Item(DictModel):\n    numbers: MutableSequence[int]\nitem = Item(numbers=[1])\nassert isinstance(item, BaseModel) and isinstance(item, Mapping)\nhandle = item.numbers\nitem.numbers.append(2)\nassert item.numbers is handle and item.model_dump() == {'numbers': [1, 2]}\ntry:\n    item.numbers.append('bad')\nexcept ValidationError:\n    assert item.numbers == [1, 2]\nelse:\n    raise AssertionError('invalid library edit committed')\nclass Config(DictModel):\n    low: int = 1\n    high: int = 3\ncfg = Config()\nassert dict(cfg) == {'low': 1, 'high': 3} and cfg.model_fields_set == set()\ncfg.update(low=5, high=8)\nassert (cfg.low, cfg.high) == (5, 8)\ncopy_cfg = cfg.model_copy(update={'low': 6})\nassert copy_cfg.low == 6 and cfg.low == 5\ncfg.reset('low', 'high')\nassert dict(cfg) == {'low': 1, 'high': 3}\nprint(module)\n"
+      ],
+      "cwd": "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-44l3vbmg",
+      "source_path_injection": false
+    },
+    {
+      "argv": [
+        "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-44l3vbmg/rebuilt-bare/bin/python",
+        "-m",
+        "pip",
+        "freeze"
+      ],
+      "cwd": "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-44l3vbmg",
+      "source_path_injection": false
+    },
+    {
+      "argv": [
+        "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-44l3vbmg/rebuilt-http/bin/python",
+        "-m",
+        "pip",
+        "install",
+        "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-44l3vbmg/rebuilt/pydandict.whl",
+        "fastapi==0.141.1",
+        "httpx==0.28.1",
+        "pyright==1.1.411"
+      ],
+      "cwd": "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-44l3vbmg",
+      "source_path_injection": false
+    },
+    {
+      "argv": [
+        "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-44l3vbmg/rebuilt-http/bin/python",
+        "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-44l3vbmg/rebuilt-consumer.py"
+      ],
+      "cwd": "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-44l3vbmg",
+      "source_path_injection": false
+    },
+    {
+      "argv": [
+        "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-44l3vbmg/rebuilt-http/bin/python",
+        "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-44l3vbmg/rebuilt-typing.py"
+      ],
+      "cwd": "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-44l3vbmg",
+      "source_path_injection": false
+    },
+    {
+      "argv": [
+        "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-44l3vbmg/rebuilt-http/bin/python",
+        "-c",
+        "import site; print(site.getsitepackages()[0])"
+      ],
+      "cwd": "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-44l3vbmg",
+      "source_path_injection": false
+    },
+    {
+      "argv": [
+        "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-44l3vbmg/rebuilt-http/bin/python",
+        "-m",
+        "pyright",
+        "--project",
+        "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-44l3vbmg/rebuilt-pyrightconfig.json"
+      ],
+      "cwd": "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-44l3vbmg",
+      "source_path_injection": false
+    },
+    {
+      "argv": [
+        "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-44l3vbmg/rebuilt-http/bin/python",
+        "-m",
+        "pyright",
+        "--verifytypes",
+        "pydandict",
+        "--ignoreexternal"
+      ],
+      "cwd": "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-44l3vbmg",
+      "source_path_injection": false
+    },
+    {
+      "argv": [
+        "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-44l3vbmg/rebuilt-http/bin/python",
+        "-c",
+        "\nimport json, subprocess, sys\nfrom pathlib import Path\nfixture = Path('/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-44l3vbmg/rebuilt-negative.py')\nexpected = sorted([(14, 'reportAttributeAccessIssue'), (15, 'reportArgumentType'), (16, 'reportAssignmentType'), (17, 'reportAssertTypeFailure')])\nresult = subprocess.run(\n    [sys.executable, \"-m\", \"pyright\", \"--project\", '/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-44l3vbmg/rebuilt-negative-config.json', \"--outputjson\"],\n    text=True, capture_output=True, check=False,\n)\nassert result.returncode == 1, result.stdout + result.stderr\nreport = json.loads(result.stdout)\ndiagnostics = report[\"generalDiagnostics\"]\nactual = []\nfor diagnostic in diagnostics:\n    assert diagnostic[\"severity\"] == \"error\", diagnostic\n    assert Path(diagnostic[\"file\"]).resolve() == fixture.resolve(), diagnostic\n    actual.append((diagnostic[\"range\"][\"start\"][\"line\"] + 1, diagnostic[\"rule\"]))\nassert sorted(actual) == expected, (actual, expected)\nassert report[\"summary\"][\"errorCount\"] == len(expected), report\nassert report[\"summary\"][\"filesAnalyzed\"] == 1, report\nprint(json.dumps({\"expected_errors\": len(expected), \"actual_errors\": len(actual)}))\n"
+      ],
+      "cwd": "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-44l3vbmg",
+      "source_path_injection": false
+    },
+    {
+      "argv": [
+        "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-44l3vbmg/rebuilt-http/bin/python",
+        "-m",
+        "pip",
+        "freeze"
+      ],
+      "cwd": "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-44l3vbmg",
+      "source_path_injection": false
+    },
+    {
+      "argv": [
+        "git",
+        "rev-parse",
+        "HEAD"
+      ],
+      "cwd": "/Volumes/T7/coding/pydandict",
+      "source_path_injection": false
+    }
+  ],
+  "direct_wheel": "pydandict.whl",
+  "direct_wheel_sha256": "b666e2c4d4b50237066cdaba2769f9ae8e9dd71b97c9ba9207f7ffe9e229fd20",
+  "platform": "macOS-26.5.2-arm64-arm-64bit",
+  "python": "3.11.14 (main, Oct  9 2025, 16:16:55) [Clang 17.0.0 (clang-1700.6.3.2)]",
+  "qualification_profile": "phase-0.3-scalar-installed-consumers",
+  "rebuilt_wheel": "pydandict.whl",
+  "rebuilt_wheel_sha256": "b666e2c4d4b50237066cdaba2769f9ae8e9dd71b97c9ba9207f7ffe9e229fd20",
+  "resolved_dependencies": {
+    "direct": "",
+    "direct_bare": "",
+    "direct_bare_import": "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-44l3vbmg/venv/site-packages",
+    "direct_library_example": "",
+    "direct_negative_typing": "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-44l3vbmg/venv/site-packages",
+    "rebuilt": "",
+    "rebuilt_bare": "",
+    "rebuilt_bare_import": "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-44l3vbmg/venv/site-packages",
+    "rebuilt_library_example": "",
+    "rebuilt_negative_typing": "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-44l3vbmg/venv/site-packages"
+  },
+  "sdist": "pydandict.tar.gz",
+  "sdist_sha256": "84f564b2fab3c6b9cddf5c56ae1c575f20e5b808a6b09937373445831229ac13",
+  "source_commit": ""
+}
