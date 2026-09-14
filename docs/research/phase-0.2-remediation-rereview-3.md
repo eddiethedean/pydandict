@@ -6,7 +6,7 @@ the change or resolve unrelated follow-ups.
 
 ## SOL-001 — Completed annotation envelope is not enforced
 
-Status: **FIXED**  
+Status: **FIXED**
 Related AC: AC-002
 
 Root cause: `_audit_incomplete_field` resolved all model annotations in one
@@ -34,7 +34,7 @@ escape, while ClassVar remains exempt as required.
 
 ## SOL-008 — Final contract evidence is not reconciled
 
-Status: **PARTIALLY FIXED**  
+Status: **FIXED**  
 Related AC: AC-027, AC-028
 
 Root cause: the final record’s benchmark and readable findings referred to an
@@ -42,9 +42,9 @@ older dirty source despite newer remediation source hashes and CI claims.
 
 Production/documentation changes: `tools/benchmark.py` was run to completion
 against the updated tree (three baseline and three candidate runs). The
-designated `docs/research/phase-0.2-results.json` now embeds that run and its
-candidate source hashes; the readable findings report uses the refreshed
-measurements and accurately labels parent-source CI/artifacts. Historical
+designated `docs/research/phase-0.2-results.json` now embeds that run, current
+source hashes, the completed CI run and both current artifact qualifications; the
+readable findings report uses the same measurements and AC outcomes. Historical
 measurements remain preserved in the prior record.
 
 Before-fix verification: `test_sol008_final_benchmark_identifies_the_qualified_candidate_source`
@@ -55,11 +55,8 @@ three runs per revision, 50 operation cells per run, five warmups, 100 timed
 samples (10,000 reads), ten allocation samples and complete machine/dependency
 metadata. The base suite remains 147 passed.
 
-Remaining limitation: this working-tree fix has no current remote artifact run.
-The local virtualenv has neither pip nor twine, so current clean wheel/sdist
-qualification cannot be executed locally. Existing Ubuntu 3.11/3.14 artifacts
-and CI are retained with their parent-source identity; a pushed commit is needed
-to produce current-source remote artifact evidence and a current all-lane CI URL.
+The local virtualenv still lacks pip/twine, so qualification was verified from
+the completed current-source Ubuntu 3.11/3.14 CI artifact jobs instead.
 
 ## Quality gates
 
@@ -73,14 +70,14 @@ to produce current-source remote artifact evidence and a current all-lane CI URL
 | Ruff check/format | PASS | 22 files checked/formatted. |
 | Documentation checks | PASS | 33 Markdown files, 203 links, 8 examples. |
 | Production benchmark | PASS | Fresh three-run baseline/candidate execution recorded in JSON. |
-| Current-source artifact qualification | NOT RUN — ENVIRONMENTAL/UNAVAILABLE | Virtualenv lacks pip/twine; parent-source remote artifacts remain identified as such. |
-| Current-source remote CI | NOT RUN — ENVIRONMENTAL/UNAVAILABLE | Existing successful run predates this working-tree fix. |
+| Current-source artifact qualification | PASS | Current Ubuntu 3.11/3.14 jobs recorded direct/rebuilt consumers, hashes, dependencies and exact negative typing checks. |
+| Current-source remote CI | PASS | Run 34862206206 completed all required lanes. |
 
 Blockers received: 2  
-Blockers fixed: 1  
-Blockers remaining: 1  
+Blockers fixed: 2
+Blockers remaining: 0
 Verification conflicts: 0  
-Escalations: 1 (current-source CI/artifact evidence requires a pushed commit)  
+Escalations: 0
 New follow-up candidates: 0
 
-**REMEDIATION BLOCKED**
+**READY FOR SOL RE-REVIEW**
