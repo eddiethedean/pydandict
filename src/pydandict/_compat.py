@@ -99,16 +99,18 @@ def _install_public_error_projection() -> None:
             continue
         function = original.__func__
 
-        @wraps(function)
-        def wrapped(
-            cls: type[BaseModel], *args: Any, __function: Any = function, **kwargs: Any
-        ) -> Any:
-            try:
-                return __function(cls, *args, **kwargs)
-            except ValidationError as error:
-                _project_native_error(error)
-                raise
+        def make_model_wrapper(__function: Any) -> Any:
+            @wraps(__function)
+            def wrapped(cls: type[BaseModel], *args: Any, **kwargs: Any) -> Any:
+                try:
+                    return __function(cls, *args, **kwargs)
+                except ValidationError as error:
+                    _project_native_error(error)
+                    raise
 
+            return wrapped
+
+        wrapped = make_model_wrapper(function)
         wrapped._pydandict_error_projection = True  # pyright: ignore[reportAttributeAccessIssue]
         setattr(BaseModel, name, classmethod(wrapped))
 
@@ -120,16 +122,18 @@ def _install_public_error_projection() -> None:
         if getattr(original, "_pydandict_error_projection", False):
             continue
 
-        @wraps(original)
-        def wrapped_adapter(
-            self: TypeAdapter[Any], *args: Any, __function: Any = original, **kwargs: Any
-        ) -> Any:
-            try:
-                return __function(self, *args, **kwargs)
-            except ValidationError as error:
-                _project_native_error(error)
-                raise
+        def make_adapter_wrapper(__function: Any) -> Any:
+            @wraps(__function)
+            def wrapped_adapter(self: TypeAdapter[Any], *args: Any, **kwargs: Any) -> Any:
+                try:
+                    return __function(self, *args, **kwargs)
+                except ValidationError as error:
+                    _project_native_error(error)
+                    raise
 
+            return wrapped_adapter
+
+        wrapped_adapter = make_adapter_wrapper(original)
         wrapped_adapter._pydandict_error_projection = True  # pyright: ignore[reportAttributeAccessIssue]
         setattr(TypeAdapter, name, wrapped_adapter)
 
