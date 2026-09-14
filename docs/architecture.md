@@ -45,6 +45,14 @@ and `py.typed`. The implementation keeps the transaction, compatibility and
 ownership mechanisms concentrated while the contracts are hardened; split them
 during Phase 0.2 when it improves auditability.
 
+The unreleased Phase 0.2 implementation now puts version-sensitive allocation,
+raw storage reads/swaps/restoration, schema variants and serializer delegation in
+`_compat.py`. Compiled validators are class-local and invalidated on rebuild.
+Private generic guards use a typed root callback coordinator; heterogeneous
+transaction values and paths use `object` with explicit narrowing. The
+[Phase 0.2 evidence](research/phase-0.2-findings.md) records implementation
+verification separately from the historical prototype and release facts.
+
 ## Transaction engine
 
 Use public Pydantic validation entry points wherever possible. Keep any required

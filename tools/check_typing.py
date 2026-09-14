@@ -8,6 +8,7 @@ import shutil
 import subprocess
 import sys
 import tempfile
+import tomllib
 from pathlib import Path
 from typing import Any, cast
 
@@ -34,13 +35,31 @@ def _report(result: subprocess.CompletedProcess[str], label: str) -> dict[str, A
 
 
 def _check_positive() -> None:
+    configuration = tomllib.loads((ROOT / "pyproject.toml").read_text())["tool"]["pyright"]
+    intended = {
+        "src",
+        "tests/typing_positive.py",
+        "tools/check_typing.py",
+        "tools/qualify_package.py",
+        "tools/benchmark.py",
+    }
+    if (
+        set(configuration.get("include", [])) != intended
+        or configuration.get("exclude") != ["tests/typing_negative.py"]
+        or configuration.get("typeCheckingMode") != "strict"
+    ):
+        raise SystemExit("positive typing configuration does not cover the intended strict sources")
     result = _run([sys.executable, "-m", "pyright", "--project", "pyproject.toml", "--outputjson"])
     report = _report(result, "positive typing check")
     summary = report["summary"]
     if result.returncode != 0 or summary.get("errorCount") != 0:
         raise SystemExit(f"positive typing check failed:\n{result.stdout}\n{result.stderr}")
-    if summary.get("filesAnalyzed", 0) < 2:
-        raise SystemExit("positive typing check analyzed fewer than two intended files")
+    expected_files = len(list((ROOT / "src").rglob("*.py"))) + 4
+    if summary.get("filesAnalyzed") != expected_files:
+        raise SystemExit(
+            "positive typing check did not analyze every production, fixture and helper file: "
+            f"expected={expected_files}, actual={summary.get('filesAnalyzed')!r}"
+        )
 
 
 def _expected_diagnostics(path: Path) -> set[tuple[int, str]]:
@@ -72,10 +91,11 @@ def _check_negative() -> None:
         result = _run([sys.executable, "-m", "pyright", "--project", str(project), "--outputjson"])
         report = _report(result, "negative typing check")
         diagnostics = report.get("generalDiagnostics", [])
-        actual: set[tuple[int, str]] = set()
+        actual: list[tuple[int, str | None, str]] = []
+        filenames: list[object] = []
         for raw_diagnostic in diagnostics:
             if not isinstance(raw_diagnostic, dict):
-                continue
+                raise SystemExit("negative typing check returned a malformed diagnostic")
             diagnostic = cast(dict[str, Any], raw_diagnostic)
             range_data: Any = diagnostic.get("range", {})
             location: dict[str, Any] = {}
@@ -85,16 +105,33 @@ def _check_negative() -> None:
                     location = cast(dict[str, Any], start_data)
             line: Any = location.get("line")
             rule: Any = diagnostic.get("rule")
-            if isinstance(line, int) and isinstance(rule, str):
-                actual.add((line + 1, rule))
-        if result.returncode == 0 or actual != expected:
+            if not isinstance(line, int) or not isinstance(rule, str):
+                raise SystemExit(
+                    "negative typing check returned an unruled or unlocated diagnostic"
+                )
+            if diagnostic.get("severity") != "error":
+                raise SystemExit("negative typing check returned a non-error diagnostic")
+            filenames.append(diagnostic.get("file"))
+            actual.append((line + 1, rule, str(diagnostic.get("message", ""))))
+        expected_list = sorted((line, rule, "") for line, rule in expected)
+        actual_keys = sorted((line, rule, "") for line, rule, _ in actual)
+        if (
+            result.returncode != 1
+            or actual_keys != expected_list
+            or report.get("summary", {}).get("errorCount") != len(expected)
+        ):
             raise SystemExit(
                 "negative typing check did not match its expected diagnostics:\n"
-                f"expected={sorted(expected)!r}\nactual={sorted(actual)!r}\n"
+                f"expected={expected_list!r}\nactual={actual_keys!r}\n"
                 f"{result.stdout}\n{result.stderr}"
             )
         if report.get("summary", {}).get("filesAnalyzed") != 1:
             raise SystemExit("negative typing check did not analyze exactly one fixture")
+        if any(
+            not isinstance(filename, str) or Path(filename).resolve() != fixture.resolve()
+            for filename in filenames
+        ):
+            raise SystemExit("negative typing check returned a diagnostic outside its fixture")
 
 
 def main() -> int:

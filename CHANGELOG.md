@@ -10,6 +10,13 @@
   validation, a Pydantic compatibility adapter and clean wheel/sdist artifact
   qualification.
 - Expand CI to the supported Python and operating-system matrix.
+- Resolve the Sol release blockers: deferred/typed-extra annotations, safe hash
+  positions, nested model identity writes, schema/cache isolation and rebuilds,
+  generic private typing, exact typing evidence, both artifact consumers and
+  guarded cache disposal.
+- Measure baseline `07fec9b` and candidate production source across flat, linear
+  and mixed workloads, with three runs, correctness checks, separate allocation
+  measurements and root-validation counts; preserve Phase 0.1 evidence.
 
 ### Documentation
 

@@ -13,19 +13,19 @@ recommendations added in this planning set.
 | D04 | Validate all supported mutation paths continuously | Established | Internal dictionaries must remain valid, including nested state |
 | D05 | Pyright and `Mapping` / `MutableMapping` compatibility are first-class | Established | Runtime duck typing alone is insufficient |
 | D06 | No unrelated collections, persistence, or reactivity in v1 | Established | Keep a focused dependency |
-| D07 | Canonical field names are mapping keys; aliases stay at input/output boundaries | Proposed | Prevent duplicate key identities and ambiguous writes |
-| D08 | All declared fields remain present; delete/pop cannot remove them; `reset` restores defaults | Proposed | Removing then reintroducing a default is misleading mapping behavior |
-| D09 | Validate isolated candidate state and commit once | Proposed; prototype required | Assignment validation alone does not provide rollback or atomic multi-field updates |
-| D10 | Default `extra='forbid'`; configurable allow/ignore input; unknown mutations rejected unless allow | Proposed | Match assignment-style semantics and avoid silent typo writes |
-| D11 | Mapping values use `object`; attribute types remain specific | Proposed | Honest heterogeneous typing without spreading `Any` |
-| D12 | Preserve Pydantic equality; iteration changes to keys; mutable instances unhashable | Proposed | Model identity/metadata equality remains useful; mapping equality is a documented divergence |
-| D13 | Private guards for owned nested values; reject unprotectable mutability | Proposed; release gate | Meet lifetime validation without a public collection framework |
-| D14 | Validate `model_copy(update=...)`; reject public `model_construct` in v1 | Proposed | Close named public construction/copy bypasses; document narrower BaseModel API |
-| D15 | No configurable validation-off mode for `DictModel` | Proposed | Avoid two safety levels under one type |
-| D16 | Qualify releases against a measurable quality bar and commit-specific evidence | Proposed | Correctness, typing, integration, performance and packaging need inspectable results, not milestone labels |
-| D17 | Integrate G1–G3 in one vertical slice before choosing production internals | Proposed | Successful isolated prototypes may have incompatible transaction, type or serialization assumptions |
+| D07 | Canonical field names are mapping keys; aliases stay at input/output boundaries | Established | Prevent duplicate key identities and ambiguous writes |
+| D08 | All declared fields remain present; delete/pop cannot remove them; `reset` restores defaults | Established | Removing then reintroducing a default is misleading mapping behavior |
+| D09 | Validate isolated candidate state and commit once | Established | Assignment validation alone does not provide rollback or atomic multi-field updates |
+| D10 | Default `extra='forbid'`; configurable allow/ignore input; unknown mutations rejected unless allow | Established | Match assignment-style semantics and avoid silent typo writes |
+| D11 | Mapping values use `object`; attribute types remain specific | Established | Honest heterogeneous typing without spreading `Any` |
+| D12 | Preserve Pydantic equality; iteration changes to keys; mutable instances unhashable | Established | Model identity/metadata equality remains useful; mapping equality is a documented divergence |
+| D13 | Private guards for owned nested values; reject unprotectable mutability | Established | Meet lifetime validation without a public collection framework |
+| D14 | Validate `model_copy(update=...)`; reject public `model_construct` in v1 | Established | Close named public construction/copy bypasses; document narrower BaseModel API |
+| D15 | No configurable validation-off mode for `DictModel` | Established | Avoid two safety levels under one type |
+| D16 | Qualify releases against a measurable quality bar and commit-specific evidence | Established | Correctness, typing, integration, performance and packaging need inspectable results, not milestone labels |
+| D17 | Integrate G1–G3 in one vertical slice before choosing production internals | Established | Successful isolated prototypes may have incompatible transaction, type or serialization assumptions |
 | D18 | Use automated isolated consumer projects and maintainer walkthroughs; require no external trials or participants | Established constraint | The user explicitly requires qualification without involving other people; this supplies reproducible integration evidence without claiming independent adoption research |
-| D19 | Return detached usable mutable values from successful removal; invalidate prior borrowed handles | Proposed; G3 evidence required | `pop`/`popitem` must not return immediately stale handles; prepare return values before commit for failure safety |
+| D19 | Return detached usable mutable values from successful removal; invalidate prior borrowed handles | Established | `pop`/`popitem` must not return immediately stale handles; prepare return values before commit for failure safety |
 
 ## Phase 0.1 decisions
 
@@ -40,22 +40,21 @@ identity-writeback behavior, root retention and concrete-container limitations.
 Baseline acceptance does not silently turn these experimental choices into a
 universal Pydantic compatibility promise.
 
-## Phase 0.2 implementation targets
+## Phase 0.2 implementation decisions
 
 These are resolved requirements for the
 [Phase 0.2 implementation contract](../phase-0.2-plan.md), not claims about the
-published 0.1.0 implementation. D07–D17/D19 retain their historical proposed status
-above; the contract adopts their specified behavior within the bounded Phase 0.2
-envelope. Mark targets verified only when their acceptance evidence passes.
+published 0.1.0 implementation. D07–D17/D19 are finalized by the bounded Phase
+0.2 envelope and the evidence record in `docs/research/phase-0.2-results.json`.
 
 | ID | Decision | Status | Rationale and consequence |
 | --- | --- | --- | --- |
-| D23 | Require mutable ABC field annotations and explicit generic specialization; reject concrete mutable annotations recursively; retain ordinary input and serialized shapes | Phase 0.2 target; not shipped | Resolves D20's runtime/type mismatch without lying in stubs or adding public collections; explicit alpha migration required. |
-| D24 | Keep canonical Python/context-none mutations, rerunnable schema-sound validators, current hook exclusions and stable fail-closed diagnostics | Phase 0.2 target; not shipped | Arbitrary validator effects cannot be inferred or rolled back; explicit support limits and counterexample tests replace a blanket compatibility claim. |
-| D25 | Exact currently stored owned-handle single-slot assignment is a policy-checked identity no-op; bulk updates remain replacements | Phase 0.2 target; not shipped | Manual identity assignment and augmented writeback share behavior; freeze checks precede the shortcut and one supported augmented operation commits once. |
-| D26 | Container iterators invalidate after any committed root change; model key iterators invalidate only on local ordered-key changes | Phase 0.2 target; not shipped | Conservative, explicit behavior matches pointer-swap ownership; failed/no-op operations do not invalidate, and exhausted iterators stay exhausted. |
-| D27 | Retained handles keep roots alive; detached removals/model copies/guard deepcopies return usable independent graphs | Phase 0.2 target; not shipped | Finalizes ownership lifecycle without stale public results or uninstalled candidates; collection and bounded bookkeeping require tests. |
-| D28 | Isolate the pinned Pydantic adapter, strictly check all production source, verify actual negative diagnostics and qualify installed production artifacts on the declared CI matrix | Phase 0.2 target; not shipped | Resolves D21 auditability and observed CI gaps; no neighboring dependency support or historical prototype evidence is implied. |
+| D23 | Require mutable ABC field annotations and explicit generic specialization; reject concrete mutable annotations recursively; retain ordinary input and serialized shapes | Implemented | Resolves D20's runtime/type mismatch without lying in stubs or adding public collections; explicit alpha migration required. |
+| D24 | Keep canonical Python/context-none mutations, rerunnable schema-sound validators, current hook exclusions and stable fail-closed diagnostics | Implemented | Arbitrary validator effects cannot be inferred or rolled back; explicit support limits and counterexample tests replace a blanket compatibility claim. |
+| D25 | Exact currently stored owned-handle single-slot assignment is a policy-checked identity no-op; bulk updates remain replacements | Implemented | Manual identity assignment and augmented writeback share behavior; freeze checks precede the shortcut and one supported augmented operation commits once. |
+| D26 | Container iterators invalidate after any committed root change; model key iterators invalidate only on local ordered-key changes | Implemented | Conservative, explicit behavior matches pointer-swap ownership; failed/no-op operations do not invalidate, and exhausted iterators stay exhausted. |
+| D27 | Retained handles keep roots alive; detached removals/model copies/guard deepcopies return usable independent graphs | Implemented | Finalizes ownership lifecycle without stale public results or uninstalled candidates; collection and bounded bookkeeping require tests. |
+| D28 | Isolate the pinned Pydantic adapter, strictly check all production source, verify actual negative diagnostics and qualify installed production artifacts on the declared CI matrix | Implemented | Resolves D21 auditability and observed CI gaps; no neighboring dependency support or historical prototype evidence is implied. |
 
 ## Alternatives considered
 
@@ -71,7 +70,7 @@ and transaction input.
 rollback, atomic `update`, nested mutation interception, or parent invariants.
 
 **Delete a defaulted field by resetting it implicitly:** leaves the supposedly
-deleted key present. The proposed contract instead rejects field deletion and
+deleted key present. The Phase 0.2 contract instead rejects field deletion and
 gives resetting an explicit name. This refines the early exploratory `pop` example;
 requiredness and default semantics were requirements, its exact mechanism was not.
 

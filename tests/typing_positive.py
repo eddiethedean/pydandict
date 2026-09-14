@@ -13,6 +13,7 @@ from typing import assert_type
 from pydantic import BaseModel, Field
 
 from pydandict import DictModel
+from pydandict._containers import OwnedDict, OwnedList, OwnedSet, RootCoordinator
 
 
 class Record(DictModel):
@@ -39,3 +40,24 @@ assert_type(record.get("age"), object | None)
 record |= {"age": 2}
 assert_type(record, Record)
 record["age"] = "3"
+
+
+def verify_private_ownership_contract(
+    sequence: OwnedList[int],
+    mapping: OwnedDict[str, int],
+    members: OwnedSet[int],
+    coordinator: RootCoordinator,
+) -> None:
+    assert_type(sequence[0], int)
+    assert_type(sequence[:], list[int])
+    assert_type(sequence.pop(), int)
+    assert_type(sequence.sort(key=lambda value: -value), None)
+    assert_type(mapping["key"], int)
+    assert_type(mapping.get("key", "missing"), int | str)
+    assert_type(mapping.popitem(), tuple[str, int])
+    assert_type(members.pop(), int)
+
+    def first(payload: list[int]) -> int:
+        return payload[0]
+
+    assert_type(coordinator.change(sequence, first), int)

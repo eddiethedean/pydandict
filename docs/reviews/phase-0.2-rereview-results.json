@@ -1,0 +1,555 @@
+{
+  "acceptance_criteria": {
+    "AC-001": "VERIFIED",
+    "AC-002": "NOT SATISFIED",
+    "AC-003": "PARTIALLY SATISFIED",
+    "AC-004": "VERIFIED",
+    "AC-005": "VERIFIED",
+    "AC-006": "REGRESSED",
+    "AC-007": "REGRESSED",
+    "AC-008": "VERIFIED",
+    "AC-009": "NOT SATISFIED",
+    "AC-010": "VERIFIED",
+    "AC-011": "VERIFIED",
+    "AC-012": "REGRESSED",
+    "AC-013": "VERIFIED",
+    "AC-014": "VERIFIED",
+    "AC-015": "VERIFIED",
+    "AC-016": "PARTIALLY SATISFIED",
+    "AC-017": "VERIFIED",
+    "AC-018": "VERIFIED",
+    "AC-019": "VERIFIED",
+    "AC-020": "REGRESSED",
+    "AC-021": "VERIFIED",
+    "AC-022": "VERIFIED",
+    "AC-023": "VERIFIED",
+    "AC-024": "VERIFIED",
+    "AC-025": "PARTIALLY SATISFIED",
+    "AC-026": "PARTIALLY SATISFIED",
+    "AC-027": "VERIFIED",
+    "AC-028": "PARTIALLY SATISFIED"
+  },
+  "artifact_qualification": {
+    "commands": [
+      {
+        "argv": [
+          "/opt/homebrew/opt/python@3.11/bin/python3.11",
+          "-m",
+          "build",
+          "--sdist",
+          "--wheel",
+          "--outdir",
+          "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-t_5epni6/direct"
+        ],
+        "cwd": "/Volumes/T7/coding/pydandict",
+        "source_path_injection": false
+      },
+      {
+        "argv": [
+          "/opt/homebrew/opt/python@3.11/bin/python3.11",
+          "-m",
+          "twine",
+          "check",
+          "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-t_5epni6/direct/pydandict-0.1.0-py3-none-any.whl",
+          "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-t_5epni6/direct/pydandict-0.1.0.tar.gz"
+        ],
+        "cwd": "/Volumes/T7/coding/pydandict",
+        "source_path_injection": false
+      },
+      {
+        "argv": [
+          "/opt/homebrew/opt/python@3.11/bin/python3.11",
+          "-m",
+          "build",
+          "--wheel",
+          "--outdir",
+          "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-t_5epni6/rebuilt"
+        ],
+        "cwd": "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-t_5epni6/source/pydandict-0.1.0",
+        "source_path_injection": false
+      },
+      {
+        "argv": [
+          "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-t_5epni6/direct-bare/bin/python",
+          "-m",
+          "pip",
+          "install",
+          "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-t_5epni6/direct/pydandict-0.1.0-py3-none-any.whl"
+        ],
+        "cwd": "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-t_5epni6",
+        "source_path_injection": false
+      },
+      {
+        "argv": [
+          "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-t_5epni6/direct-bare/bin/python",
+          "-c",
+          "from pathlib import Path\nfrom collections.abc import Mapping, MutableSequence\nimport sys, pydandict\nfrom pydantic import BaseModel, ValidationError\nfrom pydandict import DictModel\nmodule = Path(pydandict.__file__).resolve()\nassert module.is_relative_to(Path(sys.prefix).resolve())\nassert not module.is_relative_to(Path('/Volumes/T7/coding/pydandict').resolve())\nclass Item(DictModel):\n    numbers: MutableSequence[int]\nitem = Item(numbers=[1])\nassert isinstance(item, BaseModel) and isinstance(item, Mapping)\nhandle = item.numbers\nitem.numbers.append(2)\nassert item.numbers is handle and item.model_dump() == {'numbers': [1, 2]}\ntry:\n    item.numbers.append('bad')\nexcept ValidationError:\n    assert item.numbers == [1, 2]\nelse:\n    raise AssertionError('invalid library edit committed')\nprint(module)\n"
+        ],
+        "cwd": "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-t_5epni6",
+        "source_path_injection": false
+      },
+      {
+        "argv": [
+          "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-t_5epni6/direct-bare/bin/python",
+          "-m",
+          "pip",
+          "freeze"
+        ],
+        "cwd": "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-t_5epni6",
+        "source_path_injection": false
+      },
+      {
+        "argv": [
+          "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-t_5epni6/direct-http/bin/python",
+          "-m",
+          "pip",
+          "install",
+          "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-t_5epni6/direct/pydandict-0.1.0-py3-none-any.whl",
+          "fastapi==0.141.1",
+          "httpx==0.28.1",
+          "pyright==1.1.411"
+        ],
+        "cwd": "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-t_5epni6",
+        "source_path_injection": false
+      },
+      {
+        "argv": [
+          "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-t_5epni6/direct-http/bin/python",
+          "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-t_5epni6/direct-consumer.py"
+        ],
+        "cwd": "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-t_5epni6",
+        "source_path_injection": false
+      },
+      {
+        "argv": [
+          "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-t_5epni6/direct-http/bin/python",
+          "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-t_5epni6/direct-typing.py"
+        ],
+        "cwd": "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-t_5epni6",
+        "source_path_injection": false
+      },
+      {
+        "argv": [
+          "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-t_5epni6/direct-http/bin/python",
+          "-c",
+          "import site; print(site.getsitepackages()[0])"
+        ],
+        "cwd": "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-t_5epni6",
+        "source_path_injection": false
+      },
+      {
+        "argv": [
+          "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-t_5epni6/direct-http/bin/python",
+          "-m",
+          "pyright",
+          "--project",
+          "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-t_5epni6/direct-pyrightconfig.json"
+        ],
+        "cwd": "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-t_5epni6",
+        "source_path_injection": false
+      },
+      {
+        "argv": [
+          "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-t_5epni6/direct-http/bin/python",
+          "-m",
+          "pyright",
+          "--verifytypes",
+          "pydandict",
+          "--ignoreexternal"
+        ],
+        "cwd": "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-t_5epni6",
+        "source_path_injection": false
+      },
+      {
+        "argv": [
+          "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-t_5epni6/direct-http/bin/python",
+          "-c",
+          "\nimport json, subprocess, sys\nfrom pathlib import Path\nfixture = Path('/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-t_5epni6/direct-negative.py')\nexpected = sorted([(14, 'reportAttributeAccessIssue'), (15, 'reportArgumentType'), (16, 'reportAssignmentType'), (17, 'reportAssertTypeFailure')])\nresult = subprocess.run(\n    [sys.executable, \"-m\", \"pyright\", \"--project\", '/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-t_5epni6/direct-negative-config.json', \"--outputjson\"],\n    text=True, capture_output=True, check=False,\n)\nassert result.returncode == 1, result.stdout + result.stderr\nreport = json.loads(result.stdout)\ndiagnostics = report[\"generalDiagnostics\"]\nactual = []\nfor diagnostic in diagnostics:\n    assert diagnostic[\"severity\"] == \"error\", diagnostic\n    assert Path(diagnostic[\"file\"]).resolve() == fixture.resolve(), diagnostic\n    actual.append((diagnostic[\"range\"][\"start\"][\"line\"] + 1, diagnostic[\"rule\"]))\nassert sorted(actual) == expected, (actual, expected)\nassert report[\"summary\"][\"errorCount\"] == len(expected), report\nassert report[\"summary\"][\"filesAnalyzed\"] == 1, report\nprint(json.dumps({\"expected_errors\": len(expected), \"actual_errors\": len(actual)}))\n"
+        ],
+        "cwd": "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-t_5epni6",
+        "source_path_injection": false
+      },
+      {
+        "argv": [
+          "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-t_5epni6/direct-http/bin/python",
+          "-m",
+          "pip",
+          "freeze"
+        ],
+        "cwd": "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-t_5epni6",
+        "source_path_injection": false
+      },
+      {
+        "argv": [
+          "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-t_5epni6/rebuilt-bare/bin/python",
+          "-m",
+          "pip",
+          "install",
+          "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-t_5epni6/rebuilt/pydandict-0.1.0-py3-none-any.whl"
+        ],
+        "cwd": "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-t_5epni6",
+        "source_path_injection": false
+      },
+      {
+        "argv": [
+          "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-t_5epni6/rebuilt-bare/bin/python",
+          "-c",
+          "from pathlib import Path\nfrom collections.abc import Mapping, MutableSequence\nimport sys, pydandict\nfrom pydantic import BaseModel, ValidationError\nfrom pydandict import DictModel\nmodule = Path(pydandict.__file__).resolve()\nassert module.is_relative_to(Path(sys.prefix).resolve())\nassert not module.is_relative_to(Path('/Volumes/T7/coding/pydandict').resolve())\nclass Item(DictModel):\n    numbers: MutableSequence[int]\nitem = Item(numbers=[1])\nassert isinstance(item, BaseModel) and isinstance(item, Mapping)\nhandle = item.numbers\nitem.numbers.append(2)\nassert item.numbers is handle and item.model_dump() == {'numbers': [1, 2]}\ntry:\n    item.numbers.append('bad')\nexcept ValidationError:\n    assert item.numbers == [1, 2]\nelse:\n    raise AssertionError('invalid library edit committed')\nprint(module)\n"
+        ],
+        "cwd": "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-t_5epni6",
+        "source_path_injection": false
+      },
+      {
+        "argv": [
+          "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-t_5epni6/rebuilt-bare/bin/python",
+          "-m",
+          "pip",
+          "freeze"
+        ],
+        "cwd": "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-t_5epni6",
+        "source_path_injection": false
+      },
+      {
+        "argv": [
+          "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-t_5epni6/rebuilt-http/bin/python",
+          "-m",
+          "pip",
+          "install",
+          "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-t_5epni6/rebuilt/pydandict-0.1.0-py3-none-any.whl",
+          "fastapi==0.141.1",
+          "httpx==0.28.1",
+          "pyright==1.1.411"
+        ],
+        "cwd": "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-t_5epni6",
+        "source_path_injection": false
+      },
+      {
+        "argv": [
+          "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-t_5epni6/rebuilt-http/bin/python",
+          "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-t_5epni6/rebuilt-consumer.py"
+        ],
+        "cwd": "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-t_5epni6",
+        "source_path_injection": false
+      },
+      {
+        "argv": [
+          "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-t_5epni6/rebuilt-http/bin/python",
+          "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-t_5epni6/rebuilt-typing.py"
+        ],
+        "cwd": "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-t_5epni6",
+        "source_path_injection": false
+      },
+      {
+        "argv": [
+          "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-t_5epni6/rebuilt-http/bin/python",
+          "-c",
+          "import site; print(site.getsitepackages()[0])"
+        ],
+        "cwd": "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-t_5epni6",
+        "source_path_injection": false
+      },
+      {
+        "argv": [
+          "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-t_5epni6/rebuilt-http/bin/python",
+          "-m",
+          "pyright",
+          "--project",
+          "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-t_5epni6/rebuilt-pyrightconfig.json"
+        ],
+        "cwd": "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-t_5epni6",
+        "source_path_injection": false
+      },
+      {
+        "argv": [
+          "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-t_5epni6/rebuilt-http/bin/python",
+          "-m",
+          "pyright",
+          "--verifytypes",
+          "pydandict",
+          "--ignoreexternal"
+        ],
+        "cwd": "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-t_5epni6",
+        "source_path_injection": false
+      },
+      {
+        "argv": [
+          "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-t_5epni6/rebuilt-http/bin/python",
+          "-c",
+          "\nimport json, subprocess, sys\nfrom pathlib import Path\nfixture = Path('/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-t_5epni6/rebuilt-negative.py')\nexpected = sorted([(14, 'reportAttributeAccessIssue'), (15, 'reportArgumentType'), (16, 'reportAssignmentType'), (17, 'reportAssertTypeFailure')])\nresult = subprocess.run(\n    [sys.executable, \"-m\", \"pyright\", \"--project\", '/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-t_5epni6/rebuilt-negative-config.json', \"--outputjson\"],\n    text=True, capture_output=True, check=False,\n)\nassert result.returncode == 1, result.stdout + result.stderr\nreport = json.loads(result.stdout)\ndiagnostics = report[\"generalDiagnostics\"]\nactual = []\nfor diagnostic in diagnostics:\n    assert diagnostic[\"severity\"] == \"error\", diagnostic\n    assert Path(diagnostic[\"file\"]).resolve() == fixture.resolve(), diagnostic\n    actual.append((diagnostic[\"range\"][\"start\"][\"line\"] + 1, diagnostic[\"rule\"]))\nassert sorted(actual) == expected, (actual, expected)\nassert report[\"summary\"][\"errorCount\"] == len(expected), report\nassert report[\"summary\"][\"filesAnalyzed\"] == 1, report\nprint(json.dumps({\"expected_errors\": len(expected), \"actual_errors\": len(actual)}))\n"
+        ],
+        "cwd": "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-t_5epni6",
+        "source_path_injection": false
+      },
+      {
+        "argv": [
+          "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-t_5epni6/rebuilt-http/bin/python",
+          "-m",
+          "pip",
+          "freeze"
+        ],
+        "cwd": "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-t_5epni6",
+        "source_path_injection": false
+      }
+    ],
+    "direct_wheel": "pydandict-0.1.0-py3-none-any.whl",
+    "direct_wheel_sha256": "618b0e12a9d2c0197d2a265d88f3c27d7aa34be58d4f14c6f2a941d768141271",
+    "platform": "macOS-26.5.2-arm64-arm-64bit",
+    "python": "3.11.14 (main, Oct  9 2025, 16:16:55) [Clang 17.0.0 (clang-1700.6.3.2)]",
+    "rebuilt_wheel": "pydandict-0.1.0-py3-none-any.whl",
+    "rebuilt_wheel_sha256": "41ecabebd6a030bb5a2f45e035e9df85b4be34dbabf82f8994744c27db50d96c",
+    "resolved_dependencies": {
+      "direct": "annotated-doc==0.0.5\nannotated-types==0.8.0\nanyio==4.15.1\ncertifi==2026.7.22\nfastapi==0.141.1\nh11==0.16.0\nhttpcore==1.0.9\nhttpx==0.28.1\nidna==3.19\nnodeenv==1.10.0\npydandict @ file:///var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-t_5epni6/direct/pydandict-0.1.0-py3-none-any.whl#sha256=618b0e12a9d2c0197d2a265d88f3c27d7aa34be58d4f14c6f2a941d768141271\npydantic==2.13.4\npydantic_core==2.46.4\npyright==1.1.411\nstarlette==1.6.0\ntyping-inspection==0.4.4\ntyping_extensions==4.16.0\n",
+      "direct_bare": "annotated-types==0.8.0\npydandict @ file:///var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-t_5epni6/direct/pydandict-0.1.0-py3-none-any.whl#sha256=618b0e12a9d2c0197d2a265d88f3c27d7aa34be58d4f14c6f2a941d768141271\npydantic==2.13.4\npydantic_core==2.46.4\ntyping-inspection==0.4.4\ntyping_extensions==4.16.0\n",
+      "direct_bare_import": "/private/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-t_5epni6/direct-bare/lib/python3.11/site-packages/pydandict/__init__.py\n",
+      "direct_negative_typing": "{\"expected_errors\": 4, \"actual_errors\": 4}\n",
+      "rebuilt": "annotated-doc==0.0.5\nannotated-types==0.8.0\nanyio==4.15.1\ncertifi==2026.7.22\nfastapi==0.141.1\nh11==0.16.0\nhttpcore==1.0.9\nhttpx==0.28.1\nidna==3.19\nnodeenv==1.10.0\npydandict @ file:///var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-t_5epni6/rebuilt/pydandict-0.1.0-py3-none-any.whl#sha256=41ecabebd6a030bb5a2f45e035e9df85b4be34dbabf82f8994744c27db50d96c\npydantic==2.13.4\npydantic_core==2.46.4\npyright==1.1.411\nstarlette==1.6.0\ntyping-inspection==0.4.4\ntyping_extensions==4.16.0\n",
+      "rebuilt_bare": "annotated-types==0.8.0\npydandict @ file:///var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-t_5epni6/rebuilt/pydandict-0.1.0-py3-none-any.whl#sha256=41ecabebd6a030bb5a2f45e035e9df85b4be34dbabf82f8994744c27db50d96c\npydantic==2.13.4\npydantic_core==2.46.4\ntyping-inspection==0.4.4\ntyping_extensions==4.16.0\n",
+      "rebuilt_bare_import": "/private/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-t_5epni6/rebuilt-bare/lib/python3.11/site-packages/pydandict/__init__.py\n",
+      "rebuilt_negative_typing": "{\"expected_errors\": 4, \"actual_errors\": 4}\n"
+    },
+    "sdist": "pydandict-0.1.0.tar.gz",
+    "sdist_sha256": "9e4869b9c9b3d9e8b2c0966579e335938838fe91575ee5b80b8af470170362b0"
+  },
+  "benchmark": {
+    "actual_protected_execution": "PASS in final full 141-case run (133 passed, eight expected blocker cases failed); real complete baseline/candidate benchmark executed. Also passed all earlier complete suite executions.",
+    "applicable_shape_operation_cells_per_run": 50,
+    "harness_sha256": "435c6d629708db6b8a45cc0bad22ff5e11cd78f5f9bb1890ded39cff2dccd62a",
+    "matching_durable_report": "docs/research/phase-0.2-results.json:benchmark",
+    "protocol_audited": true,
+    "runs_per_revision": 3
+  },
+  "convergence": {
+    "blockers_remaining": 6,
+    "escalation_recommended": [
+      "SOL-001",
+      "SOL-002"
+    ],
+    "new_followups": 1,
+    "new_in_scope_baseline_blockers": 1,
+    "new_remediation_blockers": 1,
+    "previous_partial_remaining": 4,
+    "previous_resolved": 5,
+    "production_fixes_needed": [
+      "SOL-001",
+      "SOL-002",
+      "SOL-010",
+      "SOL-012"
+    ],
+    "verification_and_evidence_needed": [
+      "SOL-006",
+      "SOL-008"
+    ]
+  },
+  "dirty": true,
+  "followups": [
+    {
+      "disposition": "FOLLOW-UP",
+      "evidence": "Standalone recursive-root append and copy each return two after-validator calls on unchanged 07fec9b and candidate; expected state preserved. One root transaction still occurs; internal nested invocation counts not guaranteed.",
+      "github_status": "CREATED ISSUE #2",
+      "id": "SOL-011",
+      "severity": "Low",
+      "url": "https://github.com/eddiethedean/pydandict/issues/2"
+    },
+    {
+      "disposition": "Excluded pre-existing policy work, untouched",
+      "github_status": "EXISTING ISSUE #1",
+      "url": "https://github.com/eddiethedean/pydandict/issues/1"
+    }
+  ],
+  "head": "1123702ed080e09e00e9dee1392dcebff62e41a9",
+  "named_alias_positive_control": "Supported TypeAliasType(Abstract, MutableSequence[int]) constructs and normalizes append(\"2\") to [1,2]. Actual execution PASS.",
+  "named_alias_probe": "TypeAliasType(Concrete, list[int]) constructs an OwnedList; same unresolved SOL-001 invariant.",
+  "new_blockers": [
+    "SOL-010",
+    "SOL-012"
+  ],
+  "new_failing_cases": {
+    "SOL-001": 3,
+    "SOL-002": 2,
+    "SOL-010": 2,
+    "SOL-012": 1
+  },
+  "new_verification_sha256": "62337ad40a3cd28fa511f6646b1027c86f46dfd94e5dc2c33c0172f5a6349815",
+  "original_protected_artifacts": {
+    "docs/reviews/phase-0.2-review.md": "e3699092e6e0af36065279f3692d58306f9e73254ecb0bb0a37db85172417b94",
+    "tests/test_sol_phase02_blockers.py": "e9164fb4ee267bdddcf0dce5154bc04008982b12feadded7042679bb63d8fe8c"
+  },
+  "previous_blockers": {
+    "SOL-001": "PARTIALLY FIXED",
+    "SOL-002": "PARTIALLY FIXED",
+    "SOL-003": "VERIFIED FIXED",
+    "SOL-004": "VERIFIED FIXED",
+    "SOL-005": "VERIFIED FIXED",
+    "SOL-006": "PARTIALLY FIXED",
+    "SOL-007": "VERIFIED FIXED",
+    "SOL-008": "PARTIALLY FIXED",
+    "SOL-009": "VERIFIED FIXED"
+  },
+  "production_changed_by_review": false,
+  "production_hashes": {
+    "pydandict/__init__.py": "7ac521e6fb1b7f6e001b0c259e5d22f750ffdd4de1270fd00a504ea4b435ac6b",
+    "pydandict/_compat.py": "86800b671cff5bbeadea131fd5c72173fa13134b6a74f6dfcd8775a13f8863fc",
+    "pydandict/_containers.py": "523454b6532b2e2393b1c0336817841317f10a368b85038fd86bc8ff39f9b738",
+    "pydandict/_core.py": "e21393dd4cf78deeccff1c0c944121918831da244f63a57a9175bf84c5fba74a",
+    "pydandict/py.typed": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "public_context_differential": {
+    "baseline_actual_execution": "BaseModel existing-instance context: [{request: 2}]; DictModel: [None]",
+    "baseline_revision": "07fec9b7eafef5b00befe9fa24ccd012ce0232a1",
+    "candidate_actual_execution": "Same mismatch; raw dict public context agrees with BaseModel",
+    "canonical_positive_control": "Actual execution PASS: raw construction receives supplied context; subsequent mutation and model_copy each observe [None].",
+    "classification": "Pre-existing but explicitly in-scope acceptance-criterion failure",
+    "observed_failure": "Record.observed [None] differs from Control.observed [{request: 2}]",
+    "related_ac": "AC-009",
+    "required_canonical_mutation_copy_context": null,
+    "verification": "test_sol012_existing_model_public_validation_preserves_supplied_context"
+  },
+  "quality_gates": [
+    {
+      "command": "PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 python -m pytest tests -q",
+      "elapsed_seconds": 97.54,
+      "gate": "Full suite before new verification",
+      "original_sol_cases": 19,
+      "passed": 133,
+      "result": "PASS"
+    },
+    {
+      "collected": 141,
+      "command": "PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 python -m pytest tests -q",
+      "elapsed_seconds": 110.53,
+      "failed": 8,
+      "full_benchmark_executed": true,
+      "gate": "Current full suite including re-review verification",
+      "log_sha256": "52b5ab30a95b9394e8fa0a373cf2979382ab02ad2aea5f986bdb247a9e8ad1d4",
+      "original_sol_cases": 19,
+      "passed": 133,
+      "result": "EXPECTED BLOCKER VERIFICATION"
+    },
+    {
+      "command": "PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 python -m pytest tests -q -k 'not sol007'",
+      "deselected": 1,
+      "failed": 6,
+      "gate": "Current runtime/control repeat",
+      "note": "Only previously executed slow benchmark omitted from this repeat; no test/config exclusion modified.",
+      "passed": 132,
+      "result": "EXPECTED BLOCKER VERIFICATION"
+    },
+    {
+      "command": "PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 python -m pytest tests/test_sol_phase02_rereview.py -q",
+      "elapsed_seconds": 0.19,
+      "failed": 8,
+      "gate": "Final new protected contracts",
+      "reason": "Three missing named-alias/nested annotation rejections, two native hash diagnostics, two unguarded callbacks reach late ValueError, one public existing-model context mismatch.",
+      "result": "EXPECTED BLOCKER VERIFICATION"
+    },
+    {
+      "command": "python tools/check_typing.py",
+      "exact_negative_errors": 4,
+      "gate": "Strict typing",
+      "negative_files": 1,
+      "positive_errors": 0,
+      "positive_files": 8,
+      "result": "PASS"
+    },
+    {
+      "artifact_verifytypes_also_executed": true,
+      "command": "python -m pyright --verifytypes pydandict --ignoreexternal",
+      "gate": "Public completeness",
+      "percent": 100,
+      "result": "PASS"
+    },
+    {
+      "command": "python -m ruff check src tests tools/check_typing.py tools/qualify_package.py tools/benchmark.py",
+      "gate": "Lint",
+      "result": "PASS"
+    },
+    {
+      "command": "python -m ruff format --check src tests tools/check_typing.py tools/qualify_package.py tools/benchmark.py",
+      "files": 20,
+      "gate": "Formatting",
+      "result": "PASS"
+    },
+    {
+      "command": "python tools/check_docs.py",
+      "errors": 0,
+      "gate": "Documentation",
+      "local_links": 195,
+      "markdown_files": 29,
+      "python_examples": 8,
+      "result": "PASS"
+    },
+    {
+      "clean_environments": 4,
+      "command": "python tools/qualify_package.py",
+      "gate": "Artifact qualification",
+      "platform": "macOS/Python 3.11",
+      "result": "PASS",
+      "wheels": 2
+    },
+    {
+      "gate": "Adapter version/compile/rebuild probes",
+      "observed": "Canonical/alias cache reuse and invalidation, unsupported version prefix; successful subsequent mutation.",
+      "result": "PASS"
+    },
+    {
+      "baseline": "1123702: both callbacks reject reentry with marker=0",
+      "candidate": "Both callbacks permit marker=9 and late ValueError; guard iterator invalidated.",
+      "gate": "Callback differential",
+      "result": "CHANGE-CAUSED REGRESSION CONFIRMED"
+    },
+    {
+      "before_after_injections": 82,
+      "gate": "Every swap / replacement lifecycle",
+      "prepared_swaps": 41,
+      "replacements": 500,
+      "result": "PASS"
+    },
+    {
+      "command": "git diff --check",
+      "gate": "Source/protected hashes and diff whitespace",
+      "result": "PASS"
+    },
+    {
+      "current_candidate_run": null,
+      "gate": "Current remote compatibility/artifact matrix",
+      "historical_applies_to_current_tree": false,
+      "historical_head": "1123702ed080e09e00e9dee1392dcebff62e41a9",
+      "historical_success_url": "https://github.com/eddiethedean/pydandict/actions/runs/34802350758",
+      "result": "NOT RUN \u2014 ENVIRONMENTAL/UNAVAILABLE"
+    },
+    {
+      "baseline": "07fec9b: existing DictModel observes None, matched BaseModel observes supplied request context",
+      "candidate": "Same mismatch; raw-input controls pass",
+      "classification": "PRE-EXISTING BUT IN SCOPE",
+      "gate": "Public context / unmodified baseline differential",
+      "result": "IN-SCOPE AC FAILURE CONFIRMED"
+    },
+    {
+      "command": "PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 python -m pytest tests -q",
+      "elapsed_seconds": 102.29,
+      "failed": 6,
+      "gate": "Interim full suite with six new cases",
+      "passed": 133,
+      "result": "EXPECTED BLOCKER VERIFICATION"
+    },
+    {
+      "command": "PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 python -m pytest tests -q",
+      "elapsed_seconds": 102.13,
+      "failed": 7,
+      "gate": "Interim full suite with seven new cases",
+      "passed": 133,
+      "result": "EXPECTED BLOCKER VERIFICATION"
+    }
+  ],
+  "remaining_blockers": [
+    "SOL-001",
+    "SOL-002",
+    "SOL-006",
+    "SOL-008",
+    "SOL-010",
+    "SOL-012"
+  ],
+  "review_report_sha256": "ebdc8770afe8a143f1b995b8beb1c9352f8031fa3d1e1ac5fb6afdcaa193b605",
+  "reviewed_at_utc": "2026-09-14T12:46:44.126429+00:00",
+  "verdict": "NEEDS FIXES"
+}

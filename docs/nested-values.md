@@ -8,7 +8,7 @@ a parent validator. The established requirement is continuous validation of
 supported state changes. Deep mutation is therefore a release gate, not optional
 marketing language.
 
-The proposed approach is **owned value trees with private mutation guards**.
+The Phase 0.2 implementation uses **owned value trees with private mutation guards**.
 External inputs are detached on adoption. Supported mutable descendants route
 their writes to the root transaction coordinator. Immutable leaves may be shared.
 This is implementation machinery for `DictModel`, not a separate collection API.
@@ -23,28 +23,28 @@ returns protocol handles rather than instances of those built-ins. Full-root
 serialization uses a raw snapshot to preserve Pydantic serializer behavior.
 
 This resolves the unused-built-in-storage problem demonstrated by the experiments.
-Phase 0.2 must finalize this scope refinement for the production API; the broader
-initial target below must not be mistaken for demonstrated concrete-type identity.
+Phase 0.2 finalizes this scope refinement for the production API; concrete mutable
+field annotations must migrate to the documented ABC interfaces. Ordinary input
+and dump shapes are unchanged.
 
-## Proposed initial support envelope
+## Supported Phase 0.2 envelope
 
-| Value | Intended treatment | Required evidence |
+| Value | Implemented treatment | Boundary |
 | --- | --- | --- |
-| Known immutable scalar / enum / value type | Store directly after validation | No publicly mutable internal payload affecting validation |
-| Tuple / frozenset | Inspect descendants recursively | Immutability of container alone is insufficient |
-| Built-in list, dict, set field | Owned private guard preserving useful declared-type behavior | All ordinary mutators intercepted, schema/serialization/typing retained |
-| Nested `DictModel` | Owned child associated with one root | Child mutation revalidates ancestor constraints |
-| Ordinary mutable `BaseModel` | Reject in initial safe envelope unless a preserving adapter is proven | Its normal setters and nested values otherwise escape ownership |
-| Frozen ordinary `BaseModel` | Accept only if entire validated state is safely immutable | `frozen=True` alone is not deep immutability |
-| Arbitrary user object, custom mutable container, iterator/resource | Reject unless safety is explicitly supported | Instance-type validation does not establish lifetime validity |
-| `Any`, `object`, untyped extras | Inspect the actual resulting value | No hidden mutable object accepted merely because its schema is broad |
-| Recursive schema with finite tree values | Candidate for support | Schema recursion differs from a cyclic runtime object graph |
-| Cycles / shared mutable subgraphs | Reject or detach to independent trees before publication | No multiple-parent commit protocol in v1 |
+| Exact safe scalar types | May share immutable identity | None, bool, int, float, str, bytes, Decimal, date/datetime/time/timedelta and UUID; datetime/time timezone is absent or exact datetime.timezone |
+| Tuple / frozenset | Inspect descendants recursively | Tuples may contain owned descendants in value positions; hash positions require immutable safe descendants |
+| MutableSequence / MutableMapping / MutableSet field | Private ABC guard with one payload | Ordinary list/dict/set inputs and serialized shapes remain supported; concrete mutable annotations are rejected recursively |
+| Nested DictModel | Owned child associated with one root | Child mutation revalidates ancestor constraints; models/guards are forbidden in keys and set/frozenset members, even if frozen |
+| Ordinary BaseModel, including frozen models | Reject | Frozen configuration does not prove deep immutability; migrate nested records to DictModel |
+| Enum subclasses, arbitrary user objects, custom containers, iterators/resources | Reject | The scalar whitelist uses exact types; instance validation alone does not establish lifetime safety |
+| Any / object / untyped extras | Inspect actual values on input and validator output | Broad annotations never bypass the safe envelope |
+| Recursive schema with finite tree values | Supported within runtime recursion limits | Failure at runtime limits preserves existing owned state; no unbounded depth guarantee |
+| Cycles / shared mutable inputs | Reject cycles; detach repeated mutable inputs independently | No shared-parent ownership protocol |
 
-This envelope is proposed, not an implemented capability list. Do not accept a
-mutable value unguarded when a guard is unavailable. If the prototype cannot meet
-the intended list/dict/set support, record a scope revision and clearly publish a
-smaller supported envelope; v1 cannot retain an unconditional deep-safety claim.
+This is the implemented capability list. Mutable values without a safe guard,
+including ordinary `BaseModel` instances and models in hash positions, are
+rejected at ownership boundaries. Inputs are detached and validated before they
+become public state.
 
 ## Identity and adoption
 
@@ -53,7 +53,7 @@ must not return independent snapshots whose mutations disappear silently.
 External input objects are not adopted by reference: changing the caller's original
 list or child model must not change `m`.
 
-When one mutable input appears in two fields, proposed v1 behavior is to detach
+When one mutable input appears in two fields, Phase 0.2 detaches
 each occurrence into an independently owned value, with no alias-identity promise.
 Detect true cycles and reject them with a clear error. Never recursively copy an
 unbounded graph without cycle detection. Immutable leaves may retain identity.
@@ -75,15 +75,13 @@ Test a nested value moving to another index and a union changing branch. Validat
 that reconstruct containers need an explicit handle-retention rule in the G3
 report; do not silently attach a saved handle to a different equal-valued node.
 
-G3 must also select root-lifetime behavior: either a retained handle keeps its root
-alive or access after root collection raises an explicit orphan error. Neither
-choice may permit unvalidated detached writes. Prove that releasing all external
-references permits collection and that repeated subtree replacement does not grow
-ownership bookkeeping without bound.
+Retained live handles keep their root alive. Releasing all external references
+permits collection; the lifecycle tests check 500 subtree replacements and bounded
+bookkeeping against the current reachable graph.
 
 ## Mutation inventory
 
-The G3 prototype must cover all ordinary supported public methods, including:
+The production mutation inventory covers these ordinary public methods:
 
 - Lists: indexed/slice assignment and deletion, append, extend, insert, pop,
   remove, clear, reverse, sort, `+=`, and `*=`.
@@ -107,7 +105,7 @@ frozen fields and self-referential operands.
 
 ## Parent constraints
 
-Consider a root with `budget: int` and `costs: list[int]`, constrained by
+Consider a root with `budget: int` and `costs: MutableSequence[int]`, constrained by
 `sum(costs) <= budget`. Appending a valid integer can violate the root contract.
 The operation must validate the candidate root, not only `list[int]` or its item
 schema. The same applies to a child's valid field update that violates an ancestor
@@ -120,7 +118,7 @@ unless the aggregate is rejected by the safe envelope.
 
 ## Snapshots, copies, and escape paths
 
-Proposed removal-result contract: `pop` and `popitem` return a usable detached
+The removal-result contract: `pop` and `popitem` return a usable detached
 value representing the removed value immediately before the operation. This applies
 to allowed model extras and owned containers. Immutable leaves may be shared;
 mutable containers are detached, and any returned DictModel becomes an independent
@@ -140,10 +138,10 @@ those references still validates against `m`. It is not a detached editable payl
 Use serialization when a plain transferable payload is needed, subject to custom
 serializer behavior. JSON output is the clearest detached boundary.
 
-Proposed `model_copy` and `copy.copy` create a new ownership root. They may share
+`model_copy` and `copy.copy` create a new ownership root. They may share
 safe immutable leaves but must detach mutable descendants even when `deep=False`;
-this is an explicit divergence from ordinary shallow BaseModel copies. `deep=True`
-also deep-copies supported private state according to the finalized copy contract.
+this is an explicit divergence from ordinary shallow BaseModel copies. `deep=True` uses the same detached ownership contract. Declared private attributes
+are unsupported in Phase 0.2.
 No copy may leave one child controlled by two independent roots.
 
 Direct calls such as `list.append(guard, value)` on a list subclass can bypass an

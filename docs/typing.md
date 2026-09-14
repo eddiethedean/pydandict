@@ -25,8 +25,15 @@ runtime identity. Phase 0.2 enforces this contract at class creation: concrete
 fail with `pydandict_unsupported_annotation:` and an ABC migration hint. Generic
 `DictModel` classes must be explicitly specialized before construction. The
 strict gate analyzes every production source file, the positive fixture and the
-typing helper; the negative fixture is checked independently against its four
+typing, artifact and benchmark helpers; the negative fixture is checked independently against its four
 expected diagnostics.
+
+Private guards are generic over their payload and element/key/value types. Their
+root coordinator uses typed callbacks with a generic return type. Transaction
+paths and heterogeneous values use `object` with explicit narrowing. Pydantic's
+dynamic schema operations remain in `_compat.py`; matching public validation
+signatures retain Pydantic's `Any` boundary. Strict checking covers these private
+contracts as well as the exported model surface.
 
 ## Heterogeneous mapping values
 
@@ -35,7 +42,7 @@ base return type of `__getitem__(str)` is `object`. Writes accept `object` and
 validate at runtime. `get` and `pop` overloads must follow missing-default behavior
 without introducing `Any`; views carry string keys and object values.
 
-Planned consumer fixture:
+Checked consumer fixture:
 
 ```python
 from collections.abc import Mapping, MutableMapping
@@ -120,6 +127,6 @@ retains the model type. Include a consumer that sees the value only as `BaseMode
 and document the iterator divergence.
 
 Run `pyright --verifytypes pydandict --ignoreexternal` on the built and installed
-package once it exists. Target complete public annotations; a high completeness
+package. The qualification helper runs this for both wheels. Target complete public annotations; a high completeness
 score alone does not prove sound runtime behavior. The [testing plan](testing.md)
 couples type fixtures to runtime examples.

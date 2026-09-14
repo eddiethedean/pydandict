@@ -1,6 +1,6 @@
 # Mutation semantics and invariants
 
-This is the authoritative proposed contract for mutations. No mutator may bypass
+This is the authoritative Phase 0.2 contract for mutations. No mutator may bypass
 it by using an inherited ABC mixin or a raw Pydantic storage operation.
 
 ## Invariants
@@ -28,7 +28,7 @@ side effects. See [validator requirements](architecture.md) and the
 2. Materialize the complete input without changing the live object.
 3. Create an isolated candidate from Python state, preserving explicit-field
    metadata separately. Do not serialize the model to construct this candidate.
-4. Apply the complete proposed operation to the candidate.
+4. Apply the complete operation to the candidate.
 5. Run Pydantic validation and all applicable root/parent checks. Enforce frozen
    fields, ownership, namespace, and supported-value policy on the result.
 6. Install the validated state and metadata with no further user callback.
@@ -54,7 +54,7 @@ does not promise a database transaction or concurrent-reader isolation.
 | Computed/private/protected name | Reject mapping write | Not a mapping entry; missing-key rules | Reject |
 | Frozen field / frozen model | Reject writes affecting it | Reject | Reject |
 
-The proposed base default is `extra='forbid'`. During **construction**, explicit
+The base default is `extra='forbid'`. During **construction**, explicit
 `extra='ignore'` drops unknown input and `extra='allow'` stores accepted extras,
 using Pydantic's configuration. During **mutation**, ignore does not silently
 discard a misspelled write; this follows the assignment-oriented distinction
@@ -129,7 +129,7 @@ Keep `model_fields_set` independent of the candidate's full raw input. A naive f
 revalidation marks all supplied defaults as explicitly set and breaks
 `exclude_unset=True`.
 
-Proposed rules: preserve original explicit fields; add successfully assigned field
+Implemented rules: preserve original explicit fields; add successfully assigned field
 names; remove reset fields; add inserted extra names and discard removed extras
 where the supported upstream version tracks them. Validation-induced changes in
 unspecified fields do not automatically make them user-supplied. Nested changes
@@ -144,7 +144,7 @@ support rather than guessing which attributes are safe to retain.
 ## Public bypass audit
 
 Validated `model_copy(update=...)` is required; Pydantic's unchecked copy must not
-be used as the transaction validator. Proposed v1 `model_construct` raises
+be used as the transaction validator. Phase 0.2 `model_construct` raises
 `TypeError` with guidance to `model_validate`. Deprecated copy paths must either
 route to the validated copy contract or reject unsupported arguments.
 

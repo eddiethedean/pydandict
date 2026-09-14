@@ -12,14 +12,16 @@ both a genuine Pydantic `BaseModel` and a Python mutable mapping. It is designed
 to let existing mapping-oriented code consume models directly, and to let
 package authors keep internal records valid as they change.
 
-**Status: Phase 0.1 released; Phase 0.2 implementation underway.** The installable source package is in
-[`src/pydandict`](src/pydandict/__init__.py), at release version `0.1.0`.
-It was published to [PyPI](https://pypi.org/project/pydandict/0.1.0/) on
-2026-09-13 from the immutable [`v0.1.0` tag](https://github.com/eddiethedean/pydandict/tree/v0.1.0).
-It has 93 passing runtime tests, strict source and installed typing checks and working library/FastAPI
-consumers in the recorded dependency envelope. See the [findings and limitations](docs/research/prototype-findings.md)
-for exact evidence. The original [prototype guide](prototypes/README.md) remains
-as a reproducible evidence fixture.
+**Status: Phase 0.1 released; Phase 0.2 implemented, awaiting independent review.**
+Version `0.1.0` was published to [PyPI](https://pypi.org/project/pydandict/0.1.0/)
+on 2026-09-13 from the immutable
+[`v0.1.0` tag](https://github.com/eddiethedean/pydandict/tree/v0.1.0).
+The checkout in [`src/pydandict`](src/pydandict/__init__.py) contains the unreleased
+Phase 0.2 changes; its metadata still reads `0.1.0`. See the
+[Phase 0.2 evidence](docs/research/phase-0.2-findings.md) for current qualification
+results and the [Phase 0.1 findings](docs/research/prototype-findings.md) for
+historical evidence. The original [prototype guide](prototypes/README.md) remains
+reproducible.
 
 The plan prioritizes a dependable dependency: atomic failure behavior, protected
 nested values, complete public typing, tested ecosystem compatibility, measured
@@ -29,7 +31,7 @@ and [quality bar](docs/quality-bar.md). Qualification uses automated consumer
 projects and maintainer checks; no external trials or participants are required.
 
 Install the released package with `python -m pip install pydandict`. For a local
-Phase 0.1 checkout, install the package and development tools with
+source checkout, install the package and development tools with
 `python -m pip install -e ".[dev]"`.
 
 ## One model, two ways to work
@@ -108,21 +110,21 @@ assert config.timeout == config["timeout"] == 60.0
 
 Successful writes must satisfy the complete model contract. Failed writes must
 preserve values and model metadata. Required fields cannot disappear; the
-proposed deletion policy protects all declared fields, with an explicit `reset`
+deletion policy protects all declared fields, with an explicit `reset`
 operation for defaults. Extras follow a documented Pydantic configuration policy.
 
 **Continuous validation is a release requirement, including nested mutations.**
 It cannot be delivered merely by enabling `validate_assignment`. The design
 requires ownership and mutation guards for supported mutable values, validation
 of affected parent constraints, and rejection of values that cannot be protected.
-The exact supported value set and guard implementation remain Phase 0.2 hardening gates;
-there is no silent fallback to unvalidated nested state. See
+The Phase 0.2 implementation requires mutable ABC field annotations and rejects
+unprotectable values before commit. See
 [mutation semantics](docs/mutation-semantics.md) and
 [nested ownership](docs/nested-values.md).
 
 ## A Pydantic model for FastAPI
 
-The intended integration uses ordinary model annotations:
+The tested integration uses ordinary model annotations:
 
 ```python
 from fastapi import FastAPI
@@ -136,9 +138,8 @@ def create_user(user: User) -> User:
     return user
 ```
 
-Request parsing, response serialization, and OpenAPI should continue through
-Pydantic. This is an acceptance target, with explicit integration tests required
-before a release. See the [compatibility plan](docs/compatibility.md).
+Request parsing, response serialization, and OpenAPI use Pydantic in the pinned
+integration tests. See the [compatibility contract](docs/compatibility.md).
 
 ## Scope and typing
 
@@ -183,7 +184,7 @@ See the [typing strategy](docs/typing.md).
 
 Start with [CONTRIBUTING.md](CONTRIBUTING.md). Design contributions should identify
 the invariant they preserve and the acceptance test that will prove it. The next
-work is Phase 0.2 hardening and contract finalization on the Phase 0.1 package.
+step for the Phase 0.2 changes is independent Sol review.
 
 The package is distributed under the MIT license; package-name ownership and the
 private security reporting route remain pre-release checks. See [security reporting](SECURITY.md)

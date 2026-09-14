@@ -76,6 +76,16 @@ starting baseline, not the broader benchmark plan or production budgets below.
 
 ## Benchmark plan
 
+The unreleased Phase 0.2 measurements are recorded in
+[phase-0.2-results.json](research/phase-0.2-results.json), with a
+[readable findings report](research/phase-0.2-findings.md). They compare unmodified
+production baseline `07fec9b` and candidate source on the same interpreter and
+machine: flat sequences of 10/100/1000/10000 elements, linear chains of depth
+1/5/20 and a mixed root with parent constraints. Each applicable operation has
+three complete runs, correctness checks, median/p95 latency, separately traced
+allocations and root-validation counts. There is no Phase 0.2 timing ceiling.
+The broader workloads and beta budgets below remain future requirements.
+
 | Workload | Variations | Measures |
 | --- | --- | --- |
 | Import and class creation | Cold import, inherited/generic models | Time and allocations |

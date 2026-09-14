@@ -1,9 +1,10 @@
 # Testing and acceptance strategy
 
-This is the production acceptance plan. The Phase 0.1 package has a root
+This is the Phase 0.2 production acceptance record. The Phase 0.1 package has a root
 [runtime, inventory and stateful suite](../tests/test_prototype.py), installed typing
 checks and the original isolated artifact consumers. Its [recorded results](research/prototype-findings.md)
-are scoped feasibility evidence, not completion of the production T1–T12 matrix.
+are preserved as historical feasibility evidence; the production T1–T12 matrix is
+covered by the current runtime, artifact and static gates.
 The older upstream probes remain controls, not implementation safety tests.
 
 ## Test groups and release criteria
