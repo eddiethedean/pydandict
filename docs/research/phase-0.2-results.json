@@ -7938,13 +7938,12 @@
   "quality_gates": [
     {
       "command": "PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 python -m pytest tests -q",
-      "elapsed_seconds": 96.53,
+      "elapsed_seconds": 93.25,
       "gate": "Full runtime suite including protected Sol verification",
-      "new_implementation_cases": 22,
-      "protected_blocker_cases": 19,
+      "protected_blocker_cases": 37,
       "result": "PASS",
-      "stdout": "147 passed, with the two new review contracts run separately as expected blocker verification",
-      "tests": 147
+      "stdout": "151 passed, 2 warnings; all protected Sol review contracts included",
+      "tests": 151
     },
     {
       "before_after_injections": 82,
@@ -7977,7 +7976,7 @@
     },
     {
       "command": "python -m ruff format --check src tests tools/check_typing.py tools/qualify_package.py tools/benchmark.py",
-      "files": 22,
+      "files": 24,
       "gate": "Formatting",
       "result": "PASS"
     },
@@ -7985,8 +7984,8 @@
       "command": "python tools/check_docs.py",
       "errors": 0,
       "gate": "Documentation",
-      "local_links": 203,
-      "markdown_files": 33,
+      "local_links": 210,
+      "markdown_files": 36,
       "python_examples": 8,
       "result": "PASS"
     },
@@ -8266,7 +8265,7 @@
       "evidence": [
         "tests/test_prototype.py::test_all_construction_paths_and_frameworks",
         "tools/qualify_package.py",
-        "artifact_qualification.commands"
+        "artifact_qualification.lanes[].commands"
       ],
       "local_verification": "PASS",
       "related_blockers": [],
@@ -8311,7 +8310,7 @@
         "tools/check_typing.py",
         "tests/typing_positive.py",
         "tests/test_sol_phase02_blockers.py::test_sol005_positive_gate_rejects_incomplete_source_coverage",
-        "artifact_qualification.commands"
+        "artifact_qualification.lanes[].commands"
       ],
       "local_verification": "PASS",
       "related_blockers": [
@@ -8326,7 +8325,7 @@
       "evidence": [
         "tools/check_typing.py",
         "tests/test_sol_phase02_blockers.py::test_sol005_negative_gate_rejects_every_unexpected_diagnostic",
-        "artifact_qualification.resolved_dependencies"
+        "artifact_qualification.lanes[].resolved_dependencies"
       ],
       "local_verification": "PASS",
       "related_blockers": [
@@ -8343,7 +8342,6 @@
         "tools/check_typing.py",
         "tools/qualify_package.py"
       ],
-      "limitation": null,
       "local_verification": "PASS",
       "related_blockers": [
         "SOL-006"
@@ -8356,9 +8354,8 @@
       "evidence": [
         "tools/qualify_package.py",
         "tests/test_sol_phase02_blockers.py::test_sol006_qualification_installs_and_exercises_both_artifacts",
-        "artifact_qualification"
+        "artifact_qualification.lanes"
       ],
-      "limitation": null,
       "local_verification": "PASS",
       "related_blockers": [
         "SOL-006"
@@ -8408,7 +8405,8 @@
       "pydandict/_containers.py": "b4240fe2af4b7a5ca3a2000eb017133e1889288b7ccea2ff79363208906f2857",
       "pydandict/_core.py": "b878b47740879ff9b18ffacaad087128618405ab7fd6613999f4ecc3d5462a3b",
       "pydandict/py.typed": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
-    }
+    },
+    "relationship_to_benchmark": "This clean qualified source has package hashes identical to benchmark.sources.candidate, which records the actual dirty measurement based at 7bf838325c462ceef66d32a2467ffafa40f938f2."
   },
   "typing_reports": [
     {

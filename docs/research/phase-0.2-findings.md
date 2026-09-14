@@ -9,26 +9,28 @@ Historical prototype evidence and the approved plan remain unchanged.
 
 ## Source and qualification boundary
 
-The measured candidate is the current Phase 0.2 implementation at commit
-`a360bcc90e4b0f9beba4c3cfd394c9bdb68b80db`. Benchmark
-baseline is the unmodified production revision
-`07fec9b7eafef5b00befe9fa24ccd012ce0232a1`; both revisions use the same
-harness, Python and resolved dependencies.
+The benchmark measured a dirty working tree based at
+`7bf838325c462ceef66d32a2467ffafa40f938f2`; its source block in the JSON
+retains that commit, dirty status and exact package hashes. The clean commit
+`a360bcc90e4b0f9beba4c3cfd394c9bdb68b80db` is a later qualified source with
+identical package hashes. Benchmark baseline is the unmodified production
+revision `07fec9b7eafef5b00befe9fa24ccd012ce0232a1`; both revisions use the
+same harness, Python and resolved dependencies.
 
 Local runtime is macOS-26.5.2-arm64-arm-64bit, Python 3.14.3 and
-Pydantic 2.13.4. This record does not assert current execution of the configured
-Ubuntu/macOS/Windows matrix or Ubuntu 3.11/3.14 artifact lanes locally. The
-current candidate run
+Pydantic 2.13.4. The local benchmark and the separate CI/artifact
+qualification records retain their own environments. The clean qualified-source
+run
 [34862206206](https://github.com/eddiethedean/pydandict/actions/runs/34862206206)
-passed all required lanes for this commit. The earlier
+passed all required lanes for the hash-equivalent package source. The earlier
 [historical CI run](https://github.com/eddiethedean/pydandict/actions/runs/34802350758)
-remains explicitly pre-remediation. No release publication or tag was performed.
-Release dependencies remain `check -> build -> publish`; no publication or tag
-was performed. Published 0.1.0 and unreleased Phase 0.2 facts remain separate.
+remains explicitly pre-remediation. Release dependencies remain
+`check -> build -> publish`; no Phase 0.2 publication or tag was performed.
+Published 0.1.0 and unreleased Phase 0.2 facts remain separate.
 
 ## Contract and verification
 
-The final base suite contains 149 passing tests, including the unchanged Sol
+The final base suite contains 151 passing tests, including the unchanged Sol
 cases and implementation-side cases. The new cases cover completed typed extras,
 adapter shape/rebuild behavior, unhashable model ingress, benchmark fixture
 invariants, all before/after prepared swap positions and 500 discarded handles. Final gate
@@ -75,11 +77,11 @@ peaks are medians of per-run median peaks, measured separately from latency.
 
 | Shape/operation | Revision | Median ms | p95 ms | Traced median peak bytes |
 | --- | --- | --- | --- | --- |
-| flat_10000/scalar_write | baseline | 24.895 | 25.955 | 2414732 |
+| flat_10000/scalar_write | baseline | 24.895 | 33.651 | 2463932 |
 | flat_10000/scalar_write | candidate | 25.602 | 27.138 | 2463700 |
-| linear_20/nested_leaf | baseline | 1.327 | 1.361 | 71840 |
+| linear_20/nested_leaf | baseline | 1.327 | 1.471 | 63720 |
 | linear_20/nested_leaf | candidate | 1.878 | 2.041 | 65420 |
-| mixed_parent/coupled_10field | baseline | 0.498 | 0.504 | 33480 |
+| mixed_parent/coupled_10field | baseline | 0.498 | 0.570 | 33768 |
 | mixed_parent/coupled_10field | candidate | 0.597 | 0.649 | 33912 |
 
 The linear fixture uses a distinct RootChain schema so recursive child validator
