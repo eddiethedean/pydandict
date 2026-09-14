@@ -18,15 +18,11 @@ SlotUpdate = tuple[object, str, object]
 
 def _native_model_schema(node: dict[str, Any]) -> dict[str, Any]:
     if node.get("metadata", {}).get("pydandict_entry_boundary"):
-        result = dict(node["schema"]["json_schema"])
+        result = dict(node["json_schema"])
         if "ref" in node:
             result["ref"] = node["ref"]
         return result
     return node
-
-
-def _identity(value: Any) -> Any:
-    return value
 
 
 def _isolated_callback(function: Any, detach: Callable[[object], object], *, after: bool) -> Any:
@@ -208,10 +204,36 @@ def core_schema(cls: type[BaseModel]) -> CoreSchema:
 
 
 def compile_validator(schema: object) -> SchemaValidator:
+    # Rewritten validators must compile their own model nodes, not reuse a
+    # class's public mode-dispatch validator and lose canonical/alias settings.
+    # Compilation is synchronous and invokes no validation callbacks. Restore
+    # completion flags even if the checked schema cannot be compiled.
+    checked = _checked_schema(schema)
+    classes: dict[type[BaseModel], bool] = {}
+
+    def collect(node: Any) -> None:
+        if isinstance(node, dict):
+            node = cast(dict[str, Any], node)
+            if node.get("type") == "model":
+                cls = cast(type[BaseModel], node["cls"])
+                classes.setdefault(cls, is_complete(cls))
+            for key, child in node.items():
+                if key not in ("metadata", "serialization"):
+                    collect(child)
+        elif isinstance(node, (list, tuple)):
+            for child in cast(list[Any] | tuple[Any, ...], node):
+                collect(child)
+
+    collect(checked)
     try:
-        return SchemaValidator(_checked_schema(schema))
+        for cls in classes:
+            setattr(cls, "__pydantic_complete__", False)
+        return SchemaValidator(checked)
     except (TypeError, ValueError) as exc:
         raise _incompatible("validator schema could not be compiled") from exc
+    finally:
+        for cls, complete in classes.items():
+            setattr(cls, "__pydantic_complete__", complete)
 
 
 def validator(cls: type[BaseModel]) -> SchemaValidator:
@@ -380,7 +402,7 @@ def _python_schema(value: Any) -> Any:
         node = cast(dict[str, Any], value)
         metadata = node.get("metadata", {})
         if metadata.get("pydandict_entry_boundary"):
-            result = _python_schema(node["schema"]["json_schema"])
+            result = _python_schema(node["json_schema"])
             if "ref" in node:
                 result["ref"] = node["ref"]
             return result
@@ -490,9 +512,13 @@ def wrap_model_schema(
         serialization=schema_tools.wrap_serializer_function_ser_schema(serialize, info_arg=True),
     )
     python = schema_tools.no_info_before_validator_function(detach, native)
-    return schema_tools.no_info_after_validator_function(
-        _identity,
-        schema_tools.json_or_python_schema(native, cast(CoreSchema, python)),
+    # Keep dispatch at the compiled root: pydantic-core may reuse this validator
+    # for an embedded model-shaped node, preserving the Python guard even when
+    # the containing model/collection is not a DictModel. A function-after root
+    # disables that reuse and leaves only the native branch under embedding.
+    return schema_tools.json_or_python_schema(
+        native,
+        cast(CoreSchema, python),
         ref=ref,
         metadata={"pydandict_entry_boundary": True},
     )

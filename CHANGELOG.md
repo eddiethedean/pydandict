@@ -8,6 +8,9 @@
   `examples/library_config.py` workflow.
 - Reject non-string `pop` mutation keys before fallback handling, matching the
   documented mutation-key contract.
+- Preserve native JSON/strings validation and restore unsupported Python-input
+  rejection when `DictModel` is embedded in ordinary models or TypeAdapter
+  collections; retain validated canonical mutation/copy behavior.
 
 ## 0.2.0 - 2026-09-14
 

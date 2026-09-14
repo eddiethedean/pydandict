@@ -211,6 +211,27 @@ _AC_TEST_LANE_MAP = {
 # Cells below name exercised axes, observable rejection, and genuine exclusions;
 # a unsupported operation is an applicable rejection test, not an omitted cell.
 _BEHAVIOR_MATRIX = {
+    "embedded-ingress": {
+        "criteria": ["AC-002", "AC-020", "AC-027"],
+        "tests": [
+            "tests/test_sol_phase03_rereview_4.py::test_sol017_embedded_python_ingress_rejects_unsupported_sources",
+        ],
+        "axes": {
+            "entry": ["ordinary BaseModel envelope", "TypeAdapter list"],
+            "source": ["scalar subclass", "arbitrary attribute object"],
+            "mode": ["python"],
+        },
+        "applicable": (
+            "All cells reject unsupported original input before returning a model; "
+            "standalone rejection and supported dictionary coercion are controls."
+        ),
+        "non_applicable": {
+            "python-object/json-or-strings": (
+                "JSON/StringsInput cannot carry arbitrary Python objects or scalar subclasses. "
+                "Native embedding strictness is separately verified."
+            ),
+        },
+    },
     "native-leaf-entry": {
         "criteria": ["AC-001", "AC-020"],
         "tests": ["tests/test_phase03_native_matrix.py::test_native_leaf_entry_matrix"],
