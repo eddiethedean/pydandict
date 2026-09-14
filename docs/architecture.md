@@ -83,7 +83,7 @@ assignment. Prepare removal results along with ownership and metadata.
 
 ## Validator semantics: G2
 
-Pydantic owns validation ordering and error generation. Pydandict must not manually
+Pydantic owns validation ordering and error generation. PydanDict must not manually
 invoke decorators in a guessed order or validate only individual field adapters
 when whole-model checks exist.
 

@@ -1,6 +1,6 @@
 # Security policy
 
-Pydandict has a local Phase 0.1 development package and no publicly released
+PydanDict has a local Phase 0.1 development package and no publicly released
 supported release series at this time. See the [security design](docs/security-performance.md) for the
 proposed validation boundary and release requirements.
 
@@ -16,6 +16,6 @@ invariant, and expected versus actual behavior once a private channel is availab
 Before the first distribution, maintainers must establish private reporting,
 supported-version policy, triage ownership, and an advisory/release process.
 
-Pydandict is intended to validate data under trusted schemas and validators. It is
+PydanDict is intended to validate data under trusted schemas and validators. It is
 not intended to contain hostile Python code, reflection, unsafe deserialization,
 or deliberately overridden safety methods.

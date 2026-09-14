@@ -2,7 +2,7 @@
 
 ## Established purpose
 
-Pydandict makes Pydantic models first-class Python mappings. Its one primary
+PydanDict makes Pydantic models first-class Python mappings. Its one primary
 abstraction is `DictModel`, a real Pydantic `BaseModel` whose fields can be read
 and changed through both attribute syntax and mapping syntax.
 
@@ -15,7 +15,7 @@ The package serves two audiences:
 
 Existing `BaseModel` classes do not become mappings automatically. Developers
 opt into `DictModel` when defining a model. Consumers that already accept the
-mapping contract should not need to import Pydandict or recognize its type.
+mapping contract should not need to import PydanDict or recognize its type.
 
 ## Representative use cases
 
@@ -32,7 +32,7 @@ well served by other abstractions and does not justify a public `TypedMap` in v1
 
 ## Established requirements
 
-1. Preserve the names **Pydandict**, import package `pydandict`, and `DictModel`.
+1. Preserve the names **PydanDict**, import package `pydandict`, and `DictModel`.
 2. Preserve genuine `BaseModel` identity and Pydantic/FastAPI integration.
 3. Implement the mapping protocol with keys from iteration and meaningful runtime
    ABC checks, plus useful static compatibility with Pyright.

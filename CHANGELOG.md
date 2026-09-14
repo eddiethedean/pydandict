@@ -18,7 +18,7 @@ No unreleased changes.
 - Reusable GitHub Actions checks and a tag-gated PyPI Trusted Publishing release
   workflow, with a package preflight that prevents unqualified publishing.
 
-- Planning documentation for Pydandict and its primary `DictModel` base class.
+- Planning documentation for PydanDict and its primary `DictModel` base class.
 - Proposed mapping API, transactional mutation contract, nested ownership design,
   Pyright strategy, Pydantic/FastAPI compatibility plan, and decision log.
 - Interoperability and competition analysis, acceptance testing, security/performance

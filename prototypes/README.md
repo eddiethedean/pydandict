@@ -1,4 +1,4 @@
-# Integrated Pydandict prototype
+# Integrated PydanDict prototype
 
 **Phase 0.1 starting baseline — development version `0.1.0.dev0`.**
 

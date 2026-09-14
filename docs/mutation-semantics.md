@@ -63,7 +63,7 @@ attribute writes, `update`, and `setdefault` share this rule.
 
 Typed extras can constrain values via Pydantic's extra-value annotation. Untyped
 extras impose no value-type restriction, but all accepted values must still meet
-ownership safety. Pydandict does not invent a type constraint for an `Any` value.
+ownership safety. PydanDict does not invent a type constraint for an `Any` value.
 One-off construction overrides must not leave stored extras inconsistent with the
 instance's ongoing class policy; reject a conflicting result explicitly.
 

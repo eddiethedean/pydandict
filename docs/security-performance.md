@@ -2,7 +2,7 @@
 
 ## Trust boundary
 
-Pydandict validates data supplied to trusted Python schemas and validators. It is
+PydanDict validates data supplied to trusted Python schemas and validators. It is
 not a sandbox for hostile Python code, descriptors, custom validators, serializers,
 or subclasses. Python reflection, direct base-method calls, and edits to private
 storage can bypass normal object APIs. The lifetime contract covers supported
@@ -35,7 +35,7 @@ second hidden mapping exclusion mechanism that contradicts field access.
 `model_extra` metadata must not expose a mutable bypass. Private attributes are
 outside the schema contract and must not independently control model invariants.
 Readonly properties and serializers are trusted code: their external side effects
-cannot be reversed by Pydandict.
+cannot be reversed by PydanDict.
 
 ## Resource use and concurrency
 

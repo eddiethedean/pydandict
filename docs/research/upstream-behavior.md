@@ -14,7 +14,7 @@ helpers. Its settled commitments are recorded as D01–D06 in the
 
 The recorded environment is Python 3.11.14, Pydantic 2.13.4, FastAPI 0.141.1,
 httpx 0.28.1, and Pyright 1.1.411. These are observed installed versions. No
-assertion is made that this is the newest available stack or Pydandict's eventual
+assertion is made that this is the newest available stack or PydanDict's eventual
 supported matrix.
 
 Run [the upstream probe](../../tools/probe_upstream.py) and
@@ -43,12 +43,12 @@ contracts disagree. It is not evidence of field-specific literal-key inference.
 Recorded validation: all ten upstream observation groups passed, and the strict
 typing fixture reported zero errors and zero warnings. The documentation checker
 verified 19 Markdown files, 81 local links, and five Python examples with zero
-errors. Python examples were syntax-checked, not executed as Pydandict programs.
+errors. Python examples were syntax-checked, not executed as PydanDict programs.
 
 The bridge disables mapping writes and has **no transactional or nested ownership
 implementation**. These results do not close G1–G3: custom serializers, nested
 guards, complete APIs, lifecycle methods, broad typing fixtures, and dependency
-matrix coverage still require actual Pydandict work.
+matrix coverage still require actual PydanDict work.
 
 ## Primary reference register
 

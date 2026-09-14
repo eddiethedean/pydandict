@@ -1,7 +1,7 @@
 # Quality bar for a dependable dependency
 
 This is a proposed acceptance policy for implementation and release, not a report
-of achieved results. Pydandict should earn trust through a small, understandable
+of achieved results. PydanDict should earn trust through a small, understandable
 contract, strong failure behavior, useful tooling, and runnable consumer projects.
 Adding public features is secondary to making the core dependable. The
 [Phase 0.1 results](research/prototype-findings.md) establish our starting evidence;
@@ -59,7 +59,7 @@ By beta, documentation must include:
 - An explicit supported-values and validator table with working examples,
   detectable rejection behavior, and limitations that require author discipline.
 - API reference signatures, mutator return values, exception classes, stable
-  Pydandict error codes, and nested error-location examples. Do not promise stable
+  PydanDict error codes, and nested error-location examples. Do not promise stable
   upstream message text or expose raw sensitive input in troubleshooting examples.
 - A performance page with reproducible workloads and a support page with exact
   tested versions, platform coverage, and deliberate BaseModel differences.

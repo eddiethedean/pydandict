@@ -15,7 +15,7 @@ and [findings](research/prototype-findings.md). There is no supported public rel
 - **Demonstrated prototype behavior:** tested in the recorded experimental envelope;
   production support still requires qualification.
 - **Observed upstream behavior:** a fact about the recorded dependency versions,
-  not proof that Pydandict implements it.
+  not proof that PydanDict implements it.
 
 Unless explicitly described as established, observed or demonstrated, normative API details in
 this set are proposed contracts. “Must” describes an acceptance requirement, not

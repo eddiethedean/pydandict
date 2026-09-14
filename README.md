@@ -1,8 +1,8 @@
-# Pydandict
+# PydanDict
 
 **Pydantic models with dictionary semantics.**
 
-Pydandict is a Python library whose primary base class, `DictModel`, is
+PydanDict is a Python library whose primary base class, `DictModel`, is
 both a genuine Pydantic `BaseModel` and a Python mutable mapping. It is designed
 to let existing mapping-oriented code consume models directly, and to let
 package authors keep internal records valid as they change.
@@ -58,12 +58,12 @@ assert dict(user) == {"name": "Eddie", "age": 41}
 ```
 
 Attribute and mapping access address the same model state. Pydantic supplies
-validation, field definitions, serializers, and JSON Schema. Pydandict supplies
+validation, field definitions, serializers, and JSON Schema. PydanDict supplies
 mapping behavior and a transaction boundary around supported mutations.
 
 ## For existing Python systems
 
-An API written against `Mapping[str, object]` should need no Pydandict-specific
+An API written against `Mapping[str, object]` should need no PydanDict-specific
 branch, adapter, or `model_dump()` call:
 
 ```python

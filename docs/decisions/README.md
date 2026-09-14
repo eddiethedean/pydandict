@@ -7,7 +7,7 @@ recommendations added in this planning set.
 
 | ID | Decision | Status | Rationale and consequence |
 | --- | --- | --- | --- |
-| D01 | `pydandict` / Pydandict / `DictModel` | Established | One clear public primitive |
+| D01 | `pydandict` / PydanDict / `DictModel` | Established | One clear public primitive |
 | D02 | Genuine `BaseModel` plus mapping protocols; no built-in `dict` inheritance | Established | Preserve ecosystem identity and generic mapping interoperability |
 | D03 | Attribute and mapping access share authoritative model state | Established | Avoid a backing-dict/model synchronization problem |
 | D04 | Validate all supported mutation paths continuously | Established | Internal dictionaries must remain valid, including nested state |
@@ -44,7 +44,7 @@ universal Pydantic compatibility promise.
 
 **Wrap a `RootModel[dict]`:** useful for homogeneous mappings, but does not directly
 make individually declared model fields into keys. It remains an alternative for
-users who do not need Pydandict's lifecycle contract.
+users who do not need PydanDict's lifecycle contract.
 
 **Return `model_dump()` for every mapping operation:** would invoke serialization,
 possibly rename/exclude fields, and detach data from model state. Rejected for reads

@@ -1,6 +1,6 @@
 # Roadmap and release plan
 
-Pydandict should become a dependable, focused dependency: one schema-defined object
+PydanDict should become a dependable, focused dependency: one schema-defined object
 with real model/mapping identity, atomic validated mutation, protected nested state,
 honest types, and predictable costs. **Phase `0.1` is the working integrated
 implementation and our starting baseline.** Its demonstrated behavior and explicit

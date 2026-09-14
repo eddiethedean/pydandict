@@ -18,7 +18,7 @@ The older upstream probes remain controls, not implementation safety tests.
 | T6 Pydantic lifecycle | Validators, aliases, fields-set, copies, hooks, metadata access | Differential controls and documented divergences |
 | T7 Ownership | Descendant paths, escaped aliases, parent validators, freeze | Full ordinary mutation inventory and isolation proof |
 | T8 Serialization/framework | Dumps, schema, adapters, HTTP, OpenAPI | BaseModel comparisons and real FastAPI TestClient requests |
-| T9 Interoperability | Generic Mapping/MutableMapping, dict/unpack, views, pattern match | Consumers contain no Pydandict-specific code |
+| T9 Interoperability | Generic Mapping/MutableMapping, dict/unpack, views, pattern match | Consumers contain no PydanDict-specific code |
 | T10 Typing | Strict Pyright, public completeness, expected errors | Installed-package positive/negative fixtures |
 | T11 Robustness/performance | Large inputs, cycles, exceptions, timing/memory | Reproducible benchmark report and failure tests |
 | T12 Release/docs | Scope, support claims, examples, links, changelog | All published claims map to passing evidence |
@@ -65,7 +65,7 @@ Include missing keys and existing keys separately. Track coverage of I1–I8 fro
 the [mutation contract](mutation-semantics.md).
 
 Use Pydantic controls only for behavior intended to match. Explicitly assert
-Pydandict differences such as key iteration, protected defaulted fields, validated
+PydanDict differences such as key iteration, protected defaulted fields, validated
 copy, and transactional rollback. A control model passing validation does not by
 itself prove ownership, alias isolation, or mapping correctness.
 
@@ -165,7 +165,7 @@ interpreters or prerelease runtimes. See the [compatibility matrix](compatibilit
 ## Documentation checks now
 
 `python3 tools/check_docs.py` verifies local Markdown links and fragments, Python
-example syntax, and closed code fences. It does not execute planned Pydandict
+example syntax, and closed code fences. It does not execute planned PydanDict
 examples or prove their behavior. `tools/probe_upstream.py` records upstream
 facts on installed dependencies. `tools/probe_typing.py` is a deliberately minimal
 inheritance fixture; see [evidence](research/upstream-behavior.md).

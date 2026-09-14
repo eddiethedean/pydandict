@@ -8,7 +8,7 @@ production target. V1 targets Pydantic v2 only. Exact dependency bounds remain G
 range is supported merely because it is v2. The planning probes use Python
 3.11.14, Pydantic 2.13.4, FastAPI 0.141.1, and Pyright 1.1.411. These are locally
 observed versions, not a declaration that they are the latest releases or a tested
-Pydandict support matrix. See [upstream evidence](research/upstream-behavior.md).
+PydanDict support matrix. See [upstream evidence](research/upstream-behavior.md).
 
 Use normal `BaseModel` control classes for differential tests. Classify differences
 as intentional, unsupported pending a gate, or bugs. Publish that classification
@@ -21,7 +21,7 @@ with each release instead of claiming total drop-in equivalence.
 | Identity | Real BaseModel and mapping ABC instance | Runtime and static assertions |
 | Construction | Standard annotations, `Field`, `Annotated`, Python/JSON/strings validation | Guard installation on every path |
 | Coercion and strictness | Follow configured Pydantic validation in the relevant mode | Python and JSON modes may differ |
-| Defaults | Pydantic default/factory evaluation; defaults validated | Pydandict requires validation of defaults |
+| Defaults | Pydantic default/factory evaluation; defaults validated | PydanDict requires validation of defaults |
 | Extras | Pydantic input policy, documented mutation policy | No shadowed methods or unsafe values |
 | Aliases | Input/output boundaries retain Pydantic alias rules | Mapping uses canonical field names |
 | Validators | Standard field/model validator forms under rerunnable-state contract | G2; no blanket compatibility claim |
@@ -46,7 +46,7 @@ date/decimal/UUID-valued, nested, generic, and discriminated-union members.
 Pydantic distinguishes Python-mode output and JSON-compatible serialization, with
 field/model serializers and inclusion controls; see the
 [serialization documentation](https://docs.pydantic.dev/latest/concepts/serialization/).
-Pydandict's proposal is to preserve those boundaries. A custom model serializer
+PydanDict's proposal is to preserve those boundaries. A custom model serializer
 may return a non-dictionary; that does not change the mapping key set.
 
 Check `exclude_unset`, `exclude_defaults`, `exclude_none`, `by_alias`, serialization
@@ -68,7 +68,7 @@ creates new collisions is trusted application code and must handle its own outpu
 
 Pydantic `model_copy(update=...)` and `model_construct` are trusted-data paths in
 the [BaseModel API](https://docs.pydantic.dev/latest/api/base_model/); the baseline
-probe demonstrates their unchecked behavior. Proposed Pydandict copy validates
+probe demonstrates their unchecked behavior. Proposed PydanDict copy validates
 the resulting model and its ownership, while public construct is rejected. This
 tradeoff must be prominent in migration notes.
 

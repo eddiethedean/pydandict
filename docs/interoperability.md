@@ -2,14 +2,14 @@
 
 ## Generic consumers
 
-Pydandict should work with existing code whose contract is a Python mapping, with
+PydanDict should work with existing code whose contract is a Python mapping, with
 no import or special-case branch in that consumer. This includes reads via `[]`,
 `get`, key membership, keys/items/values, iteration, length, dictionary construction,
 and keyword unpacking. Runtime `Mapping` and `MutableMapping` recognition and static
 assignment are both acceptance requirements.
 
 The [Python collection ABC documentation](https://docs.python.org/3/library/collections.abc.html)
-defines the required mapping primitives and mixins. Pydandict must supply explicit
+defines the required mapping primitives and mixins. PydanDict must supply explicit
 transactional overrides for mutating mixins whose ordinary implementation could
 partially modify a constrained model.
 

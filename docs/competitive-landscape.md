@@ -3,11 +3,11 @@
 Reviewed 2026-09-13 using upstream documentation and project-maintained package
 descriptions. This is a focused comparison of abstractions, not an exhaustive
 market survey or benchmark. Competitor mutation/compatibility claims below are
-documented claims unless identified as locally probed. Pydandict now has an experimental prototype; it is not a supported release.
+documented claims unless identified as locally probed. PydanDict now has an experimental prototype; it is not a supported release.
 
 ## Comparison
 
-| Alternative | Main abstraction | Validation boundary | Relationship to Pydandict |
+| Alternative | Main abstraction | Validation boundary | Relationship to PydanDict |
 | --- | --- | --- | --- |
 | Pydantic `BaseModel` | Schema-defined model | Construction; optional assignment validation | Foundation and strongest default alternative |
 | Pydantic `RootModel[dict[...]]` | Model wrapping a root dictionary | Root validation; ordinary descendant writes need separate protection | Closest built-in mapping-shaped model |
@@ -17,14 +17,14 @@ documented claims unless identified as locally probed. Pydandict now has an expe
 | `typeddict` | TypedDict metadata and conversion to Pydantic models | Conversion/parsing interfaces | Bridges two representations |
 | Syncwave | Reactive collection/store abstractions | Project advertises Pydantic-validated collection mutation | Adjacent lifecycle design with persistence/reactivity |
 | Pyvalidly | Dictionary validation rules and coercion | Validator calls | Lightweight validation without a BaseModel-first abstraction |
-| Pydandict, proposed | Schema-defined BaseModel implementing MutableMapping | All supported owned mutations, with rollback | Bridge model and mapping ecosystems in one object |
+| PydanDict, proposed | Schema-defined BaseModel implementing MutableMapping | All supported owned mutations, with rollback | Bridge model and mapping ecosystems in one object |
 
 ## The strongest alternatives
 
 Pydantic already provides validation, schema, and serialization. Its
 [model documentation](https://docs.pydantic.dev/latest/concepts/models/) covers
 RootModel, model fields, and frozen-model limitations. A custom RootModel can add
-mapping methods, so Pydandict should not claim that mapping access is unprecedented.
+mapping methods, so PydanDict should not claim that mapping access is unprecedented.
 The proposed value is a consistent, tested field-oriented mutation contract.
 
 [TypeAdapter](https://docs.pydantic.dev/latest/concepts/type_adapter/) supplies
@@ -35,7 +35,7 @@ a field-annotation type; the adapted type can still be used by compatible system
 Do not mischaracterize this alternative as categorically incompatible with FastAPI.
 
 Python's [TypedDict documentation](https://docs.python.org/3/library/typing.html#typing.TypedDict)
-describes static dictionary shape typing. Pydandict should acknowledge its
+describes static dictionary shape typing. PydanDict should acknowledge its
 literal-key precision rather than imply that `DictModel['field']` automatically
 has the same static inference.
 
@@ -44,16 +44,16 @@ has the same static inference.
 [Micromodel's package description](https://pypi.org/project/micromodel/) explains
 its use of TypedDict-based validation to keep document-shaped data as dictionaries.
 That overlaps the interoperability problem. Its described direction is dict-first;
-Pydandict's established choice is to retain real BaseModel identity.
+PydanDict's established choice is to retain real BaseModel identity.
 
 [`typeddict`](https://pypi.org/project/typeddict/) documents `to_pydantic` for creating
-a corresponding Pydantic model and mentions framework use. Pydandict proposes one
+a corresponding Pydantic model and mentions framework use. PydanDict proposes one
 object that already offers both interfaces. The package page is not evidence of
 current Pydantic v2 compatibility; this planning set does not claim to have tested it.
 
 [Syncwave](https://pypi.org/project/syncwave/) describes SyncDict/SyncList/SyncSet as
 reactive collections with Pydantic-validated mutations and disk propagation. It is
-relevant prior art for interception and ownership. Pydandict excludes persistence
+relevant prior art for interception and ownership. PydanDict excludes persistence
 and reactivity, and centers individually declared fields on a genuine BaseModel.
 The advertised validation guarantee has not been independently audited here.
 
