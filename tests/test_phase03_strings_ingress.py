@@ -188,3 +188,16 @@ def test_native_error_locations_with_backslashes_are_formatted_literally():
     assert raised.value.errors()[0]["loc"] == (r"input\1",)
     assert "\ninput\\1\n" in str(raised.value)
     assert "__pydandict_input_audit_" not in str(raised.value)
+
+
+def test_native_entry_scanner_accepts_unrelated_pydantic_metadata_none():
+    class OrdinarySchema:
+        @classmethod
+        def __get_pydantic_core_schema__(cls, source, handler):
+            return {"type": "int", "metadata": None}
+
+    adapter = TypeAdapter(OrdinarySchema)
+    assert isinstance(adapter.validator, SchemaValidator)
+    assert adapter.validate_python("2") == 2
+    assert adapter.validate_json('"2"') == 2
+    assert adapter.validate_strings("2", strict=True) == 2

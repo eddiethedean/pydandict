@@ -20,10 +20,16 @@
 - Preserve native JSON/strings validation and restore unsupported Python-input
   rejection when `DictModel` is embedded in ordinary models or TypeAdapter
   collections; retain validated canonical mutation/copy behavior.
+- Reject unsupported original string subclasses and enums before native scalar
+  coercion, including ordinary-model embedding. Preserve native validation state
+  and public error locations through the pinned compatibility adapter.
 
 ### Release scope
 
 - Python 3.11–3.14, exact `pydantic==2.13.4`, and MIT licensing remain unchanged.
+- Native input auditing adapts Pydantic's private validator factories and native
+  error layout. Requalify this integration before changing the pinned version;
+  it adds no framework-plugin support guarantee.
 - No arbitrary nested-type expansion, thread-safety, persistence or unchecked
   construction support is added. No persisted data migration is required.
 - Version 0.3.0 is prepared but has not been tagged or published. Replace the

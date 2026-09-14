@@ -1,6 +1,6 @@
 # SOL-017 / FINAL-001: native strings ingress investigation
 
-Status: **fix implemented; local runtime/static verification passed**. This investigation
+Status: **fix implemented; final local runtime/static verification passed**. This investigation
 does not constitute an independent production-review PASS or final release approval.
 
 Investigated source: `5cb5587990ba96d535c9b970406b99e28aa4cabc`.
@@ -127,6 +127,34 @@ Python for Pyright and failed to find `typing.assert_type`; setting the Python
 Python 3.14's focused matrix used interpreter **3.14.3** with Pydantic 2.13.4 and
 core 2.46.4. Other OS/interpreter lanes still require CI execution; local checks
 do not claim they ran.
+
+## Final scanner compatibility correction
+
+A final before/after-import probe found a change-caused regression in the entry
+scanner: an ordinary Pydantic custom schema with `metadata=None` validates before
+importing pydandict but initially raised `AttributeError` afterward. The scanner
+now recognizes only its own plain-dictionary `pydandict_input_audit is True`
+marker; absent/opaque metadata is not interpreted as an audit. Its new regression
+passes Python, JSON and strict strings validation with the original unwrapped
+ordinary SchemaValidator. Entry wrapping is also idempotent when an existing
+factory delegates to another already-adapted factory.
+
+This correction changes the measured source after `b919462` and `ba956ee`.
+Their evidence above is historical. Fresh final runtime and artifact execution
+must be recorded before handoff; no gate was disabled to conceal the regression.
+
+The corrected source passed **600 tests in 97.37s** with production source held
+fixed, including the complete benchmark. A preceding correction run passed 599
+cases but its benchmark rejected a source edit made for a typing-only cast during
+execution; the final stable run resolves that orchestration failure. The final
+Python 3.14.3 ingress/native/embedding matrix passed **386 tests**, including the
+new ordinary-schema regression. Strict positive/exact-negative typing, public
+completeness (100%), required lint/format and documentation checks also passed.
+
+The earlier pushed `ba956ee` candidate passed all 11 applicable jobs in
+[CI run 34905919961](https://github.com/eddiethedean/pydandict/actions/runs/34905919961).
+That run did not include the final scanner correction or its new regression and
+does not substitute for CI on the final corrected candidate.
 
 The release still requires normal production review followed by the independent
 final release check. Historical approvals and measurements refer to their actual

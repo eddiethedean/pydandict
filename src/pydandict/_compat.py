@@ -103,7 +103,12 @@ class _NativeValidator:
 def _has_native_audit(value: Any) -> bool:
     if isinstance(value, dict):
         node = cast(dict[str, Any], value)
-        return bool(node.get("metadata", {}).get("pydandict_input_audit")) or any(
+        metadata = node.get("metadata")
+        has_audit = (
+            type(metadata) is dict
+            and cast(dict[str, Any], metadata).get("pydandict_input_audit") is True
+        )
+        return has_audit or any(
             _has_native_audit(child)
             for key, child in node.items()
             if key not in ("metadata", "serialization")
@@ -145,8 +150,8 @@ def _install_native_entries() -> None:
     Containing ordinary models and TypeAdapters own the public error boundary,
     so their factories need the same adapter as standalone DictModel entries.
     Preserve existing factory/plugin integrations; schemas with neither an audit
-    nor a validation callback retain their original validator. This compatibility
-    module and requires requalification whenever the pinned runtime changes.
+    nor a validation callback retain their original validator. This integration
+    requires requalification whenever the pinned runtime changes.
     """
     import pydantic._internal._dataclasses as dataclasses
     import pydantic._internal._model_construction as models
@@ -161,6 +166,8 @@ def _install_native_entries() -> None:
         def make_factory(factory: Any) -> Any:
             def create(*args: Any, **kwargs: Any) -> Any:
                 result = factory(*args, **kwargs)
+                if isinstance(result, _NativeValidator):
+                    return result
                 schema = kwargs.get("schema", args[0] if args else None)
                 if _has_native_audit(schema) or _has_validation_callback(schema):
                     return _NativeValidator(result)

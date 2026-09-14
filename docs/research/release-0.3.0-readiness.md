@@ -1,6 +1,6 @@
 # 0.3.0 release readiness
 
-Status: **native strings-ingress remediation in verification; renewed review required**.
+Status: **native strings-ingress remediation verified locally; renewed review required**.
 
 The independent final release check reopened SOL-017 as FINAL-001 on source
 `5cb5587990ba96d535c9b970406b99e28aa4cabc`: native strings coercion could erase an

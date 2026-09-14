@@ -24,7 +24,8 @@ dictionary.
   serializers, JSON Schema and FastAPI integration on the pinned stack.
 
 > **Release status:** 0.2.0 is the latest published release. This checkout prepares
-> 0.3.0, whose Phase 0.3 contract passed independent review. Publication requires
+> 0.3.0. The final release check reopened native strings-input rejection; its fix
+> requires renewed production review and independent final approval, alongside
 > successful final-candidate CI and artifact checks. No 0.3.0 tag or
 > publication has occurred. See [release readiness](docs/research/release-0.3.0-readiness.md).
 
