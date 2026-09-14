@@ -6,6 +6,7 @@ Ownership uses pointer-swap commits and raw-state snapshots.
 
 from __future__ import annotations
 
+import sys
 from collections.abc import Collection, Iterable, Iterator, Mapping, MutableMapping
 from contextvars import ContextVar
 from datetime import date, datetime, time, timedelta, timezone
@@ -42,6 +43,9 @@ M = TypeVar("M", bound="DictModel")
 
 _BUILDING: ContextVar[bool] = ContextVar("pydandict_building", default=False)
 _CANONICAL: ContextVar[bool] = ContextVar("pydandict_canonical", default=False)
+_DEFERRED_NAMESPACE: ContextVar[dict[str, object] | None] = ContextVar(
+    "pydandict_deferred_namespace", default=None
+)
 _MISSING = object()
 _IMMUTABLE = {
     type(None),
@@ -352,53 +356,40 @@ def _check_extra_annotation(cls: type[DictModel], *, reject_generic: bool = Fals
         _check_annotation(annotation, "__pydantic_extra__", reject_generic=reject_generic)
 
 
-def _audit_incomplete_nested_schema(schema: object, seen: set[int] | None = None) -> None:
-    """Audit concrete mutable schemas embedded in incomplete nested DictModels.
+def _audit_incomplete_field(
+    model: type[BaseModel], field_name: str, namespace: dict[str, object]
+) -> None:
+    """Check a deferred declaration using Pydantic's active type namespace."""
+    import typing
 
-    Pydantic can resolve a child's forward reference while compiling a complete
-    parent even when the child class metadata remains incomplete. In that case the
-    child's Python annotations no longer expose the resolved type, but the compiled
-    core schema does.
-    """
-    if seen is None:
-        seen = set()
-    if not isinstance(schema, (dict, list, tuple)):
-        return
-    identity = id(cast(object, schema))
-    if identity in seen:
-        return
-    seen.add(identity)
-    if isinstance(schema, dict):
-        schema_map = cast(dict[str, object], schema)
-        if schema_map.get("type") == "model":
-            model = schema_map.get("cls")
-            if (
-                isinstance(model, type)
-                and issubclass(model, DictModel)
-                and not _compat.is_complete(model)
-            ):
-                _reject_mutable_core_schema(schema_map.get("schema"), model.__name__)
-        for value in schema_map.values():
-            _audit_incomplete_nested_schema(value, seen)
-    else:
-        sequence = cast(list[object] | tuple[object, ...], schema)
-        for value in sequence:
-            _audit_incomplete_nested_schema(value, seen)
+    resolution_namespace: dict[str, object] = {name: value for name, value in vars(typing).items()}
+    module = sys.modules.get(model.__module__)
+    if module is not None:
+        resolution_namespace.update(vars(module))
+    resolution_namespace.update(namespace)
 
-
-def _reject_mutable_core_schema(schema: object, field: str) -> None:
-    if not isinstance(schema, (dict, list, tuple)):
-        return
-    if isinstance(schema, dict):
-        schema_map = cast(dict[str, object], schema)
-        if schema_map.get("type") in {"list", "dict", "set"}:
-            _annotation_error(field, schema_map, "collections.abc.MutableSequence")
-        for value in schema_map.values():
-            _reject_mutable_core_schema(value, field)
-    else:
-        sequence = cast(list[object] | tuple[object, ...], schema)
-        for value in sequence:
-            _reject_mutable_core_schema(value, field)
+    try:
+        annotations = typing.get_type_hints(
+            model,
+            globalns=resolution_namespace,
+            localns=resolution_namespace,
+            include_extras=True,
+        )
+    except (NameError, TypeError):
+        annotations = {}
+    annotation = annotations.get(field_name)
+    if annotation is None and field_name == "__pydantic_extra__":
+        raw_annotations = cast(object, getattr(model, "__annotations__", {}))
+        if isinstance(raw_annotations, dict):
+            annotation = cast(dict[str, object], raw_annotations).get(field_name)
+    if annotation is None:
+        field = _compat.fields(model).get(field_name)
+        annotation = cast(object, field.annotation) if field is not None else object
+    if field_name == "__pydantic_extra__":
+        args = typing.get_args(annotation)
+        if typing.get_origin(annotation) is dict and len(args) == 2:
+            annotation = args[1]
+    _check_annotation(annotation, field_name, reject_generic=True)
 
 
 def _validate(candidate: M) -> M:
@@ -590,19 +581,6 @@ def _install(value: M) -> M:
     return value
 
 
-def _install_prevalidated(root: M, value: M) -> M:
-    """Install a public existing-model validation result without revalidating it.
-
-    The public validator has already run with its supplied context. Running the
-    context-free canonical validator a second time would both discard that context
-    and invoke after validators twice.
-    """
-    raw = _clone(root)
-    _commit(_prepare(root, raw, value, {id(raw): root}, {()}))
-    object.__setattr__(root, "_pd_busy", False)
-    return root
-
-
 class _KeySource(Protocol):
     def keys(self) -> Iterable[str]: ...
     def __getitem__(self, key: str, /) -> object: ...
@@ -635,39 +613,58 @@ class DictModel(BaseModel, MutableMapping[str, object]):
             value: object,
             next_validator: Callable[[object], BaseModel],
             context: object,
+            schema: CoreSchema,
+            namespace: dict[str, object],
         ) -> BaseModel:
-            if not _BUILDING.get() and _compat.generic_parameters(cls):
-                raise TypeError(
-                    "pydandict_unsupported_annotation: generic DictModel instances "
-                    "must be explicitly specialized"
-                )
-            if not _BUILDING.get():
-                for field_name, field in cls.model_fields.items():
-                    _check_annotation(field.annotation, field_name, reject_generic=True)
-                _check_extra_annotation(cls, reject_generic=True)
-                _audit_incomplete_nested_schema(getattr(cls, "__pydantic_core_schema__", None))
-            if _BUILDING.get():
-                if isinstance(value, DictModel):
-                    if not _CANONICAL.get():
-                        return _validate(value)
-                    result = next_validator(_data(value))
-                    _compat.set_fields_set(result, value.model_fields_set)
-                    return result
-                return next_validator(value)
-            if isinstance(value, DictModel):
-                validated = next_validator(_data(value))
-                if not isinstance(validated, DictModel):
-                    raise TypeError(
-                        "pydandict_incompatible_pydantic: validation changed model type"
-                    )
-                return _install_prevalidated(value, validated)
-            # Detach inputs before user validation, not only after construction.
-            token = _BUILDING.set(True)
+            active_namespace = namespace or _DEFERRED_NAMESPACE.get() or {}
+            namespace_token = _DEFERRED_NAMESPACE.set(active_namespace)
             try:
-                validated = next_validator(_clone(value))
+                if not _BUILDING.get() and _compat.generic_parameters(cls):
+                    raise TypeError(
+                        "pydandict_unsupported_annotation: generic DictModel instances "
+                        "must be explicitly specialized"
+                    )
+                if not _BUILDING.get():
+                    for field_name, field in cls.model_fields.items():
+                        _check_annotation(field.annotation, field_name, reject_generic=True)
+                    _check_extra_annotation(cls, reject_generic=True)
+                if not _CANONICAL.get():
+                    _compat.audit_incomplete_model(
+                        schema,
+                        lambda model, field_name: _audit_incomplete_field(
+                            model, field_name, active_namespace
+                        ),
+                    )
+                if _BUILDING.get():
+                    if isinstance(value, DictModel):
+                        if not _CANONICAL.get():
+                            return _validate(value)
+                        result = next_validator(_data(value))
+                        _compat.set_fields_set(result, value.model_fields_set)
+                        return result
+                    return next_validator(value)
+                if isinstance(value, DictModel):
+                    # Existing models are public validation inputs, not writable
+                    # validation targets. Clone the complete graph before invoking
+                    # user validators so context and strictness apply to detached
+                    # canonical Python data while the caller's root stays untouched.
+                    detached = _clone(value)
+                    validated = next_validator(_data(detached))
+                    if not isinstance(validated, DictModel):
+                        raise TypeError(
+                            "pydandict_incompatible_pydantic: validation changed model type"
+                        )
+                    _compat.set_fields_set(validated, _compat.fields_set(detached))
+                    return _install(validated)
+                # Detach inputs before user validation, not only after construction.
+                token = _BUILDING.set(True)
+                try:
+                    validated = next_validator(_clone(value))
+                finally:
+                    _BUILDING.reset(token)
+                return _install(cast(DictModel, validated))
             finally:
-                _BUILDING.reset(token)
-            return _install(cast(DictModel, validated))
+                _DEFERRED_NAMESPACE.reset(namespace_token)
 
         def snapshot(value: BaseModel) -> object:
             model = cast(DictModel, value)

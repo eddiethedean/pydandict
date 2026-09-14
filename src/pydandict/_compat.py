@@ -151,6 +151,95 @@ def is_complete(cls: type[BaseModel]) -> bool:
     return complete
 
 
+def schema_namespace(handler: GetCoreSchemaHandler) -> dict[str, object]:
+    """Return the annotation namespace used for this schema generation."""
+    generator = getattr(handler, "_generate_schema", None)
+    namespace = getattr(generator, "_types_namespace", None)
+    if namespace is None:
+        raise _incompatible("schema generator namespace is unavailable")
+    result: dict[str, object] = {}
+    for name in ("globals", "locals"):
+        values = getattr(namespace, name, None)
+        if not isinstance(values, Mapping):
+            raise _incompatible("schema generator namespace has an incompatible shape")
+        typed_values = cast(Mapping[str, object], values)
+        result.update({key: typed_values[key] for key in typed_values})
+    return result
+
+
+def audit_incomplete_model(
+    schema: object,
+    callback: Callable[[type[BaseModel], str], None],
+) -> None:
+    """Report mutable schema fields for the incomplete model in a generated schema.
+
+    Core-schema node shapes are intentionally interpreted here, at the adapter
+    boundary. The callback receives only model and field names; declaration-aware
+    policy remains in the core module.
+    """
+    root = _checked_schema(schema)
+
+    def contains_mutable(node: object, seen: set[int] | None = None) -> bool:
+        if seen is None:
+            seen = set()
+        if not isinstance(node, (dict, list, tuple)):
+            return False
+        identity = id(cast(object, node))
+        if identity in seen:
+            return False
+        seen.add(identity)
+        if isinstance(node, dict):
+            node_map = cast(dict[str, object], node)
+            if node_map.get("type") in {"list", "dict", "set"}:
+                return True
+            return any(
+                contains_mutable(value, seen)
+                for key, value in node_map.items()
+                if key not in ("metadata", "serialization")
+            )
+        return any(
+            contains_mutable(value, seen) for value in cast(list[object] | tuple[object, ...], node)
+        )
+
+    def walk(node: object, seen: set[int] | None = None) -> None:
+        if seen is None:
+            seen = set()
+        if not isinstance(node, (dict, list, tuple)):
+            return
+        identity = id(cast(object, node))
+        if identity in seen:
+            return
+        seen.add(identity)
+        if isinstance(node, dict):
+            node_map = cast(dict[str, object], node)
+            if node_map.get("type") == "model":
+                model = node_map.get("cls")
+                if (
+                    isinstance(model, type)
+                    and issubclass(model, BaseModel)
+                    and not is_complete(model)
+                ):
+                    inner = _string_dict(node_map.get("schema"), "incomplete model schema")
+                    fields_map = _string_dict(inner.get("fields", {}), "incomplete model fields")
+                    for field_name, field_node in fields_map.items():
+                        field_map = _string_dict(field_node, "incomplete model field")
+                        if contains_mutable(field_map.get("schema")):
+                            callback(model, field_name)
+                    if contains_mutable(inner.get("extras_schema")):
+                        callback(model, "__pydantic_extra__")
+                # Continue through nested model nodes: an incomplete child can
+                # retain unresolved Python annotations while its parent schema
+                # was compiled with the active caller namespace.
+            for key, value in node_map.items():
+                if key not in ("metadata", "serialization"):
+                    walk(value, seen)
+        else:
+            for value in cast(list[object] | tuple[object, ...], node):
+                walk(value, seen)
+
+    walk(root)
+
+
 def _rewrite(
     value: Any, *, canonical: bool, by_alias: bool | None = None, by_name: bool | None = None
 ) -> Any:
@@ -224,9 +313,12 @@ def entry_validator(
 def wrap_model_schema(
     source: type[BaseModel],
     handler: GetCoreSchemaHandler,
-    finish: Callable[[object, Callable[[object], BaseModel], object], BaseModel],
+    finish: Callable[
+        [object, Callable[[object], BaseModel], object, CoreSchema, dict[str, object]], BaseModel
+    ],
     snapshot: Callable[[BaseModel], object],
 ) -> CoreSchema:
+    namespace = schema_namespace(handler)
     schema: dict[str, Any] = dict(_checked_schema(handler(source)))
     ref = schema.pop("ref", None)
     if ref is not None and not isinstance(ref, str):
@@ -239,7 +331,7 @@ def wrap_model_schema(
                 raise _incompatible("model validator returned an incompatible value")
             return result
 
-        return finish(value, next_model, info.context)
+        return finish(value, next_model, info.context, cast(CoreSchema, schema), namespace)
 
     def serialize(value: Any, next_serializer: Any, info: Any) -> Any:
         if not isinstance(value, BaseModel):
