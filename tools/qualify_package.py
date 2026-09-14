@@ -6,6 +6,7 @@ import hashlib
 import json
 import os
 import platform
+import re
 import subprocess
 import sys
 import tarfile
@@ -15,6 +16,48 @@ from pathlib import Path
 from textwrap import dedent
 
 ROOT = Path(__file__).resolve().parents[1]
+_COMMIT = re.compile(r"[0-9a-f]{40}")
+_SCALAR_PROFILE = {
+    "test": "tests/test_stateful.py::TestScalarTransactions",
+    "max_examples": 100,
+    "stateful_step_count": 100,
+    "deadline": None,
+    "derandomize": True,
+    "status": "executed by the repository runtime/CI gate, not this artifact driver",
+}
+_AC_TEST_LANE_MAP = {
+    **{
+        f"AC-{number:03d}": {
+            "tests": ["tests/ (full runtime suite)"],
+            "lanes": ["CI compatibility matrix"],
+            "qualification_status": "outside package-driver execution scope",
+        }
+        for number in range(1, 24)
+    },
+    "AC-024": {
+        "tests": ["installed scalar example", "bare nested consumer", "HTTP/type consumers"],
+        "lanes": ["local package qualification", "CI artifact lanes"],
+    },
+    "AC-025": {
+        "tests": ["qualification provenance record"],
+        "lanes": ["local package qualification", "CI compatibility/artifact matrix"],
+    },
+    "AC-026": {
+        "tests": [_SCALAR_PROFILE["test"]],
+        "lanes": ["CI compatibility matrix"],
+        "qualification_status": _SCALAR_PROFILE["status"],
+    },
+    "AC-027": {
+        "tests": ["tests/ (full runtime suite)"],
+        "lanes": ["CI compatibility/artifact matrix"],
+        "qualification_status": "outside package-driver execution scope",
+    },
+    "AC-028": {
+        "tests": ["installed scalar example", "tools/check_docs.py"],
+        "lanes": ["local package qualification", "CI docs/artifact lanes"],
+        "qualification_status": "docs checker is outside package-driver execution scope",
+    },
+}
 
 
 def run(
@@ -95,6 +138,24 @@ def main() -> int:
             library_example.write_text((ROOT / "examples" / "library_config.py").read_text())
             dependency_records[f"{label}_library_example"] = execute(
                 [str(bare_python), str(library_example)], work, env=clean_env
+            ).stdout
+            metadata_consumer = (
+                "from importlib.metadata import distribution\n"
+                "from pathlib import Path\n"
+                "dist = distribution('pydandict')\n"
+                "assert dist.metadata['Name'] == 'pydandict'\n"
+                "assert dist.version == '0.2.0'\n"
+                "assert dist.metadata['License'] == 'MIT'\n"
+                "runtime = [item for item in (dist.requires or []) if 'extra ==' not in item]\n"
+                "assert runtime == ['pydantic==2.13.4'], runtime\n"
+                "licenses = [item for item in (dist.files or []) "
+                "if str(item).lower().endswith('licenses/license')]\n"
+                "assert len(licenses) == 1\n"
+                "assert Path(dist.locate_file(licenses[0])).read_text().startswith('MIT License')\n"
+                "print('metadata verified')\n"
+            )
+            dependency_records[f"{label}_metadata"] = execute(
+                [str(bare_python), "-c", metadata_consumer], work, env=clean_env
             ).stdout
             bare_consumer = (
                 "from pathlib import Path\n"
@@ -283,15 +344,33 @@ def main() -> int:
 
         exercise(wheel, "direct")
         exercise(rebuilt_wheel, "rebuilt")
+        source_commit = execute(["git", "rev-parse", "HEAD"], ROOT).stdout.strip()
+        if not _COMMIT.fullmatch(source_commit):
+            # Mocked or incomplete runs remain useful orchestration checks, but
+            # must never replace durable release evidence or claim qualification.
+            print(
+                json.dumps(
+                    {
+                        "qualification_status": "non-qualifying",
+                        "reason": "source identity was unavailable",
+                    },
+                    sort_keys=True,
+                )
+            )
+            return 0
+        hashes["qualification_status"] = "qualified"
         hashes["resolved_dependencies"] = dependency_records
         hashes["commands"] = commands
-        hashes["source_commit"] = execute(["git", "rev-parse", "HEAD"], ROOT).stdout.strip()
+        hashes["source_commit"] = source_commit
         hashes["qualification_profile"] = "phase-0.3-scalar-installed-consumers"
-        hashes["ac_evidence"] = {
-            "AC-024": ["direct_library_example", "rebuilt_library_example"],
-            "AC-025": ["source_commit", "commands", "resolved_dependencies", "artifact_sha256"],
-            "AC-028": ["direct_library_example", "rebuilt_library_example"],
-        }
+        hashes["scalar_stateful_profile"] = _SCALAR_PROFILE
+        hashes["ac_test_lane_map"] = _AC_TEST_LANE_MAP
+        hashes["observed_failures"] = []
+        hashes["limitations"] = [
+            "This local package qualification does not prove every advertised CI lane.",
+            "The full runtime suite, scalar stateful profile and docs checker are recorded as "
+            "external required gates rather than asserted as executed here.",
+        ]
         research = ROOT / "docs" / "research"
         research.mkdir(parents=True, exist_ok=True)
         (research / "phase-0.3-results.json").write_text(
@@ -300,19 +379,24 @@ def main() -> int:
         (research / "phase-0.3-findings.md").write_text(
             "# Phase 0.3 qualification findings\n\n"
             f"Source commit: `{hashes['source_commit']}`\n\n"
-            "This record was generated after direct and sdist-rebuilt wheel "
+            "This qualifying record was generated after direct and sdist-rebuilt wheel "
             "qualification. Both isolated bare environments executed the "
             "installed `examples/library_config.py` workflow with `PYTHONPATH` "
             "cleared. See `phase-0.3-results.json` for exact commands, resolved "
             "dependencies and SHA-256 artifact identities.\n\n"
-            "## Evidence map\n\n"
-            "- AC-024: direct/rebuilt installed scalar example and consumer records.\n"
+            "## Evidence map and limitations\n\n"
+            "- AC-024: direct/rebuilt installed scalar example, consumer and installed "
+            "metadata-policy records.\n"
             "- AC-025: source commit, interpreter/platform, commands, dependency "
             "resolutions and direct/rebuilt artifact hashes.\n"
-            "- AC-028: installed scalar library-config example records.\n\n"
-            "The scalar 100 × 100 stateful profile is executed by the repository "
-            "test gate (`tests/test_stateful.py::TestScalarTransactions`); this "
-            "artifact records package qualification only.\n"
+            "- AC-026: settings/replay profile is recorded, but its execution belongs "
+            "to the repository runtime/CI gate.\n"
+            "- AC-028: installed scalar library-config example records; docs checking "
+            "belongs to its separate gate.\n\n"
+            "`ac_test_lane_map`, `scalar_stateful_profile`, `observed_failures` and "
+            "`limitations` make the boundary between this local artifact run and "
+            "required full CI evidence explicit. Non-qualifying runs with no valid "
+            "Git source identity leave these durable records untouched.\n"
         )
         for label, artifact in (("direct", wheel), ("rebuilt", rebuilt_wheel)):
             if not artifact.is_file():

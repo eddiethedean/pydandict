@@ -10,6 +10,7 @@ from typing import Any, TypeVar, cast
 
 import pydantic
 from pydantic import BaseModel, ConfigDict, GetCoreSchemaHandler
+from pydantic.config import ExtraValues
 from pydantic.fields import FieldInfo
 from pydantic_core import CoreSchema, SchemaValidator
 from pydantic_core import core_schema as schema_tools
@@ -17,14 +18,21 @@ from pydantic_core import core_schema as schema_tools
 SUPPORTED_PYDANTIC_VERSION = "2.13.4"
 M = TypeVar("M", bound=BaseModel)
 SlotUpdate = tuple[object, str, object]
-_ENTRY_OPTIONS: ContextVar[tuple[bool | None, bool | None] | None] = ContextVar(
+EntryOptions = tuple[bool | None, bool | None, bool | None, ExtraValues | None, object]
+_ENTRY_OPTIONS: ContextVar[EntryOptions | None] = ContextVar(
     "pydandict_entry_options", default=None
 )
 
 
 @contextmanager
-def entry_options(by_alias: bool | None, by_name: bool | None):
-    token = _ENTRY_OPTIONS.set((by_alias, by_name))
+def entry_options(
+    by_alias: bool | None,
+    by_name: bool | None,
+    strict: bool | None,
+    extra: ExtraValues | None,
+    context: object,
+):
+    token = _ENTRY_OPTIONS.set((by_alias, by_name, strict, extra, context))
     try:
         yield
     finally:
@@ -348,50 +356,49 @@ def wrap_model_schema(
 
         # A wrap validator's ``next_validator`` is a Python-mode handler even
         # when the outer SchemaValidator was entered through validate_json or
-        # validate_strings.  Re-run the unwrapped model schema in that mode so
-        # strict/coercing scalar semantics remain those of BaseModel.  The
-        # finished model is handed to the normal ownership installer; no
-        # serialized model state is used as transaction input.
+        # validate_strings. Re-run the unwrapped model schema in that mode, but
+        # do so through ``finish``: it detaches caller input before user
+        # validators run. The public entry options are ContextVar state because
+        # pydantic's wrap ValidatorInfo does not expose strict or extra overrides.
+        options = _ENTRY_OPTIONS.get()
+        config = cast(dict[str, Any], info.config or {})
+        by_alias, by_name, strict, extra, context = options or (
+            config.get("validate_by_alias"),
+            config.get("validate_by_name"),
+            None,
+            None,
+            info.context,
+        )
+        mode_schema = _rewrite(
+            schema,
+            canonical=False,
+            by_alias=by_alias,
+            by_name=by_name,
+        )
         if info.mode == "string":
-            options = _ENTRY_OPTIONS.get()
-            config = cast(dict[str, Any], info.config or {})
-            by_alias, by_name = options or (
-                config.get("validate_by_alias"),
-                config.get("validate_by_name"),
-            )
-            mode_schema = _rewrite(
-                schema,
-                canonical=False,
-                by_alias=by_alias,
-                by_name=by_name,
-            )
             mode_validator = SchemaValidator(cast(CoreSchema, mode_schema))
-            parsed = mode_validator.validate_strings(value)
             return finish(
                 value,
-                lambda _input: cast(BaseModel, parsed),
+                lambda input_value: cast(
+                    BaseModel,
+                    mode_validator.validate_strings(
+                        cast(Any, input_value), strict=strict, extra=extra, context=context
+                    ),
+                ),
                 info.context,
                 cast(CoreSchema, schema),
                 namespace,
             )
         if info.mode == "json":
-            options = _ENTRY_OPTIONS.get()
-            config = cast(dict[str, Any], info.config or {})
-            by_alias, by_name = options or (
-                config.get("validate_by_alias"),
-                config.get("validate_by_name"),
-            )
-            mode_schema = _rewrite(
-                schema,
-                canonical=False,
-                by_alias=by_alias,
-                by_name=by_name,
-            )
             mode_validator = SchemaValidator(cast(CoreSchema, mode_schema))
-            parsed = mode_validator.validate_json(json.dumps(value))
             return finish(
                 value,
-                lambda _input: cast(BaseModel, parsed),
+                lambda input_value: cast(
+                    BaseModel,
+                    mode_validator.validate_json(
+                        json.dumps(input_value), strict=strict, extra=extra, context=context
+                    ),
+                ),
                 info.context,
                 cast(CoreSchema, schema),
                 namespace,

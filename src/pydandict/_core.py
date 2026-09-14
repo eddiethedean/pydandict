@@ -712,7 +712,7 @@ class DictModel(BaseModel, MutableMapping[str, object]):
         by_alias: bool | None = None,
         by_name: bool | None = None,
     ) -> Self:
-        with _compat.entry_options(by_alias, by_name):
+        with _compat.entry_options(by_alias, by_name, strict, extra, context):
             return cls._entry_validator(by_alias, by_name).validate_python(
                 obj,
                 strict=strict,
@@ -732,7 +732,7 @@ class DictModel(BaseModel, MutableMapping[str, object]):
         by_alias: bool | None = None,
         by_name: bool | None = None,
     ) -> Self:
-        with _compat.entry_options(by_alias, by_name):
+        with _compat.entry_options(by_alias, by_name, strict, extra, context):
             return cls._entry_validator(by_alias, by_name).validate_json(
                 json_data, strict=strict, extra=extra, context=context
             )
@@ -748,7 +748,7 @@ class DictModel(BaseModel, MutableMapping[str, object]):
         by_alias: bool | None = None,
         by_name: bool | None = None,
     ) -> Self:
-        with _compat.entry_options(by_alias, by_name):
+        with _compat.entry_options(by_alias, by_name, strict, extra, context):
             return cls._entry_validator(by_alias, by_name).validate_strings(
                 obj, strict=strict, extra=extra, context=context
             )
