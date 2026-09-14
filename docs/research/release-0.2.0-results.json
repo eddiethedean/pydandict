@@ -1,7 +1,7 @@
 {
   "release_version": "0.2.0",
   "date": "2026-09-14",
-  "status": "LOCAL_RELEASE_PREFLIGHT_PASS",
+  "status": "RELEASED",
   "source": {
     "base_commit": "dbfb186fcb0e0f138442e6cc2e170d1937b9ac45",
     "dirty": true,
@@ -22,8 +22,8 @@
     "runtime_dependency": "pydantic==2.13.4",
     "runtime_source_changed": false
   },
-  "published_version_observed": "0.1.0",
-  "release_tag_exists_observed": false,
+  "published_version_observed": "0.2.0",
+  "release_tag_exists_observed": true,
   "security": {
     "private_vulnerability_reporting_enabled": true,
     "verification_command": "gh api repos/eddiethedean/pydandict/private-vulnerability-reporting",
@@ -717,9 +717,14 @@
   },
   "known_nonblocking_issue": "https://github.com/eddiethedean/pydandict/issues/2",
   "publication": {
-    "performed": false,
-    "tag_created": false,
+    "performed": true,
+    "date": "2026-09-14",
+    "tag": "v0.2.0",
+    "commit": "0e4f15ca750c01dfbbf74cc9448038039a3b2776",
+    "workflow_run": "https://github.com/eddiethedean/pydandict/actions/runs/34872713924",
+    "pypi_url": "https://pypi.org/project/pydandict/0.2.0/",
+    "tag_created": true,
     "github_release_created": false,
-    "note": "Pushing v0.2.0 is the separate publication trigger. Before tagging, require successful CI on the exact preparation commit; tag/version preflight and Trusted Publishing remain enforced."
+    "note": "The tag-triggered workflow passed all required checks, built the wheel and sdist, and completed Trusted Publishing. No GitHub Release was created."
   }
 }

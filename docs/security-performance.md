@@ -76,7 +76,7 @@ starting baseline, not the broader benchmark plan or production budgets below.
 
 ## Benchmark plan
 
-The unreleased Phase 0.2 measurements are recorded in
+The Phase 0.2 release measurements are recorded in
 [phase-0.2-results.json](research/phase-0.2-results.json), with a
 [readable findings report](research/phase-0.2-findings.md). They compare unmodified
 production baseline `07fec9b` and candidate source on the same interpreter and

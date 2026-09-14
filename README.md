@@ -12,12 +12,14 @@ both a genuine Pydantic `BaseModel` and a Python mutable mapping. It is designed
 to let existing mapping-oriented code consume models directly, and to let
 package authors keep internal records valid as they change.
 
-**Status: 0.2.0 prepared for release; Phase 0.2 passed independent review.**
-Version `0.1.0` was published to [PyPI](https://pypi.org/project/pydandict/0.1.0/)
-on 2026-09-13 from the immutable
-[`v0.1.0` tag](https://github.com/eddiethedean/pydandict/tree/v0.1.0).
-The checkout in [`src/pydandict`](src/pydandict/__init__.py) contains the unreleased
-Phase 0.2 changes with metadata version `0.2.0`; that version is not yet published.
+**Status: 0.2.0 released; Phase 0.2 passed independent review.**
+Version `0.2.0` is published to [PyPI](https://pypi.org/project/pydandict/0.2.0/)
+from the immutable [`v0.2.0` tag](https://github.com/eddiethedean/pydandict/tree/v0.2.0)
+on 2026-09-14. Version `0.1.0` was the preceding release
+([PyPI](https://pypi.org/project/pydandict/0.1.0/),
+[`v0.1.0` tag](https://github.com/eddiethedean/pydandict/tree/v0.1.0)).
+The checkout in [`src/pydandict`](src/pydandict/__init__.py) matches the released
+`0.2.0` package.
 See the [passed review](docs/reviews/phase-0.2-rereview-6.md), the
 [Phase 0.2 evidence](docs/research/phase-0.2-findings.md) for current qualification
 results and the [Phase 0.1 findings](docs/research/prototype-findings.md) for
@@ -200,8 +202,9 @@ See the [typing strategy](docs/typing.md).
 ## Contributing
 
 Start with [CONTRIBUTING.md](CONTRIBUTING.md). Design contributions should identify
-the invariant they preserve and the acceptance test that will prove it. The next
-step for 0.2.0 is the tag-gated [release process](docs/release.md).
+the invariant they preserve and the acceptance test that will prove it. The
+[release record](docs/release.md#020-release-record) documents the completed
+tag-gated publication.
 
 The package is distributed under the MIT license. Use the private GitHub channel
 described in [security reporting](SECURITY.md)

@@ -1,7 +1,7 @@
 # Security policy
 
-PydanDict is an alpha package. Version 0.1.0 is published; 0.2.0 is prepared for
-release. Security fixes target the latest published `0.x` series. Earlier alpha
+PydanDict is an alpha package. Version 0.2.0 is the latest published release.
+Security fixes target the latest published `0.x` series. Earlier alpha
 series may require upgrading, and pre-1.0 fixes may include documented breaking
 changes. See the [security design](docs/security-performance.md) for the validation
 boundary.

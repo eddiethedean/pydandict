@@ -4,7 +4,7 @@ This set contains the reviewed Phase 0.2 package contracts and historical
 prototype evidence. Start with the [root package](../src/pydandict/__init__.py),
 [Phase 0.2 contract](phase-0.2-plan.md), [evidence](research/phase-0.2-findings.md)
 and [passed review](reviews/phase-0.2-rereview-6.md). Version 0.1.0 is the published
-alpha; the checkout is prepared for 0.2.0, which is not yet published. The original
+alpha; version 0.2.0 is the current published release. The original
 [prototype guide](../prototypes/README.md) and
 [findings](research/prototype-findings.md) remain historical controls.
 

@@ -65,7 +65,7 @@ The [Phase 0.2 architecture and implementation contract](docs/phase-0.2-plan.md)
 defines the bounded change, resolved target decisions, AC-001–028, verification
 matrix and dependency-aware implementation sequence. The
 [independent review](docs/reviews/phase-0.2-rereview-6.md) verified AC-001–028.
-Version 0.2.0 is prepared for publication through the existing release workflow.
+Version 0.2.0 was published through the existing release workflow on 2026-09-14.
 
 Build directly on the Phase 0.1 package. Review and resolve the following before
 broader support and release qualification; keep existing behavior covered.
@@ -144,6 +144,10 @@ the `1.0` stable release.
 
 ## Release checklist
 
+The latest completed checkpoint is PydanDict 0.2.0, published on 2026-09-14
+through the tag-gated Trusted Publishing workflow. See the [0.2.0 release record](docs/release.md#020-release-record)
+and [qualification evidence](docs/research/release-0.2.0-results.json).
+
 Complete this checklist for every distributed checkpoint, scoped to its declared
 support envelope. For `1.0`, the nested lifetime contract and the complete quality
 bar are mandatory. Unchecked boxes here are future tasks, not passing results.
@@ -169,10 +173,12 @@ bar are mandatory. Unchecked boxes here are future tasks, not passing results.
   the published distribution. Record the result and corrective action if it fails.
 
 PyPI documents short-lived identity-based publishing in its
-[Trusted Publishing guide](https://docs.pypi.org/trusted-publishers/). This is the
-proposed release mechanism; it is not configured by this prototype update. A sole
+[Trusted Publishing guide](https://docs.pypi.org/trusted-publishers/). The
+Trusted Publisher is configured for this repository. A sole
 maintainer can perform the full release process; no separate human reviewer is a
-release prerequisite. This task does not publish artifacts or create release tags.
+release prerequisite. The original prototype task did not publish artifacts or
+create release tags; the completed 0.2.0 release followed this process through
+the tag-gated workflow.
 
 ## Version and support policy
 
