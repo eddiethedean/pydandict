@@ -392,7 +392,11 @@ def compile_validator(schema: object) -> SchemaValidator:
         for cls in classes:
             setattr(cls, "__pydantic_complete__", False)
         compiled = SchemaValidator(checked)
-        if _has_native_audit(checked):
+        # Canonical/Python rewrites remove the audit node from their schema, but
+        # user callbacks can still relay a native DictModel ValidationError. In
+        # that case the Rust payload retains our internal audit location and the
+        # public boundary must apply the same projection as native entries.
+        if _has_native_audit(checked) or _has_validation_callback(checked):
             return cast(SchemaValidator, _NativeValidator(compiled))
         return compiled
     except (TypeError, ValueError) as exc:
