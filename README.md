@@ -147,7 +147,7 @@ See the [typing strategy](docs/typing.md).
 | [Interoperability](docs/interoperability.md) | What existing consumers can and cannot assume |
 | [Competition](docs/competitive-landscape.md) | Alternatives and focused positioning |
 | [Testing](docs/testing.md) | Acceptance cases and release gates |
-| [Roadmap](docs/roadmap.md) | Sequenced implementation and release policy |
+| [Roadmap](ROADMAP.md) | Sequenced implementation and release policy |
 | [Security and performance](docs/security-performance.md) | Trust boundary, costs, benchmarks |
 | [Decision log](docs/decisions/README.md) | Established requirements and proposed choices |
 | [Upstream evidence](docs/research/upstream-behavior.md) | Sources and reproducible baseline observations |

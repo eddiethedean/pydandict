@@ -30,7 +30,7 @@ is the authority for mutator behavior; examples elsewhere must agree with it.
 [nested ownership](nested-values.md), [typing](typing.md).
 
 **Reviewing a release:** [compatibility](compatibility.md), [testing](testing.md),
-[security/performance](security-performance.md), [roadmap](roadmap.md),
+[security/performance](../ROADMAP.md), [roadmap](../ROADMAP.md),
 [contributing](../CONTRIBUTING.md), [upstream evidence](research/upstream-behavior.md).
 
 ## Requirement traceability
@@ -46,7 +46,7 @@ is the authority for mutator behavior; examples elsewhere must agree with it.
 | R7 | Serializers, JSON Schema, FastAPI remain useful | [Compatibility](compatibility.md) | Differential tests T8 |
 | R8 | Strong Pyright support | [Typing](typing.md) | Strict consumer tests T10 |
 | R9 | Useful as a dependency for internal dictionaries | [Product](product.md), [security/performance](security-performance.md) | Consumer tests and benchmarks T9, T11 |
-| R10 | Focused v1 without unrelated collections or state frameworks | [Roadmap](roadmap.md) | Scope/release review T12 |
+| R10 | Focused v1 without unrelated collections or state frameworks | [Roadmap](../ROADMAP.md) | Scope/release review T12 |
 
 T1–T12 are defined in the [testing strategy](testing.md). Every implementation PR
 should name the relevant requirement and test group.
@@ -63,5 +63,5 @@ should name the relevant requirement and test group.
    methods can bypass a naive mapping implementation.
 5. Exact Python/dependency bounds and an open-source license are unselected.
 
-See [roadmap gates](roadmap.md) for the next concrete work, and
+See [roadmap gates](../ROADMAP.md) for the next concrete work, and
 [recorded probes](research/upstream-behavior.md) for what has actually been tested.

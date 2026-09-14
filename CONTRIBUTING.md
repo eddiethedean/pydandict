@@ -45,7 +45,7 @@ prototype demonstrated one method.
 
 ## Implementation workflow after M1
 
-Follow the [roadmap](docs/roadmap.md). The packaging milestone will introduce
+Follow the [roadmap](ROADMAP.md). The packaging milestone will introduce
 `pyproject.toml`, a `src` layout, selected development dependencies, CI, and actual
 test commands. Expected tools are pytest, Hypothesis, Ruff, and Pyright; exact
 versions/configuration must be added with working code, not assumed here.
@@ -57,7 +57,7 @@ APIs; justify and test private access across the supported matrix.
 
 Before a code PR is ready, run the relevant correctness/type checks, verify examples
 against the built package when applicable, and update documentation for observable
-changes. Before a release, complete the entire [release checklist](docs/roadmap.md).
+changes. Before a release, complete the entire [release checklist](ROADMAP.md).
 
 ## Review checklist
 
