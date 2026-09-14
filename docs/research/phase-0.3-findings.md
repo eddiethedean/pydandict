@@ -1,6 +1,6 @@
 # Phase 0.3 qualification findings
 
-Source commit: ``
+Source commit: `66be92f394a77f6dd94396c531831e3584443280`
 
 This record was generated after direct and sdist-rebuilt wheel qualification. Both isolated bare environments executed the installed `examples/library_config.py` workflow with `PYTHONPATH` cleared. See `phase-0.3-results.json` for exact commands, resolved dependencies and SHA-256 artifact identities.
 
