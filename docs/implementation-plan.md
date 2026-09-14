@@ -54,6 +54,11 @@ failures before the team spends effort polishing a scalar-only implementation.
 
 ## Questions carried into Phase 0.2
 
+The [Phase 0.2 implementation contract](phase-0.2-plan.md) resolves the target
+decisions for these questions and defines their observable acceptance criteria.
+The table below preserves the questions and experiment rationale; it does not
+leave architectural choices open for the Phase 0.2 implementer.
+
 | Question | Required experiment / decision |
 | --- | --- |
 | Can canonical stored state be revalidated? | Compare supported idempotent validators with representation-specific and non-idempotent controls; document drift, hook calls, and rejection limits. Arbitrary validator semantics cannot be inferred automatically. |

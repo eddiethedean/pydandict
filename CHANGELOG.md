@@ -2,7 +2,11 @@
 
 ## Unreleased
 
-No unreleased changes.
+### Documentation
+
+- Add the bounded Phase 0.2 architecture and implementation contract, with
+  resolved target decisions, AC-001–028, verification matrix and implementation
+  sequence. This planning change does not implement or release Phase 0.2.
 
 ## 0.1.0 - 2026-09-13
 

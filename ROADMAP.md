@@ -61,6 +61,11 @@ built from the matching `v0.1.0` tag.
 
 ## 0.2 — Prototype hardening and contract finalization
 
+The [Phase 0.2 architecture and implementation contract](docs/phase-0.2-plan.md)
+defines the bounded change, resolved target decisions, AC-001–028, verification
+matrix and dependency-aware implementation sequence. It is ready for implementation;
+the checkboxes below remain open until its requirements have passing evidence.
+
 Build directly on the Phase 0.1 package. Review and resolve the following before
 broader support and release qualification; keep existing behavior covered.
 

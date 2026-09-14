@@ -157,6 +157,7 @@ See the [typing strategy](docs/typing.md).
 | Document | Purpose |
 | --- | --- |
 | [Phase 0.1 package](src/pydandict/__init__.py) | Installable `DictModel` implementation |
+| [Phase 0.2 implementation contract](docs/phase-0.2-plan.md) | Bounded architecture, public contract, acceptance criteria and verification plan |
 | [Prototype guide](prototypes/README.md) | Reproducible evidence commands and runnable example |
 | [Prototype findings](docs/research/prototype-findings.md) | Demonstrated solutions, evidence and remaining limitations |
 | [Documentation index](docs/README.md) | Reading paths and requirement traceability |

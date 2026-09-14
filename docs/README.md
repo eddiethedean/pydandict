@@ -2,7 +2,10 @@
 
 This set contains the Phase 0.1 package contracts and evidence from its integrated
 prototype. Start with the [root package](../src/pydandict/__init__.py), [prototype guide](../prototypes/README.md)
-and [findings](research/prototype-findings.md). There is no supported public release.
+and [findings](research/prototype-findings.md). Version 0.1.0 is a published alpha
+limited to its documented envelope. The
+[Phase 0.2 implementation contract](phase-0.2-plan.md) is the next bounded change;
+it is planned, not implemented or released.
 
 ## Status vocabulary
 
@@ -38,6 +41,7 @@ is the authority for mutator behavior; examples elsewhere must agree with it.
 [contributing](../CONTRIBUTING.md), [upstream evidence](research/upstream-behavior.md).
 
 **Starting implementation:** [work packages](implementation-plan.md),
+[Phase 0.2 contract and acceptance criteria](phase-0.2-plan.md),
 [roadmap priorities](../ROADMAP.md#priorities-and-critical-path),
 [gate decisions](decisions/README.md#open-gates). W01–W05 form the Phase 0.1
 baseline; Phase 0.2 hardens and finalizes its production contracts.

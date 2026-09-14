@@ -40,6 +40,23 @@ identity-writeback behavior, root retention and concrete-container limitations.
 Baseline acceptance does not silently turn these experimental choices into a
 universal Pydantic compatibility promise.
 
+## Phase 0.2 implementation targets
+
+These are resolved requirements for the
+[Phase 0.2 implementation contract](../phase-0.2-plan.md), not claims about the
+published 0.1.0 implementation. D07–D17/D19 retain their historical proposed status
+above; the contract adopts their specified behavior within the bounded Phase 0.2
+envelope. Mark targets verified only when their acceptance evidence passes.
+
+| ID | Decision | Status | Rationale and consequence |
+| --- | --- | --- | --- |
+| D23 | Require mutable ABC field annotations and explicit generic specialization; reject concrete mutable annotations recursively; retain ordinary input and serialized shapes | Phase 0.2 target; not shipped | Resolves D20's runtime/type mismatch without lying in stubs or adding public collections; explicit alpha migration required. |
+| D24 | Keep canonical Python/context-none mutations, rerunnable schema-sound validators, current hook exclusions and stable fail-closed diagnostics | Phase 0.2 target; not shipped | Arbitrary validator effects cannot be inferred or rolled back; explicit support limits and counterexample tests replace a blanket compatibility claim. |
+| D25 | Exact currently stored owned-handle single-slot assignment is a policy-checked identity no-op; bulk updates remain replacements | Phase 0.2 target; not shipped | Manual identity assignment and augmented writeback share behavior; freeze checks precede the shortcut and one supported augmented operation commits once. |
+| D26 | Container iterators invalidate after any committed root change; model key iterators invalidate only on local ordered-key changes | Phase 0.2 target; not shipped | Conservative, explicit behavior matches pointer-swap ownership; failed/no-op operations do not invalidate, and exhausted iterators stay exhausted. |
+| D27 | Retained handles keep roots alive; detached removals/model copies/guard deepcopies return usable independent graphs | Phase 0.2 target; not shipped | Finalizes ownership lifecycle without stale public results or uninstalled candidates; collection and bounded bookkeeping require tests. |
+| D28 | Isolate the pinned Pydantic adapter, strictly check all production source, verify actual negative diagnostics and qualify installed production artifacts on the declared CI matrix | Phase 0.2 target; not shipped | Resolves D21 auditability and observed CI gaps; no neighboring dependency support or historical prototype evidence is implied. |
+
 ## Alternatives considered
 
 **Wrap a `RootModel[dict]`:** useful for homogeneous mappings, but does not directly
