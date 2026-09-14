@@ -1,6 +1,17 @@
 # 0.3.0 release readiness
 
-Status: **release preparation verified locally and in CI; ready for explicit publication**.
+Status: **native strings-ingress remediation in verification; renewed review required**.
+
+The independent final release check reopened SOL-017 as FINAL-001 on source
+`5cb5587990ba96d535c9b970406b99e28aa4cabc`: native strings coercion could erase an
+unsupported string subclass or enum before the closed-value audit. The current
+[remediation investigation](phase-0.3-strings-ingress-investigation.md) records
+the fix and its compatibility boundary. Earlier green gates below remain
+historical evidence, not approval of this changed implementation. Normal
+production review must PASS again before another independent final release check.
+
+The following records describe the earlier preparation candidate:
+
 No tag or publication was initiated. All preparation changes were committed and
 pushed after local verification. The committed 0.3.0 candidate passed the complete
 CI matrix; publication and final changelog dating remain separate actions.

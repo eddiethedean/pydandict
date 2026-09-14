@@ -2,18 +2,174 @@
 
 from __future__ import annotations
 
+import json
+import re
 from collections.abc import Callable, Mapping
 from typing import Any, TypeVar, cast
 
 import pydantic
 from pydantic import BaseModel, ConfigDict, GetCoreSchemaHandler
 from pydantic.fields import FieldInfo
-from pydantic_core import CoreSchema, SchemaValidator
+from pydantic_core import CoreSchema, SchemaValidator, ValidationError
 from pydantic_core import core_schema as schema_tools
 
 SUPPORTED_PYDANTIC_VERSION = "2.13.4"
 M = TypeVar("M", bound=BaseModel)
 SlotUpdate = tuple[object, str, object]
+
+# A callable discriminator observes the original native input without replacing
+# it. Its one-choice tag is an implementation detail, never a public error path.
+_AUDIT_TAG = f"__pydandict_input_audit_{id(SlotUpdate):x}__"
+
+
+class _NativeValidationError(ValidationError):
+    """Keep the native error payload, exposing paths without our internal tag.
+
+    Equal native layouts (empty slots) let us retain the actual Rust line errors,
+    including custom error templates, context, input mode and hide-input policy.
+    Reconstructing errors from rendered messages would lose that information.
+    """
+
+    __slots__ = ()
+
+    def errors(self, **kwargs: Any) -> Any:
+        errors = super().errors(**kwargs)
+        for error in errors:
+            error["loc"] = tuple(part for part in error["loc"] if part != _AUDIT_TAG)
+        return errors
+
+    def json(self, **kwargs: Any) -> str:
+        native = json.loads(super().json(**kwargs))
+        for error in native:
+            error["loc"] = [part for part in error["loc"] if part != _AUDIT_TAG]
+        indent = kwargs.get("indent")
+        return json.dumps(
+            native,
+            indent=indent,
+            ensure_ascii=False,
+            separators=(",", ":") if indent is None else None,
+        )
+
+    def __str__(self) -> str:
+        # Only location lines are changed: message/input lines can contain the
+        # same text and must retain the native formatting and hide-input policy.
+        rendered = super().__str__()
+        locations = {
+            ".".join(str(part) for part in error["loc"]): ".".join(
+                str(part) for part in error["loc"] if part != _AUDIT_TAG
+            )
+            for error in super().errors(include_input=False, include_context=False)
+        }
+        for location, cleaned in locations.items():
+            if _AUDIT_TAG in location:
+                rendered = re.sub(
+                    rf"(?m)^{re.escape(location)}\n",
+                    lambda _: (cleaned + "\n") if cleaned else "",
+                    rendered,
+                )
+        return rendered
+
+    def __repr__(self) -> str:
+        return str(self)
+
+
+class _NativeValidator:
+    """Transparent entry wrapper; compiled validation still runs in Rust."""
+
+    def __init__(self, validator: Any) -> None:
+        self._validator = validator
+
+    def __getattr__(self, name: str) -> Any:
+        value = getattr(self._validator, name)
+        if name not in (
+            "validate_python",
+            "validate_json",
+            "validate_strings",
+            "validate_assignment",
+        ):
+            return value
+
+        def validate(*args: Any, **kwargs: Any) -> Any:
+            try:
+                return value(*args, **kwargs)
+            except ValidationError as error:
+                if any(_AUDIT_TAG in item["loc"] for item in error.errors()):
+                    error.__class__ = _NativeValidationError
+                raise
+
+        return validate
+
+
+def _has_native_audit(value: Any) -> bool:
+    if isinstance(value, dict):
+        node = cast(dict[str, Any], value)
+        return bool(node.get("metadata", {}).get("pydandict_input_audit")) or any(
+            _has_native_audit(child)
+            for key, child in node.items()
+            if key not in ("metadata", "serialization")
+        )
+    if isinstance(value, (list, tuple)):
+        return any(_has_native_audit(child) for child in cast(list[Any] | tuple[Any, ...], value))
+    return False
+
+
+def _has_validation_callback(value: Any) -> bool:
+    # A user callback may relay a DictModel ValidationError into a schema that
+    # does not itself contain DictModel. Rust retains the original native payload
+    # when relaying it, so that outer public boundary also needs path projection.
+    if isinstance(value, dict):
+        node = cast(dict[str, Any], value)
+        return (
+            str(node.get("type", "")).startswith("function-")
+            or bool(node.get("default_factory"))
+            or any(
+                _has_validation_callback(child)
+                for key, child in node.items()
+                if key not in ("metadata", "serialization")
+            )
+        )
+    if isinstance(value, (list, tuple)):
+        return any(
+            _has_validation_callback(child) for child in cast(list[Any] | tuple[Any, ...], value)
+        )
+    return False
+
+
+def _audit_json_schema(schema: Any, handler: Any) -> Any:
+    return handler(schema["choices"][_AUDIT_TAG])
+
+
+def _install_native_entries() -> None:
+    """Adapt the pinned factories for audits and callback error relays.
+
+    Containing ordinary models and TypeAdapters own the public error boundary,
+    so their factories need the same adapter as standalone DictModel entries.
+    Preserve existing factory/plugin integrations; schemas with neither an audit
+    nor a validation callback retain their original validator. This compatibility
+    module and requires requalification whenever the pinned runtime changes.
+    """
+    import pydantic._internal._dataclasses as dataclasses
+    import pydantic._internal._model_construction as models
+    import pydantic.plugin._schema_validator as plugins
+    import pydantic.type_adapter as adapters
+
+    for module in (models, dataclasses, adapters, plugins):
+        original = module.create_schema_validator
+        if getattr(original, "_pydandict_native_entry", False):
+            continue
+
+        def make_factory(factory: Any) -> Any:
+            def create(*args: Any, **kwargs: Any) -> Any:
+                result = factory(*args, **kwargs)
+                schema = kwargs.get("schema", args[0] if args else None)
+                if _has_native_audit(schema) or _has_validation_callback(schema):
+                    return _NativeValidator(result)
+                return result
+
+            create._pydandict_native_entry = True  # pyright: ignore[reportFunctionMemberAccess]
+            return create
+
+        setattr(module, "create_schema_validator", make_factory(original))
 
 
 def _native_model_schema(node: dict[str, Any]) -> dict[str, Any]:
@@ -228,7 +384,10 @@ def compile_validator(schema: object) -> SchemaValidator:
     try:
         for cls in classes:
             setattr(cls, "__pydantic_complete__", False)
-        return SchemaValidator(checked)
+        compiled = SchemaValidator(checked)
+        if _has_native_audit(checked):
+            return cast(SchemaValidator, _NativeValidator(compiled))
+        return compiled
     except (TypeError, ValueError) as exc:
         raise _incompatible("validator schema could not be compiled") from exc
     finally:
@@ -238,6 +397,8 @@ def compile_validator(schema: object) -> SchemaValidator:
 
 def validator(cls: type[BaseModel]) -> SchemaValidator:
     result = getattr(cls, "__pydantic_validator__", None)
+    if isinstance(result, _NativeValidator):
+        result = result.__dict__["_validator"]
     if not isinstance(result, SchemaValidator):
         raise _incompatible("model validator has an incompatible shape")
     return result
@@ -401,6 +562,8 @@ def _python_schema(value: Any) -> Any:
     if isinstance(value, dict):
         node = cast(dict[str, Any], value)
         metadata = node.get("metadata", {})
+        if metadata.get("pydandict_input_audit"):
+            return _python_schema(node["choices"][_AUDIT_TAG])
         if metadata.get("pydandict_entry_boundary"):
             result = _python_schema(node["json_schema"])
             if "ref" in node:
@@ -503,19 +666,30 @@ def wrap_model_schema(
             raise _incompatible("model serializer received an incompatible value")
         return next_serializer(snapshot(value))
 
-    # The public schema remains model-shaped for Pydantic's discriminated-union
-    # inference. No root callback runs until native input has been validated.
+    def audit_input(value: Any) -> str:
+        detach(value)
+        return _AUDIT_TAG
+
+    # Discriminator callbacks retain the original native Input and validation
+    # state, unlike before/wrap callbacks. Audit before any coercion or callback.
+    audited = schema_tools.tagged_union_schema(
+        {_AUDIT_TAG: cast(CoreSchema, _native_schema(schema, detach))},
+        audit_input,
+        metadata={
+            "pydandict_input_audit": True,
+            "pydantic_js_functions": [_audit_json_schema],
+        },
+    )
     native = schema_tools.no_info_after_validator_function(
         finish_native,
-        cast(CoreSchema, _native_schema(schema, detach)),
+        audited,
         metadata={"pydandict_native_boundary": True, "pydandict_python_function": validate},
         serialization=schema_tools.wrap_serializer_function_ser_schema(serialize, info_arg=True),
     )
     python = schema_tools.no_info_before_validator_function(detach, native)
-    # Keep dispatch at the compiled root: pydantic-core may reuse this validator
-    # for an embedded model-shaped node, preserving the Python guard even when
-    # the containing model/collection is not a DictModel. A function-after root
-    # disables that reuse and leaves only the native branch under embedding.
+    # Keep standalone mode dispatch at the root. Embedded model-shaped nodes
+    # also contain the discriminator audit: they remain safe when the entry
+    # adapter prevents pydantic-core's prebuilt-validator reuse.
     return schema_tools.json_or_python_schema(
         native,
         cast(CoreSchema, python),
@@ -613,3 +787,4 @@ def extra_value_annotation(cls: type[BaseModel]) -> object | None:
 
 
 ensure_supported()
+_install_native_entries()
