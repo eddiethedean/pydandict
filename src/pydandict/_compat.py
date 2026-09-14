@@ -5,6 +5,7 @@ from __future__ import annotations
 import json
 import re
 from collections.abc import Callable, Mapping
+from functools import wraps
 from typing import Any, TypeVar, cast
 
 import pydantic
@@ -71,6 +72,66 @@ class _NativeValidationError(ValidationError):
 
     def __repr__(self) -> str:
         return str(self)
+
+
+def _project_native_error(error: ValidationError) -> None:
+    """Project an audit location on an error crossing a public Pydantic API."""
+    if any(_AUDIT_TAG in item["loc"] for item in error.errors()):
+        error.__class__ = _NativeValidationError
+
+
+def _install_public_error_projection() -> None:
+    """Cover validators compiled before the private factory adapters were installed.
+
+    Existing BaseModel and TypeAdapter validators cannot be retroactively replaced.
+    Their public entry points still expose the same native error object, so a thin
+    exception boundary removes only pydandict's internal audit component while
+    preserving the original call signatures and native payload.
+    """
+    base_methods = (
+        "model_validate",
+        "model_validate_json",
+        "model_validate_strings",
+    )
+    for name in base_methods:
+        original = getattr(BaseModel, name)
+        if getattr(original, "_pydandict_error_projection", False):
+            continue
+        function = original.__func__
+
+        @wraps(function)
+        def wrapped(
+            cls: type[BaseModel], *args: Any, __function: Any = function, **kwargs: Any
+        ) -> Any:
+            try:
+                return __function(cls, *args, **kwargs)
+            except ValidationError as error:
+                _project_native_error(error)
+                raise
+
+        wrapped._pydandict_error_projection = True  # pyright: ignore[reportAttributeAccessIssue]
+        setattr(BaseModel, name, classmethod(wrapped))
+
+    from pydantic import TypeAdapter
+
+    adapter_methods = ("validate_python", "validate_json", "validate_strings")
+    for name in adapter_methods:
+        original = getattr(TypeAdapter, name)
+        if getattr(original, "_pydandict_error_projection", False):
+            continue
+
+        @wraps(original)
+        def wrapped_adapter(
+            self: TypeAdapter[Any], *args: Any, __function: Any = original, **kwargs: Any
+        ) -> Any:
+            try:
+                return __function(self, *args, **kwargs)
+            except ValidationError as error:
+                _project_native_error(error)
+                raise
+
+        wrapped_adapter._pydandict_error_projection = True  # pyright: ignore[reportAttributeAccessIssue]
+        setattr(TypeAdapter, name, wrapped_adapter)
 
 
 class _NativeValidator:
@@ -799,3 +860,4 @@ def extra_value_annotation(cls: type[BaseModel]) -> object | None:
 
 ensure_supported()
 _install_native_entries()
+_install_public_error_projection()
