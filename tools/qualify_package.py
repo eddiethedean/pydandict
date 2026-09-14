@@ -145,7 +145,7 @@ def main() -> int:
                 "dist = distribution('pydandict')\n"
                 "assert dist.metadata['Name'] == 'pydandict'\n"
                 "assert dist.version == '0.2.0'\n"
-                "assert dist.metadata['License'] == 'MIT'\n"
+                "assert dist.metadata['License-Expression'] == 'MIT'\n"
                 "runtime = [item for item in (dist.requires or []) if 'extra ==' not in item]\n"
                 "assert runtime == ['pydantic==2.13.4'], runtime\n"
                 "licenses = [item for item in (dist.files or []) "
