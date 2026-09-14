@@ -1,8 +1,9 @@
 # 0.3.0 release readiness
 
-Status: **local preparation and verification complete; committed-candidate CI pending**.
-No tag or publication was initiated. The user has approved committing and pushing
-all preparation changes after local verification; exact-candidate CI remains pending.
+Status: **release preparation verified locally and in CI; ready for explicit publication**.
+No tag or publication was initiated. All preparation changes were committed and
+pushed after local verification. The committed 0.3.0 candidate passed the complete
+CI matrix; publication and final changelog dating remain separate actions.
 
 ## Prepared change
 
@@ -21,6 +22,20 @@ all preparation changes after local verification; exact-candidate CI remains pen
   and all 16 prior blockers. Its historical source identity is preserved.
 
 ## Verification and provenance
+
+The committed release-preparation source
+`c026ab857a3641803f7743722a4d33260470ffeb` passed
+[CI run 34901690786](https://github.com/eddiethedean/pydandict/actions/runs/34901690786):
+all eight compatibility, both artifact/benchmark and documentation jobs succeeded.
+Every runtime lane passed 580 tests, strict positive/negative typing and 100%
+public completeness. Actual interpreters were Linux 3.11.16/3.12.14/3.13.15/3.14.7,
+macOS 3.11.9/3.14.7 and Windows 3.11.9/3.14.7. Both artifact lanes recorded version
+0.3.0, 31 qualification commands, installed metadata and exactly four negative
+typing diagnostics per wheel. Their source, hashes and actual outputs are retained
+in [final execution](release-0.3.0-final-execution.json).
+Release-only preflight was correctly skipped on this branch push.
+The 46 measured components match the local source below; later documentation-only
+closure does not relabel either measured source or its artifact hashes.
 
 The final committed local candidate is
 `7201c3f6ff59d82d8eeceabc4fb7ff346f901651`. Its refreshed README and 0.3.0
@@ -119,19 +134,15 @@ The existing main-base [CI run](https://github.com/eddiethedean/pydandict/action
 passed all 11 applicable jobs, but predates the 0.3.0 metadata/helper changes.
 It is not CI approval of this new release-preparation source.
 
-Still required before tagging:
+Still required for publication:
 
-1. Commit/push the prepared source after local verification and run the existing complete
-   CI matrix on that exact commit. Confirm all eight runtime, two artifact and
-   docs jobs; preserve their actual source/version/hash identities.
-2. Explicitly initiate publication, finalize the changelog date and verify gates
+1. Explicitly initiate publication, finalize the changelog date and verify gates
    for that final commit before creating/pushing `v0.3.0`. The existing tag workflow
    additionally enables release-only preflight and validates tag/version equality.
-3. After the explicitly initiated workflow publishes, verify installed PyPI
+2. After the explicitly initiated workflow publishes, verify installed PyPI
    artifacts and record the release result. Do not predeclare that verification.
 
-There are no known runtime release blockers. The remaining obstacle to an
-unqualified release-ready declaration is committed-candidate CI, not Phase 0.3
-implementation correctness. Historical follow-up issue #2 and editorial review
+There are no known release blockers, and committed-candidate CI is verified.
+Historical follow-up issue #2 and editorial review
 observations do not reopen the blocker loop; the README status observation is
 resolved by this preparation.

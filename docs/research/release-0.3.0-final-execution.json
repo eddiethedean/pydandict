@@ -114,8 +114,168 @@
     "disclosure": "Protocol/source/count checks passed; no numeric performance release ceiling. Only selected summary retained, not the unrelated global-environment dependency freeze."
   },
   "ci": {
-    "status": "pending",
-    "disclosure": "Local verification is not all-platform CI approval. Evidence-only commits do not relabel measured source/artifact identities."
+    "source_commit": "c026ab857a3641803f7743722a4d33260470ffeb",
+    "status": "success",
+    "url": "https://github.com/eddiethedean/pydandict/actions/runs/34901690786",
+    "applicable_jobs_passed": 11,
+    "jobs": [
+      {
+        "name": "Run checks / Production artifact qualification (Python 3.11)",
+        "status": "completed",
+        "conclusion": "success",
+        "databaseId": 104168893780
+      },
+      {
+        "name": "Run checks / Compatibility (ubuntu-latest, Python 3.14)",
+        "status": "completed",
+        "conclusion": "success",
+        "databaseId": 104168893987
+      },
+      {
+        "name": "Run checks / Documentation checks",
+        "status": "completed",
+        "conclusion": "success",
+        "databaseId": 104168893988
+      },
+      {
+        "name": "Run checks / Compatibility (ubuntu-latest, Python 3.12)",
+        "status": "completed",
+        "conclusion": "success",
+        "databaseId": 104168894021
+      },
+      {
+        "name": "Run checks / Compatibility (ubuntu-latest, Python 3.13)",
+        "status": "completed",
+        "conclusion": "success",
+        "databaseId": 104168894041
+      },
+      {
+        "name": "Run checks / Compatibility (macos-latest, Python 3.14)",
+        "status": "completed",
+        "conclusion": "success",
+        "databaseId": 104168894047
+      },
+      {
+        "name": "Run checks / Production artifact qualification (Python 3.14)",
+        "status": "completed",
+        "conclusion": "success",
+        "databaseId": 104168894067
+      },
+      {
+        "name": "Run checks / Compatibility (windows-latest, Python 3.14)",
+        "status": "completed",
+        "conclusion": "success",
+        "databaseId": 104168894091
+      },
+      {
+        "name": "Run checks / Compatibility (ubuntu-latest, Python 3.11)",
+        "status": "completed",
+        "conclusion": "success",
+        "databaseId": 104168894179
+      },
+      {
+        "name": "Run checks / Compatibility (macos-latest, Python 3.11)",
+        "status": "completed",
+        "conclusion": "success",
+        "databaseId": 104168894183
+      },
+      {
+        "name": "Run checks / Compatibility (windows-latest, Python 3.11)",
+        "status": "completed",
+        "conclusion": "success",
+        "databaseId": 104168894262
+      },
+      {
+        "name": "Run checks / Production package preflight",
+        "status": "completed",
+        "conclusion": "skipped",
+        "databaseId": 104168895359
+      }
+    ],
+    "runtime_logs": [
+      {
+        "job_id": 104168893987,
+        "name": "Run checks / Compatibility (ubuntu-latest, Python 3.14)",
+        "selected_actual_output": "2026-09-14T21:58:33.0532306Z Successfully set up CPython (3.14.7)\n2026-09-14T21:58:49.3153889Z All checks passed!\n2026-09-14T21:58:49.4210533Z 34 files already formatted\n2026-09-14T22:01:55.5594031Z 580 passed, 2 warnings in 184.47s (0:03:04)\n2026-09-14T22:01:59.9380682Z strict positive and negative typing checks passed\n2026-09-14T22:02:01.2543096Z Type completeness score: 100%\n"
+      },
+      {
+        "job_id": 104168894021,
+        "name": "Run checks / Compatibility (ubuntu-latest, Python 3.12)",
+        "selected_actual_output": "2026-09-14T21:58:31.6068442Z Successfully set up CPython (3.12.14)\n2026-09-14T21:58:46.7475089Z All checks passed!\n2026-09-14T21:58:46.7624578Z 34 files already formatted\n2026-09-14T22:03:55.0022219Z 580 passed, 2 warnings in 307.92s (0:05:07)\n2026-09-14T22:04:00.2496105Z strict positive and negative typing checks passed\n2026-09-14T22:04:01.8472579Z Type completeness score: 100%\n"
+      },
+      {
+        "job_id": 104168894041,
+        "name": "Run checks / Compatibility (ubuntu-latest, Python 3.13)",
+        "selected_actual_output": "2026-09-14T21:58:32.1356521Z Successfully set up CPython (3.13.15)\n2026-09-14T21:58:44.9742013Z All checks passed!\n2026-09-14T21:58:44.9858904Z 34 files already formatted\n2026-09-14T22:02:18.4004354Z 580 passed, 2 warnings in 213.16s (0:03:33)\n2026-09-14T22:02:22.5646015Z strict positive and negative typing checks passed\n2026-09-14T22:02:23.6605659Z Type completeness score: 100%\n"
+      },
+      {
+        "job_id": 104168894047,
+        "name": "Run checks / Compatibility (macos-latest, Python 3.14)",
+        "selected_actual_output": "2026-09-14T21:58:36.7637700Z Successfully set up CPython (3.14.7)\n2026-09-14T21:58:49.8756950Z All checks passed!\n2026-09-14T21:58:49.9044840Z 34 files already formatted\n2026-09-14T22:01:57.1615310Z 580 passed, 2 warnings in 186.79s (0:03:06)\n2026-09-14T22:02:01.5876800Z strict positive and negative typing checks passed\n2026-09-14T22:02:02.6323790Z Type completeness score: 100%\n"
+      },
+      {
+        "job_id": 104168894091,
+        "name": "Run checks / Compatibility (windows-latest, Python 3.14)",
+        "selected_actual_output": "2026-09-14T21:58:36.0794963Z Successfully set up CPython (3.14.7)\r\n2026-09-14T21:59:10.5027372Z All checks passed!\r\n2026-09-14T21:59:10.5477510Z 34 files already formatted\r\n2026-09-14T22:03:25.0837300Z 580 passed, 2 warnings in 253.12s (0:04:13)\r\n2026-09-14T22:03:34.9925682Z strict positive and negative typing checks passed\r\n2026-09-14T22:03:37.5089617Z Type completeness score: 100%\r\n"
+      },
+      {
+        "job_id": 104168894179,
+        "name": "Run checks / Compatibility (ubuntu-latest, Python 3.11)",
+        "selected_actual_output": "2026-09-14T21:58:41.5587615Z Successfully set up CPython (3.11.16)\n2026-09-14T21:58:54.8059587Z All checks passed!\n2026-09-14T21:58:54.8199456Z 34 files already formatted\n2026-09-14T22:02:51.3493331Z 580 passed, 2 warnings in 236.26s (0:03:56)\n2026-09-14T22:02:56.5112864Z strict positive and negative typing checks passed\n2026-09-14T22:02:58.1470823Z Type completeness score: 100%\n"
+      },
+      {
+        "job_id": 104168894183,
+        "name": "Run checks / Compatibility (macos-latest, Python 3.11)",
+        "selected_actual_output": "2026-09-14T21:59:15.3029740Z Successfully set up CPython (3.11.9)\n2026-09-14T21:59:24.8430640Z All checks passed!\n2026-09-14T21:59:24.8621720Z 34 files already formatted\n2026-09-14T22:01:53.0244650Z 580 passed, 2 warnings in 147.90s (0:02:27)\n2026-09-14T22:01:55.8172950Z strict positive and negative typing checks passed\n2026-09-14T22:01:56.6584300Z Type completeness score: 100%\n"
+      },
+      {
+        "job_id": 104168894262,
+        "name": "Run checks / Compatibility (windows-latest, Python 3.11)",
+        "selected_actual_output": "2026-09-14T21:59:23.5435593Z Successfully set up CPython (3.11.9)\r\n2026-09-14T22:00:05.2187336Z All checks passed!\r\n2026-09-14T22:00:05.2539110Z 34 files already formatted\r\n2026-09-14T22:04:59.4178512Z 580 passed, 2 warnings in 293.24s (0:04:53)\r\n2026-09-14T22:05:09.1994195Z strict positive and negative typing checks passed\r\n2026-09-14T22:05:11.6779142Z Type completeness score: 100%\r\n"
+      }
+    ],
+    "artifact_qualifications": [
+      {
+        "source_commit": "c026ab857a3641803f7743722a4d33260470ffeb",
+        "version": "0.3.0",
+        "qualification_status": "qualified",
+        "python": "3.11.16 (main, Aug 13 2026, 02:46:14) [GCC 13.3.0]",
+        "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+        "sdist_sha256": "298b97a6f85424e6a46ff7ccee73dd8a9e5cf3a78f0a7d502f09863e10c63139",
+        "direct_wheel_sha256": "ef0fa07dd55ee7a6b05f07ea961a9223b6785b1a70c5926ccfb99458681af0ed",
+        "rebuilt_wheel_sha256": "374480bd320df4ebc199256859b6a0507ebd4a4e44193879b2f64463ebf81a6f",
+        "commands": 31,
+        "checks": {
+          "direct_bare_import": "/tmp/pydandict-qualification-wzwmf5td/direct-bare/lib/python3.11/site-packages/pydandict/__init__.py\n",
+          "direct_metadata": "metadata verified\n",
+          "direct_negative_typing": "{\"expected_errors\": 4, \"actual_errors\": 4}\n",
+          "rebuilt_bare_import": "/tmp/pydandict-qualification-wzwmf5td/rebuilt-bare/lib/python3.11/site-packages/pydandict/__init__.py\n",
+          "rebuilt_metadata": "metadata verified\n",
+          "rebuilt_negative_typing": "{\"expected_errors\": 4, \"actual_errors\": 4}\n"
+        }
+      },
+      {
+        "source_commit": "c026ab857a3641803f7743722a4d33260470ffeb",
+        "version": "0.3.0",
+        "qualification_status": "qualified",
+        "python": "3.14.7 (main, Aug  6 2026, 02:19:46) [GCC 13.3.0]",
+        "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+        "sdist_sha256": "6bb23cf3a637d2ee6314b8e0f17b0e47d85a2f88d381a4c15ffce6e6a5e1aebd",
+        "direct_wheel_sha256": "6b74ebdcfd794ee13568be8da52bea3e88603e251ae10063b1bc4d12be160e8c",
+        "rebuilt_wheel_sha256": "a9ec46208032b87509a67f209e5380f20cc9a4c8d04c6ea7485213b45d9cf6ad",
+        "commands": 31,
+        "checks": {
+          "direct_bare_import": "/tmp/pydandict-qualification-h69xffc1/direct-bare/lib/python3.14/site-packages/pydandict/__init__.py\n",
+          "direct_metadata": "metadata verified\n",
+          "direct_negative_typing": "{\"expected_errors\": 4, \"actual_errors\": 4}\n",
+          "rebuilt_bare_import": "/tmp/pydandict-qualification-h69xffc1/rebuilt-bare/lib/python3.14/site-packages/pydandict/__init__.py\n",
+          "rebuilt_metadata": "metadata verified\n",
+          "rebuilt_negative_typing": "{\"expected_errors\": 4, \"actual_errors\": 4}\n"
+        }
+      }
+    ],
+    "release_preflight": "Correctly skipped on branch push; tag workflow requires it. No tag/publish run initiated.",
+    "source_reconciliation": "CI source c026ab8 adds only documentation/evidence to local qualified source 7201c3f. All 46 measured package/README/license/changelog/runtime/test/workflow/helper components are byte-identical. Documentation closure commits do not relabel measured local or CI source/artifact identities."
   },
   "evidence_documentation_recheck": {
     "markdown_files": 56,
@@ -123,5 +283,13 @@
     "python_examples": 11,
     "errors": 0,
     "whitespace": "passed"
+  },
+  "ci_closure_documentation_recheck": {
+    "markdown_files": 56,
+    "local_links": 303,
+    "python_examples": 11,
+    "errors": 0,
+    "whitespace": "passed",
+    "scope": "Only release documentation/evidence changed after CI; all 46 measured components unchanged."
   }
 }

@@ -77,7 +77,10 @@ Before tagging this candidate:
 - [x] Qualify new 0.3.0 direct/rebuilt wheels outside the checkout, including
   installed metadata, scalar/nested/HTTP consumers and static gates; see
   [local readiness and measured source](research/release-0.3.0-readiness.md).
-- [ ] Verify the complete CI matrix on the committed release-preparation source.
+- [x] Verify the complete CI matrix on the committed release-preparation source:
+  [run 34901690786](https://github.com/eddiethedean/pydandict/actions/runs/34901690786)
+  passed all 11 applicable jobs; actual measured source and artifact identities
+  are retained in [final execution](research/release-0.3.0-final-execution.json).
 - [ ] Explicitly initiate publication, finalize the changelog date and create
   `v0.3.0` at that verified commit. Do not move or reuse an existing release tag.
 
