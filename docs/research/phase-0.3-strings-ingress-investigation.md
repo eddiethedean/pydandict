@@ -113,6 +113,21 @@ An isolated Python 3.14 environment with the same pinned Pydantic/core also
 passed the **385-test** focused ingress/native/embedding matrix, including the
 native error-layout adapter and protected Sol verification.
 
+The verified production/test bytes were committed as
+`b919462ae6ab1eb01e9dd684a6b493360767c305`. A clean detached checkout of that
+commit passed fresh direct and sdist-rebuilt wheel qualification: **31 commands**,
+isolated imports/library/scalar/HTTP consumers, installed metadata, public
+completeness, positive typing and exactly four expected negative diagnostics per
+wheel. [Actual artifact evidence](phase-0.3-strings-ingress-artifacts.json) retains
+that measured source, command outputs, dependencies and artifact hashes. Earlier
+records were preserved. The initial artifact attempt selected an older system
+Python for Pyright and failed to find `typing.assert_type`; setting the Python
+3.11 toolchain PATH resolved that environmental failure without changing a gate.
+
+Python 3.14's focused matrix used interpreter **3.14.3** with Pydantic 2.13.4 and
+core 2.46.4. Other OS/interpreter lanes still require CI execution; local checks
+do not claim they ran.
+
 The release still requires normal production review followed by the independent
 final release check. Historical approvals and measurements refer to their actual
 earlier source revisions, not this remediation.
