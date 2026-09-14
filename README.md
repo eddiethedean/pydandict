@@ -12,12 +12,13 @@ both a genuine Pydantic `BaseModel` and a Python mutable mapping. It is designed
 to let existing mapping-oriented code consume models directly, and to let
 package authors keep internal records valid as they change.
 
-**Status: Phase 0.1 released; Phase 0.2 implemented, awaiting independent review.**
+**Status: 0.2.0 prepared for release; Phase 0.2 passed independent review.**
 Version `0.1.0` was published to [PyPI](https://pypi.org/project/pydandict/0.1.0/)
 on 2026-09-13 from the immutable
 [`v0.1.0` tag](https://github.com/eddiethedean/pydandict/tree/v0.1.0).
 The checkout in [`src/pydandict`](src/pydandict/__init__.py) contains the unreleased
-Phase 0.2 changes; its metadata still reads `0.1.0`. See the
+Phase 0.2 changes with metadata version `0.2.0`; that version is not yet published.
+See the [passed review](docs/reviews/phase-0.2-rereview-6.md), the
 [Phase 0.2 evidence](docs/research/phase-0.2-findings.md) for current qualification
 results and the [Phase 0.1 findings](docs/research/prototype-findings.md) for
 historical evidence. The original [prototype guide](prototypes/README.md) remains
@@ -33,6 +34,22 @@ projects and maintainer checks; no external trials or participants are required.
 Install the released package with `python -m pip install pydandict`. For a local
 source checkout, install the package and development tools with
 `python -m pip install -e ".[dev]"`.
+
+## Migrating from 0.1.0
+
+Version 0.2.0 intentionally narrows the alpha annotation contract:
+
+| Previous field annotation | Supported 0.2.0 annotation |
+| --- | --- |
+| `list[T]` | `collections.abc.MutableSequence[T]` |
+| `dict[K, V]` | `collections.abc.MutableMapping[K, V]` |
+| `set[T]` | `collections.abc.MutableSet[T]` |
+
+This applies recursively to nested and union annotations and typed-extra values.
+The outer `__pydantic_extra__: dict[str, V]` metadata declaration remains valid.
+Ordinary list/dict/set inputs and serialized shapes remain supported. Generic
+models require explicit specialization, such as `Box[int]` or
+`Box[MutableSequence[int]]`. See the [complete migration and support envelope](docs/phase-0.2-plan.md#annotation-and-owned-value-envelope).
 
 ## One model, two ways to work
 
@@ -157,7 +174,7 @@ See the [typing strategy](docs/typing.md).
 
 | Document | Purpose |
 | --- | --- |
-| [Phase 0.1 package](src/pydandict/__init__.py) | Installable `DictModel` implementation |
+| [Package source](src/pydandict/__init__.py) | Installable `DictModel` implementation |
 | [Phase 0.2 implementation contract](docs/phase-0.2-plan.md) | Bounded architecture, public contract, acceptance criteria and verification plan |
 | [Prototype guide](prototypes/README.md) | Reproducible evidence commands and runnable example |
 | [Prototype findings](docs/research/prototype-findings.md) | Demonstrated solutions, evidence and remaining limitations |
@@ -184,8 +201,8 @@ See the [typing strategy](docs/typing.md).
 
 Start with [CONTRIBUTING.md](CONTRIBUTING.md). Design contributions should identify
 the invariant they preserve and the acceptance test that will prove it. The next
-step for the Phase 0.2 changes is independent Sol review.
+step for 0.2.0 is the tag-gated [release process](docs/release.md).
 
-The package is distributed under the MIT license; package-name ownership and the
-private security reporting route remain pre-release checks. See [security reporting](SECURITY.md)
+The package is distributed under the MIT license. Use the private GitHub channel
+described in [security reporting](SECURITY.md)
 and the [changelog](CHANGELOG.md).

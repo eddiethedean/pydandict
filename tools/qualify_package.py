@@ -86,7 +86,9 @@ def main() -> int:
 
         def exercise(artifact: Path, label: str) -> None:
             bare = work / f"{label}-bare"
-            venv.EnvBuilder(with_pip=True, clear=True).create(bare)
+            # Match the venv CLI defaults: managed POSIX interpreters may need
+            # their original location to resolve shared libraries.
+            venv.EnvBuilder(with_pip=True, clear=True, symlinks=os.name != "nt").create(bare)
             bare_python = python_in(bare)
             execute([str(bare_python), "-m", "pip", "install", str(artifact)], work, env=clean_env)
             bare_consumer = (
@@ -121,7 +123,7 @@ def main() -> int:
             ).stdout
 
             environment = work / f"{label}-http"
-            venv.EnvBuilder(with_pip=True, clear=True).create(environment)
+            venv.EnvBuilder(with_pip=True, clear=True, symlinks=os.name != "nt").create(environment)
             isolated_python = python_in(environment)
             execute(
                 [

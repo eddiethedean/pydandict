@@ -45,7 +45,7 @@ and `py.typed`. The implementation keeps the transaction, compatibility and
 ownership mechanisms concentrated while the contracts are hardened; split them
 during Phase 0.2 when it improves auditability.
 
-The unreleased Phase 0.2 implementation now puts version-sensitive allocation,
+The reviewed Phase 0.2 implementation puts version-sensitive allocation,
 raw storage reads/swaps/restoration, schema variants and serializer delegation in
 `_compat.py`. Compiled validators are class-local and invalidated on rebuild.
 Private generic guards use a typed root callback coordinator; heterogeneous
@@ -60,8 +60,10 @@ private access in `_compat.py` with version-specific tests. Obtain fields from t
 class rather than deprecated instance-level field metadata access.
 
 Candidate extraction uses raw Python values and canonical field names, plus extras.
-It must preserve types that serialize differently, including dates, secrets,
-nested models, and custom types. Never use `model_dump()` as a lossless state copy:
+It must preserve supported types that serialize differently, including dates and
+nested `DictModel` values. Secret wrappers and arbitrary custom types are outside
+the [closed value envelope](phase-0.2-plan.md#annotation-and-owned-value-envelope).
+Never use `model_dump()` as a lossless state copy:
 serializers can transform values, exclude fields, or produce a non-object output.
 
 Candidate validation must accept canonical names internally regardless of external

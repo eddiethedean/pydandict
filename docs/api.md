@@ -1,23 +1,24 @@
-# Proposed API specification
+# API specification
 
-This is the Phase 0.1 package API. The original executable prototype remains under
+This is the Phase 0.2 package API, governed by the reviewed
+[implementation contract](phase-0.2-plan.md). The original executable prototype remains under
 `prototypes/pydandict_prototype`; its [findings](research/prototype-findings.md)
 identify tested behavior and deliberate limitations. See [decision status](decisions/README.md)
-before treating a contract as final.
+for the finalized support boundary and later roadmap work.
 
 ## Definition and construction
 
 The public import is `from pydandict import DictModel`. The conceptual inheritance
-is `class DictModel(BaseModel, MutableMapping[str, object])`; this is not a complete
-implementation. Metaclass, iterator typing, and method-resolution details are G1.
+is `class DictModel(BaseModel, MutableMapping[str, object])`; the package implements
+this identity with canonical key iteration and transactional mutation.
 
 Declare fields with standard annotations, `Field`, `Annotated`, and Pydantic
 configuration. Use keyword construction or `Model.model_validate(mapping)` for
 mapping input. Do not add a positional-dict constructor in v1. Standard validation
 entry points, including JSON and strings modes, retain their Pydantic purposes.
 
-Proposed default configuration is `extra='forbid'`, `validate_assignment=True`,
-and `validate_default=True`. Validation cannot be disabled for `DictModel`.
+Default configuration is `extra='forbid'`, `validate_assignment=True`,
+`validate_default=True` and `revalidate_instances='always'`. Validation cannot be disabled for `DictModel`.
 Explicit `validate_assignment=False`, model/field `validate_default=False`, or
 an equivalent supported bypass configuration must fail class setup rather than
 quietly weakening the contract. Other supported Pydantic configuration remains

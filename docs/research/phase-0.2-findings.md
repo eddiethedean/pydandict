@@ -1,7 +1,7 @@
 # Phase 0.2 evidence findings
 
-This is implementation-side evidence for the nine Sol blocker fixes, awaiting
-independent Sol re-review. The full measurement data, commands, source/artifact
+This is implementation-side evidence for the Sol blocker fixes, confirmed by the
+[passed independent review](../reviews/phase-0.2-rereview-6.md). The full measurement data, commands, source/artifact
 hashes, exact dependencies and AC proof paths are in
 [phase-0.2-results.json](phase-0.2-results.json). Per-finding root causes and
 before/after verification are in [the remediation report](phase-0.2-remediation.md).
@@ -134,4 +134,6 @@ historical evidence. Existing [issue #1](https://github.com/eddiethedean/pydandi
 remains untouched. The recursive-root validator candidate is separate
 pre-existing work for Sol triage.
 
-NEEDS SOL RE-REVIEW
+Independent review: **PASS** on `dbfb186`. Version 0.2.0 preparation and fresh
+artifact qualification are separate from these retained measurements; see the
+[release process](../release.md).

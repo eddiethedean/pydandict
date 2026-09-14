@@ -63,21 +63,22 @@ built from the matching `v0.1.0` tag.
 
 The [Phase 0.2 architecture and implementation contract](docs/phase-0.2-plan.md)
 defines the bounded change, resolved target decisions, AC-001–028, verification
-matrix and dependency-aware implementation sequence. It is ready for implementation;
-the checkboxes below remain open until its requirements have passing evidence.
+matrix and dependency-aware implementation sequence. The
+[independent review](docs/reviews/phase-0.2-rereview-6.md) verified AC-001–028.
+Version 0.2.0 is prepared for publication through the existing release workflow.
 
 Build directly on the Phase 0.1 package. Review and resolve the following before
 broader support and release qualification; keep existing behavior covered.
 
-- [ ] Finalize mutable ABC annotations, concrete-container limitations, identity
+- [x] Finalize mutable ABC annotations, concrete-container limitations, identity
   assignment/writeback semantics and container iterator policy (D20).
-- [ ] Finalize the validator/hook support table and rejection diagnostics. Preserve
+- [x] Finalize the validator/hook support table and rejection diagnostics. Preserve
   the no-drift and no-unguarded-fallback requirements.
-- [ ] Audit and isolate the canonical-schema, schema-reference, snapshot and commit
+- [x] Audit and isolate the canonical-schema, schema-reference, snapshot and commit
   mechanisms; add upstream boundary tests for the version-sensitive adapter (D21).
-- [ ] Expand adversarial/stateful coverage and measure larger/deeper graphs before
+- [x] Expand adversarial/stateful coverage and measure larger/deeper graphs before
   choosing safe reductions in cloning or reconciliation overhead.
-- [ ] Review proposed contracts D07–D17/D19 with the prototype evidence; preserve
+- [x] Review proposed contracts D07–D17/D19 with the prototype evidence; preserve
   the established no-external-trials constraint D18 and baseline decision D22.
 - [x] Select the initial support floor and MIT license/metadata for the W05 scaffold;
   broader support remains a hardening decision.

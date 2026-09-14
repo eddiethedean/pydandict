@@ -1,7 +1,8 @@
 # Phase 0.2 — Architecture and implementation contract
 
-Status: **READY FOR IMPLEMENTATION**. This document plans a change; it does not
-claim that Phase 0.2 is implemented or released. The current public release is
+Status: **IMPLEMENTED; INDEPENDENT REVIEW PASS**. This approved contract remains
+the Phase 0.2 scope authority; the [completed review](reviews/phase-0.2-rereview-6.md)
+records its verification. Version 0.2.0 is prepared but not published. The current public release is
 [PydanDict 0.1.0](https://pypi.org/project/pydandict/0.1.0/).
 
 This is the authoritative implementation and review boundary for Phase 0.2.
@@ -682,4 +683,5 @@ canonical mutations and exact pinned upstream support. Internal organization may
 adapt within those requirements. Implementation and release verification still
 need to be performed; this planning commit contains no production-code changes.
 
-READY FOR IMPLEMENTATION
+Implementation completed and independently reviewed; see the
+[passed review](reviews/phase-0.2-rereview-6.md) and [release preparation](release.md).

@@ -2,6 +2,17 @@
 
 ## Unreleased
 
+## 0.2.0 - Unreleased
+
+### Changed
+
+- **Breaking:** declare mutable fields with `MutableSequence`, `MutableMapping`
+  and `MutableSet` rather than concrete `list`, `dict` and `set` annotations,
+  including nested/union occurrences and typed-extra values. Ordinary input and
+  serialized container shapes remain unchanged. See the [migration contract](docs/phase-0.2-plan.md#annotation-and-owned-value-envelope).
+- **Breaking:** explicitly specialize generic `DictModel` classes before
+  constructing instances; unbound generic construction is rejected.
+
 ### Phase 0.2 implementation
 
 - Enforce ABC mutable annotations, explicit generic specialization and fail-closed
@@ -14,6 +25,9 @@
   positions, nested model identity writes, schema/cache isolation and rebuilds,
   generic private typing, exact typing evidence, both artifact consumers and
   guarded cache disposal.
+- Acquire transaction guards before input callbacks, preserve supplied public
+  validation context and detach existing-model inputs before user validation so
+  failures cannot corrupt the source model.
 - Measure baseline `07fec9b` and candidate production source across flat, linear
   and mixed workloads, with three runs, correctness checks, separate allocation
   measurements and root-validation counts; preserve Phase 0.1 evidence.
@@ -23,6 +37,14 @@
 - Add the bounded Phase 0.2 architecture and implementation contract, with
   resolved target decisions, AC-001–028, verification matrix and implementation
   sequence.
+- Record independent Sol review PASS for AC-001–028 and all release blockers.
+- Enable GitHub private vulnerability reporting and document alpha support,
+  maintainer triage and the advisory/release process.
+
+### Fixed
+
+- Match standard virtualenv platform defaults in artifact qualification so
+  managed macOS interpreters retain access to their shared libraries.
 
 ## 0.1.0 - 2026-09-13
 

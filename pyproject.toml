@@ -4,13 +4,13 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "pydandict"
-version = "0.1.0"
+version = "0.2.0"
 description = "Pydantic models with validated mapping semantics"
 readme = "README.md"
 requires-python = ">=3.11"
 license = "MIT"
 license-files = ["LICENSE"]
-authors = [{ name = "Pydandict contributors" }]
+authors = [{ name = "PydanDict contributors" }]
 classifiers = [
   "Development Status :: 3 - Alpha",
   "Intended Audience :: Developers",

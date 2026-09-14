@@ -6,7 +6,7 @@ It runs only for tags matching `vMAJOR.MINOR.PATCH`, calls the reusable
 `require_package` preflight enabled, builds the tagged source, and publishes the
 exact wheel and sdist artifacts to PyPI.
 
-The workflow builds the Phase 0.1 package from the repository root:
+The workflow builds the production package from the repository root:
 
 - `pyproject.toml` must declare project name `pydandict`.
 - `src/pydandict/` must exist.
@@ -22,15 +22,39 @@ tag still stops in the reusable checks if metadata, tests or artifacts fail.
 
 The repository release gates are complete for the documented alpha envelope:
 
-- `pyproject.toml` declares `pydandict` version `0.1.0`, MIT licensing, Python 3.11+
+- The tagged `pyproject.toml` declares `pydandict` version `0.1.0`, MIT licensing, Python 3.11+
   and the pinned Pydantic 2.13.4 runtime.
 - The root test suite, strict Pyright checks, public completeness check, Ruff checks,
   documentation validation and artifact metadata checks pass locally and in CI.
 - The changelog contains the versioned `0.1.0` entry, and the workflow accepts only
-  a matching `v0.1.0` tag.
+  a matching version tag, including `v0.1.0` for that release.
 - The release tag points to commit `6bfbd6082b8157decffc1b58e00505c670f00bdc`.
 - The [successful release workflow run](https://github.com/eddiethedean/pydandict/actions/runs/34797121742)
   completed the checks, artifact build and Trusted Publishing upload.
+
+## 0.2.0 release preparation
+
+The checkout declares version `0.2.0` and has a versioned changelog entry with
+the intentional alpha annotation/generic migration. Phase 0.2
+[passed independent review](reviews/phase-0.2-rereview-6.md), with AC-001–028
+verified, all release blockers resolved and exact-source CI successful. The
+[Phase 0.2 evidence](research/phase-0.2-findings.md) preserves the actual measured
+source and prior 0.1.0-metadata qualification; it is not a claim that 0.2.0 was
+already published. Private security reporting is enabled; the maintainer owns
+triage as described in [SECURITY.md](../SECURITY.md).
+
+The [0.2.0 qualification record](research/release-0.2.0-results.json) records fresh
+direct/rebuilt artifact consumers and release-preparation gates separately from
+the historical Phase 0.2 benchmark. It also records local interpreter failures
+and the portability correction, rather than treating failed attempts as passes.
+
+Run the complete checks and qualify the 0.2.0 direct/rebuilt wheel paths before
+tagging. Commit and push the preparation, confirm CI passes for that commit,
+then create `v0.2.0` on that same commit. The tag-triggered workflow runs all
+required checks plus the release-only preflight, verifies version equality,
+builds distributions and publishes through the existing Trusted Publisher.
+No additional reviewer or external trial is required. This preparation does
+not create a tag, GitHub Release or PyPI upload.
 
 The repository's PyPI Trusted Publisher and `pypi` environment are configured. The
 publish job grants only
@@ -41,7 +65,7 @@ not require a second maintainer.
 
 To release, confirm the package version and changelog in a commit on the intended
 branch, push that commit, and create an annotated or lightweight tag such as
-`v0.1.0` pointing at the same commit. The tag is immutable for the purposes of the
+`v0.2.0` pointing at the same commit. The tag is immutable for the purposes of the
 run: checks and artifacts are built from that tagged source. Do not reuse a tag for
 a different commit or version. A corrected release gets a new version and tag.
 
