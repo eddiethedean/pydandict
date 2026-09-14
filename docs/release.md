@@ -57,6 +57,37 @@ release-only preflight, verified version equality, built distributions and
 published through the existing Trusted Publisher. No additional reviewer or
 external trial was required.
 
+## 0.3.0 release preparation
+
+The checkout declares version `0.3.0`. Phase 0.3
+[passed independent review](reviews/phase-0.3-rereview-5.md): all 28 ACs and all
+16 previous blockers are verified resolved. The
+[production evidence](research/phase-0.3-embedding-execution.json) and prior
+review retain their measured source/version identities; they are not silently
+relabeled 0.3.0 artifact qualification.
+
+The versioned changelog records scalar qualification, non-string `pop` migration
+and native/embedded ingress corrections. Python 3.11–3.14, the exact Pydantic
+2.13.4 dependency, MIT and the existing nested envelope remain unchanged.
+
+Before tagging this candidate:
+
+- [x] Resolve every Phase 0.3 release blocker and complete independent review.
+- [x] Prepare 0.3.0 metadata, versioned changelog and accurate unpublished status.
+- [x] Qualify new 0.3.0 direct/rebuilt wheels outside the checkout, including
+  installed metadata, scalar/nested/HTTP consumers and static gates; see
+  [local readiness and measured source](research/release-0.3.0-readiness.md).
+- [ ] Verify the complete CI matrix on the committed release-preparation source.
+- [ ] Explicitly initiate publication, finalize the changelog date and create
+  `v0.3.0` at that verified commit. Do not move or reuse an existing release tag.
+
+Creating and pushing the version tag triggers publication through the existing
+workflow. No tag or publication is part of release preparation. The existing
+`pypi` environment and private-reporting configuration must not be broadened just
+to prepare a new version.
+
+## Publishing a verified candidate
+
 The repository's PyPI Trusted Publisher and `pypi` environment are configured. The
 publish job grants only
 `id-token: write` (and read-only contents access), uses no PyPI token secret, and
@@ -66,7 +97,7 @@ not require a second maintainer.
 
 To release, confirm the package version and changelog in a commit on the intended
 branch, push that commit, and create an annotated or lightweight tag such as
-`v0.2.0` pointing at the same commit. The tag is immutable for the purposes of the
+`v0.3.0` pointing at the same commit. The tag is immutable for the purposes of the
 run: checks and artifacts are built from that tagged source. Do not reuse a tag for
 a different commit or version. A corrected release gets a new version and tag.
 

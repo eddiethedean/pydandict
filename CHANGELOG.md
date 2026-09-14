@@ -2,15 +2,32 @@
 
 ## Unreleased
 
-### Phase 0.3 implementation
+## 0.3.0 - Unreleased
 
-- Add the focused scalar-core contract regression suite and runnable
-  `examples/library_config.py` workflow.
+### Added
+
+- Qualify the scalar mapping, mutation, default/reset, metadata, frozen and
+  validated-copy contract, retaining the supported nested ownership envelope.
+- Add scalar native-entry/policy matrices, deterministic stateful verification
+  and the runnable `examples/library_config.py` workflow.
+- Record independent review PASS for all 28 Phase 0.3 acceptance criteria and
+  all previous release blockers, with source-qualified CI/artifact evidence.
+
+### Fixed
 - Reject non-string `pop` mutation keys before fallback handling, matching the
-  documented mutation-key contract.
+  documented mutation-key contract. Code using non-string keys with a `pop`
+  fallback must now use a string key or a read-only `get` fallback.
 - Preserve native JSON/strings validation and restore unsupported Python-input
   rejection when `DictModel` is embedded in ordinary models or TypeAdapter
   collections; retain validated canonical mutation/copy behavior.
+
+### Release scope
+
+- Python 3.11–3.14, exact `pydantic==2.13.4`, and MIT licensing remain unchanged.
+- No arbitrary nested-type expansion, thread-safety, persistence or unchecked
+  construction support is added. No persisted data migration is required.
+- Version 0.3.0 is prepared but has not been tagged or published. Replace the
+  Unreleased date only when publication is explicitly initiated.
 
 ## 0.2.0 - 2026-09-14
 

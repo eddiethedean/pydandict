@@ -1,0 +1,2536 @@
+{
+  "ac_test_lane_map": {
+    "AC-001": {
+      "lanes": [
+        {
+          "execution": "required external runtime gate; recorded separately from this artifact driver",
+          "name": "CI compatibility matrix"
+        }
+      ],
+      "matrix_cells": {
+        "artifact/ubuntu/3.11": {
+          "reason": "This criterion's proof is not executed by the artifact job.",
+          "status": "non-applicable"
+        },
+        "artifact/ubuntu/3.14": {
+          "reason": "This criterion's proof is not executed by the artifact job.",
+          "status": "non-applicable"
+        },
+        "docs/ubuntu/3.11": {
+          "reason": "This criterion's proof is not executed by the docs job.",
+          "status": "non-applicable"
+        },
+        "runtime/macos/3.11": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/macos/3.14": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/ubuntu/3.11": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/ubuntu/3.12": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/ubuntu/3.13": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/ubuntu/3.14": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/windows/3.11": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/windows/3.14": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        }
+      },
+      "tests": [
+        "tests/test_sol_phase03_blockers.py::test_sol017_strict_scalar_entry_modes_match_pinned_basemodel",
+        "tests/test_sol_phase03_rereview_2.py::test_sol017_type_adapter_strict_json_matches_pinned_basemodel",
+        "tests/test_sol_phase03_rereview_3.py::test_sol017_type_adapter_strict_strings_matches_pinned_basemodel",
+        "tests/test_sol_phase03_rereview_3.py::test_sol017_type_adapter_json_preserves_field_specific_strictness",
+        "tests/test_compat_remediation.py::test_public_validation_completes_deferred_schemas_before_adapter_access",
+        "tests/test_phase03_native_matrix.py::test_native_leaf_entry_matrix",
+        "tests/test_phase03_native_matrix.py::test_annotation_entry_matrix",
+        "tests/test_phase03_native_matrix.py::test_forward_generic_typed_extra_entry_matrix",
+        "tests/test_phase03_native_matrix.py::test_native_timezone_python_envelope",
+        "tests/test_phase03_native_matrix.py::test_deferred_constructor_retains_caller_namespace"
+      ]
+    },
+    "AC-002": {
+      "lanes": [
+        {
+          "execution": "required external runtime gate; recorded separately from this artifact driver",
+          "name": "CI compatibility matrix"
+        }
+      ],
+      "matrix_cells": {
+        "artifact/ubuntu/3.11": {
+          "reason": "This criterion's proof is not executed by the artifact job.",
+          "status": "non-applicable"
+        },
+        "artifact/ubuntu/3.14": {
+          "reason": "This criterion's proof is not executed by the artifact job.",
+          "status": "non-applicable"
+        },
+        "docs/ubuntu/3.11": {
+          "reason": "This criterion's proof is not executed by the docs job.",
+          "status": "non-applicable"
+        },
+        "runtime/macos/3.11": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/macos/3.14": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/ubuntu/3.11": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/ubuntu/3.12": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/ubuntu/3.13": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/ubuntu/3.14": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/windows/3.11": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/windows/3.14": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        }
+      },
+      "tests": [
+        "tests/test_phase02_contract.py::test_concrete_mutable_annotations_fail_with_migration_hint",
+        "tests/test_hash_ingress.py::test_unhashable_model_members_get_the_ownership_diagnostic",
+        "tests/test_sol_phase03_rereview_4.py::test_sol017_embedded_python_ingress_rejects_unsupported_sources",
+        "tests/test_phase03_native_matrix.py::test_annotation_entry_matrix",
+        "tests/test_phase03_native_matrix.py::test_forward_generic_typed_extra_entry_matrix",
+        "tests/test_phase02_contract.py::test_generic_models_must_be_explicitly_specialized",
+        "tests/test_phase02_contract.py::test_custom_timezone_values_are_rejected_without_state_escape",
+        "tests/test_phase02_contract.py::test_cycles_and_ordinary_base_models_are_rejected"
+      ]
+    },
+    "AC-003": {
+      "lanes": [
+        {
+          "execution": "required external runtime gate; recorded separately from this artifact driver",
+          "name": "CI compatibility matrix"
+        }
+      ],
+      "matrix_cells": {
+        "artifact/ubuntu/3.11": {
+          "reason": "This criterion's proof is not executed by the artifact job.",
+          "status": "non-applicable"
+        },
+        "artifact/ubuntu/3.14": {
+          "reason": "This criterion's proof is not executed by the artifact job.",
+          "status": "non-applicable"
+        },
+        "docs/ubuntu/3.11": {
+          "reason": "This criterion's proof is not executed by the docs job.",
+          "status": "non-applicable"
+        },
+        "runtime/macos/3.11": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/macos/3.14": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/ubuntu/3.11": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/ubuntu/3.12": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/ubuntu/3.13": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/ubuntu/3.14": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/windows/3.11": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/windows/3.14": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        }
+      },
+      "tests": [
+        "tests/test_phase03_contract.py::test_scalar_reads_views_and_canonical_namespace",
+        "tests/test_phase03_native_matrix.py::test_scalar_leaf_mapping_copy_serialization_matrix",
+        "tests/test_phase03_evidence_contract.py::test_scalar_mapping_consumers_do_not_invoke_serializers"
+      ]
+    },
+    "AC-004": {
+      "lanes": [
+        {
+          "execution": "required external runtime gate; recorded separately from this artifact driver",
+          "name": "CI compatibility matrix"
+        }
+      ],
+      "matrix_cells": {
+        "artifact/ubuntu/3.11": {
+          "reason": "This criterion's proof is not executed by the artifact job.",
+          "status": "non-applicable"
+        },
+        "artifact/ubuntu/3.14": {
+          "reason": "This criterion's proof is not executed by the artifact job.",
+          "status": "non-applicable"
+        },
+        "docs/ubuntu/3.11": {
+          "reason": "This criterion's proof is not executed by the docs job.",
+          "status": "non-applicable"
+        },
+        "runtime/macos/3.11": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/macos/3.14": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/ubuntu/3.11": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/ubuntu/3.12": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/ubuntu/3.13": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/ubuntu/3.14": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/windows/3.11": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/windows/3.14": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        }
+      },
+      "tests": [
+        "tests/test_phase03_contract.py::test_scalar_reads_views_and_canonical_namespace",
+        "tests/test_phase03_native_matrix.py::test_scalar_leaf_mapping_copy_serialization_matrix",
+        "tests/test_phase03_evidence_contract.py::test_scalar_mapping_consumers_do_not_invoke_serializers"
+      ]
+    },
+    "AC-005": {
+      "lanes": [
+        {
+          "execution": "required external runtime gate; recorded separately from this artifact driver",
+          "name": "CI compatibility matrix"
+        }
+      ],
+      "matrix_cells": {
+        "artifact/ubuntu/3.11": {
+          "reason": "This criterion's proof is not executed by the artifact job.",
+          "status": "non-applicable"
+        },
+        "artifact/ubuntu/3.14": {
+          "reason": "This criterion's proof is not executed by the artifact job.",
+          "status": "non-applicable"
+        },
+        "docs/ubuntu/3.11": {
+          "reason": "This criterion's proof is not executed by the docs job.",
+          "status": "non-applicable"
+        },
+        "runtime/macos/3.11": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/macos/3.14": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/ubuntu/3.11": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/ubuntu/3.12": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/ubuntu/3.13": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/ubuntu/3.14": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/windows/3.11": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/windows/3.14": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        }
+      },
+      "tests": [
+        "tests/test_phase03_evidence_contract.py::test_scalar_iterator_structure_and_exhaustion_contract",
+        "tests/test_phase03_policy_matrix.py::test_scalar_extra_insertion_missing_and_removal_matrix",
+        "tests/test_phase03_policy_matrix.py::test_scalar_empty_clear_validates_and_factory_reset_is_ordered",
+        "tests/test_phase03_policy_matrix.py::test_scalar_malformed_batches_and_late_iterator_failure_are_atomic"
+      ]
+    },
+    "AC-006": {
+      "lanes": [
+        {
+          "execution": "required external runtime gate; recorded separately from this artifact driver",
+          "name": "CI compatibility matrix"
+        }
+      ],
+      "matrix_cells": {
+        "artifact/ubuntu/3.11": {
+          "reason": "This criterion's proof is not executed by the artifact job.",
+          "status": "non-applicable"
+        },
+        "artifact/ubuntu/3.14": {
+          "reason": "This criterion's proof is not executed by the artifact job.",
+          "status": "non-applicable"
+        },
+        "docs/ubuntu/3.11": {
+          "reason": "This criterion's proof is not executed by the docs job.",
+          "status": "non-applicable"
+        },
+        "runtime/macos/3.11": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/macos/3.14": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/ubuntu/3.11": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/ubuntu/3.12": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/ubuntu/3.13": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/ubuntu/3.14": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/windows/3.11": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/windows/3.14": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        }
+      },
+      "tests": [
+        "tests/test_inventory.py::test_explicit_public_alias_flags",
+        "tests/test_inventory.py::test_alias_choices_paths_typed_extras_and_properties",
+        "tests/test_prototype.py::test_properties_do_not_shadow_extra_mapping_state",
+        "tests/test_phase03_native_matrix.py::test_native_alias_extra_strict_option_matrix"
+      ]
+    },
+    "AC-007": {
+      "lanes": [
+        {
+          "execution": "required external runtime gate; recorded separately from this artifact driver",
+          "name": "CI compatibility matrix"
+        }
+      ],
+      "matrix_cells": {
+        "artifact/ubuntu/3.11": {
+          "reason": "This criterion's proof is not executed by the artifact job.",
+          "status": "non-applicable"
+        },
+        "artifact/ubuntu/3.14": {
+          "reason": "This criterion's proof is not executed by the artifact job.",
+          "status": "non-applicable"
+        },
+        "docs/ubuntu/3.11": {
+          "reason": "This criterion's proof is not executed by the docs job.",
+          "status": "non-applicable"
+        },
+        "runtime/macos/3.11": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/macos/3.14": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/ubuntu/3.11": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/ubuntu/3.12": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/ubuntu/3.13": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/ubuntu/3.14": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/windows/3.11": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/windows/3.14": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        }
+      },
+      "tests": [
+        "tests/test_phase03_contract.py::test_scalar_bulk_failure_is_atomic_and_reset_updates_metadata",
+        "tests/test_prototype.py::test_coupled_updates_rollback_aliases_and_defaults",
+        "tests/test_stateful.py::TestScalarTransactions",
+        "tests/test_phase03_policy_matrix.py::test_scalar_role_policy_freeze_matrix",
+        "tests/test_phase03_native_matrix.py::test_scalar_leaf_mapping_copy_serialization_matrix"
+      ]
+    },
+    "AC-008": {
+      "lanes": [
+        {
+          "execution": "required external runtime gate; recorded separately from this artifact driver",
+          "name": "CI compatibility matrix"
+        }
+      ],
+      "matrix_cells": {
+        "artifact/ubuntu/3.11": {
+          "reason": "This criterion's proof is not executed by the artifact job.",
+          "status": "non-applicable"
+        },
+        "artifact/ubuntu/3.14": {
+          "reason": "This criterion's proof is not executed by the artifact job.",
+          "status": "non-applicable"
+        },
+        "docs/ubuntu/3.11": {
+          "reason": "This criterion's proof is not executed by the docs job.",
+          "status": "non-applicable"
+        },
+        "runtime/macos/3.11": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/macos/3.14": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/ubuntu/3.11": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/ubuntu/3.12": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/ubuntu/3.13": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/ubuntu/3.14": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/windows/3.11": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/windows/3.14": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        }
+      },
+      "tests": [
+        "tests/test_stateful.py::TestScalarTransactions",
+        "tests/test_prototype.py::test_coupled_updates_rollback_aliases_and_defaults",
+        "tests/test_phase03_policy_matrix.py::test_scalar_role_policy_freeze_matrix"
+      ]
+    },
+    "AC-009": {
+      "lanes": [
+        {
+          "execution": "required external runtime gate; recorded separately from this artifact driver",
+          "name": "CI compatibility matrix"
+        }
+      ],
+      "matrix_cells": {
+        "artifact/ubuntu/3.11": {
+          "reason": "This criterion's proof is not executed by the artifact job.",
+          "status": "non-applicable"
+        },
+        "artifact/ubuntu/3.14": {
+          "reason": "This criterion's proof is not executed by the artifact job.",
+          "status": "non-applicable"
+        },
+        "docs/ubuntu/3.11": {
+          "reason": "This criterion's proof is not executed by the docs job.",
+          "status": "non-applicable"
+        },
+        "runtime/macos/3.11": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/macos/3.14": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/ubuntu/3.11": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/ubuntu/3.12": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/ubuntu/3.13": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/ubuntu/3.14": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/windows/3.11": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/windows/3.14": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        }
+      },
+      "tests": [
+        "tests/test_phase03_contract.py::test_non_string_pop_is_rejected_before_fallback",
+        "tests/test_sol_phase03_blockers.py::test_sol014_non_string_bulk_names_precede_frozen_policy",
+        "tests/test_prototype.py::test_late_generator_and_reentrancy_recover",
+        "tests/test_sol_phase02_rereview.py::test_sol010_input_callbacks_run_under_the_same_root_guard",
+        "tests/test_phase03_policy_matrix.py::test_scalar_role_policy_freeze_matrix",
+        "tests/test_phase03_policy_matrix.py::test_scalar_extra_insertion_missing_and_removal_matrix",
+        "tests/test_phase03_policy_matrix.py::test_scalar_empty_clear_validates_and_factory_reset_is_ordered",
+        "tests/test_phase03_policy_matrix.py::test_scalar_malformed_batches_and_late_iterator_failure_are_atomic",
+        "tests/test_phase03_evidence_contract.py::test_scalar_iterator_structure_and_exhaustion_contract"
+      ]
+    },
+    "AC-010": {
+      "lanes": [
+        {
+          "execution": "required external runtime gate; recorded separately from this artifact driver",
+          "name": "CI compatibility matrix"
+        }
+      ],
+      "matrix_cells": {
+        "artifact/ubuntu/3.11": {
+          "reason": "This criterion's proof is not executed by the artifact job.",
+          "status": "non-applicable"
+        },
+        "artifact/ubuntu/3.14": {
+          "reason": "This criterion's proof is not executed by the artifact job.",
+          "status": "non-applicable"
+        },
+        "docs/ubuntu/3.11": {
+          "reason": "This criterion's proof is not executed by the docs job.",
+          "status": "non-applicable"
+        },
+        "runtime/macos/3.11": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/macos/3.14": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/ubuntu/3.11": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/ubuntu/3.12": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/ubuntu/3.13": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/ubuntu/3.14": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/windows/3.11": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/windows/3.14": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        }
+      },
+      "tests": [
+        "tests/test_stateful.py::TestScalarTransactions",
+        "tests/test_prototype.py::test_extras_destructive_metadata_and_errors",
+        "tests/test_inventory.py::test_alias_choices_paths_typed_extras_and_properties",
+        "tests/test_phase03_policy_matrix.py::test_scalar_role_policy_freeze_matrix",
+        "tests/test_phase03_policy_matrix.py::test_scalar_extra_insertion_missing_and_removal_matrix",
+        "tests/test_phase03_policy_matrix.py::test_scalar_empty_clear_validates_and_factory_reset_is_ordered",
+        "tests/test_phase03_policy_matrix.py::test_scalar_malformed_batches_and_late_iterator_failure_are_atomic",
+        "tests/test_phase03_evidence_contract.py::test_scalar_iterator_structure_and_exhaustion_contract"
+      ]
+    },
+    "AC-011": {
+      "lanes": [
+        {
+          "execution": "required external runtime gate; recorded separately from this artifact driver",
+          "name": "CI compatibility matrix"
+        }
+      ],
+      "matrix_cells": {
+        "artifact/ubuntu/3.11": {
+          "reason": "This criterion's proof is not executed by the artifact job.",
+          "status": "non-applicable"
+        },
+        "artifact/ubuntu/3.14": {
+          "reason": "This criterion's proof is not executed by the artifact job.",
+          "status": "non-applicable"
+        },
+        "docs/ubuntu/3.11": {
+          "reason": "This criterion's proof is not executed by the docs job.",
+          "status": "non-applicable"
+        },
+        "runtime/macos/3.11": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/macos/3.14": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/ubuntu/3.11": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/ubuntu/3.12": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/ubuntu/3.13": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/ubuntu/3.14": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/windows/3.11": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/windows/3.14": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        }
+      },
+      "tests": [
+        "tests/test_prototype.py::test_extras_destructive_metadata_and_errors",
+        "tests/test_phase03_policy_matrix.py::test_scalar_role_policy_freeze_matrix",
+        "tests/test_phase03_policy_matrix.py::test_scalar_extra_insertion_missing_and_removal_matrix",
+        "tests/test_phase03_policy_matrix.py::test_scalar_empty_clear_validates_and_factory_reset_is_ordered",
+        "tests/test_phase03_policy_matrix.py::test_scalar_malformed_batches_and_late_iterator_failure_are_atomic",
+        "tests/test_phase03_evidence_contract.py::test_scalar_iterator_structure_and_exhaustion_contract",
+        "tests/test_phase03_evidence_contract.py::test_scalar_fieldless_rejected_clear_and_typed_extra_reset_errors"
+      ]
+    },
+    "AC-012": {
+      "lanes": [
+        {
+          "execution": "required external runtime gate; recorded separately from this artifact driver",
+          "name": "CI compatibility matrix"
+        }
+      ],
+      "matrix_cells": {
+        "artifact/ubuntu/3.11": {
+          "reason": "This criterion's proof is not executed by the artifact job.",
+          "status": "non-applicable"
+        },
+        "artifact/ubuntu/3.14": {
+          "reason": "This criterion's proof is not executed by the artifact job.",
+          "status": "non-applicable"
+        },
+        "docs/ubuntu/3.11": {
+          "reason": "This criterion's proof is not executed by the docs job.",
+          "status": "non-applicable"
+        },
+        "runtime/macos/3.11": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/macos/3.14": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/ubuntu/3.11": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/ubuntu/3.12": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/ubuntu/3.13": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/ubuntu/3.14": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/windows/3.11": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/windows/3.14": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        }
+      },
+      "tests": [
+        "tests/test_stateful.py::TestScalarTransactions",
+        "tests/test_inventory.py::test_nested_aliases_and_data_dependent_reset",
+        "tests/test_inventory.py::test_shape_changing_validator_rejected_and_factory_failure_recovers",
+        "tests/test_prototype.py::test_coupled_updates_rollback_aliases_and_defaults",
+        "tests/test_phase03_policy_matrix.py::test_scalar_role_policy_freeze_matrix",
+        "tests/test_phase03_policy_matrix.py::test_scalar_extra_insertion_missing_and_removal_matrix",
+        "tests/test_phase03_policy_matrix.py::test_scalar_empty_clear_validates_and_factory_reset_is_ordered",
+        "tests/test_phase03_policy_matrix.py::test_scalar_malformed_batches_and_late_iterator_failure_are_atomic",
+        "tests/test_phase03_evidence_contract.py::test_scalar_iterator_structure_and_exhaustion_contract",
+        "tests/test_phase03_native_matrix.py::test_scalar_leaf_mapping_copy_serialization_matrix",
+        "tests/test_phase03_evidence_contract.py::test_scalar_fieldless_rejected_clear_and_typed_extra_reset_errors"
+      ]
+    },
+    "AC-013": {
+      "lanes": [
+        {
+          "execution": "required external runtime gate; recorded separately from this artifact driver",
+          "name": "CI compatibility matrix"
+        }
+      ],
+      "matrix_cells": {
+        "artifact/ubuntu/3.11": {
+          "reason": "This criterion's proof is not executed by the artifact job.",
+          "status": "non-applicable"
+        },
+        "artifact/ubuntu/3.14": {
+          "reason": "This criterion's proof is not executed by the artifact job.",
+          "status": "non-applicable"
+        },
+        "docs/ubuntu/3.11": {
+          "reason": "This criterion's proof is not executed by the docs job.",
+          "status": "non-applicable"
+        },
+        "runtime/macos/3.11": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/macos/3.14": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/ubuntu/3.11": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/ubuntu/3.12": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/ubuntu/3.13": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/ubuntu/3.14": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/windows/3.11": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/windows/3.14": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        }
+      },
+      "tests": [
+        "tests/test_prototype.py::test_frozen_ancestors_and_copy",
+        "tests/test_sol_phase03_blockers.py::test_sol014_non_string_bulk_names_precede_frozen_policy",
+        "tests/test_phase03_policy_matrix.py::test_scalar_role_policy_freeze_matrix"
+      ]
+    },
+    "AC-014": {
+      "lanes": [
+        {
+          "execution": "required external runtime gate; recorded separately from this artifact driver",
+          "name": "CI compatibility matrix"
+        }
+      ],
+      "matrix_cells": {
+        "artifact/ubuntu/3.11": {
+          "reason": "This criterion's proof is not executed by the artifact job.",
+          "status": "non-applicable"
+        },
+        "artifact/ubuntu/3.14": {
+          "reason": "This criterion's proof is not executed by the artifact job.",
+          "status": "non-applicable"
+        },
+        "docs/ubuntu/3.11": {
+          "reason": "This criterion's proof is not executed by the docs job.",
+          "status": "non-applicable"
+        },
+        "runtime/macos/3.11": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/macos/3.14": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/ubuntu/3.11": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/ubuntu/3.12": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/ubuntu/3.13": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/ubuntu/3.14": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/windows/3.11": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/windows/3.14": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        }
+      },
+      "tests": [
+        "tests/test_phase03_contract.py::test_scalar_bulk_failure_is_atomic_and_reset_updates_metadata",
+        "tests/test_stateful.py::TestScalarTransactions",
+        "tests/test_prototype.py::test_extras_destructive_metadata_and_errors",
+        "tests/test_phase03_policy_matrix.py::test_scalar_role_policy_freeze_matrix",
+        "tests/test_phase03_policy_matrix.py::test_scalar_extra_insertion_missing_and_removal_matrix",
+        "tests/test_phase03_policy_matrix.py::test_scalar_empty_clear_validates_and_factory_reset_is_ordered",
+        "tests/test_phase03_policy_matrix.py::test_scalar_malformed_batches_and_late_iterator_failure_are_atomic",
+        "tests/test_phase03_evidence_contract.py::test_scalar_iterator_structure_and_exhaustion_contract",
+        "tests/test_phase03_native_matrix.py::test_scalar_leaf_mapping_copy_serialization_matrix",
+        "tests/test_phase03_evidence_contract.py::test_scalar_cache_metadata_context_failure_and_noop_transitions"
+      ]
+    },
+    "AC-015": {
+      "lanes": [
+        {
+          "execution": "required external runtime gate; recorded separately from this artifact driver",
+          "name": "CI compatibility matrix"
+        }
+      ],
+      "matrix_cells": {
+        "artifact/ubuntu/3.11": {
+          "reason": "This criterion's proof is not executed by the artifact job.",
+          "status": "non-applicable"
+        },
+        "artifact/ubuntu/3.14": {
+          "reason": "This criterion's proof is not executed by the artifact job.",
+          "status": "non-applicable"
+        },
+        "docs/ubuntu/3.11": {
+          "reason": "This criterion's proof is not executed by the docs job.",
+          "status": "non-applicable"
+        },
+        "runtime/macos/3.11": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/macos/3.14": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/ubuntu/3.11": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/ubuntu/3.12": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/ubuntu/3.13": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/ubuntu/3.14": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/windows/3.11": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/windows/3.14": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        }
+      },
+      "tests": [
+        "tests/test_prototype.py::test_nonidempotent_unchanged_normalizer_rejected_without_drift",
+        "tests/test_inventory.py::test_sort_callback_failure_and_programming_error",
+        "tests/test_sol_phase02_rereview.py::test_sol012_existing_model_public_validation_preserves_supplied_context",
+        "tests/test_phase03_native_matrix.py::test_native_callback_source_isolation_and_context",
+        "tests/test_phase03_evidence_contract.py::test_scalar_cache_metadata_context_failure_and_noop_transitions"
+      ]
+    },
+    "AC-016": {
+      "lanes": [
+        {
+          "execution": "required external runtime gate; recorded separately from this artifact driver",
+          "name": "CI compatibility matrix"
+        }
+      ],
+      "matrix_cells": {
+        "artifact/ubuntu/3.11": {
+          "reason": "This criterion's proof is not executed by the artifact job.",
+          "status": "non-applicable"
+        },
+        "artifact/ubuntu/3.14": {
+          "reason": "This criterion's proof is not executed by the artifact job.",
+          "status": "non-applicable"
+        },
+        "docs/ubuntu/3.11": {
+          "reason": "This criterion's proof is not executed by the docs job.",
+          "status": "non-applicable"
+        },
+        "runtime/macos/3.11": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/macos/3.14": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/ubuntu/3.11": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/ubuntu/3.12": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/ubuntu/3.13": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/ubuntu/3.14": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/windows/3.11": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/windows/3.14": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        }
+      },
+      "tests": [
+        "tests/test_transaction_remediation.py::test_every_prepared_swap_boundary_recovers",
+        "tests/test_prototype.py::test_late_generator_and_reentrancy_recover",
+        "tests/test_prototype.py::test_commit_slot_failure_restores_all_live_state",
+        "tests/test_phase03_native_matrix.py::test_native_callback_source_isolation_and_context",
+        "tests/test_phase03_native_matrix.py::test_native_default_factory_cannot_mutate_caller_field"
+      ]
+    },
+    "AC-017": {
+      "lanes": [
+        {
+          "execution": "required external runtime gate; recorded separately from this artifact driver",
+          "name": "CI compatibility matrix"
+        }
+      ],
+      "matrix_cells": {
+        "artifact/ubuntu/3.11": {
+          "reason": "This criterion's proof is not executed by the artifact job.",
+          "status": "non-applicable"
+        },
+        "artifact/ubuntu/3.14": {
+          "reason": "This criterion's proof is not executed by the artifact job.",
+          "status": "non-applicable"
+        },
+        "docs/ubuntu/3.11": {
+          "reason": "This criterion's proof is not executed by the docs job.",
+          "status": "non-applicable"
+        },
+        "runtime/macos/3.11": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/macos/3.14": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/ubuntu/3.11": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/ubuntu/3.12": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/ubuntu/3.13": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/ubuntu/3.14": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/windows/3.11": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/windows/3.14": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        }
+      },
+      "tests": [
+        "tests/test_inventory.py::test_cached_computed_fields_are_invalidated",
+        "tests/test_phase03_evidence_contract.py::test_scalar_cache_metadata_context_failure_and_noop_transitions"
+      ]
+    },
+    "AC-018": {
+      "lanes": [
+        {
+          "execution": "required external runtime gate; recorded separately from this artifact driver",
+          "name": "CI compatibility matrix"
+        }
+      ],
+      "matrix_cells": {
+        "artifact/ubuntu/3.11": {
+          "reason": "This criterion's proof is not executed by the artifact job.",
+          "status": "non-applicable"
+        },
+        "artifact/ubuntu/3.14": {
+          "reason": "This criterion's proof is not executed by the artifact job.",
+          "status": "non-applicable"
+        },
+        "docs/ubuntu/3.11": {
+          "reason": "This criterion's proof is not executed by the docs job.",
+          "status": "non-applicable"
+        },
+        "runtime/macos/3.11": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/macos/3.14": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/ubuntu/3.11": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/ubuntu/3.12": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/ubuntu/3.13": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/ubuntu/3.14": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/windows/3.11": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/windows/3.14": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        }
+      },
+      "tests": [
+        "tests/test_phase03_contract.py::test_scalar_copy_is_validated_and_independent",
+        "tests/test_prototype.py::test_copy_ownership",
+        "tests/test_inventory.py::test_validated_copy_rejects_unknown_keys_and_drift",
+        "tests/test_prototype.py::test_frozen_ancestors_and_copy",
+        "tests/test_phase03_native_matrix.py::test_scalar_leaf_mapping_copy_serialization_matrix",
+        "tests/test_phase03_evidence_contract.py::test_scalar_copy_and_inherited_api_inventory"
+      ]
+    },
+    "AC-019": {
+      "lanes": [
+        {
+          "execution": "required external runtime gate; recorded separately from this artifact driver",
+          "name": "CI compatibility matrix"
+        }
+      ],
+      "matrix_cells": {
+        "artifact/ubuntu/3.11": {
+          "reason": "This criterion's proof is not executed by the artifact job.",
+          "status": "non-applicable"
+        },
+        "artifact/ubuntu/3.14": {
+          "reason": "This criterion's proof is not executed by the artifact job.",
+          "status": "non-applicable"
+        },
+        "docs/ubuntu/3.11": {
+          "reason": "This criterion's proof is not executed by the docs job.",
+          "status": "non-applicable"
+        },
+        "runtime/macos/3.11": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/macos/3.14": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/ubuntu/3.11": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/ubuntu/3.12": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/ubuntu/3.13": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/ubuntu/3.14": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/windows/3.11": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/windows/3.14": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        }
+      },
+      "tests": [
+        "tests/test_prototype.py::test_unsafe_inputs_hooks_and_trusted_paths_rejected",
+        "tests/test_phase03_evidence_contract.py::test_scalar_copy_and_inherited_api_inventory"
+      ]
+    },
+    "AC-020": {
+      "lanes": [
+        {
+          "execution": "required external runtime gate; recorded separately from this artifact driver",
+          "name": "CI compatibility matrix"
+        }
+      ],
+      "matrix_cells": {
+        "artifact/ubuntu/3.11": {
+          "reason": "This criterion's proof is not executed by the artifact job.",
+          "status": "non-applicable"
+        },
+        "artifact/ubuntu/3.14": {
+          "reason": "This criterion's proof is not executed by the artifact job.",
+          "status": "non-applicable"
+        },
+        "docs/ubuntu/3.11": {
+          "reason": "This criterion's proof is not executed by the docs job.",
+          "status": "non-applicable"
+        },
+        "runtime/macos/3.11": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/macos/3.14": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/ubuntu/3.11": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/ubuntu/3.12": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/ubuntu/3.13": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/ubuntu/3.14": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/windows/3.11": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/windows/3.14": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        }
+      },
+      "tests": [
+        "tests/test_compat_remediation.py::test_type_adapter_native_mode_keeps_dynamic_strict_and_extra_options",
+        "tests/test_sol_phase03_rereview.py::test_sol017_json_entry_options_match_pinned_basemodel",
+        "tests/test_sol_phase03_rereview_2.py::test_sol017_type_adapter_strict_json_matches_pinned_basemodel",
+        "tests/test_sol_phase03_rereview_3.py::test_sol017_type_adapter_strict_strings_matches_pinned_basemodel",
+        "tests/test_sol_phase03_rereview_3.py::test_sol017_type_adapter_json_preserves_field_specific_strictness",
+        "tests/test_sol_phase03_rereview.py::test_sol017_rejected_strings_callback_cannot_mutate_entry_source",
+        "tests/test_sol_phase02_rereview_2.py::test_sol013_failed_public_validation_does_not_mutate_existing_input",
+        "tests/test_sol_phase02_rereview.py::test_sol012_existing_model_public_validation_preserves_supplied_context",
+        "tests/test_sol_phase03_rereview_4.py::test_sol017_embedded_python_ingress_rejects_unsupported_sources",
+        "tests/test_phase03_native_matrix.py::test_native_leaf_entry_matrix",
+        "tests/test_phase03_native_matrix.py::test_annotation_entry_matrix",
+        "tests/test_phase03_native_matrix.py::test_forward_generic_typed_extra_entry_matrix",
+        "tests/test_phase03_native_matrix.py::test_native_alias_extra_strict_option_matrix",
+        "tests/test_phase03_native_matrix.py::test_native_callback_source_isolation_and_context",
+        "tests/test_phase03_native_matrix.py::test_native_default_factory_cannot_mutate_caller_field",
+        "tests/test_phase03_native_matrix.py::test_python_attribute_ingress_retains_closed_source_boundary"
+      ]
+    },
+    "AC-021": {
+      "lanes": [
+        {
+          "execution": "required external runtime gate; recorded separately from this artifact driver",
+          "name": "CI compatibility matrix"
+        }
+      ],
+      "matrix_cells": {
+        "artifact/ubuntu/3.11": {
+          "reason": "This criterion's proof is not executed by the artifact job.",
+          "status": "non-applicable"
+        },
+        "artifact/ubuntu/3.14": {
+          "reason": "This criterion's proof is not executed by the artifact job.",
+          "status": "non-applicable"
+        },
+        "docs/ubuntu/3.11": {
+          "reason": "This criterion's proof is not executed by the docs job.",
+          "status": "non-applicable"
+        },
+        "runtime/macos/3.11": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/macos/3.14": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/ubuntu/3.11": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/ubuntu/3.12": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/ubuntu/3.13": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/ubuntu/3.14": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/windows/3.11": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/windows/3.14": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        }
+      },
+      "tests": [
+        "tests/test_prototype.py::test_serializers_exclusions_computed_and_context",
+        "tests/test_phase03_native_matrix.py::test_scalar_leaf_mapping_copy_serialization_matrix",
+        "tests/test_phase03_evidence_contract.py::test_scalar_cache_metadata_context_failure_and_noop_transitions"
+      ]
+    },
+    "AC-022": {
+      "lanes": [
+        {
+          "execution": "required external runtime gate; recorded separately from this artifact driver",
+          "name": "CI compatibility matrix"
+        }
+      ],
+      "matrix_cells": {
+        "artifact/ubuntu/3.11": {
+          "reason": "This criterion's proof is not executed by the artifact job.",
+          "status": "non-applicable"
+        },
+        "artifact/ubuntu/3.14": {
+          "reason": "This criterion's proof is not executed by the artifact job.",
+          "status": "non-applicable"
+        },
+        "docs/ubuntu/3.11": {
+          "reason": "This criterion's proof is not executed by the docs job.",
+          "status": "non-applicable"
+        },
+        "runtime/macos/3.11": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/macos/3.14": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/ubuntu/3.11": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/ubuntu/3.12": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/ubuntu/3.13": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/ubuntu/3.14": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/windows/3.11": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/windows/3.14": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        }
+      },
+      "tests": [
+        "tests/test_phase03_evidence_contract.py::test_scalar_model_equality_and_hash_contract"
+      ]
+    },
+    "AC-023": {
+      "lanes": [
+        {
+          "execution": "required external runtime gate; recorded separately from this artifact driver",
+          "name": "CI compatibility matrix"
+        }
+      ],
+      "matrix_cells": {
+        "artifact/ubuntu/3.11": {
+          "reason": "This criterion's proof is not executed by the artifact job.",
+          "status": "non-applicable"
+        },
+        "artifact/ubuntu/3.14": {
+          "reason": "This criterion's proof is not executed by the artifact job.",
+          "status": "non-applicable"
+        },
+        "docs/ubuntu/3.11": {
+          "reason": "This criterion's proof is not executed by the docs job.",
+          "status": "non-applicable"
+        },
+        "runtime/macos/3.11": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/macos/3.14": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/ubuntu/3.11": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/ubuntu/3.12": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/ubuntu/3.13": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/ubuntu/3.14": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/windows/3.11": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/windows/3.14": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        }
+      },
+      "tests": [
+        "tools/check_typing.py",
+        "pyright --verifytypes pydandict --ignoreexternal"
+      ]
+    },
+    "AC-024": {
+      "lanes": [
+        {
+          "execution": "executed by this driver for the recorded source/artifacts",
+          "name": "local package qualification"
+        }
+      ],
+      "matrix_cells": {
+        "artifact/ubuntu/3.11": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "artifact/ubuntu/3.14": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "docs/ubuntu/3.11": {
+          "reason": "This criterion's proof is not executed by the docs job.",
+          "status": "non-applicable"
+        },
+        "runtime/macos/3.11": {
+          "reason": "This criterion's proof is not executed by the runtime job.",
+          "status": "non-applicable"
+        },
+        "runtime/macos/3.14": {
+          "reason": "This criterion's proof is not executed by the runtime job.",
+          "status": "non-applicable"
+        },
+        "runtime/ubuntu/3.11": {
+          "reason": "This criterion's proof is not executed by the runtime job.",
+          "status": "non-applicable"
+        },
+        "runtime/ubuntu/3.12": {
+          "reason": "This criterion's proof is not executed by the runtime job.",
+          "status": "non-applicable"
+        },
+        "runtime/ubuntu/3.13": {
+          "reason": "This criterion's proof is not executed by the runtime job.",
+          "status": "non-applicable"
+        },
+        "runtime/ubuntu/3.14": {
+          "reason": "This criterion's proof is not executed by the runtime job.",
+          "status": "non-applicable"
+        },
+        "runtime/windows/3.11": {
+          "reason": "This criterion's proof is not executed by the runtime job.",
+          "status": "non-applicable"
+        },
+        "runtime/windows/3.14": {
+          "reason": "This criterion's proof is not executed by the runtime job.",
+          "status": "non-applicable"
+        }
+      },
+      "tests": [
+        "examples/library_config.py (direct/rebuilt clean-wheel execution)",
+        "installed metadata, nested, HTTP and typing consumers"
+      ]
+    },
+    "AC-025": {
+      "lanes": [
+        {
+          "execution": "executed by this driver for the recorded source/artifacts",
+          "name": "local package qualification"
+        },
+        {
+          "execution": "required external runtime gate; recorded separately from this artifact driver",
+          "name": "CI compatibility matrix"
+        },
+        {
+          "execution": "required external docs gate",
+          "name": "Documentation checks"
+        }
+      ],
+      "matrix_cells": {
+        "artifact/ubuntu/3.11": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "artifact/ubuntu/3.14": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "docs/ubuntu/3.11": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/macos/3.11": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/macos/3.14": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/ubuntu/3.11": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/ubuntu/3.12": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/ubuntu/3.13": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/ubuntu/3.14": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/windows/3.11": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/windows/3.14": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        }
+      },
+      "tests": [
+        "tests/test_sol_phase03_rereview.py::test_sol015_missing_provenance_cannot_replace_durable_evidence",
+        "tools/qualify_package.py"
+      ]
+    },
+    "AC-026": {
+      "lanes": [
+        {
+          "execution": "required external runtime gate; recorded separately from this artifact driver",
+          "name": "CI compatibility matrix"
+        }
+      ],
+      "matrix_cells": {
+        "artifact/ubuntu/3.11": {
+          "reason": "This criterion's proof is not executed by the artifact job.",
+          "status": "non-applicable"
+        },
+        "artifact/ubuntu/3.14": {
+          "reason": "This criterion's proof is not executed by the artifact job.",
+          "status": "non-applicable"
+        },
+        "docs/ubuntu/3.11": {
+          "reason": "This criterion's proof is not executed by the docs job.",
+          "status": "non-applicable"
+        },
+        "runtime/macos/3.11": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/macos/3.14": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/ubuntu/3.11": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/ubuntu/3.12": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/ubuntu/3.13": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/ubuntu/3.14": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/windows/3.11": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/windows/3.14": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        }
+      },
+      "stateful_profile": {
+        "deadline": null,
+        "derandomize": true,
+        "max_examples": 100,
+        "stateful_step_count": 100,
+        "status": "executed by the repository runtime/CI gate, not this artifact driver",
+        "test": "tests/test_stateful.py::TestScalarTransactions"
+      },
+      "tests": [
+        "tests/test_stateful.py::TestScalarTransactions"
+      ]
+    },
+    "AC-027": {
+      "lanes": [
+        {
+          "execution": "required external runtime gate; recorded separately from this artifact driver",
+          "name": "CI compatibility matrix"
+        }
+      ],
+      "matrix_cells": {
+        "artifact/ubuntu/3.11": {
+          "reason": "This criterion's proof is not executed by the artifact job.",
+          "status": "non-applicable"
+        },
+        "artifact/ubuntu/3.14": {
+          "reason": "This criterion's proof is not executed by the artifact job.",
+          "status": "non-applicable"
+        },
+        "docs/ubuntu/3.11": {
+          "reason": "This criterion's proof is not executed by the docs job.",
+          "status": "non-applicable"
+        },
+        "runtime/macos/3.11": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/macos/3.14": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/ubuntu/3.11": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/ubuntu/3.12": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/ubuntu/3.13": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/ubuntu/3.14": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/windows/3.11": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/windows/3.14": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        }
+      },
+      "tests": [
+        "tests/test_stateful.py::TestTransactions",
+        "tests/test_sol_phase02_rereview_5.py",
+        "tests/test_sol_phase03_blockers.py",
+        "tests/test_sol_phase03_rereview_4.py::test_sol017_embedded_python_ingress_rejects_unsupported_sources"
+      ]
+    },
+    "AC-028": {
+      "lanes": [
+        {
+          "execution": "executed by this driver for the recorded source/artifacts",
+          "name": "local package qualification"
+        },
+        {
+          "execution": "required external docs gate",
+          "name": "Documentation checks"
+        }
+      ],
+      "matrix_cells": {
+        "artifact/ubuntu/3.11": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "artifact/ubuntu/3.14": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "docs/ubuntu/3.11": {
+          "reason": "Execution must be reconciled to an actual source-qualified run.",
+          "status": "required-external-execution"
+        },
+        "runtime/macos/3.11": {
+          "reason": "This criterion's proof is not executed by the runtime job.",
+          "status": "non-applicable"
+        },
+        "runtime/macos/3.14": {
+          "reason": "This criterion's proof is not executed by the runtime job.",
+          "status": "non-applicable"
+        },
+        "runtime/ubuntu/3.11": {
+          "reason": "This criterion's proof is not executed by the runtime job.",
+          "status": "non-applicable"
+        },
+        "runtime/ubuntu/3.12": {
+          "reason": "This criterion's proof is not executed by the runtime job.",
+          "status": "non-applicable"
+        },
+        "runtime/ubuntu/3.13": {
+          "reason": "This criterion's proof is not executed by the runtime job.",
+          "status": "non-applicable"
+        },
+        "runtime/ubuntu/3.14": {
+          "reason": "This criterion's proof is not executed by the runtime job.",
+          "status": "non-applicable"
+        },
+        "runtime/windows/3.11": {
+          "reason": "This criterion's proof is not executed by the runtime job.",
+          "status": "non-applicable"
+        },
+        "runtime/windows/3.14": {
+          "reason": "This criterion's proof is not executed by the runtime job.",
+          "status": "non-applicable"
+        }
+      },
+      "tests": [
+        "examples/library_config.py (direct/rebuilt clean-wheel execution)",
+        "tools/check_docs.py"
+      ]
+    }
+  },
+  "behavior_matrix": {
+    "annotation-entry": {
+      "applicable": "All listed cells. Nullable strings exercises its non-null member; null is covered in the leaf matrix. Any/object exercise closed scalar output, not permission to escape mutable raw output.",
+      "axes": {
+        "annotation": [
+          "nullable",
+          "scalar union",
+          "Literal",
+          "Annotated",
+          "Any",
+          "object",
+          "forward reference",
+          "specialized generic",
+          "typed scalar extra"
+        ],
+        "entry": [
+          "class",
+          "adapter"
+        ],
+        "mode": [
+          "python",
+          "json",
+          "strings"
+        ]
+      },
+      "criteria": [
+        "AC-001",
+        "AC-002",
+        "AC-020"
+      ],
+      "non_applicable": {
+        "concrete-mutable-annotation/success": "Use supported ABC annotations; concrete annotation rejection is separately exercised.",
+        "unspecialized-generic/success": "Explicit specialization is required; rejection is separately exercised."
+      },
+      "tests": [
+        "tests/test_phase03_native_matrix.py::test_annotation_entry_matrix",
+        "tests/test_phase03_native_matrix.py::test_forward_generic_typed_extra_entry_matrix"
+      ]
+    },
+    "callback-isolation": {
+      "applicable": "All cells assert rejected callback cannot mutate caller raw graph, and receives original mode and supplied context. Existing protected model-input context/metadata/isolation controls remain anchors.",
+      "axes": {
+        "callback": [
+          "before",
+          "wrap",
+          "after"
+        ],
+        "entry": [
+          "class",
+          "adapter"
+        ],
+        "mode": [
+          "python",
+          "json",
+          "strings"
+        ]
+      },
+      "criteria": [
+        "AC-015",
+        "AC-016",
+        "AC-020"
+      ],
+      "non_applicable": {
+        "exact-recursive-callback-count": "Not guaranteed by the approved contract; SOL-011 is an existing nonblocking follow-up.",
+        "mutation/context-argument": "Mapping mutators expose no context option; canonical transactions deliberately use Python mode and context=None."
+      },
+      "tests": [
+        "tests/test_phase03_native_matrix.py::test_native_callback_source_isolation_and_context"
+      ]
+    },
+    "embedded-ingress": {
+      "applicable": "All cells reject unsupported original input before returning a model; standalone rejection and supported dictionary coercion are controls.",
+      "axes": {
+        "entry": [
+          "ordinary BaseModel envelope",
+          "TypeAdapter list"
+        ],
+        "mode": [
+          "python"
+        ],
+        "source": [
+          "scalar subclass",
+          "arbitrary attribute object"
+        ]
+      },
+      "criteria": [
+        "AC-002",
+        "AC-020",
+        "AC-027"
+      ],
+      "non_applicable": {
+        "python-object/json-or-strings": "JSON/StringsInput cannot carry arbitrary Python objects or scalar subclasses. Native embedding strictness is separately verified."
+      },
+      "tests": [
+        "tests/test_sol_phase03_rereview_4.py::test_sol017_embedded_python_ingress_rejects_unsupported_sources"
+      ]
+    },
+    "equality-hashing": {
+      "applicable": "Observable equality and mutable/frozen hash controls; stale nested equality is independently retained.",
+      "axes": {
+        "comparison": [
+          "same model",
+          "different extras",
+          "dict"
+        ],
+        "hash": [
+          "mutable rejection",
+          "frozen BaseModel parity"
+        ],
+        "model": [
+          "mutable",
+          "frozen"
+        ]
+      },
+      "criteria": [
+        "AC-022"
+      ],
+      "non_applicable": {
+        "mutable-model/hash-success": "Mutable DictModels are unhashable; TypeError is exercised."
+      },
+      "tests": [
+        "tests/test_phase03_evidence_contract.py::test_scalar_model_equality_and_hash_contract"
+      ]
+    },
+    "leaf-mapping-serialization-copy": {
+      "applicable": "All cells use exact supported canonical leaves; schema properties and native serialization compare to BaseModel. Exclusion/computed/context serializers are independently retained anchors.",
+      "axes": {
+        "leaf": [
+          "none",
+          "bool",
+          "int",
+          "float",
+          "str",
+          "bytes",
+          "decimal",
+          "date",
+          "datetime",
+          "time",
+          "timedelta",
+          "uuid"
+        ],
+        "operation": [
+          "read/default enumeration",
+          "update",
+          "validated copy",
+          "reset",
+          "Python dump",
+          "JSON dump",
+          "alias schema"
+        ]
+      },
+      "criteria": [
+        "AC-003",
+        "AC-004",
+        "AC-007",
+        "AC-012",
+        "AC-014",
+        "AC-018",
+        "AC-021"
+      ],
+      "non_applicable": {
+        "lossy-serialization-as-construction": "Transactions/copies never round-trip JSON; native Python canonical values are required."
+      },
+      "tests": [
+        "tests/test_phase03_native_matrix.py::test_scalar_leaf_mapping_copy_serialization_matrix"
+      ]
+    },
+    "mapping-extras-and-structure": {
+      "applicable": "Policy/freeze combinations are parameterized; standalone structural controls exercise meaningful transitions. Declared-key popitem/clear rejection is in the role matrix; scalar oracle retains typed extras and coupled fields.",
+      "axes": {
+        "extra_policy": [
+          "allow",
+          "ignore",
+          "forbid"
+        ],
+        "model_frozen": [
+          false,
+          true
+        ],
+        "structure": [
+          "missing pop",
+          "fallback",
+          "extra insertion",
+          "extra deletion",
+          "extra popitem",
+          "empty clear",
+          "default factory field order/dedup",
+          "malformed iterable",
+          "late failure",
+          "iterator before/after first next",
+          "permanent exhaustion"
+        ]
+      },
+      "criteria": [
+        "AC-005",
+        "AC-009",
+        "AC-010",
+        "AC-011",
+        "AC-012",
+        "AC-014"
+      ],
+      "non_applicable": {
+        "forbid-or-ignore/persisted-extra-removal": "Those policies cannot own extra keys; insertion rejection and missing removal are exercised instead.",
+        "frozen-model/successful-extra-structure-change": "Frozen models cannot insert/remove; rejection and no-op cells remain applicable."
+      },
+      "tests": [
+        "tests/test_phase03_policy_matrix.py::test_scalar_extra_insertion_missing_and_removal_matrix",
+        "tests/test_phase03_policy_matrix.py::test_scalar_empty_clear_validates_and_factory_reset_is_ordered",
+        "tests/test_phase03_policy_matrix.py::test_scalar_malformed_batches_and_late_iterator_failure_are_atomic",
+        "tests/test_phase03_evidence_contract.py::test_scalar_iterator_structure_and_exhaustion_contract"
+      ]
+    },
+    "mapping-role-policy-freeze": {
+      "applicable": "All cells. Declared deletion/pop/clear, required reset and frozen writes are applicable rejection cells: values/order/fields-set/extra snapshots must be unchanged. No-op cells stay successful; update proves duplicate and keyword precedence; ior proves identity.",
+      "axes": {
+        "extra_policy": [
+          "allow",
+          "ignore",
+          "forbid"
+        ],
+        "freeze": [
+          "mutable",
+          "model",
+          "field"
+        ],
+        "operation": [
+          "setitem",
+          "attribute",
+          "update",
+          "ior",
+          "delete",
+          "pop",
+          "popitem",
+          "clear",
+          "reset",
+          "existing setdefault",
+          "empty update",
+          "empty reset"
+        ],
+        "role": [
+          "required",
+          "defaulted",
+          "nullable"
+        ]
+      },
+      "criteria": [
+        "AC-007",
+        "AC-008",
+        "AC-009",
+        "AC-010",
+        "AC-011",
+        "AC-012",
+        "AC-013",
+        "AC-014"
+      ],
+      "non_applicable": {
+        "declared-field/removal-success": "Declared fields are protected even nullable/defaulted; rejection cells are exercised, not silently skipped."
+      },
+      "tests": [
+        "tests/test_phase03_policy_matrix.py::test_scalar_role_policy_freeze_matrix"
+      ]
+    },
+    "native-leaf-entry": {
+      "applicable": "Every Cartesian cell except none/strings; native Python values and coercing Python strings compare accepted values/metadata or exact error locations/types to pinned BaseModel.",
+      "axes": {
+        "entry": [
+          "class",
+          "adapter"
+        ],
+        "leaf": [
+          "none",
+          "bool",
+          "int",
+          "float",
+          "str",
+          "bytes",
+          "decimal",
+          "date",
+          "datetime",
+          "time",
+          "timedelta",
+          "uuid"
+        ],
+        "mode": [
+          "python",
+          "json",
+          "strings"
+        ],
+        "strict": [
+          null,
+          false,
+          true
+        ]
+      },
+      "criteria": [
+        "AC-001",
+        "AC-020"
+      ],
+      "non_applicable": {
+        "none/strings/*/*": "StringsInput cannot represent null; Python/JSON null remain applicable and exercised.",
+        "parsed-custom-tzinfo/*": "Custom tzinfo, including Pydantic TzInfo output, is outside the closed envelope. Naive native-mode temporal inputs and native datetime.timezone Python values are exercised."
+      },
+      "tests": [
+        "tests/test_phase03_native_matrix.py::test_native_leaf_entry_matrix"
+      ]
+    },
+    "native-options": {
+      "applicable": "All cells, including expected forbid rejection and field-specific strict date alongside coercing integer. Class allows extras; overrides cannot widen ongoing class policy.",
+      "axes": {
+        "alias_flags": [
+          "alias only",
+          "name only"
+        ],
+        "entry": [
+          "class",
+          "adapter"
+        ],
+        "extra_override": [
+          "allow",
+          "ignore",
+          "forbid"
+        ],
+        "mode": [
+          "python",
+          "json",
+          "strings"
+        ],
+        "strict": [
+          null,
+          false,
+          true
+        ]
+      },
+      "criteria": [
+        "AC-006",
+        "AC-020"
+      ],
+      "non_applicable": {
+        "from_attributes/json-or-strings": "Those entry APIs do not expose from_attributes; Python's supported/rejected attribute ingress is covered separately."
+      },
+      "tests": [
+        "tests/test_phase03_native_matrix.py::test_native_alias_extra_strict_option_matrix"
+      ]
+    }
+  },
+  "candidate_source_commit": "6325b9f266878aa8d1ad25667cc80d17b40bb140",
+  "commands": [
+    {
+      "argv": [
+        "/opt/homebrew/opt/python@3.11/bin/python3.11",
+        "-m",
+        "build",
+        "--sdist",
+        "--wheel",
+        "--outdir",
+        "/Volumes/T7/pydandict-release-030-fomOUr/pydandict-qualification-zbm3527t/direct"
+      ],
+      "cwd": "/Volumes/T7/pydandict-release-030-fomOUr/checkout",
+      "source_path_injection": false
+    },
+    {
+      "argv": [
+        "/opt/homebrew/opt/python@3.11/bin/python3.11",
+        "-m",
+        "twine",
+        "check",
+        "/Volumes/T7/pydandict-release-030-fomOUr/pydandict-qualification-zbm3527t/direct/pydandict-0.3.0.tar.gz",
+        "/Volumes/T7/pydandict-release-030-fomOUr/pydandict-qualification-zbm3527t/direct/pydandict-0.3.0-py3-none-any.whl"
+      ],
+      "cwd": "/Volumes/T7/pydandict-release-030-fomOUr/checkout",
+      "source_path_injection": false
+    },
+    {
+      "argv": [
+        "/opt/homebrew/opt/python@3.11/bin/python3.11",
+        "-m",
+        "build",
+        "--wheel",
+        "--outdir",
+        "/Volumes/T7/pydandict-release-030-fomOUr/pydandict-qualification-zbm3527t/rebuilt"
+      ],
+      "cwd": "/Volumes/T7/pydandict-release-030-fomOUr/pydandict-qualification-zbm3527t/source/pydandict-0.3.0",
+      "source_path_injection": false
+    },
+    {
+      "argv": [
+        "/Volumes/T7/pydandict-release-030-fomOUr/pydandict-qualification-zbm3527t/direct-bare/bin/python",
+        "-m",
+        "pip",
+        "install",
+        "/Volumes/T7/pydandict-release-030-fomOUr/pydandict-qualification-zbm3527t/direct/pydandict-0.3.0-py3-none-any.whl"
+      ],
+      "cwd": "/Volumes/T7/pydandict-release-030-fomOUr/pydandict-qualification-zbm3527t",
+      "source_path_injection": false
+    },
+    {
+      "argv": [
+        "/Volumes/T7/pydandict-release-030-fomOUr/pydandict-qualification-zbm3527t/direct-bare/bin/python",
+        "/Volumes/T7/pydandict-release-030-fomOUr/pydandict-qualification-zbm3527t/direct-library_config.py"
+      ],
+      "cwd": "/Volumes/T7/pydandict-release-030-fomOUr/pydandict-qualification-zbm3527t",
+      "source_path_injection": false
+    },
+    {
+      "argv": [
+        "/Volumes/T7/pydandict-release-030-fomOUr/pydandict-qualification-zbm3527t/direct-bare/bin/python",
+        "-c",
+        "from importlib.metadata import distribution\nfrom pathlib import Path\ndist = distribution('pydandict')\nassert dist.metadata['Name'] == 'pydandict'\nassert dist.version == '0.3.0'\nassert dist.metadata['License-Expression'] == 'MIT'\nruntime = [item for item in (dist.requires or []) if 'extra ==' not in item]\nassert runtime == ['pydantic==2.13.4'], runtime\nlicenses = [item for item in (dist.files or []) if str(item).lower().endswith('licenses/license')]\nassert len(licenses) == 1\nassert Path(dist.locate_file(licenses[0])).read_text().startswith('MIT License')\nprint('metadata verified')\n"
+      ],
+      "cwd": "/Volumes/T7/pydandict-release-030-fomOUr/pydandict-qualification-zbm3527t",
+      "source_path_injection": false
+    },
+    {
+      "argv": [
+        "/Volumes/T7/pydandict-release-030-fomOUr/pydandict-qualification-zbm3527t/direct-bare/bin/python",
+        "-c",
+        "from pathlib import Path\nfrom collections.abc import Mapping, MutableSequence\nimport sys, pydandict\nfrom pydantic import BaseModel, ValidationError\nfrom pydandict import DictModel\nmodule = Path(pydandict.__file__).resolve()\nassert module.is_relative_to(Path(sys.prefix).resolve())\nassert not module.is_relative_to(Path('/Volumes/T7/pydandict-release-030-fomOUr/checkout').resolve())\nclass Item(DictModel):\n    numbers: MutableSequence[int]\nitem = Item(numbers=[1])\nassert isinstance(item, BaseModel) and isinstance(item, Mapping)\nhandle = item.numbers\nitem.numbers.append(2)\nassert item.numbers is handle and item.model_dump() == {'numbers': [1, 2]}\ntry:\n    item.numbers.append('bad')\nexcept ValidationError:\n    assert item.numbers == [1, 2]\nelse:\n    raise AssertionError('invalid library edit committed')\nclass Config(DictModel):\n    low: int = 1\n    high: int = 3\ncfg = Config()\nassert dict(cfg) == {'low': 1, 'high': 3} and cfg.model_fields_set == set()\ncfg.update(low=5, high=8)\nassert (cfg.low, cfg.high) == (5, 8)\ncopy_cfg = cfg.model_copy(update={'low': 6})\nassert copy_cfg.low == 6 and cfg.low == 5\ncfg.reset('low', 'high')\nassert dict(cfg) == {'low': 1, 'high': 3}\nprint(module)\n"
+      ],
+      "cwd": "/Volumes/T7/pydandict-release-030-fomOUr/pydandict-qualification-zbm3527t",
+      "source_path_injection": false
+    },
+    {
+      "argv": [
+        "/Volumes/T7/pydandict-release-030-fomOUr/pydandict-qualification-zbm3527t/direct-bare/bin/python",
+        "-m",
+        "pip",
+        "freeze"
+      ],
+      "cwd": "/Volumes/T7/pydandict-release-030-fomOUr/pydandict-qualification-zbm3527t",
+      "source_path_injection": false
+    },
+    {
+      "argv": [
+        "/Volumes/T7/pydandict-release-030-fomOUr/pydandict-qualification-zbm3527t/direct-http/bin/python",
+        "-m",
+        "pip",
+        "install",
+        "/Volumes/T7/pydandict-release-030-fomOUr/pydandict-qualification-zbm3527t/direct/pydandict-0.3.0-py3-none-any.whl",
+        "fastapi==0.141.1",
+        "httpx==0.28.1",
+        "pyright==1.1.411"
+      ],
+      "cwd": "/Volumes/T7/pydandict-release-030-fomOUr/pydandict-qualification-zbm3527t",
+      "source_path_injection": false
+    },
+    {
+      "argv": [
+        "/Volumes/T7/pydandict-release-030-fomOUr/pydandict-qualification-zbm3527t/direct-http/bin/python",
+        "/Volumes/T7/pydandict-release-030-fomOUr/pydandict-qualification-zbm3527t/direct-consumer.py"
+      ],
+      "cwd": "/Volumes/T7/pydandict-release-030-fomOUr/pydandict-qualification-zbm3527t",
+      "source_path_injection": false
+    },
+    {
+      "argv": [
+        "/Volumes/T7/pydandict-release-030-fomOUr/pydandict-qualification-zbm3527t/direct-http/bin/python",
+        "/Volumes/T7/pydandict-release-030-fomOUr/pydandict-qualification-zbm3527t/direct-typing.py"
+      ],
+      "cwd": "/Volumes/T7/pydandict-release-030-fomOUr/pydandict-qualification-zbm3527t",
+      "source_path_injection": false
+    },
+    {
+      "argv": [
+        "/Volumes/T7/pydandict-release-030-fomOUr/pydandict-qualification-zbm3527t/direct-http/bin/python",
+        "-c",
+        "import site; print(site.getsitepackages()[0])"
+      ],
+      "cwd": "/Volumes/T7/pydandict-release-030-fomOUr/pydandict-qualification-zbm3527t",
+      "source_path_injection": false
+    },
+    {
+      "argv": [
+        "/Volumes/T7/pydandict-release-030-fomOUr/pydandict-qualification-zbm3527t/direct-http/bin/python",
+        "-m",
+        "pyright",
+        "--project",
+        "/Volumes/T7/pydandict-release-030-fomOUr/pydandict-qualification-zbm3527t/direct-pyrightconfig.json"
+      ],
+      "cwd": "/Volumes/T7/pydandict-release-030-fomOUr/pydandict-qualification-zbm3527t",
+      "source_path_injection": false
+    },
+    {
+      "argv": [
+        "/Volumes/T7/pydandict-release-030-fomOUr/pydandict-qualification-zbm3527t/direct-http/bin/python",
+        "-m",
+        "pyright",
+        "--verifytypes",
+        "pydandict",
+        "--ignoreexternal"
+      ],
+      "cwd": "/Volumes/T7/pydandict-release-030-fomOUr/pydandict-qualification-zbm3527t",
+      "source_path_injection": false
+    },
+    {
+      "argv": [
+        "/Volumes/T7/pydandict-release-030-fomOUr/pydandict-qualification-zbm3527t/direct-http/bin/python",
+        "-c",
+        "\nimport json, subprocess, sys\nfrom pathlib import Path\nfixture = Path('/Volumes/T7/pydandict-release-030-fomOUr/pydandict-qualification-zbm3527t/direct-negative.py')\nexpected = sorted([(14, 'reportAttributeAccessIssue'), (15, 'reportArgumentType'), (16, 'reportAssignmentType'), (17, 'reportAssertTypeFailure')])\nresult = subprocess.run(\n    [sys.executable, \"-m\", \"pyright\", \"--project\", '/Volumes/T7/pydandict-release-030-fomOUr/pydandict-qualification-zbm3527t/direct-negative-config.json', \"--outputjson\"],\n    text=True, capture_output=True, check=False,\n)\nassert result.returncode == 1, result.stdout + result.stderr\nreport = json.loads(result.stdout)\ndiagnostics = report[\"generalDiagnostics\"]\nactual = []\nfor diagnostic in diagnostics:\n    assert diagnostic[\"severity\"] == \"error\", diagnostic\n    assert Path(diagnostic[\"file\"]).resolve() == fixture.resolve(), diagnostic\n    actual.append((diagnostic[\"range\"][\"start\"][\"line\"] + 1, diagnostic[\"rule\"]))\nassert sorted(actual) == expected, (actual, expected)\nassert report[\"summary\"][\"errorCount\"] == len(expected), report\nassert report[\"summary\"][\"filesAnalyzed\"] == 1, report\nprint(json.dumps({\"expected_errors\": len(expected), \"actual_errors\": len(actual)}))\n"
+      ],
+      "cwd": "/Volumes/T7/pydandict-release-030-fomOUr/pydandict-qualification-zbm3527t",
+      "source_path_injection": false
+    },
+    {
+      "argv": [
+        "/Volumes/T7/pydandict-release-030-fomOUr/pydandict-qualification-zbm3527t/direct-http/bin/python",
+        "-m",
+        "pip",
+        "freeze"
+      ],
+      "cwd": "/Volumes/T7/pydandict-release-030-fomOUr/pydandict-qualification-zbm3527t",
+      "source_path_injection": false
+    },
+    {
+      "argv": [
+        "/Volumes/T7/pydandict-release-030-fomOUr/pydandict-qualification-zbm3527t/rebuilt-bare/bin/python",
+        "-m",
+        "pip",
+        "install",
+        "/Volumes/T7/pydandict-release-030-fomOUr/pydandict-qualification-zbm3527t/rebuilt/pydandict-0.3.0-py3-none-any.whl"
+      ],
+      "cwd": "/Volumes/T7/pydandict-release-030-fomOUr/pydandict-qualification-zbm3527t",
+      "source_path_injection": false
+    },
+    {
+      "argv": [
+        "/Volumes/T7/pydandict-release-030-fomOUr/pydandict-qualification-zbm3527t/rebuilt-bare/bin/python",
+        "/Volumes/T7/pydandict-release-030-fomOUr/pydandict-qualification-zbm3527t/rebuilt-library_config.py"
+      ],
+      "cwd": "/Volumes/T7/pydandict-release-030-fomOUr/pydandict-qualification-zbm3527t",
+      "source_path_injection": false
+    },
+    {
+      "argv": [
+        "/Volumes/T7/pydandict-release-030-fomOUr/pydandict-qualification-zbm3527t/rebuilt-bare/bin/python",
+        "-c",
+        "from importlib.metadata import distribution\nfrom pathlib import Path\ndist = distribution('pydandict')\nassert dist.metadata['Name'] == 'pydandict'\nassert dist.version == '0.3.0'\nassert dist.metadata['License-Expression'] == 'MIT'\nruntime = [item for item in (dist.requires or []) if 'extra ==' not in item]\nassert runtime == ['pydantic==2.13.4'], runtime\nlicenses = [item for item in (dist.files or []) if str(item).lower().endswith('licenses/license')]\nassert len(licenses) == 1\nassert Path(dist.locate_file(licenses[0])).read_text().startswith('MIT License')\nprint('metadata verified')\n"
+      ],
+      "cwd": "/Volumes/T7/pydandict-release-030-fomOUr/pydandict-qualification-zbm3527t",
+      "source_path_injection": false
+    },
+    {
+      "argv": [
+        "/Volumes/T7/pydandict-release-030-fomOUr/pydandict-qualification-zbm3527t/rebuilt-bare/bin/python",
+        "-c",
+        "from pathlib import Path\nfrom collections.abc import Mapping, MutableSequence\nimport sys, pydandict\nfrom pydantic import BaseModel, ValidationError\nfrom pydandict import DictModel\nmodule = Path(pydandict.__file__).resolve()\nassert module.is_relative_to(Path(sys.prefix).resolve())\nassert not module.is_relative_to(Path('/Volumes/T7/pydandict-release-030-fomOUr/checkout').resolve())\nclass Item(DictModel):\n    numbers: MutableSequence[int]\nitem = Item(numbers=[1])\nassert isinstance(item, BaseModel) and isinstance(item, Mapping)\nhandle = item.numbers\nitem.numbers.append(2)\nassert item.numbers is handle and item.model_dump() == {'numbers': [1, 2]}\ntry:\n    item.numbers.append('bad')\nexcept ValidationError:\n    assert item.numbers == [1, 2]\nelse:\n    raise AssertionError('invalid library edit committed')\nclass Config(DictModel):\n    low: int = 1\n    high: int = 3\ncfg = Config()\nassert dict(cfg) == {'low': 1, 'high': 3} and cfg.model_fields_set == set()\ncfg.update(low=5, high=8)\nassert (cfg.low, cfg.high) == (5, 8)\ncopy_cfg = cfg.model_copy(update={'low': 6})\nassert copy_cfg.low == 6 and cfg.low == 5\ncfg.reset('low', 'high')\nassert dict(cfg) == {'low': 1, 'high': 3}\nprint(module)\n"
+      ],
+      "cwd": "/Volumes/T7/pydandict-release-030-fomOUr/pydandict-qualification-zbm3527t",
+      "source_path_injection": false
+    },
+    {
+      "argv": [
+        "/Volumes/T7/pydandict-release-030-fomOUr/pydandict-qualification-zbm3527t/rebuilt-bare/bin/python",
+        "-m",
+        "pip",
+        "freeze"
+      ],
+      "cwd": "/Volumes/T7/pydandict-release-030-fomOUr/pydandict-qualification-zbm3527t",
+      "source_path_injection": false
+    },
+    {
+      "argv": [
+        "/Volumes/T7/pydandict-release-030-fomOUr/pydandict-qualification-zbm3527t/rebuilt-http/bin/python",
+        "-m",
+        "pip",
+        "install",
+        "/Volumes/T7/pydandict-release-030-fomOUr/pydandict-qualification-zbm3527t/rebuilt/pydandict-0.3.0-py3-none-any.whl",
+        "fastapi==0.141.1",
+        "httpx==0.28.1",
+        "pyright==1.1.411"
+      ],
+      "cwd": "/Volumes/T7/pydandict-release-030-fomOUr/pydandict-qualification-zbm3527t",
+      "source_path_injection": false
+    },
+    {
+      "argv": [
+        "/Volumes/T7/pydandict-release-030-fomOUr/pydandict-qualification-zbm3527t/rebuilt-http/bin/python",
+        "/Volumes/T7/pydandict-release-030-fomOUr/pydandict-qualification-zbm3527t/rebuilt-consumer.py"
+      ],
+      "cwd": "/Volumes/T7/pydandict-release-030-fomOUr/pydandict-qualification-zbm3527t",
+      "source_path_injection": false
+    },
+    {
+      "argv": [
+        "/Volumes/T7/pydandict-release-030-fomOUr/pydandict-qualification-zbm3527t/rebuilt-http/bin/python",
+        "/Volumes/T7/pydandict-release-030-fomOUr/pydandict-qualification-zbm3527t/rebuilt-typing.py"
+      ],
+      "cwd": "/Volumes/T7/pydandict-release-030-fomOUr/pydandict-qualification-zbm3527t",
+      "source_path_injection": false
+    },
+    {
+      "argv": [
+        "/Volumes/T7/pydandict-release-030-fomOUr/pydandict-qualification-zbm3527t/rebuilt-http/bin/python",
+        "-c",
+        "import site; print(site.getsitepackages()[0])"
+      ],
+      "cwd": "/Volumes/T7/pydandict-release-030-fomOUr/pydandict-qualification-zbm3527t",
+      "source_path_injection": false
+    },
+    {
+      "argv": [
+        "/Volumes/T7/pydandict-release-030-fomOUr/pydandict-qualification-zbm3527t/rebuilt-http/bin/python",
+        "-m",
+        "pyright",
+        "--project",
+        "/Volumes/T7/pydandict-release-030-fomOUr/pydandict-qualification-zbm3527t/rebuilt-pyrightconfig.json"
+      ],
+      "cwd": "/Volumes/T7/pydandict-release-030-fomOUr/pydandict-qualification-zbm3527t",
+      "source_path_injection": false
+    },
+    {
+      "argv": [
+        "/Volumes/T7/pydandict-release-030-fomOUr/pydandict-qualification-zbm3527t/rebuilt-http/bin/python",
+        "-m",
+        "pyright",
+        "--verifytypes",
+        "pydandict",
+        "--ignoreexternal"
+      ],
+      "cwd": "/Volumes/T7/pydandict-release-030-fomOUr/pydandict-qualification-zbm3527t",
+      "source_path_injection": false
+    },
+    {
+      "argv": [
+        "/Volumes/T7/pydandict-release-030-fomOUr/pydandict-qualification-zbm3527t/rebuilt-http/bin/python",
+        "-c",
+        "\nimport json, subprocess, sys\nfrom pathlib import Path\nfixture = Path('/Volumes/T7/pydandict-release-030-fomOUr/pydandict-qualification-zbm3527t/rebuilt-negative.py')\nexpected = sorted([(14, 'reportAttributeAccessIssue'), (15, 'reportArgumentType'), (16, 'reportAssignmentType'), (17, 'reportAssertTypeFailure')])\nresult = subprocess.run(\n    [sys.executable, \"-m\", \"pyright\", \"--project\", '/Volumes/T7/pydandict-release-030-fomOUr/pydandict-qualification-zbm3527t/rebuilt-negative-config.json', \"--outputjson\"],\n    text=True, capture_output=True, check=False,\n)\nassert result.returncode == 1, result.stdout + result.stderr\nreport = json.loads(result.stdout)\ndiagnostics = report[\"generalDiagnostics\"]\nactual = []\nfor diagnostic in diagnostics:\n    assert diagnostic[\"severity\"] == \"error\", diagnostic\n    assert Path(diagnostic[\"file\"]).resolve() == fixture.resolve(), diagnostic\n    actual.append((diagnostic[\"range\"][\"start\"][\"line\"] + 1, diagnostic[\"rule\"]))\nassert sorted(actual) == expected, (actual, expected)\nassert report[\"summary\"][\"errorCount\"] == len(expected), report\nassert report[\"summary\"][\"filesAnalyzed\"] == 1, report\nprint(json.dumps({\"expected_errors\": len(expected), \"actual_errors\": len(actual)}))\n"
+      ],
+      "cwd": "/Volumes/T7/pydandict-release-030-fomOUr/pydandict-qualification-zbm3527t",
+      "source_path_injection": false
+    },
+    {
+      "argv": [
+        "/Volumes/T7/pydandict-release-030-fomOUr/pydandict-qualification-zbm3527t/rebuilt-http/bin/python",
+        "-m",
+        "pip",
+        "freeze"
+      ],
+      "cwd": "/Volumes/T7/pydandict-release-030-fomOUr/pydandict-qualification-zbm3527t",
+      "source_path_injection": false
+    },
+    {
+      "argv": [
+        "git",
+        "rev-parse",
+        "HEAD"
+      ],
+      "cwd": "/Volumes/T7/pydandict-release-030-fomOUr/checkout",
+      "source_path_injection": false
+    },
+    {
+      "argv": [
+        "git",
+        "status",
+        "--porcelain",
+        "--",
+        "src",
+        "tests",
+        "tools",
+        "examples",
+        "pyproject.toml",
+        ".github",
+        "LICENSE"
+      ],
+      "cwd": "/Volumes/T7/pydandict-release-030-fomOUr/checkout",
+      "source_path_injection": false
+    }
+  ],
+  "direct_wheel": "pydandict-0.3.0-py3-none-any.whl",
+  "direct_wheel_sha256": "a85f9c589c45b2d795ed4e9f5bfb747dff5057c2d619fb4010d4544235962297",
+  "execution_reconciliation": "docs/research/release-0.3.0-readiness.md; local snapshot qualification is not CI approval of main or publication.",
+  "limitations": [
+    "This local package qualification does not prove every advertised CI lane.",
+    "The full runtime suite, scalar stateful profile and docs checker are recorded as external required gates rather than asserted as executed here."
+  ],
+  "observed_failures": [],
+  "platform": "macOS-26.5.2-arm64-arm-64bit",
+  "python": "3.11.14 (main, Oct  9 2025, 16:16:55) [Clang 17.0.0 (clang-1700.6.3.2)]",
+  "qualification_profile": "phase-0.3-scalar-installed-consumers",
+  "qualification_status": "qualified",
+  "rebuilt_wheel": "pydandict-0.3.0-py3-none-any.whl",
+  "rebuilt_wheel_sha256": "c056f61109644421228a3f9d058baa62da9de30efb11df80f5ce5907e19ed434",
+  "relevant_worktree_status": "",
+  "resolved_dependencies": {
+    "direct": "annotated-doc==0.0.5\nannotated-types==0.8.0\nanyio==4.15.1\ncertifi==2026.7.22\nfastapi==0.141.1\nh11==0.16.0\nhttpcore==1.0.9\nhttpx==0.28.1\nidna==3.19\nnodeenv==1.10.0\npydandict @ file:///Volumes/T7/pydandict-release-030-fomOUr/pydandict-qualification-zbm3527t/direct/pydandict-0.3.0-py3-none-any.whl#sha256=a85f9c589c45b2d795ed4e9f5bfb747dff5057c2d619fb4010d4544235962297\npydantic==2.13.4\npydantic_core==2.46.4\npyright==1.1.411\nstarlette==1.6.0\ntyping-inspection==0.4.4\ntyping_extensions==4.16.0\n",
+    "direct_bare": "annotated-types==0.8.0\npydandict @ file:///Volumes/T7/pydandict-release-030-fomOUr/pydandict-qualification-zbm3527t/direct/pydandict-0.3.0-py3-none-any.whl#sha256=a85f9c589c45b2d795ed4e9f5bfb747dff5057c2d619fb4010d4544235962297\npydantic==2.13.4\npydantic_core==2.46.4\ntyping-inspection==0.4.4\ntyping_extensions==4.16.0\n",
+    "direct_bare_import": "/Volumes/T7/pydandict-release-030-fomOUr/pydandict-qualification-zbm3527t/direct-bare/lib/python3.11/site-packages/pydandict/__init__.py\n",
+    "direct_library_example": "",
+    "direct_metadata": "metadata verified\n",
+    "direct_negative_typing": "{\"expected_errors\": 4, \"actual_errors\": 4}\n",
+    "rebuilt": "annotated-doc==0.0.5\nannotated-types==0.8.0\nanyio==4.15.1\ncertifi==2026.7.22\nfastapi==0.141.1\nh11==0.16.0\nhttpcore==1.0.9\nhttpx==0.28.1\nidna==3.19\nnodeenv==1.10.0\npydandict @ file:///Volumes/T7/pydandict-release-030-fomOUr/pydandict-qualification-zbm3527t/rebuilt/pydandict-0.3.0-py3-none-any.whl#sha256=c056f61109644421228a3f9d058baa62da9de30efb11df80f5ce5907e19ed434\npydantic==2.13.4\npydantic_core==2.46.4\npyright==1.1.411\nstarlette==1.6.0\ntyping-inspection==0.4.4\ntyping_extensions==4.16.0\n",
+    "rebuilt_bare": "annotated-types==0.8.0\npydandict @ file:///Volumes/T7/pydandict-release-030-fomOUr/pydandict-qualification-zbm3527t/rebuilt/pydandict-0.3.0-py3-none-any.whl#sha256=c056f61109644421228a3f9d058baa62da9de30efb11df80f5ce5907e19ed434\npydantic==2.13.4\npydantic_core==2.46.4\ntyping-inspection==0.4.4\ntyping_extensions==4.16.0\n",
+    "rebuilt_bare_import": "/Volumes/T7/pydandict-release-030-fomOUr/pydandict-qualification-zbm3527t/rebuilt-bare/lib/python3.11/site-packages/pydandict/__init__.py\n",
+    "rebuilt_library_example": "",
+    "rebuilt_metadata": "metadata verified\n",
+    "rebuilt_negative_typing": "{\"expected_errors\": 4, \"actual_errors\": 4}\n"
+  },
+  "scalar_stateful_profile": {
+    "deadline": null,
+    "derandomize": true,
+    "max_examples": 100,
+    "stateful_step_count": 100,
+    "status": "executed by the repository runtime/CI gate, not this artifact driver",
+    "test": "tests/test_stateful.py::TestScalarTransactions"
+  },
+  "sdist": "pydandict-0.3.0.tar.gz",
+  "sdist_sha256": "c8c88f2a06b9bbac39469ed8da29b69d6aebbf9c0d13657da15634396ce0d485",
+  "source_commit": "6325b9f266878aa8d1ad25667cc80d17b40bb140",
+  "version": "0.3.0",
+  "driver_execution_reconciliation": "docs/research/phase-0.3-final-execution.json; compare its source identity and file hashes before reusing any execution. Presence is not a passing gate.",
+  "release_preparation": {
+    "status": "LOCAL_GATES_PASSED_PENDING_COMMITTED_CI",
+    "annotation": "Readiness reconciliation added after the raw artifact execution; original command/dependency/source measurements are preserved.",
+    "verification_snapshot": {
+      "commit": "6325b9f266878aa8d1ad25667cc80d17b40bb140",
+      "kind": "isolated local detached snapshot",
+      "main_base_commit": "a33bb49263082effe0883233ce0cf21d2db2ca98",
+      "main_status": "release preparation changes uncommitted; push approval pending"
+    },
+    "component_hashes": {
+      ".github/workflows/check.yml": "d972644a97b6acf63252d70017103086deffda7854dcda0c31df379489d68cf9",
+      ".github/workflows/ci.yml": "901e94b50a1c9a77d2d56c73b572c3fe582ef1662f0b8368ba64f233be7b955b",
+      ".github/workflows/release.yml": "c8d856b112e35a6adeb4ea8a09bb5425782e07672977744f8dca9779b26dc2fa",
+      "CHANGELOG.md": "0dafcb69c7924a905b2f5ae8339e69fd1abd57272df88f4224a6de2c3e7727d7",
+      "LICENSE": "31420477330909d484b71b5dddb4c9620dbfd8f4a3cfd5377e7c3f88162c35fe",
+      "README.md": "08a523b9a935acb06864e10fb6bd596cc9ed847f28e95860c3a0da57a5270e3e",
+      "examples/library_config.py": "27758d2a5c549649c7ca557216b0275a4aa3a2147ad262a94c8c36f191b1e4a2",
+      "pyproject.toml": "49a2c1c80061e260bce2daa4d8bdde9950de6c2f6785e8807b712ee598a43a0d",
+      "src/pydandict/__init__.py": "7ac521e6fb1b7f6e001b0c259e5d22f750ffdd4de1270fd00a504ea4b435ac6b",
+      "src/pydandict/_compat.py": "7939d83ccdf23524c7bd048509b3ea7222123b62eaa8c1ca2bd0d92213625a50",
+      "src/pydandict/_containers.py": "b4240fe2af4b7a5ca3a2000eb017133e1889288b7ccea2ff79363208906f2857",
+      "src/pydandict/_core.py": "179260866d06e90c5baa91fc1a7614937b7fa13cca0af3085b3daedeb0138907",
+      "src/pydandict/py.typed": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "tests/test_benchmark_contract.py": "34f34419364d18054df714dbd1b1b76b8fabccf75de7c6dcd676c5ad27a17da5",
+      "tests/test_compat_remediation.py": "1809ce453dabd2f9fad38e7169b8addc6de2ad0c8d4405ca2b769997692d2650",
+      "tests/test_extra_annotation_completion.py": "7ac4afa5e3a1e52bfa8060bc39866c2e9d6f181d532d678619b5cf0d71497354",
+      "tests/test_hash_ingress.py": "027e5dbf1bdf50a18e06201432f053e110dbf856c4ae124714781c7ba8826656",
+      "tests/test_inventory.py": "59fe3203b6b92063a5b6833cc0cfb737a15bf06c6615f85d6625a7ceb7821690",
+      "tests/test_phase02_contract.py": "b7f60cc3e65c5ff59bb6e9f7f6053b729335ecd56c4aca37b29b4647f24d068c",
+      "tests/test_phase03_contract.py": "0646a3c343f61f8aa3d6a3bffb0adb05ec875c5c19dfe370c26fa578670e2f6c",
+      "tests/test_phase03_embedding_remediation.py": "0adbc8940d2bc154c52091935dd2194e6c694420ccb281cc158546189d88a3ca",
+      "tests/test_phase03_evidence_contract.py": "6b6a2e386ac91d3dd9be8981d5caf30b641d0b125defbf22bc79152aa42aed31",
+      "tests/test_phase03_native_matrix.py": "6e1c6a7f7265e8fe51395e99d40365a6cef6a0ba4e83325f9d5d60ca212888c8",
+      "tests/test_phase03_policy_matrix.py": "8bce1e9703a567d32c3cf90b3873252e3e029d3fc7eb7cf32df0af6d88088d5f",
+      "tests/test_prototype.py": "16a697a8fab06396ad2dfcf7566bf1f5af1f47eae62b971f38e0e1daa96f8834",
+      "tests/test_sol_phase02_blockers.py": "e9164fb4ee267bdddcf0dce5154bc04008982b12feadded7042679bb63d8fe8c",
+      "tests/test_sol_phase02_rereview.py": "62337ad40a3cd28fa511f6646b1027c86f46dfd94e5dc2c33c0172f5a6349815",
+      "tests/test_sol_phase02_rereview_2.py": "de0d6fcee0e73fb0b5bbcad6e19fb0c22cdf59399cfd9adb6f6a1adc8fee94e3",
+      "tests/test_sol_phase02_rereview_3.py": "2debc4534eb79be6ece66e2675e69227b417c06ee7401af0fb6e5556b1b71430",
+      "tests/test_sol_phase02_rereview_4.py": "fafd74735f20345c49f414fb2a987d845b174b07c70881ea17e1da8be112be3f",
+      "tests/test_sol_phase02_rereview_5.py": "29fa9b27d32127c2b1636d5450b15bda2a7d5d7b57e6550280ea7b5b170b24aa",
+      "tests/test_sol_phase03_blockers.py": "ee8fb4068ca58fd4d84e6d10dc53fee21e5543f522d1948f522d82e29d929bde",
+      "tests/test_sol_phase03_rereview.py": "0bcd2622c180067756e00ee9ca7caaf615224509b374e0e923674179c37f7072",
+      "tests/test_sol_phase03_rereview_2.py": "951f500c90f6f330d91753cf0ed0425c80decc156c453466f42060268ec7550d",
+      "tests/test_sol_phase03_rereview_3.py": "a0bab3487285dc2b91a0d171c6f1064f69f9e1b82275beb587c9598ed0749bd0",
+      "tests/test_sol_phase03_rereview_4.py": "79526f011654109adc42ac14a625510906aa10d599e4858b2106ade2dd82b200",
+      "tests/test_stateful.py": "e5223d3bcc4d7cddae6416a24a6e2ac98b88f4156d181633466c62b9ce9ce66d",
+      "tests/test_transaction_remediation.py": "505e294f9d3f44977857cd95eafa08ba4ea1406e458def610f138d36276f372d",
+      "tests/typing_negative.py": "4244d3709eeb134488f9d7b09babee06631d91a4ea9841d16623d8e4ce170131",
+      "tests/typing_positive.py": "5035f578dfd7e9cfae052f92adde11ae3376a39e9df8ca672b1625c3f62f4e7b",
+      "tools/benchmark.py": "435c6d629708db6b8a45cc0bad22ff5e11cd78f5f9bb1890ded39cff2dccd62a",
+      "tools/check_docs.py": "33ac751040281ef2f8d53a140b28e9405bff6b8c96499c82218d6d0a7451f4df",
+      "tools/check_typing.py": "6bb840d091c4aedadacc4265a09991358bb923c42a31cdaff20a07de9b29f22d",
+      "tools/probe_typing.py": "baf4907d48ec3b44971f02cc3afd6e3e51abbf227e83a17e137bd3afd471b684",
+      "tools/probe_upstream.py": "f3d1aa25a5546f14ea14bff60650a421217ccd07c43b1e5ce4e691fe329d62ae",
+      "tools/qualify_package.py": "6edd09e4c6b0c7cc3cde85f08db6feca039f150f4749dfa610743694bd251815"
+    },
+    "runtime": {
+      "command": "PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 PYTHONPATH=src python -m pytest -q",
+      "working_directory": "/Volumes/T7/coding/pydandict",
+      "result": "580 passed",
+      "duration_seconds": 109.24,
+      "source_at_execution": "main working tree after final metadata/helper changes",
+      "reconciliation": "All 48 preparation/runtime/test/workflow/example files compared equal to the verification snapshot; source modules also match the independently reviewed candidate."
+    },
+    "static": {
+      "strict_typing": "passed, positive and exact negative diagnostics",
+      "public_completeness": "100%",
+      "ruff": "passed, 34 required files",
+      "snapshot_python_path": "/opt/homebrew/opt/python@3.11/libexec/bin and bin first"
+    },
+    "docs": {
+      "snapshot_result": "55 Markdown files, 316 links, eight examples, zero errors",
+      "command": "python tools/check_docs.py"
+    },
+    "release_preflight": {
+      "tag_version_check": "v0.3.0 matches manifest; no tag created",
+      "pypi_version_endpoint": "HTTP 404 at preparation time",
+      "remote_version_tag": "no refs/tags/v0.3.0 at preparation time",
+      "private_reporting_enabled": true,
+      "pypi_environment": "existing environment verified; configuration unchanged"
+    },
+    "pending": [
+      "Commit/push prepared source with user approval and verify complete exact-candidate CI before tagging.",
+      "Explicitly initiate publication and finalize changelog date; no tag or publication performed."
+    ],
+    "development_failures": [
+      "Initial runtime: 579 passed, one protected provenance fixture failed because simulated ROOT had no manifest. Fixed by capturing actual source version at tool startup; protected test unchanged; final full suite passed.",
+      "First artifact summary jq expression failed and caused BrokenPipeError; corrected expression and final unmodified-driver snapshot qualification passed.",
+      "Default detached static resolver used system python3; explicit Python 3.11 PATH fixed dependency symbol resolution without production/typing gate changes.",
+      "Temporary worktree add was still completing when first local snapshot commit was attempted; waited for checkout completion, then commit succeeded. Main/index/history were untouched."
+    ]
+  }
+}
+

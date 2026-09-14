@@ -11,12 +11,14 @@ import subprocess
 import sys
 import tarfile
 import tempfile
+import tomllib
 import venv
 from pathlib import Path
 from textwrap import dedent
 from typing import cast
 
 ROOT = Path(__file__).resolve().parents[1]
+_PROJECT_VERSION = tomllib.loads((ROOT / "pyproject.toml").read_text())["project"]["version"]
 _COMMIT = re.compile(r"[0-9a-f]{40}")
 _SCALAR_PROFILE = {
     "test": "tests/test_stateful.py::TestScalarTransactions",
@@ -584,6 +586,11 @@ def extract_sdist(archive: Path, destination: Path) -> Path:
 
 
 def main() -> int:
+    # Capture source metadata at tool startup, before an orchestration test can
+    # redirect ROOT to a deliberately incomplete/non-qualifying project.
+    version = _PROJECT_VERSION
+    if not isinstance(version, str) or not version:
+        raise RuntimeError("project.version must be a nonempty string")
     with tempfile.TemporaryDirectory(prefix="pydandict-qualification-") as temporary:
         work = Path(temporary)
         commands: list[dict[str, object]] = []
@@ -610,6 +617,7 @@ def main() -> int:
         wheel = next(direct.glob("*.whl"))
         rebuilt_wheel = next(rebuilt.glob("*.whl"))
         hashes: dict[str, object] = {
+            "version": version,
             "sdist_sha256": hashlib.sha256(sdist.read_bytes()).hexdigest(),
             "sdist": sdist.name,
             "python": sys.version,
@@ -641,7 +649,7 @@ def main() -> int:
                 "from pathlib import Path\n"
                 "dist = distribution('pydandict')\n"
                 "assert dist.metadata['Name'] == 'pydandict'\n"
-                "assert dist.version == '0.2.0'\n"
+                f"assert dist.version == {version!r}\n"
                 "assert dist.metadata['License-Expression'] == 'MIT'\n"
                 "runtime = [item for item in (dist.requires or []) if 'extra ==' not in item]\n"
                 "assert runtime == ['pydantic==2.13.4'], runtime\n"

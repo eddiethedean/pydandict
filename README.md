@@ -5,60 +5,51 @@
 [![Python versions](https://img.shields.io/pypi/pyversions/pydandict.svg)](https://pypi.org/project/pydandict/)
 [![License](https://img.shields.io/pypi/l/pydandict.svg)](https://github.com/eddiethedean/pydandict/blob/main/LICENSE)
 
-**Pydantic models with dictionary semantics.**
+**Pydantic models. Mapping APIs. Validated changes.**
 
-PydanDict is a Python library whose primary base class, `DictModel`, is
-both a genuine Pydantic `BaseModel` and a Python mutable mapping. It is designed
-to let existing mapping-oriented code consume models directly, and to let
-package authors keep internal records valid as they change.
+Define a record once, use it through attributes or mapping-oriented code, and keep
+its supported state valid as it changes. `DictModel` is a genuine Pydantic
+`BaseModel` and a `MutableMapping[str, object]`—not a wrapper around a second
+dictionary.
 
-**Status: 0.2.0 released; Phase 0.2 passed independent review.**
-Version `0.2.0` is published to [PyPI](https://pypi.org/project/pydandict/0.2.0/)
-from the immutable [`v0.2.0` tag](https://github.com/eddiethedean/pydandict/tree/v0.2.0)
-on 2026-09-14. Version `0.1.0` was the preceding release
-([PyPI](https://pypi.org/project/pydandict/0.1.0/),
-[`v0.1.0` tag](https://github.com/eddiethedean/pydandict/tree/v0.1.0)).
-The checkout in [`src/pydandict`](src/pydandict/__init__.py) matches the released
-`0.2.0` package.
-See the [passed review](docs/reviews/phase-0.2-rereview-6.md), the
-[Phase 0.2 evidence](docs/research/phase-0.2-findings.md) for current qualification
-results and the [Phase 0.1 findings](docs/research/prototype-findings.md) for
-historical evidence. The original [prototype guide](prototypes/README.md) remains
-reproducible.
+- **One state:** `record.age` and `record["age"]` read and write the same field.
+- **Atomic updates:** coupled fields validate together; rejected changes leave
+  committed values and model metadata unchanged.
+- **Mapping-native reads:** keys, live views, `get`, unpacking and `dict(record)`
+  work without calling serializers.
+- **Protected descendants:** supported nested containers and child models route
+  mutations through the root validation boundary.
+- **Explicit lifecycle:** reset defaults and make validated, independent model copies.
+- **Pydantic integration:** retain supported fields, constraints, aliases,
+  serializers, JSON Schema and FastAPI integration on the pinned stack.
 
-The plan prioritizes a dependable dependency: atomic failure behavior, protected
-nested values, complete public typing, tested ecosystem compatibility, measured
-costs, and verified distribution artifacts. Start with the
-[roadmap](ROADMAP.md), [implementation work packages](docs/implementation-plan.md),
-and [quality bar](docs/quality-bar.md). Qualification uses automated consumer
-projects and maintainer checks; no external trials or participants are required.
+> **Release status:** 0.2.0 is the latest published release. This checkout prepares
+> 0.3.0, whose Phase 0.3 contract passed independent review. Publication requires
+> successful final-candidate CI and artifact checks. No 0.3.0 tag or
+> publication has occurred. See [release readiness](docs/research/release-0.3.0-readiness.md).
 
-The initial Phase 0.3 scalar-core implementation is complete and pending
-independent review. See the [Phase 0.3 contract](docs/phase-0.3-plan.md) for its
-scope, acceptance criteria and remaining qualification work; no 0.3 release has
-been tagged or published.
+## Install
 
-Install the released package with `python -m pip install pydandict`. For a local
-source checkout, install the package and development tools with
-`python -m pip install -e ".[dev]"`.
+Python **3.11–3.14**; the sole direct runtime dependency is
+**`pydantic==2.13.4`**. The package is alpha software, licensed under MIT.
 
-## Migrating from 0.1.0
+Install the published package:
 
-Version 0.2.0 intentionally narrows the alpha annotation contract:
+```sh
+python -m pip install pydandict
+```
 
-| Previous field annotation | Supported 0.2.0 annotation |
-| --- | --- |
-| `list[T]` | `collections.abc.MutableSequence[T]` |
-| `dict[K, V]` | `collections.abc.MutableMapping[K, V]` |
-| `set[T]` | `collections.abc.MutableSet[T]` |
+To work with the prepared 0.3.0 checkout, run this from the repository root:
 
-This applies recursively to nested and union annotations and typed-extra values.
-The outer `__pydantic_extra__: dict[str, V]` metadata declaration remains valid.
-Ordinary list/dict/set inputs and serialized shapes remain supported. Generic
-models require explicit specialization, such as `Box[int]` or
-`Box[MutableSequence[int]]`. See the [complete migration and support envelope](docs/phase-0.2-plan.md#annotation-and-owned-value-envelope).
+```sh
+python -m pip install -e ".[dev]"
+```
 
-## One model, two ways to work
+The examples below describe this checkout's supported contract. FastAPI and
+testing/build tools are development or optional integration dependencies, not
+requirements for ordinary library use.
+
+## Quick start
 
 ```python
 from collections.abc import Mapping, MutableMapping
@@ -73,15 +64,17 @@ class User(DictModel):
 
 
 user = User(name="Eddie", age=40)
-assert user.name == user["name"] == "Eddie"
 
+assert user.name == user["name"] == "Eddie"
 user["age"] = 41
 assert user.age == 41
 
 try:
-    user["age"] = -1
+    user.age = -1
 except ValidationError:
-    assert user.age == 41  # Failed mutations leave the model unchanged.
+    assert user.age == 41
+else:
+    raise AssertionError("invalid age was accepted")
 
 assert isinstance(user, BaseModel)
 assert isinstance(user, Mapping)
@@ -90,14 +83,13 @@ assert list(user) == ["name", "age"]
 assert dict(user) == {"name": "Eddie", "age": 41}
 ```
 
-Attribute and mapping access address the same model state. Pydantic supplies
-validation, field definitions, serializers, and JSON Schema. PydanDict supplies
-mapping behavior and a transaction boundary around supported mutations.
+Pydantic supplies schemas and validation. PydanDict adds canonical key iteration
+and an isolated transaction boundary around supported writes.
 
-## For existing Python systems
+## Use existing mapping-oriented code
 
-An API written against `Mapping[str, object]` should need no PydanDict-specific
-branch, adapter, or `model_dump()` call:
+No conversion or PydanDict-specific branch is needed for a consumer that accepts
+a `Mapping`:
 
 ```python
 from collections.abc import Mapping
@@ -107,48 +99,170 @@ def describe(record: Mapping[str, object]) -> str:
     return ", ".join(f"{key}={value}" for key, value in record.items())
 
 
-description = describe(user)
+assert describe(user) == "name=Eddie, age=41"
+assert user.get("missing", "fallback") == "fallback"
+assert {**user} == {"name": "Eddie", "age": 41}
 ```
 
-The target includes `[]`, `get`, containment, key iteration, live mapping views,
-`dict(model)`, and keyword unpacking. It does not include `isinstance(model, dict)`
-or compatibility with APIs that insist on a concrete built-in dictionary.
-`dict(model)` is a shallow mapping copy; `model_dump()` is the serialization API.
+Keys are canonical field names in declaration order, followed by allowed extras
+in insertion order. Defaults and serialization-excluded fields remain mapping
+entries. Views are live; unfinished key iterators are invalidated by committed
+key/order changes, not value-only updates.
 
-## For package internals
+`dict(record)` is a **shallow mapping copy**, not serialization or a detached
+nested payload. Use `model_dump` or `model_dump_json` for Pydantic serialization.
+
+## Change related fields atomically
+
+A valid final state may require changing more than one field. `update` validates
+the merged candidate as a whole instead of assigning fields one at a time.
+
+```python
+from typing import Self
+
+from pydantic import Field, ValidationError, model_validator
+from pydandict import DictModel
+
+
+class Bounds(DictModel):
+    low: int = Field(default=1, ge=0)
+    high: int = Field(default=3, ge=0)
+
+    @model_validator(mode="after")
+    def ordered(self) -> Self:
+        if self.low > self.high:
+            raise ValueError("low must not exceed high")
+        return self
+
+
+bounds = Bounds()
+bounds.update(low=5, high=8)  # A single low=5 write would fail against high=3.
+assert dict(bounds) == {"low": 5, "high": 8}
+
+before = dict(bounds)
+try:
+    bounds.update(low=9, high=4)
+except ValidationError:
+    assert dict(bounds) == before
+else:
+    raise AssertionError("invalid batch was accepted")
+```
+
+`update` accepts mappings, pairs and keyword arguments. Later duplicates win;
+keywords take precedence over positional input. Inputs are fully consumed before
+commit, so malformed pairs or a late iterable exception cannot partially apply a
+batch. `record |= changes` uses the same transaction and retains model identity.
+
+Validators must be safe to rerun on canonical state. Whole-root revalidation can
+repeat callbacks; external side effects are not rolled back.
+See [validator and transaction semantics](docs/mutation-semantics.md).
+
+## Defaults, extras and copies
+
+```python
+clone = bounds.model_copy(update={"high": 10})
+assert clone is not bounds
+assert clone.high == 10 and bounds.high == 8
+
+bounds.reset("low", "high")
+assert dict(bounds) == {"low": 1, "high": 3}
+assert bounds.model_fields_set == set()
+```
+
+Declared fields cannot be deleted—even when optional or defaulted. Use `reset`
+to restore selected defaults. Required fields have no reset value.
+
+Unknown input is forbidden by default. Enable `ConfigDict(extra="allow")` to
+store extras; extras can be inserted and removed through mapping operations.
+Unknown writes under `extra="ignore"` still fail rather than disappear silently.
+
+| Operation | Behavior |
+| --- | --- |
+| `record[key] = value` / `record.field = value` | Validate and commit one candidate state |
+| `record.update(...)` / `record \|= changes` | Apply a batch atomically |
+| `record.setdefault(key, default)` | Return the existing value without validating an unused default, or validate insertion |
+| `record.pop(key[, default])` / `del record[key]` | Remove an allowed extra; declared fields are protected |
+| `record.popitem()` | Attempt the last key; do not skip a protected declared field |
+| `record.clear()` | Remove extras atomically on a fieldless model; declared fields prevent clearing |
+| `record.reset(*names)` | Reevaluate selected defaults atomically; no names means no-op |
+| `record.model_copy(update=...)` | Return a new validated model; leave the source unchanged |
+
+For a complete defaults/extras/metadata workflow, run
+[`examples/library_config.py`](examples/library_config.py).
+
+## Keep supported nested values guarded
+
+Use mutable ABC annotations, not concrete `list`/`dict`/`set` annotations.
+Ordinary built-in inputs are still accepted; stored values expose guarded ABC
+interfaces.
+
+```python
+from collections.abc import MutableSequence
+from typing import Self
+
+from pydantic import ValidationError, model_validator
+from pydandict import DictModel
+
+
+class Cart(DictModel):
+    budget: int
+    costs: MutableSequence[int]
+
+    @model_validator(mode="after")
+    def within_budget(self) -> Self:
+        if sum(self.costs) > self.budget:
+            raise ValueError("costs exceed budget")
+        return self
+
+
+source = [2, 3]
+cart = Cart(budget=10, costs=source)
+source.append(100)  # Caller input is detached from stored state.
+assert list(cart.costs) == [2, 3]
+
+cart.costs.append(4)
+try:
+    cart.costs.append(2)  # Valid integer, invalid parent state.
+except ValidationError:
+    assert list(cart.costs) == [2, 3, 4]
+else:
+    raise AssertionError("parent constraint was bypassed")
+```
+
+`MutableMapping`, `MutableSet` and nested `DictModel` fields follow the existing
+closed ownership envelope. Replacing/removing an owned node can make previously
+borrowed handles stale. This is not arbitrary mutable-object support or thread
+safety; see [nested values and ownership](docs/nested-values.md).
+
+## Separate mapping state from serialized output
+
+Aliases belong to validation/serialization boundaries, not alternate mapping keys.
+Serialization exclusion is not access control for mapping readers.
 
 ```python
 from pydantic import Field
 from pydandict import DictModel
 
 
-class RetryConfig(DictModel):
-    timeout: float = Field(default=30.0, gt=0)
-    retries: int = Field(default=3, ge=0)
+class Account(DictModel):
+    user_id: int = Field(alias="userId")
+    token: str = Field(exclude=True)
 
 
-config = RetryConfig()
-config.update(timeout=60.0, retries=5)  # One validation transaction.
-assert config.timeout == config["timeout"] == 60.0
+account = Account(userId=7, token="private")
+assert account["user_id"] == 7 and "userId" not in account
+assert "token" in account
+assert account.model_dump(by_alias=True) == {"userId": 7}
 ```
 
-Successful writes must satisfy the complete model contract. Failed writes must
-preserve values and model metadata. Required fields cannot disappear; the
-deletion policy protects all declared fields, with an explicit `reset`
-operation for defaults. Extras follow a documented Pydantic configuration policy.
+Standard supported serializers, filters and serialization context remain
+Pydantic's responsibility. A custom serializer may produce a non-dictionary
+payload without changing mapping membership.
 
-**Continuous validation is a release requirement, including nested mutations.**
-It cannot be delivered merely by enabling `validate_assignment`. The design
-requires ownership and mutation guards for supported mutable values, validation
-of affected parent constraints, and rejection of values that cannot be protected.
-The Phase 0.2 implementation requires mutable ABC field annotations and rejects
-unprotectable values before commit. See
-[mutation semantics](docs/mutation-semantics.md) and
-[nested ownership](docs/nested-values.md).
+## FastAPI integration
 
-## A Pydantic model for FastAPI
-
-The tested integration uses ordinary model annotations:
+With the optional pinned `fastapi==0.141.1` integration dependency installed,
+use ordinary model annotations. This example uses `User` from the quick start:
 
 ```python
 from fastapi import FastAPI
@@ -162,55 +276,81 @@ def create_user(user: User) -> User:
     return user
 ```
 
-Request parsing, response serialization, and OpenAPI use Pydantic in the pinned
-integration tests. See the [compatibility contract](docs/compatibility.md).
+Request validation, response serialization and OpenAPI are covered by the pinned
+integration tests. No special encoder or framework plugin is required for the
+supported paths. See [compatibility](docs/compatibility.md).
 
-## Scope and typing
+## Deliberate differences and support limits
 
-V1 centers on schema-defined `DictModel` records. It excludes a public `TypedMap`,
-replacement `TypedDict`, generalized collection framework, persistence,
-reactivity, and a new validation engine. Internal guards needed to protect model
-fields are part of validation, not separate collection products.
-
-Pyright support is a first-class requirement: attributes retain their declared
-types, while generic mapping reads return `object` and require narrowing. Automatic
-per-key inference such as `user["age"] -> int` is not promised by the base class.
-See the [typing strategy](docs/typing.md).
-
-## Read the plan
-
-| Document | Purpose |
+| Compared with | Important difference |
 | --- | --- |
-| [Package source](src/pydandict/__init__.py) | Installable `DictModel` implementation |
-| [Phase 0.2 implementation contract](docs/phase-0.2-plan.md) | Bounded architecture, public contract, acceptance criteria and verification plan |
-| [Prototype guide](prototypes/README.md) | Reproducible evidence commands and runnable example |
-| [Prototype findings](docs/research/prototype-findings.md) | Demonstrated solutions, evidence and remaining limitations |
-| [Documentation index](docs/README.md) | Reading paths and requirement traceability |
-| [Product and scope](docs/product.md) | Audiences, use cases, success criteria |
-| [Architecture](docs/architecture.md) | BaseModel integration and transactional state |
-| [API specification](docs/api.md) | Mapping surface, names, return values, errors |
-| [Mutation semantics](docs/mutation-semantics.md) | Invariants, atomicity, deletion, defaults, extras |
-| [Nested values](docs/nested-values.md) | Ownership, escaped references, parent validation |
-| [Typing](docs/typing.md) | Pyright, protocols, limitations, typing checks |
-| [Compatibility](docs/compatibility.md) | Pydantic, serialization, schema, FastAPI |
-| [Interoperability](docs/interoperability.md) | What existing consumers can and cannot assume |
-| [Competition](docs/competitive-landscape.md) | Alternatives and focused positioning |
-| [Testing](docs/testing.md) | Acceptance cases and release gates |
-| [Roadmap](ROADMAP.md) | Sequenced implementation and release policy |
-| [Implementation work packages](docs/implementation-plan.md) | Priorities, dependencies, first increments and stop criteria |
-| [Quality bar](docs/quality-bar.md) | Measurable gates, automated consumer journeys and maintenance standards |
-| [Release automation](docs/release.md) | Tag-gated checks, artifact build, and PyPI Trusted Publishing |
-| [Security and performance](docs/security-performance.md) | Trust boundary, costs, benchmarks |
-| [Decision log](docs/decisions/README.md) | Established requirements and proposed choices |
-| [Upstream evidence](docs/research/upstream-behavior.md) | Sources and reproducible baseline observations |
+| `dict` | A model is a mutable mapping, not a built-in dictionary; model equality does not become dict equality |
+| `dict` | Keys must be strings; declared fields cannot disappear; no binary `\|`, `fromkeys` or dict-style `copy` API |
+| `BaseModel` | Iteration yields canonical keys, not key/value pairs |
+| `BaseModel` | `model_copy(update=...)` validates updates and detaches supported mutable descendants even with `deep=False` |
+| `BaseModel` | Trusted `model_construct`/deprecated `construct` and pickle are disabled |
+| Plain frozen models | Frozen ancestors/fields also protect supported descendant writes |
 
-## Contributing
+Qualified scalar leaves are exact `None`, `bool`, `int`, `float`, `str`, `bytes`,
+`Decimal`, `date`, `datetime`, `time`, `timedelta` and `UUID` types. Temporal
+timezone values must be absent or exact `datetime.timezone` instances.
+Supported nullable/unions, `Literal`, `Annotated` constraints and explicitly
+specialized generics stay within the closed envelope. `Any`, `object` and extras
+do not bypass input/output safety checks.
 
-Start with [CONTRIBUTING.md](CONTRIBUTING.md). Design contributions should identify
-the invariant they preserve and the acceptance test that will prove it. The
-[release record](docs/release.md#020-release-record) documents the completed
-tag-gated publication.
+Arbitrary objects, ordinary `BaseModel` values stored inside a `DictModel`,
+enums, custom scalar subclasses/timezones and concrete mutable field annotations
+are unsupported. Ordinary BaseModel envelopes *containing* a DictModel are a
+separate supported integration. Custom initialization/finalizers,
+`model_post_init`, private attributes and writable properties are also outside
+the supported hook contract.
 
-The package is distributed under the MIT license. Use the private GitHub channel
-described in [security reporting](SECURITY.md)
-and the [changelog](CHANGELOG.md).
+Attribute types retain their declared precision. Generic mapping values are
+`object` and require narrowing; automatic per-key type inference is not promised.
+See [typing](docs/typing.md). There is no async API, persistence feature or shared
+writer/thread-safety guarantee. Validation uses trusted schemas; deliberate
+reflection/base-method bypass is not a security sandbox.
+
+## Migration
+
+From 0.1.0, replace mutable annotations recursively:
+
+| Previous annotation | Supported annotation |
+| --- | --- |
+| `list[T]` | `collections.abc.MutableSequence[T]` |
+| `dict[K, V]` | `collections.abc.MutableMapping[K, V]` |
+| `set[T]` | `collections.abc.MutableSet[T]` |
+
+Specialize generic models explicitly. The outer
+`__pydantic_extra__: dict[str, V]` metadata declaration remains valid.
+See the [0.2 migration contract](docs/phase-0.2-plan.md#annotation-and-owned-value-envelope).
+
+For 0.3.0, non-string `pop` keys raise `TypeError` even with a fallback. Use string
+mutation keys, or `get` when a read-only fallback is intended. Native JSON/strings
+and supported embedded ingress retain their documented validation boundaries.
+No persisted-data migration is required; see the [changelog](CHANGELOG.md).
+
+## Documentation and development
+
+- [API reference](docs/api.md) and [mutation semantics](docs/mutation-semantics.md)
+- [Nested ownership](docs/nested-values.md), [compatibility](docs/compatibility.md) and [typing](docs/typing.md)
+- [Phase 0.3 contract](docs/phase-0.3-plan.md), [passed review](docs/reviews/phase-0.3-rereview-5.md) and [release preparation](docs/release.md#030-release-preparation)
+- [Documentation index](docs/README.md), [roadmap](ROADMAP.md) and [contributing](CONTRIBUTING.md)
+
+After installing `.[dev]`, run from the repository root:
+
+```sh
+PYTHONPATH=src PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 python -m pytest -q
+python tools/check_typing.py
+PYTHONPATH=src python -m pyright --verifytypes pydandict --ignoreexternal
+ruff check src tests tools/check_typing.py tools/qualify_package.py tools/benchmark.py
+ruff format --check src tests tools/check_typing.py tools/qualify_package.py tools/benchmark.py
+python tools/check_docs.py
+```
+
+Artifact qualification is a separate clean, committed-source check:
+`python tools/qualify_package.py`. Follow the [release checklist](docs/release.md)
+before tagging; historical evidence does not automatically qualify a later commit.
+
+Use the [private security reporting route](SECURITY.md) for vulnerabilities.
+The package is [MIT licensed](LICENSE).
