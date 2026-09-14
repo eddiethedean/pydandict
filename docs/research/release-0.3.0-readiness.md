@@ -22,6 +22,22 @@ all preparation changes after local verification; exact-candidate CI remains pen
 
 ## Verification and provenance
 
+The final committed local candidate is
+`7201c3f6ff59d82d8eeceabc4fb7ff346f901651`. Its refreshed README and 0.3.0
+metadata passed fresh clean direct/rebuilt wheel qualification (31 commands).
+[Final artifact measurements](release-0.3.0-final-artifacts.json) preserve actual
+source, version, import paths, installed checks and dependency resolution.
+[Final local execution](release-0.3.0-final-execution.json) records all 46 component
+hashes, 580 passing tests in 101.12s, typing/lint/format/docs/README/HTTP checks and
+the clean three-baseline/three-candidate benchmark. There is no numeric timing
+ceiling. These fresh records supplement, not overwrite, the earlier snapshot below.
+
+| Final local candidate artifact | SHA-256 |
+| --- | --- |
+| Sdist | `89d5cdbd0cbe80dedebb2e624800e1858b0b7ae375813262d8400a8267e3c2bc` |
+| Direct wheel | `dfee560d1dc19587887434dd2a91063010002fa96fd27ad2afdf7b2d5fe3cd46` |
+| Sdist-rebuilt wheel | `29621a121b341576608ef5c2667e890f0a2fc3d76a697abbc42fff5bdec55249` |
+
 [Version-specific measurements](release-0.3.0-results.json) preserve full actual
 commands, cwd/import paths, resolved dependency freezes, metadata/static outputs,
 artifact hashes and a separate readiness annotation. Older Phase 0.2/0.3 evidence
@@ -42,7 +58,8 @@ guidance. All seven README Python examples and FastAPI valid/invalid-request and
 OpenAPI smoke checks pass; docs verification reports 56 Markdown files, 299 links,
 11 Python examples and zero errors. The recorded snapshot/hash inventory contains
 the earlier README, not this refreshed packaged long description. Requalify the
-final committed candidate's artifacts in CI before tagging; historical hashes and
+final committed candidate's artifacts in CI before tagging; the fresh local
+qualification above now covers this README, while historical hashes and
 source identities are intentionally unchanged.
 
 | Gate | Actual result |

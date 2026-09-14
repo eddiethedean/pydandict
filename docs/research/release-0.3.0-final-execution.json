@@ -1,0 +1,127 @@
+{
+  "source_commit": "7201c3f6ff59d82d8eeceabc4fb7ff346f901651",
+  "version": "0.3.0",
+  "publication_status": "Not tagged or published",
+  "component_hashes": {
+    ".github/workflows/check.yml": "d972644a97b6acf63252d70017103086deffda7854dcda0c31df379489d68cf9",
+    ".github/workflows/ci.yml": "901e94b50a1c9a77d2d56c73b572c3fe582ef1662f0b8368ba64f233be7b955b",
+    ".github/workflows/release.yml": "c8d856b112e35a6adeb4ea8a09bb5425782e07672977744f8dca9779b26dc2fa",
+    "CHANGELOG.md": "0dafcb69c7924a905b2f5ae8339e69fd1abd57272df88f4224a6de2c3e7727d7",
+    "LICENSE": "31420477330909d484b71b5dddb4c9620dbfd8f4a3cfd5377e7c3f88162c35fe",
+    "README.md": "0fb281849226e3232bcecfcaa33640781cb686f5120858789812ebed069fe0ac",
+    "examples/library_config.py": "27758d2a5c549649c7ca557216b0275a4aa3a2147ad262a94c8c36f191b1e4a2",
+    "pyproject.toml": "49a2c1c80061e260bce2daa4d8bdde9950de6c2f6785e8807b712ee598a43a0d",
+    "src/pydandict/__init__.py": "7ac521e6fb1b7f6e001b0c259e5d22f750ffdd4de1270fd00a504ea4b435ac6b",
+    "src/pydandict/_compat.py": "7939d83ccdf23524c7bd048509b3ea7222123b62eaa8c1ca2bd0d92213625a50",
+    "src/pydandict/_containers.py": "b4240fe2af4b7a5ca3a2000eb017133e1889288b7ccea2ff79363208906f2857",
+    "src/pydandict/_core.py": "179260866d06e90c5baa91fc1a7614937b7fa13cca0af3085b3daedeb0138907",
+    "src/pydandict/py.typed": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "tests/test_benchmark_contract.py": "34f34419364d18054df714dbd1b1b76b8fabccf75de7c6dcd676c5ad27a17da5",
+    "tests/test_compat_remediation.py": "1809ce453dabd2f9fad38e7169b8addc6de2ad0c8d4405ca2b769997692d2650",
+    "tests/test_extra_annotation_completion.py": "7ac4afa5e3a1e52bfa8060bc39866c2e9d6f181d532d678619b5cf0d71497354",
+    "tests/test_hash_ingress.py": "027e5dbf1bdf50a18e06201432f053e110dbf856c4ae124714781c7ba8826656",
+    "tests/test_inventory.py": "59fe3203b6b92063a5b6833cc0cfb737a15bf06c6615f85d6625a7ceb7821690",
+    "tests/test_phase02_contract.py": "b7f60cc3e65c5ff59bb6e9f7f6053b729335ecd56c4aca37b29b4647f24d068c",
+    "tests/test_phase03_contract.py": "0646a3c343f61f8aa3d6a3bffb0adb05ec875c5c19dfe370c26fa578670e2f6c",
+    "tests/test_phase03_embedding_remediation.py": "0adbc8940d2bc154c52091935dd2194e6c694420ccb281cc158546189d88a3ca",
+    "tests/test_phase03_evidence_contract.py": "6b6a2e386ac91d3dd9be8981d5caf30b641d0b125defbf22bc79152aa42aed31",
+    "tests/test_phase03_native_matrix.py": "6e1c6a7f7265e8fe51395e99d40365a6cef6a0ba4e83325f9d5d60ca212888c8",
+    "tests/test_phase03_policy_matrix.py": "8bce1e9703a567d32c3cf90b3873252e3e029d3fc7eb7cf32df0af6d88088d5f",
+    "tests/test_prototype.py": "16a697a8fab06396ad2dfcf7566bf1f5af1f47eae62b971f38e0e1daa96f8834",
+    "tests/test_sol_phase02_blockers.py": "e9164fb4ee267bdddcf0dce5154bc04008982b12feadded7042679bb63d8fe8c",
+    "tests/test_sol_phase02_rereview.py": "62337ad40a3cd28fa511f6646b1027c86f46dfd94e5dc2c33c0172f5a6349815",
+    "tests/test_sol_phase02_rereview_2.py": "de0d6fcee0e73fb0b5bbcad6e19fb0c22cdf59399cfd9adb6f6a1adc8fee94e3",
+    "tests/test_sol_phase02_rereview_3.py": "2debc4534eb79be6ece66e2675e69227b417c06ee7401af0fb6e5556b1b71430",
+    "tests/test_sol_phase02_rereview_4.py": "fafd74735f20345c49f414fb2a987d845b174b07c70881ea17e1da8be112be3f",
+    "tests/test_sol_phase02_rereview_5.py": "29fa9b27d32127c2b1636d5450b15bda2a7d5d7b57e6550280ea7b5b170b24aa",
+    "tests/test_sol_phase03_blockers.py": "ee8fb4068ca58fd4d84e6d10dc53fee21e5543f522d1948f522d82e29d929bde",
+    "tests/test_sol_phase03_rereview.py": "0bcd2622c180067756e00ee9ca7caaf615224509b374e0e923674179c37f7072",
+    "tests/test_sol_phase03_rereview_2.py": "951f500c90f6f330d91753cf0ed0425c80decc156c453466f42060268ec7550d",
+    "tests/test_sol_phase03_rereview_3.py": "a0bab3487285dc2b91a0d171c6f1064f69f9e1b82275beb587c9598ed0749bd0",
+    "tests/test_sol_phase03_rereview_4.py": "79526f011654109adc42ac14a625510906aa10d599e4858b2106ade2dd82b200",
+    "tests/test_stateful.py": "e5223d3bcc4d7cddae6416a24a6e2ac98b88f4156d181633466c62b9ce9ce66d",
+    "tests/test_transaction_remediation.py": "505e294f9d3f44977857cd95eafa08ba4ea1406e458def610f138d36276f372d",
+    "tests/typing_negative.py": "4244d3709eeb134488f9d7b09babee06631d91a4ea9841d16623d8e4ce170131",
+    "tests/typing_positive.py": "5035f578dfd7e9cfae052f92adde11ae3376a39e9df8ca672b1625c3f62f4e7b",
+    "tools/benchmark.py": "435c6d629708db6b8a45cc0bad22ff5e11cd78f5f9bb1890ded39cff2dccd62a",
+    "tools/check_docs.py": "33ac751040281ef2f8d53a140b28e9405bff6b8c96499c82218d6d0a7451f4df",
+    "tools/check_typing.py": "6bb840d091c4aedadacc4265a09991358bb923c42a31cdaff20a07de9b29f22d",
+    "tools/probe_typing.py": "baf4907d48ec3b44971f02cc3afd6e3e51abbf227e83a17e137bd3afd471b684",
+    "tools/probe_upstream.py": "f3d1aa25a5546f14ea14bff60650a421217ccd07c43b1e5ce4e691fe329d62ae",
+    "tools/qualify_package.py": "6edd09e4c6b0c7cc3cde85f08db6feca039f150f4749dfa610743694bd251815"
+  },
+  "local_runtime": {
+    "command": "PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 python -m pytest tests -q",
+    "passed": 580,
+    "elapsed_seconds": 101.12,
+    "output": "....                                                                     [100%]\n580 passed in 101.12s (0:01:41)\n",
+    "provenance": "Executed before commit on identical source/test/helper bytes; clean committed candidate separately qualified below."
+  },
+  "local_gates": {
+    "strict_positive_and_exact_negative_typing": "passed",
+    "public_type_completeness": {
+      "percent": 100,
+      "errors": 0
+    },
+    "ruff": {
+      "lint": "passed",
+      "format": "passed",
+      "files": 34
+    },
+    "documentation": {
+      "markdown_files": 56,
+      "local_links": 299,
+      "python_examples": 11,
+      "errors": 0
+    },
+    "readme_python_examples": {
+      "executed": 7,
+      "status": "passed"
+    },
+    "readme_http": {
+      "valid_status": 200,
+      "invalid_status": 422,
+      "openapi_model": "User"
+    },
+    "release_preflight": {
+      "version": "0.3.0",
+      "proposed_tag": "v0.3.0",
+      "status": "passed",
+      "tag_created": false
+    },
+    "artifact_qualification": {
+      "record": "docs/research/release-0.3.0-final-artifacts.json",
+      "status": "qualified",
+      "actual_commands": 31
+    }
+  },
+  "benchmark": {
+    "timestamp_utc": "2026-09-14T21:56:31.400621+00:00",
+    "command": "python tools/benchmark.py",
+    "baseline_commit": "07fec9b7eafef5b00befe9fa24ccd012ce0232a1",
+    "candidate_commit": "7201c3f6ff59d82d8eeceabc4fb7ff346f901651",
+    "baseline_dirty": false,
+    "candidate_dirty": false,
+    "complete_runs_per_revision": 3,
+    "actual_commands": 6,
+    "reads_per_shape_per_run": 10000,
+    "timed_samples_per_mutation_copy_dump": 100,
+    "separate_allocation_samples_per_operation": 10,
+    "warmups_per_operation": 5,
+    "latency_tracing_enabled": false,
+    "timing_ceiling": null,
+    "status": "passed",
+    "disclosure": "Protocol/source/count checks passed; no numeric performance release ceiling. Only selected summary retained, not the unrelated global-environment dependency freeze."
+  },
+  "ci": {
+    "status": "pending",
+    "disclosure": "Local verification is not all-platform CI approval. Evidence-only commits do not relabel measured source/artifact identities."
+  },
+  "evidence_documentation_recheck": {
+    "markdown_files": 56,
+    "local_links": 301,
+    "python_examples": 11,
+    "errors": 0,
+    "whitespace": "passed"
+  }
+}
