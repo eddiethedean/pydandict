@@ -125,7 +125,7 @@ candidates were implemented or created.
 | Strict positive/negative typing and verifytypes | Yes | PASS | Exact diagnostics retained; completeness 100%. |
 | Documentation checker | Yes | PASS | 39 Markdown files, 255 links, 8 examples. |
 | Direct/sdist-rebuilt artifact qualification | Yes | PASS | Both wheels, actual example, HTTP/type consumers and installed completeness. |
-| CI candidate matrix | Pending | NOT RUN — current commit | Previous candidate matrix was green; this remediation commit requires fresh CI/Sol review. |
+| CI candidate matrix | Yes | PASS | Run 34880747496 at `07d3953c8bc5b3be969e452378498ce30597148b`: 8 compatibility lanes, 2 artifact lanes and docs succeeded; package preflight skipped on push. |
 
 ## Remediation summary
 
