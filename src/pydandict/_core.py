@@ -8,9 +8,9 @@ from __future__ import annotations
 
 from collections.abc import Iterable, Iterator, Mapping, MutableMapping
 from contextvars import ContextVar
-from datetime import date, datetime, time, timedelta
+from datetime import date, datetime, time, timedelta, timezone
 from decimal import Decimal
-from typing import Any, ClassVar, LiteralString, Protocol, Self, SupportsIndex, cast
+from typing import Any, Callable, ClassVar, LiteralString, Protocol, Self, SupportsIndex, cast
 from uuid import UUID
 
 from pydantic import (
@@ -23,6 +23,13 @@ from pydantic import (
 from pydantic.config import ExtraValues
 from pydantic_core import CoreSchema, PydanticCustomError, SchemaValidator, core_schema
 
+from ._compat import config as _compat_config
+from ._compat import core_schema as _compat_core_schema
+from ._compat import fields as _compat_fields
+from ._compat import fields_set as _compat_fields_set
+from ._compat import raw_extra as _compat_raw_extra
+from ._compat import raw_state as _compat_raw_state
+from ._compat import set_fields_set as _compat_set_fields_set
 from ._containers import Owned, OwnedDict, OwnedList, OwnedSet
 
 _BUILDING: ContextVar[bool] = ContextVar("pydandict_building", default=False)
@@ -52,25 +59,27 @@ def _root(value: Any) -> Any:
 
 
 def _data(model: Any) -> dict[str, Any]:
-    fields = type(model).model_fields
-    data = {k: v for k, v in object.__getattribute__(model, "__dict__").items() if k in fields}
-    data.update(object.__getattribute__(model, "__pydantic_extra__") or {})
+    fields = _compat_fields(type(model))
+    storage = _compat_raw_state(model)
+    data: dict[str, Any] = {k: v for k, v in storage.items() if k in fields}
+    extra = _compat_raw_extra(model)
+    data.update(extra or {})
     return data
 
 
 def _blank(cls: Any, data: dict[str, Any], fields_set: set[str]) -> Any:
     # Internal trusted snapshot only; never exposed until validated/owned.
     obj = object.__new__(cls)
-    fields = cls.model_fields
+    fields = _compat_fields(cls)
     object.__setattr__(obj, "__dict__", {k: v for k, v in data.items() if k in fields})
     object.__setattr__(
         obj,
         "__pydantic_extra__",
         {k: v for k, v in data.items() if k not in fields}
-        if cls.model_config.get("extra") == "allow"
+        if _compat_config(cls).get("extra") == "allow"
         else None,
     )
-    object.__setattr__(obj, "__pydantic_fields_set__", set(fields_set))
+    _compat_set_fields_set(obj, set(fields_set))
     object.__setattr__(obj, "__pydantic_private__", None)
     return obj
 
@@ -79,33 +88,42 @@ def _clone(
     value: Any, origins: dict[int, Any] | None = None, active: set[int] | None = None
 ) -> Any:
     if type(value) in _IMMUTABLE:
+        if type(value) in (datetime, time):
+            zone = value.tzinfo
+            if zone is not None and type(zone) is not timezone:
+                raise TypeError(
+                    "pydandict_unsupported_value: custom timezone values are unsupported"
+                )
         return value
     if active is None:
         active = set()
     identity = id(value)
     if identity in active:
-        raise TypeError("cyclic values are outside the Phase 0.1 ownership envelope")
+        raise TypeError("pydandict_cycle: cyclic values are unsupported")
     active.add(identity)
     try:
         if isinstance(value, DictModel):
-            value._ensure_alive()
+            value._ensure_alive()  # pyright: ignore[reportPrivateUsage]
             result = _blank(
                 type(value),
                 {k: _clone(v, origins, active) for k, v in _data(value).items()},
-                value.model_fields_set,
+                _compat_fields_set(value),
             )
         elif type(value) in (list, OwnedList):
-            result = [_clone(v, origins, active) for v in value]
+            result = [_clone(v, origins, active) for v in cast(list[Any], value)]
         elif type(value) in (dict, OwnedDict):
-            result = {_clone(k, None, active): _clone(v, origins, active) for k, v in value.items()}
+            mapping = cast(dict[Any, Any], value)
+            result = {
+                _clone(k, None, active): _clone(v, origins, active) for k, v in mapping.items()
+            }
         elif type(value) in (set, OwnedSet):
-            result = {_clone(v, None, active) for v in value}
+            result = {_clone(v, None, active) for v in cast(set[Any], value)}
         elif type(value) is tuple:
-            result = tuple(_clone(v, origins, active) for v in value)
+            result = tuple(_clone(v, origins, active) for v in cast(tuple[Any, ...], value))
         elif type(value) is frozenset:
-            result = frozenset(_clone(v, None, active) for v in value)
+            result = frozenset(_clone(v, None, active) for v in cast(frozenset[Any], value))
         else:
-            raise TypeError(f"unsupported owned value: {type(value).__name__}")
+            raise TypeError(f"pydandict_unsupported_value: {type(value).__name__}")
         if origins is not None and (isinstance(value, Owned) or _root(value) is not None):
             origins[id(result)] = value
         return result
@@ -121,16 +139,19 @@ def _fingerprint(value: Any) -> Any:
             tuple((k, _fingerprint(v)) for k, v in _data(value).items()),
         )
     if isinstance(value, (list, tuple, OwnedList)):
-        return ("sequence", tuple(_fingerprint(v) for v in value))
+        return ("sequence", tuple(_fingerprint(v) for v in cast(Iterable[Any], value)))
     if isinstance(value, (dict, OwnedDict)):
         return (
             "dict",
-            tuple((_fingerprint(k), _fingerprint(v)) for k, v in value.items()),
+            tuple(
+                (_fingerprint(k), _fingerprint(v))
+                for k, v in cast(Mapping[Any, Any], value).items()
+            ),
         )
     if isinstance(value, (set, frozenset, OwnedSet)):
-        return ("set", frozenset(_fingerprint(v) for v in value))
+        return ("set", frozenset(_fingerprint(v) for v in cast(Iterable[Any], value)))
     if type(value) not in _IMMUTABLE:
-        raise TypeError(f"unsupported validated value: {type(value).__name__}")
+        raise TypeError(f"pydandict_unsupported_value: {type(value).__name__}")
     # repr handles NaN without an unequal-to-itself drift check.
     return (type(value), repr(value))
 
@@ -154,18 +175,76 @@ def _policy(model: Any, code: LiteralString, key: Any, message: LiteralString) -
     )
 
 
+def _annotation_error(field: str, annotation: Any, replacement: str | None = None) -> None:
+    detail = f"field {field!r} uses unsupported annotation {annotation!r}"
+    if replacement is not None:
+        detail += f"; use {replacement}"
+    raise TypeError(f"pydandict_unsupported_annotation: {detail}")
+
+
+def _check_annotation(annotation: Any, field: str, *, nested: bool = False) -> None:
+    """Reject mutable concrete annotations before a model instance can escape."""
+    from collections.abc import MutableMapping as ABCMapping
+    from collections.abc import MutableSequence as ABCSequence
+    from collections.abc import MutableSet as ABCSet
+    from types import UnionType
+    from typing import Annotated, TypeVar, Union, get_args, get_origin
+
+    if annotation is Any or annotation is object or isinstance(annotation, TypeVar):
+        return
+    origin = get_origin(annotation)
+    if origin is Annotated:
+        args = get_args(annotation)
+        if args:
+            _check_annotation(args[0], field, nested=nested)
+        return
+    if origin in (list,):
+        _annotation_error(field, annotation, "collections.abc.MutableSequence")
+    if origin in (dict,):
+        _annotation_error(field, annotation, "collections.abc.MutableMapping")
+    if origin in (set,):
+        _annotation_error(field, annotation, "collections.abc.MutableSet")
+    if annotation in (list, dict, set):
+        replacement = {
+            list: "collections.abc.MutableSequence",
+            dict: "collections.abc.MutableMapping",
+            set: "collections.abc.MutableSet",
+        }[annotation]
+        _annotation_error(field, annotation, replacement)
+    if origin in (Union, UnionType):
+        for arg in get_args(annotation):
+            if arg is type(None):
+                continue
+            _check_annotation(arg, field, nested=True)
+        return
+    if origin in (tuple, frozenset, ABCSequence, ABCMapping, ABCSet):
+        for arg in get_args(annotation):
+            _check_annotation(arg, field, nested=True)
+        return
+    if annotation in (ABCSequence, ABCMapping, ABCSet):
+        return
+    # Nested model classes are safe only when they use this ownership contract.
+    if isinstance(annotation, type) and issubclass(annotation, BaseModel):
+        if not issubclass(annotation, DictModel):
+            _annotation_error(field, annotation)
+        return
+    # Pydantic's unresolved forward references are checked when model_rebuild
+    # resolves them; arbitrary custom values are rejected by _clone at runtime.
+
+
 def _canonical_schema(value: Any) -> Any:
     # The tested upstream wrap handler drops call-time alias overrides. A copied
     # Pydantic core schema removes input aliases for internal canonical snapshots.
     # Public constructors/serializers keep the original generated schema.
     if isinstance(value, (dict, OwnedDict)):
+        mapping = cast(Mapping[Any, Any], value)
         return {
             k: _canonical_schema(v)
-            for k, v in value.items()
-            if not (value.get("type") == "model-field" and k == "validation_alias")
+            for k, v in mapping.items()
+            if not (mapping.get("type") == "model-field" and k == "validation_alias")
         }
     if isinstance(value, list):
-        return [_canonical_schema(v) for v in value]
+        return [_canonical_schema(v) for v in cast(list[Any], value)]
     return value
 
 
@@ -173,10 +252,10 @@ def _validate(candidate: Any) -> Any:
     token = _BUILDING.set(True)
     canonical_token = _CANONICAL.set(True)
     try:
-        cls = type(candidate)
+        cls = cast(type[Any], type(candidate))
         validator = cls.__dict__.get("_pd_canonical_validator")
         if validator is None:
-            validator = SchemaValidator(_canonical_schema(cls.__pydantic_core_schema__))
+            validator = SchemaValidator(_canonical_schema(_compat_core_schema(cls)))
             cls._pd_canonical_validator = validator
         return validator.validate_python(candidate)
     finally:
@@ -184,17 +263,17 @@ def _validate(candidate: Any) -> Any:
         _BUILDING.reset(token)
 
 
-def _walk(value: Any, path: tuple[Any, ...] = ()):
+def _walk(value: Any, path: tuple[Any, ...] = ()) -> Iterator[tuple[Any, tuple[Any, ...]]]:
     if isinstance(value, (DictModel, Owned)):
         yield value, path
     if isinstance(value, DictModel):
         for key, child in _data(value).items():
             yield from _walk(child, path + (key,))
     elif isinstance(value, (list, tuple, OwnedList)):
-        for key, child in enumerate(value):
+        for key, child in enumerate(cast(Iterable[Any], value)):
             yield from _walk(child, path + (key,))
     elif isinstance(value, (dict, OwnedDict)):
-        for key, child in value.items():
+        for key, child in cast(Mapping[Any, Any], value).items():
             yield from _walk(child, path + (key,))
 
 
@@ -218,7 +297,8 @@ def _prepare(
         )
         if check_untouched and _fingerprint(before) != _fingerprint(after):
             raise TypeError(
-                f"canonical revalidation changed untouched state at {path!r}; "
+                "pydandict_canonical_drift: canonical revalidation changed "
+                f"untouched state at {path!r}; "
                 "use idempotent validators"
             )
         if isinstance(after, DictModel):
@@ -227,25 +307,28 @@ def _prepare(
             target = old if old is not None else _blank(type(after), {}, set())
             before_data = _data(before) if isinstance(before, DictModel) else {}
             after_data = _data(after)
-            type(after)._check_names(after_data)
-            values = {
+            type(after)._check_names(after_data)  # pyright: ignore[reportPrivateUsage]
+            model_values: dict[str, Any] = {
                 k: prepare(before_data.get(k, _MISSING), v, path + (k,))
                 for k, v in after_data.items()
             }
-            fields = type(after).model_fields
+            fields: dict[str, Any] = cast(dict[str, Any], getattr(type(after), "model_fields"))
             previous_keys = tuple(_data(target))
             updates.extend(
                 [
                     (
                         target,
                         "__dict__",
-                        {k: v for k, v in values.items() if k in fields},
+                        {k: v for k, v in model_values.items() if k in fields},
                     ),
                     (
                         target,
                         "__pydantic_extra__",
-                        {k: v for k, v in values.items() if k not in fields}
-                        if type(after).model_config.get("extra") == "allow"
+                        {k: v for k, v in model_values.items() if k not in fields}
+                        if cast(Mapping[str, Any], getattr(type(after), "model_config")).get(
+                            "extra"
+                        )
+                        == "allow"
                         else None,
                     ),
                     (target, "__pydantic_fields_set__", set(after.model_fields_set)),
@@ -255,35 +338,42 @@ def _prepare(
                     (
                         target,
                         "_pd_version",
-                        getattr(target, "_pd_version", 0) + (tuple(values) != previous_keys),
+                        getattr(target, "_pd_version", 0) + (tuple(model_values) != previous_keys),
                     ),
                 ]
             )
         elif type(after) in (list, dict, set):
-            cls = {list: OwnedList, dict: OwnedDict, set: OwnedSet}[type(after)]
+            cls: type[Any] = {list: OwnedList, dict: OwnedDict, set: OwnedSet}[type(after)]
             if old is not None and type(old) is not cls:
                 old = None
             target = old if old is not None else cls()
+            previous: Any = None
+            values: Any = None
             if isinstance(after, list):
-                previous = before if isinstance(before, list) else []
-                if old is not None and len(previous) != len(after):
+                previous = cast(list[Any], before) if isinstance(before, list) else []
+                after_list = cast(list[Any], after)
+                if old is not None and len(previous) != len(after_list):
                     raise TypeError(
-                        "validator changed owned list topology; use topology-preserving validators"
+                        "pydandict_topology_change: validator changed owned list topology; "
+                        "use topology-preserving validators"
                     )
                 values = [
                     prepare(previous[i] if i < len(previous) else _MISSING, v, path + (i,))
-                    for i, v in enumerate(after)
+                    for i, v in enumerate(after_list)
                 ]
             elif isinstance(after, dict):
-                previous = before if isinstance(before, dict) else {}
-                if old is not None and tuple(previous) != tuple(after):
-                    raise TypeError("validator changed owned dictionary topology")
+                previous = cast(dict[Any, Any], before) if isinstance(before, dict) else {}
+                after_dict = cast(dict[Any, Any], after)
+                if old is not None and tuple(previous) != tuple(after_dict):
+                    raise TypeError(
+                        "pydandict_topology_change: validator changed owned dictionary topology"
+                    )
                 values = {
                     _clone(k): prepare(previous.get(k, _MISSING), v, path + (k,))
-                    for k, v in after.items()
+                    for k, v in after_dict.items()
                 }
             else:
-                values = {_clone(v) for v in after}
+                values = {_clone(v) for v in cast(Iterable[Any], after)}
             updates.extend(
                 [
                     (target, "_data", values),
@@ -294,10 +384,10 @@ def _prepare(
                 ]
             )
         elif type(after) is tuple:
-            previous = before if isinstance(before, tuple) else ()
+            previous = cast(tuple[Any, ...], before) if isinstance(before, tuple) else ()
             return tuple(
                 prepare(previous[i] if i < len(previous) else _MISSING, v, path + (i,))
-                for i, v in enumerate(after)
+                for i, v in enumerate(cast(tuple[Any, ...], after))
             )
         else:
             return _clone(after)
@@ -338,8 +428,17 @@ def _commit(updates: list[tuple[Any, str, Any]]) -> None:
 
 
 def _install(value: Any) -> Any:
-    if value.__pydantic_extra__ and type(value).model_config.get("extra") != "allow":
-        raise TypeError("construction extra override conflicts with ongoing class policy")
+    if (
+        getattr(value, "__pydantic_extra__")
+        and cast(Mapping[str, Any], getattr(cast(type[Any], type(value)), "model_config")).get(
+            "extra"
+        )
+        != "allow"
+    ):
+        raise TypeError(
+            "pydandict_unsupported_configuration: construction extra override conflicts "
+            "with ongoing class policy"
+        )
     # Validate output ownership before anything escapes a constructor/framework.
     raw = _clone(value)
     _commit(_prepare(value, raw, raw, {id(raw): value}, {()}))
@@ -369,7 +468,7 @@ class DictModel(BaseModel, MutableMapping[str, object]):
         validate_default=True,
         revalidate_instances="always",
     )
-    _prototype_fault: ClassVar[Any] = None
+    _prototype_fault: ClassVar[Callable[[str], None] | None] = None
 
     @classmethod
     def __get_pydantic_core_schema__(
@@ -379,6 +478,12 @@ class DictModel(BaseModel, MutableMapping[str, object]):
         schema_ref = schema.pop("ref", None)
 
         def finish(value: Any, next_validator: Any) -> Any:
+            metadata = getattr(cls, "__pydantic_generic_metadata__", {})
+            if not _BUILDING.get() and metadata.get("parameters"):
+                raise TypeError(
+                    "pydandict_unsupported_annotation: generic DictModel instances "
+                    "must be explicitly specialized"
+                )
             if _BUILDING.get():
                 if isinstance(value, DictModel):
                     if not _CANONICAL.get():
@@ -426,8 +531,9 @@ class DictModel(BaseModel, MutableMapping[str, object]):
 
             def adjust(value: Any) -> Any:
                 if isinstance(value, dict):
-                    result = {k: adjust(v) for k, v in value.items()}
-                    if value.get("type") == "model":
+                    mapping = cast(Mapping[Any, Any], value)
+                    result: dict[Any, Any] = {k: adjust(v) for k, v in mapping.items()}
+                    if mapping.get("type") == "model":
                         config = dict(result.get("config", {}))
                         if by_name is not None:
                             config["validate_by_name"] = by_name
@@ -436,11 +542,11 @@ class DictModel(BaseModel, MutableMapping[str, object]):
                         result["config"] = config
                     return result
                 if isinstance(value, list):
-                    return [adjust(v) for v in value]
+                    return [adjust(v) for v in cast(list[Any], value)]
                 return value
 
-            cache[key] = SchemaValidator(adjust(cls.__pydantic_core_schema__))
-        return cache[key]
+            cache[key] = SchemaValidator(adjust(getattr(cls, "__pydantic_core_schema__")))
+        return cast(dict[tuple[bool | None, bool | None], Any], cache)[key]
 
     @classmethod
     def model_validate(
@@ -498,23 +604,41 @@ class DictModel(BaseModel, MutableMapping[str, object]):
         if not cls.model_config.get("validate_assignment") or not cls.model_config.get(
             "validate_default"
         ):
-            raise TypeError("validation cannot be disabled")
+            raise TypeError("pydandict_unsupported_configuration: validation cannot be disabled")
         if cls.model_config.get("revalidate_instances") != "always":
-            raise TypeError("DictModel requires revalidate_instances='always'")
+            raise TypeError(
+                "pydandict_unsupported_configuration: DictModel requires "
+                "revalidate_instances='always'"
+            )
         for field in cls.model_fields.values():
             if field.validate_default is False:
-                raise TypeError("default validation cannot be disabled")
+                raise TypeError(
+                    "pydandict_unsupported_configuration: default validation cannot be disabled"
+                )
         if cls.__private_attributes__:
-            raise TypeError("private attributes are not supported by DictModel")
+            raise TypeError(
+                "pydandict_unsupported_configuration: private attributes are not supported "
+                "by DictModel"
+            )
         if cls.model_post_init is not BaseModel.model_post_init:
-            raise TypeError("model_post_init is outside the supported hook contract")
+            raise TypeError(
+                "pydandict_unsupported_configuration: model_post_init is outside the "
+                "supported hook contract"
+            )
         if cls.__init__ is not BaseModel.__init__ or "__del__" in cls.__dict__:
-            raise TypeError("custom initialization/finalization is unsupported")
+            raise TypeError(
+                "pydandict_unsupported_configuration: custom initialization/finalization"
+            )
         if any(
             isinstance(value, property) and value.fset is not None
             for value in cls.__dict__.values()
         ):
-            raise TypeError("writable properties are outside the DictModel transaction API")
+            raise TypeError(
+                "pydandict_unsupported_configuration: writable properties are outside "
+                "the transaction API"
+            )
+        for name, field in cls.model_fields.items():
+            _check_annotation(field.annotation, name)
         cls._check_names(cls.model_fields)
 
     @classmethod
@@ -529,18 +653,20 @@ class DictModel(BaseModel, MutableMapping[str, object]):
             for name, field in cls.model_fields.items()
         ]
         if len(aliases) != len(set(aliases)):
-            raise TypeError("ambiguous serialization aliases")
+            raise TypeError("pydandict_protected_name: ambiguous serialization aliases")
         for key in data:
-            if not isinstance(key, str):
-                raise TypeError("model keys must be strings")
+            if not isinstance(key, str):  # pyright: ignore[reportUnnecessaryIsInstance]
+                raise TypeError("pydandict_protected_name: model keys must be strings")
             if key.startswith("_") or key in reserved:
-                raise TypeError(f"protected model/mapping name: {key}")
+                raise TypeError(f"pydandict_protected_name: protected model/mapping name: {key}")
             if key not in cls.model_fields and key in aliases:
-                raise TypeError(f"extra collides with serialization alias: {key}")
+                raise TypeError(
+                    f"pydandict_protected_name: extra collides with serialization alias: {key}"
+                )
 
     def _ensure_alive(self) -> None:
         if _root(self) is not None and not object.__getattribute__(self, "_pd_alive"):
-            raise RuntimeError("stale owned model")
+            raise RuntimeError("pydandict_stale_handle: stale owned model")
 
     def __getattribute__(self, name: str) -> Any:
         if not name.startswith("_"):
@@ -554,15 +680,17 @@ class DictModel(BaseModel, MutableMapping[str, object]):
     @property
     def model_extra(self) -> dict[str, Any] | None:
         extra = object.__getattribute__(self, "__pydantic_extra__")
-        return dict(extra) if extra is not None else None
+        return dict(cast(Mapping[str, Any], extra)) if extra is not None else None
 
     def __getitem__(self, key: str) -> object:
         self._ensure_alive()
-        if not isinstance(key, str):
+        if not isinstance(key, str):  # pyright: ignore[reportUnnecessaryIsInstance]
             raise KeyError(key)
         if key in type(self).model_fields:
             return object.__getattribute__(self, "__dict__")[key]
-        return (object.__getattribute__(self, "__pydantic_extra__") or {})[key]
+        return cast(Mapping[str, Any], object.__getattribute__(self, "__pydantic_extra__") or {})[
+            key
+        ]
 
     def __iter__(self) -> Iterator[str]:  # pyright: ignore[reportIncompatibleMethodOverride]
         # Intentional BaseModel pair-iteration divergence, required by Mapping.
@@ -574,7 +702,9 @@ class DictModel(BaseModel, MutableMapping[str, object]):
             for key in keys:
                 self._ensure_alive()
                 if getattr(self, "_pd_version", 0) != version:
-                    raise RuntimeError("model keys changed during iteration")
+                    raise RuntimeError(
+                        "pydandict_iterator_invalidated: model keys changed during iteration"
+                    )
                 yield key
 
         return generate()
@@ -610,7 +740,9 @@ class DictModel(BaseModel, MutableMapping[str, object]):
         if _root(self) is None:
             object.__setattr__(self, name, value)
         elif name.startswith("_"):
-            raise TypeError("private writes are outside the DictModel API")
+            raise TypeError(
+                "pydandict_unsupported_configuration: private writes are outside the DictModel API"
+            )
         else:
             self[name] = value
 
@@ -621,16 +753,18 @@ class DictModel(BaseModel, MutableMapping[str, object]):
             raise AttributeError(name) from exc
 
     def _check_write(self, key: str, *, remove: bool = False, reset: bool = False) -> None:
-        if not isinstance(key, str):
-            raise TypeError("model keys must be strings")
+        if not isinstance(key, str):  # pyright: ignore[reportUnnecessaryIsInstance]
+            raise TypeError("pydandict_protected_name: model keys must be strings")
         fields = type(self).model_fields
         if remove and key not in _data(self):
             raise KeyError(key)
         if reset and key not in _data(self):
             raise KeyError(key)
-        if self.model_config.get("frozen") or (key in fields and fields[key].frozen):
+        if cast(Mapping[str, Any], self.model_config).get("frozen") or (
+            key in fields and fields[key].frozen
+        ):
             _policy(self, "frozen_instance", key, "Frozen state cannot change")
-        type(self)._check_names({key: None})
+        type(self)._check_names({key: None})  # pyright: ignore[reportPrivateUsage]
         if remove and key in fields:
             _policy(
                 self,
@@ -668,13 +802,26 @@ class DictModel(BaseModel, MutableMapping[str, object]):
     def _input(self, value: Any) -> Any:
         return _clone(value)
 
+    def _detached(self, value: Any) -> Any:
+        """Return a usable detached copy for public guard copy operations."""
+        return _own_result(_clone(value))
+
+    def _identity_handle_write(self, handle: Any) -> None:
+        root = _root(self)
+        if root is None:
+            raise RuntimeError("pydandict_stale_handle: detached owned handle")
+        path = getattr(handle, "_pd_path", getattr(handle, "_path", ()))
+        root._check_ancestors(path)
+
     def _transaction(self, target: Any, operation: Any) -> Any:
         root = _root(self)
         if root is None:
-            raise RuntimeError("candidate mutation is unsupported")
+            raise RuntimeError(
+                "pydandict_unsupported_configuration: candidate mutation is unsupported"
+            )
         self._ensure_alive()
         if root._pd_busy:
-            raise RuntimeError("reentrant transaction on the same root")
+            raise RuntimeError("pydandict_reentrant_transaction: same root is already busy")
         object.__setattr__(root, "_pd_busy", True)
         try:
             origins: dict[int, Any] = {}
@@ -703,7 +850,10 @@ class DictModel(BaseModel, MutableMapping[str, object]):
                 explicit = getattr(local, "_pd_reset", None)
                 if explicit is not None:
                     object.__setattr__(local, "__pydantic_fields_set__", explicit)
-            fault = type(root)._prototype_fault
+            fault = cast(
+                Callable[[str], None] | None,
+                getattr(cast(type[Any], type(root)), "_prototype_fault", None),
+            )
             if fault:
                 fault("staged")
             validated = _validate(_clone(draft))
@@ -722,14 +872,14 @@ class DictModel(BaseModel, MutableMapping[str, object]):
             object.__setattr__(root, "_pd_busy", False)
 
     def _container_change(self, target: Any, operation: Any) -> Any:
-        def apply(data: Any):
+        def apply(data: Any) -> tuple[Any, set[tuple[Any, ...]]]:
             return operation(data), {()}
 
         return self._transaction(target, apply)
 
     def __setitem__(self, key: str, value: object) -> None:
         if (
-            isinstance(key, str)
+            isinstance(key, str)  # pyright: ignore[reportUnnecessaryIsInstance]
             and key in _data(self)
             and _data(self)[key] is value
             and isinstance(value, (Owned, DictModel))
@@ -742,7 +892,7 @@ class DictModel(BaseModel, MutableMapping[str, object]):
     def update(
         self, other: _KeySource | Iterable[tuple[str, object]] = (), /, **kwargs: object
     ) -> None:
-        def apply(draft: Any):
+        def apply(draft: Any) -> tuple[Any, set[tuple[Any, ...]]]:
             patch = dict(other, **kwargs)
             for key in patch:
                 self._check_write(key)
@@ -760,7 +910,7 @@ class DictModel(BaseModel, MutableMapping[str, object]):
         return self
 
     def __delitem__(self, key: str) -> None:
-        def apply(draft: Any):
+        def apply(draft: Any) -> tuple[Any, set[tuple[Any, ...]]]:
             self._check_write(key, remove=True)
             draft.__pydantic_extra__.pop(key)
             object.__getattribute__(draft, "__pydantic_fields_set__").discard(key)
@@ -770,7 +920,7 @@ class DictModel(BaseModel, MutableMapping[str, object]):
         self._transaction(self, apply)
 
     def pop(self, key: str, default: object = _MISSING) -> object:
-        def apply(draft: Any):
+        def apply(draft: Any) -> tuple[Any, set[tuple[Any, ...]]]:
             if key not in _data(self):
                 if default is _MISSING:
                     raise KeyError(key)
@@ -791,7 +941,7 @@ class DictModel(BaseModel, MutableMapping[str, object]):
         return key, self.pop(key)
 
     def clear(self) -> None:
-        def apply(draft: Any):
+        def apply(draft: Any) -> tuple[Any, set[tuple[Any, ...]]]:
             keys = tuple(self)
             for key in keys:
                 self._check_write(key, remove=True)
@@ -810,7 +960,7 @@ class DictModel(BaseModel, MutableMapping[str, object]):
         return self[key]
 
     def reset(self, *field_names: str) -> None:
-        def apply(draft: Any):
+        def apply(draft: Any) -> tuple[Any, set[tuple[Any, ...]]]:
             names = tuple(dict.fromkeys(field_names))
             for key in names:
                 self._check_write(key, reset=True)
@@ -826,7 +976,7 @@ class DictModel(BaseModel, MutableMapping[str, object]):
         root = _root(self)
         self._ensure_alive()
         if root is not None and root._pd_busy:
-            raise RuntimeError("reentrant copy on the same root")
+            raise RuntimeError("pydandict_reentrant_transaction: same root copy is already busy")
         if root is not None:
             object.__setattr__(root, "_pd_busy", True)
         try:
@@ -852,7 +1002,9 @@ class DictModel(BaseModel, MutableMapping[str, object]):
                 if key not in (update or {}) and _fingerprint(value) != _fingerprint(
                     _data(validated)[key]
                 ):
-                    raise TypeError(f"canonical copy changed untouched field {key!r}")
+                    raise TypeError(
+                        f"pydandict_canonical_drift: canonical copy changed untouched field {key!r}"
+                    )
             return _install(validated)
         finally:
             if root is not None:
@@ -866,7 +1018,9 @@ class DictModel(BaseModel, MutableMapping[str, object]):
 
     @classmethod
     def model_construct(cls, _fields_set: set[str] | None = None, **values: Any) -> Self:
-        raise TypeError("use model_validate; trusted construction is disabled")
+        raise TypeError(
+            "pydandict_trusted_path_disabled: use model_validate; trusted construction is disabled"
+        )
 
     def copy(
         self,
@@ -880,20 +1034,22 @@ class DictModel(BaseModel, MutableMapping[str, object]):
 
         warnings.warn("copy is deprecated; use model_copy", DeprecationWarning, stacklevel=2)
         if include is not None or exclude is not None:
-            raise TypeError("partial model copies are unsupported")
+            raise TypeError("pydandict_trusted_path_disabled: partial model copies are unsupported")
         return self.model_copy(update=update, deep=deep)
 
     def __reduce_ex__(self, protocol: SupportsIndex) -> Any:
-        raise TypeError("pickle is outside the DictModel ownership contract")
+        raise TypeError(
+            "pydandict_trusted_path_disabled: pickle is outside the DictModel ownership contract"
+        )
 
 
 def _own_result(value: Any) -> Any:
     if isinstance(value, DictModel):
         return _install(_validate(value))
     if isinstance(value, list):
-        return [_own_result(v) for v in value]
+        return [_own_result(v) for v in cast(list[Any], value)]
     if isinstance(value, (dict, OwnedDict)):
-        return {k: _own_result(v) for k, v in value.items()}
+        return {k: _own_result(v) for k, v in cast(Mapping[Any, Any], value).items()}
     if isinstance(value, tuple):
-        return tuple(_own_result(v) for v in value)
+        return tuple(_own_result(v) for v in cast(tuple[Any, ...], value))
     return value

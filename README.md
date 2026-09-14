@@ -12,11 +12,11 @@ both a genuine Pydantic `BaseModel` and a Python mutable mapping. It is designed
 to let existing mapping-oriented code consume models directly, and to let
 package authors keep internal records valid as they change.
 
-**Status: Phase 0.1 released.** The installable source package is in
+**Status: Phase 0.1 released; Phase 0.2 implementation underway.** The installable source package is in
 [`src/pydandict`](src/pydandict/__init__.py), at release version `0.1.0`.
 It was published to [PyPI](https://pypi.org/project/pydandict/0.1.0/) on
 2026-09-13 from the immutable [`v0.1.0` tag](https://github.com/eddiethedean/pydandict/tree/v0.1.0).
-It has 87 passing runtime tests, installed typing checks and working library/FastAPI
+It has 92 passing runtime tests, strict source and installed typing checks and working library/FastAPI
 consumers in the recorded dependency envelope. See the [findings and limitations](docs/research/prototype-findings.md)
 for exact evidence. The original [prototype guide](prototypes/README.md) remains
 as a reproducible evidence fixture.

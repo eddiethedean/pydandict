@@ -13,14 +13,20 @@ Pyright describes typed-library packaging and completeness checks in its
 The release pipeline should type-check the installed distribution, not only source
 files in the repository.
 
-## Phase 0.1 evidence
+## Phase 0.1 and Phase 0.2 evidence
 
 The [prototype](research/prototype-findings.md) passes installed strict consumer
 fixtures, four expected negative diagnostics and 100% public type completeness.
 Owned mutable fields use private protocol guards. Prefer standard `MutableSequence`,
 `MutableMapping` and `MutableSet` annotations for honest runtime typing; concrete
 container annotations describe the input schema but do not establish concrete
-runtime identity. Finalizing that production contract is Phase 0.2 work.
+runtime identity. Phase 0.2 enforces this contract at class creation: concrete
+`list`, `dict` and `set` annotations (including nested and union occurrences)
+fail with `pydandict_unsupported_annotation:` and an ABC migration hint. Generic
+`DictModel` classes must be explicitly specialized before construction. The
+strict gate analyzes every production source file, the positive fixture and the
+typing helper; the negative fixture is checked independently against its four
+expected diagnostics.
 
 ## Heterogeneous mapping values
 

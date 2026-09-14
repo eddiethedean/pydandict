@@ -2,11 +2,20 @@
 
 ## Unreleased
 
+### Phase 0.2 implementation
+
+- Enforce ABC mutable annotations, explicit generic specialization and fail-closed
+  diagnostics for unsupported values and ownership boundaries.
+- Add strict source and consumer typing checks, independent negative-fixture
+  validation, a Pydantic compatibility adapter and clean wheel/sdist artifact
+  qualification.
+- Expand CI to the supported Python and operating-system matrix.
+
 ### Documentation
 
 - Add the bounded Phase 0.2 architecture and implementation contract, with
   resolved target decisions, AC-001–028, verification matrix and implementation
-  sequence. This planning change does not implement or release Phase 0.2.
+  sequence.
 
 ## 0.1.0 - 2026-09-13
 

@@ -52,7 +52,13 @@ target-version = "py311"
 select = ["E", "F", "I"]
 
 [tool.pyright]
-include = ["src/pydandict/__init__.py", "tests/typing_positive.py"]
+include = [
+  "src",
+  "tests/typing_positive.py",
+  "tools/check_typing.py",
+  "tools/qualify_package.py",
+  "tools/benchmark.py",
+]
 exclude = ["tests/typing_negative.py"]
 pythonVersion = "3.11"
 typeCheckingMode = "strict"

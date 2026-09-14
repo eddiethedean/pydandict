@@ -32,15 +32,15 @@ from pydandict import DictModel
 
 class Child(DictModel):
     cost: int = Field(ge=0)
-    labels: list[str] = Field(default_factory=list)
+    labels: MutableSequence[str] = Field(default_factory=list)
 
 
 class Budget(DictModel):
     ceiling: int = Field(default=20, ge=0)
-    costs: list[int] = Field(default_factory=list)
+    costs: MutableSequence[int] = Field(default_factory=list)
     child: Child = Field(default_factory=lambda: Child(cost=1))
-    table: dict[str, list[int]] = Field(default_factory=dict)
-    flags: set[int] = Field(default_factory=set)
+    table: MutableMapping[str, MutableSequence[int]] = Field(default_factory=dict)
+    flags: MutableSet[int] = Field(default_factory=set)
 
     @model_validator(mode="after")
     def within_budget(self) -> Self:
@@ -206,7 +206,7 @@ def test_stale_handles_and_detached_removal_results():
 
 def test_node_identity_survives_reorder_and_unrelated_update():
     class Tree(DictModel):
-        children: list[Child]
+        children: MutableSequence[Child]
         name: str = "x"
 
     m = Tree(children=[Child(cost=1), Child(cost=2)])
@@ -242,7 +242,7 @@ def test_augmented_assignment_exactly_one_transaction():
 def test_frozen_ancestors_and_copy():
     class Frozen(DictModel):
         model_config = ConfigDict(frozen=True)
-        payload: list[int]
+        payload: MutableSequence[int]
 
     class Partial(DictModel):
         child: Child = Field(frozen=True)
@@ -346,7 +346,7 @@ def test_all_construction_paths_and_frameworks():
 
 def test_serializers_exclusions_computed_and_context():
     class Rich(DictModel):
-        nums: list[int]
+        nums: MutableSequence[int]
         hidden: str = Field(default="secret", exclude=True)
 
         @field_serializer("nums")
@@ -366,7 +366,7 @@ def test_serializers_exclusions_computed_and_context():
     assert m.nums == [1, 2, 3]
 
     class Encoded(DictModel):
-        nums: list[int]
+        nums: MutableSequence[int]
 
         @model_serializer
         def encode(self) -> str:
@@ -401,7 +401,7 @@ def test_nonidempotent_unchanged_normalizer_rejected_without_drift():
 
 def test_validator_topology_changes_fail_safely():
     class Reverse(DictModel):
-        children: list[Child]
+        children: MutableSequence[Child]
 
         @field_validator("children")
         @classmethod

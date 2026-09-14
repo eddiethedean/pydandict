@@ -28,8 +28,55 @@ jobs:
       - name: Validate Markdown links and examples
         run: python tools/check_docs.py
 
-  prototype:
-    name: Phase 0.1 compatibility checks
+  compatibility:
+    name: Compatibility (${{ matrix.os }}, Python ${{ matrix.python-version }})
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - {os: ubuntu-latest, python-version: '3.11'}
+          - {os: ubuntu-latest, python-version: '3.12'}
+          - {os: ubuntu-latest, python-version: '3.13'}
+          - {os: ubuntu-latest, python-version: '3.14'}
+          - {os: macos-latest, python-version: '3.11'}
+          - {os: macos-latest, python-version: '3.14'}
+          - {os: windows-latest, python-version: '3.11'}
+          - {os: windows-latest, python-version: '3.14'}
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install package and test dependencies
+        run: python -m pip install --upgrade pip && python -m pip install -e ".[dev]"
+
+      - name: Run lint and format checks
+        run: |
+          ruff check src tests tools/check_typing.py tools/qualify_package.py tools/benchmark.py
+          ruff format --check src tests tools/check_typing.py tools/qualify_package.py tools/benchmark.py
+
+      - name: Run package tests
+        env:
+          PYTEST_DISABLE_PLUGIN_AUTOLOAD: '1'
+        run: python -m pytest tests -q
+
+      - name: Run strict typing checks
+        run: python tools/check_typing.py
+
+      - name: Verify installed public completeness
+        run: python -m pyright --verifytypes pydandict --ignoreexternal
+
+  qualification:
+    name: Production artifact qualification (Python ${{ matrix.python-version }})
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ['3.11', '3.14']
     runs-on: ubuntu-latest
     steps:
       - name: Check out source
@@ -38,26 +85,16 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.11'
+          python-version: ${{ matrix.python-version }}
 
-      - name: Install package and test dependencies
+      - name: Install qualification tooling
         run: python -m pip install --upgrade pip && python -m pip install -e ".[dev]"
 
-      - name: Run lint and format checks
-        run: |
-          ruff check src tests
-          ruff format --check src tests
+      - name: Build and qualify clean artifacts
+        run: python tools/qualify_package.py
 
-      - name: Run Phase 0.1 package tests
-        env:
-          PYTEST_DISABLE_PLUGIN_AUTOLOAD: '1'
-        run: python -m pytest tests -q
-
-      - name: Type-check installed consumer
-        run: |
-          PYTHONPATH=src pyright
-          PYTHONPATH=src pyright --verifytypes pydandict --ignoreexternal
-          PYTHONPATH=src pyright tests/typing_negative.py
+      - name: Produce benchmark report
+        run: python tools/benchmark.py > benchmark.json
 
   package:
     name: Production package preflight

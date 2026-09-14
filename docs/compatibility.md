@@ -10,6 +10,11 @@ range is supported merely because it is v2. The planning probes use Python
 observed versions, not a declaration that they are the latest releases or a tested
 PydanDict support matrix. See [upstream evidence](research/upstream-behavior.md).
 
+Phase 0.2 introduces a fail-closed compatibility boundary in
+`src/pydandict/_compat.py`. It validates the exact supported Pydantic version and
+required model schema/storage attributes before the ownership implementation
+uses them; unsupported versions raise `pydandict_incompatible_pydantic:`.
+
 Use normal `BaseModel` control classes for differential tests. Classify differences
 as intentional, unsupported pending a gate, or bugs. Publish that classification
 with each release instead of claiming total drop-in equivalence.

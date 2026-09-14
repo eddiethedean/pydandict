@@ -2,6 +2,7 @@
 
 import json
 import operator
+from collections.abc import MutableMapping, MutableSequence, MutableSet
 from functools import cached_property
 from typing import Annotated, Generic, Literal, TypeVar
 
@@ -21,7 +22,9 @@ from pydandict import DictModel
 
 
 class Lists(DictModel):
-    nums: list[int] = Field(default_factory=lambda: [3, 1, 2], min_length=1, max_length=8)
+    nums: MutableSequence[int] = Field(
+        default_factory=lambda: [3, 1, 2], min_length=1, max_length=8
+    )
 
 
 LIST_MUTATIONS = [
@@ -84,7 +87,7 @@ def test_list_read_inventory():
 
 
 class Dicts(DictModel):
-    table: dict[str, int] = Field(default_factory=lambda: {"a": 1, "b": 2})
+    table: MutableMapping[str, int] = Field(default_factory=lambda: {"a": 1, "b": 2})
 
 
 DICT_MUTATIONS = [
@@ -126,7 +129,7 @@ def test_dict_reads_views_and_rejected_update():
 
 
 class Sets(DictModel):
-    flags: set[int] = Field(default_factory=lambda: {1, 2})
+    flags: MutableSet[int] = Field(default_factory=lambda: {1, 2})
 
 
 SET_MUTATIONS = [
@@ -178,8 +181,8 @@ def test_set_read_inventory_and_pop():
 
 def test_mutable_repetition_tuple_descendants_and_alias_isolation():
     class Nested(DictModel):
-        rows: list[list[int]]
-        pair: tuple[list[int], int]
+        rows: MutableSequence[MutableSequence[int]]
+        pair: tuple[MutableSequence[int], int]
 
     shared = [1]
     m = Nested(rows=[shared, shared], pair=(shared, 1))
@@ -214,7 +217,7 @@ def test_generic_union_and_recursive_schema():
     class Box(DictModel, Generic[T]):
         payload: T
 
-    box = Box[list[int]](payload=[1])
+    box = Box[MutableSequence[int]](payload=[1])
     box.payload.append("2")
     assert box.payload == [1, 2]
 
@@ -238,7 +241,7 @@ def test_generic_union_and_recursive_schema():
 
     class Node(DictModel):
         value: int
-        children: list["Node"] = Field(default_factory=list)
+        children: MutableSequence["Node"] = Field(default_factory=list)
 
     Node.model_rebuild()
     tree = Node(value=1, children=[{"value": 2}])
@@ -362,7 +365,7 @@ def test_alias_choices_paths_typed_extras_and_properties():
 
 def test_shape_changing_validator_rejected_and_factory_failure_recovers():
     class Append(DictModel):
-        nums: list[int]
+        nums: MutableSequence[int]
 
         @field_validator("nums")
         @classmethod
