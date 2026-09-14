@@ -14,6 +14,7 @@ import tempfile
 import venv
 from pathlib import Path
 from textwrap import dedent
+from typing import cast
 
 ROOT = Path(__file__).resolve().parents[1]
 _COMMIT = re.compile(r"[0-9a-f]{40}")
@@ -25,38 +26,107 @@ _SCALAR_PROFILE = {
     "derandomize": True,
     "status": "executed by the repository runtime/CI gate, not this artifact driver",
 }
+_RUNTIME_LANE = {
+    "name": "CI compatibility matrix",
+    "execution": "required external runtime gate; recorded separately from this artifact driver",
+}
+_ARTIFACT_LANE = {
+    "name": "local package qualification",
+    "execution": "executed by this driver for the recorded source/artifacts",
+}
+
+
+def _coverage(
+    *tests: str, lanes: tuple[dict[str, str], ...] = (_RUNTIME_LANE,)
+) -> dict[str, object]:
+    """Describe actual proof nodes without claiming this driver ran external gates."""
+    return {"tests": list(tests), "lanes": [dict(lane) for lane in lanes]}
+
+
 _AC_TEST_LANE_MAP = {
-    **{
-        f"AC-{number:03d}": {
-            "tests": ["tests/ (full runtime suite)"],
-            "lanes": ["CI compatibility matrix"],
-            "qualification_status": "outside package-driver execution scope",
-        }
-        for number in range(1, 24)
-    },
+    "AC-001": _coverage(
+        "tests/test_sol_phase03_blockers.py::test_sol017_strict_scalar_entry_modes_match_pinned_basemodel",
+        "tests/test_sol_phase03_rereview_2.py::test_sol017_type_adapter_strict_json_matches_pinned_basemodel",
+    ),
+    "AC-002": _coverage(
+        "tests/test_phase02_contract.py::test_concrete_mutable_annotations_fail_with_migration_hint",
+        "tests/test_hash_ingress.py::test_unhashable_model_members_get_the_ownership_diagnostic",
+    ),
+    "AC-003": _coverage(
+        "tests/test_phase03_contract.py::test_scalar_reads_views_and_canonical_namespace"
+    ),
+    "AC-004": _coverage(
+        "tests/test_phase03_contract.py::test_scalar_reads_views_and_canonical_namespace"
+    ),
+    "AC-005": _coverage("tests/test_prototype.py::test_identity_serialization_and_mapping_views"),
+    "AC-006": _coverage("tests/test_inventory.py::test_explicit_public_alias_flags"),
+    "AC-007": _coverage(
+        "tests/test_phase03_contract.py::test_scalar_bulk_failure_is_atomic_and_reset_updates_metadata"
+    ),
+    "AC-008": _coverage("tests/test_stateful.py::TestScalarTransactions"),
+    "AC-009": _coverage(
+        "tests/test_phase03_contract.py::test_non_string_pop_is_rejected_before_fallback",
+        "tests/test_sol_phase03_blockers.py::test_sol014_non_string_bulk_names_precede_frozen_policy",
+    ),
+    "AC-010": _coverage("tests/test_stateful.py::TestScalarTransactions"),
+    "AC-011": _coverage("tests/test_prototype.py::test_extras_destructive_metadata_and_errors"),
+    "AC-012": _coverage("tests/test_stateful.py::TestScalarTransactions"),
+    "AC-013": _coverage("tests/test_prototype.py::test_frozen_ancestors_and_copy"),
+    "AC-014": _coverage(
+        "tests/test_phase03_contract.py::test_scalar_bulk_failure_is_atomic_and_reset_updates_metadata",
+        "tests/test_stateful.py::TestScalarTransactions",
+    ),
+    "AC-015": _coverage(
+        "tests/test_prototype.py::test_nonidempotent_unchanged_normalizer_rejected_without_drift"
+    ),
+    "AC-016": _coverage(
+        "tests/test_transaction_remediation.py::test_every_prepared_swap_boundary_recovers"
+    ),
+    "AC-017": _coverage("tests/test_inventory.py::test_cached_computed_fields_are_invalidated"),
+    "AC-018": _coverage(
+        "tests/test_phase03_contract.py::test_scalar_copy_is_validated_and_independent"
+    ),
+    "AC-019": _coverage(
+        "tests/test_prototype.py::test_unsafe_inputs_hooks_and_trusted_paths_rejected"
+    ),
+    "AC-020": _coverage(
+        "tests/test_compat_remediation.py::test_type_adapter_native_mode_keeps_dynamic_strict_and_extra_options",
+        "tests/test_sol_phase03_rereview.py::test_sol017_json_entry_options_match_pinned_basemodel",
+        "tests/test_sol_phase03_rereview_2.py::test_sol017_type_adapter_strict_json_matches_pinned_basemodel",
+    ),
+    "AC-021": _coverage(
+        "tests/test_prototype.py::test_serializers_exclusions_computed_and_context"
+    ),
+    "AC-022": _coverage("tests/test_inventory.py::test_stale_child_repr_equality_and_metadata"),
+    "AC-023": _coverage(
+        "tools/check_typing.py", "pyright --verifytypes pydandict --ignoreexternal"
+    ),
     "AC-024": {
-        "tests": ["installed scalar example", "bare nested consumer", "HTTP/type consumers"],
-        "lanes": ["local package qualification", "CI artifact lanes"],
+        **_coverage(
+            "examples/library_config.py (direct/rebuilt clean-wheel execution)",
+            "installed metadata, nested, HTTP and typing consumers",
+            lanes=(_ARTIFACT_LANE,),
+        ),
     },
-    "AC-025": {
-        "tests": ["qualification provenance record"],
-        "lanes": ["local package qualification", "CI compatibility/artifact matrix"],
-    },
+    "AC-025": _coverage(
+        "tests/test_sol_phase03_rereview.py::test_sol015_missing_provenance_cannot_replace_durable_evidence",
+        "tools/qualify_package.py",
+        lanes=(_ARTIFACT_LANE, _RUNTIME_LANE),
+    ),
     "AC-026": {
-        "tests": [_SCALAR_PROFILE["test"]],
-        "lanes": ["CI compatibility matrix"],
-        "qualification_status": _SCALAR_PROFILE["status"],
+        **_coverage(cast(str, _SCALAR_PROFILE["test"])),
+        "stateful_profile": _SCALAR_PROFILE,
     },
-    "AC-027": {
-        "tests": ["tests/ (full runtime suite)"],
-        "lanes": ["CI compatibility/artifact matrix"],
-        "qualification_status": "outside package-driver execution scope",
-    },
-    "AC-028": {
-        "tests": ["installed scalar example", "tools/check_docs.py"],
-        "lanes": ["local package qualification", "CI docs/artifact lanes"],
-        "qualification_status": "docs checker is outside package-driver execution scope",
-    },
+    "AC-027": _coverage(
+        "tests/test_stateful.py::TestTransactions",
+        "tests/test_sol_phase02_rereview_5.py",
+        "tests/test_sol_phase03_blockers.py",
+    ),
+    "AC-028": _coverage(
+        "examples/library_config.py (direct/rebuilt clean-wheel execution)",
+        "tools/check_docs.py",
+        lanes=(_ARTIFACT_LANE, _RUNTIME_LANE),
+    ),
 }
 
 
@@ -384,19 +454,26 @@ def main() -> int:
             "installed `examples/library_config.py` workflow with `PYTHONPATH` "
             "cleared. See `phase-0.3-results.json` for exact commands, resolved "
             "dependencies and SHA-256 artifact identities.\n\n"
-            "## Evidence map and limitations\n\n"
-            "- AC-024: direct/rebuilt installed scalar example, consumer and installed "
-            "metadata-policy records.\n"
-            "- AC-025: source commit, interpreter/platform, commands, dependency "
-            "resolutions and direct/rebuilt artifact hashes.\n"
-            "- AC-026: settings/replay profile is recorded, but its execution belongs "
-            "to the repository runtime/CI gate.\n"
-            "- AC-028: installed scalar library-config example records; docs checking "
-            "belongs to its separate gate.\n\n"
+            "## AC-to-test/lane evidence\n\n"
+            + "\n".join(
+                "- "
+                f"{criterion}: nodes: {', '.join(cast(list[str], entry['tests']))}; "
+                "lanes: "
+                + "; ".join(
+                    f"{lane['name']} ({lane['execution']})"
+                    for lane in cast(list[dict[str, str]], entry["lanes"])
+                )
+                for criterion, entry in _AC_TEST_LANE_MAP.items()
+            )
+            + "\n\n"
+            "AC-024's local artifact lane executes the direct and sdist-rebuilt scalar "
+            "example and installed consumers; AC-025 records source, interpreter/platform, "
+            "commands, resolutions and hashes. AC-026 records its deterministic stateful "
+            "settings, while its execution remains an external runtime gate.\n\n"
             "`ac_test_lane_map`, `scalar_stateful_profile`, `observed_failures` and "
-            "`limitations` make the boundary between this local artifact run and "
-            "required full CI evidence explicit. Non-qualifying runs with no valid "
-            "Git source identity leave these durable records untouched.\n"
+            "`limitations` distinguish actual local artifact execution from required external "
+            "runtime/docs lanes. Non-qualifying runs with no valid Git source identity leave "
+            "these durable records untouched.\n"
         )
         for label, artifact in (("direct", wheel), ("rebuilt", rebuilt_wheel)):
             if not artifact.is_file():

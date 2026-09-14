@@ -12,7 +12,7 @@ import pydantic
 from pydantic import BaseModel, ConfigDict, GetCoreSchemaHandler
 from pydantic.config import ExtraValues
 from pydantic.fields import FieldInfo
-from pydantic_core import CoreSchema, SchemaValidator
+from pydantic_core import CoreSchema, SchemaValidator, ValidationError
 from pydantic_core import core_schema as schema_tools
 
 SUPPORTED_PYDANTIC_VERSION = "2.13.4"
@@ -354,21 +354,65 @@ def wrap_model_schema(
                 raise _incompatible("model validator returned an incompatible value")
             return result
 
+        # DictModel's public class methods make their entry options available
+        # here.  TypeAdapter enters this schema directly, however, and
+        # ValidationInfo deliberately exposes neither strict nor extra.  Start
+        # with the original handler in that path: pydantic keeps its dynamic
+        # strict/extra policies there.  Its handler is Python-mode, so only
+        # replay the small set of strict JSON/string scalar representations
+        # that Pydantic accepts in their native mode but rejects in Python mode.
+        options = _ENTRY_OPTIONS.get()
+        if options is None:
+
+            def type_adapter_model(input_value: object) -> BaseModel:
+                try:
+                    return next_model(input_value)
+                except ValidationError as error:
+                    replayable = {
+                        "bytes_type",
+                        "date_type",
+                        "datetime_type",
+                        "time_type",
+                        "time_delta_type",
+                        "is_instance_of",
+                    }
+                    errors = error.errors()
+                    if (
+                        info.mode not in ("json", "string")
+                        or not errors
+                        or not all(
+                            item.get("type") in replayable | {"extra_forbidden"} for item in errors
+                        )
+                    ):
+                        raise
+                    mode_validator = SchemaValidator(cast(CoreSchema, schema))
+                    if info.mode == "json":
+                        parsed = mode_validator.validate_json(
+                            json.dumps(input_value),
+                            strict=True,
+                            extra="allow",
+                            context=info.context,
+                        )
+                    else:
+                        parsed = mode_validator.validate_strings(
+                            cast(Any, input_value), strict=True, extra="allow", context=info.context
+                        )
+                    # Feed the native-mode scalar representation back through
+                    # the original handler so TypeAdapter's dynamic extra
+                    # policy is still enforced there.
+                    return next_model(parsed)
+
+            return finish(
+                value, type_adapter_model, info.context, cast(CoreSchema, schema), namespace
+            )
+
         # A wrap validator's ``next_validator`` is a Python-mode handler even
         # when the outer SchemaValidator was entered through validate_json or
         # validate_strings. Re-run the unwrapped model schema in that mode, but
         # do so through ``finish``: it detaches caller input before user
-        # validators run. The public entry options are ContextVar state because
-        # pydantic's wrap ValidatorInfo does not expose strict or extra overrides.
-        options = _ENTRY_OPTIONS.get()
-        config = cast(dict[str, Any], info.config or {})
-        by_alias, by_name, strict, extra, context = options or (
-            config.get("validate_by_alias"),
-            config.get("validate_by_name"),
-            None,
-            None,
-            info.context,
-        )
+        # validators run. The class-method boundary supplies its applicable
+        # strict, extra, alias and context options above.
+        by_alias, by_name, strict, extra, context = options
         mode_schema = _rewrite(
             schema,
             canonical=False,

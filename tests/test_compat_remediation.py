@@ -1,9 +1,32 @@
 """Additional compatibility coverage for SOL-004's storage and cache contracts."""
 
+from datetime import date
+
 import pytest
-from pydantic import Field
+from pydantic import BaseModel, ConfigDict, Field, TypeAdapter, ValidationError
 
 from pydandict import DictModel, _compat
+
+
+def test_type_adapter_native_mode_keeps_dynamic_strict_and_extra_options():
+    class Control(BaseModel):
+        model_config = ConfigDict(extra="allow")
+        value: date
+
+    class Record(DictModel):
+        model_config = ConfigDict(extra="allow")
+        value: date
+
+    payload = '{"value":"2026-01-01","extra":1}'
+    for extra in ("forbid", "ignore", "allow"):
+        if extra == "forbid":
+            for model in (Control, Record):
+                with pytest.raises(ValidationError, match="extra_forbidden"):
+                    TypeAdapter(model).validate_json(payload, strict=True, extra=extra)
+            continue
+        expected = TypeAdapter(Control).validate_json(payload, strict=True, extra=extra)
+        actual = TypeAdapter(Record).validate_json(payload, strict=True, extra=extra)
+        assert actual.model_dump() == expected.model_dump()
 
 
 def test_canonical_validator_is_class_local_and_rebuilt():
