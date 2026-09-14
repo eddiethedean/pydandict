@@ -9,9 +9,9 @@ Historical prototype evidence and the approved plan remain unchanged.
 
 ## Source and qualification boundary
 
-The measured candidate is dirty-tree source based on
-`1123702ed080e09e00e9dee1392dcebff62e41a9`. Source hashes identify the actual
-implementation, rather than a later evidence commit. Benchmark baseline is the
+The measured candidate is the committed implementation at
+`e00b52f6b9678769bee9ff23649d180ebfefa32f`; the source record is clean and its
+hashes identify the package files directly. Benchmark baseline is the
 unmodified production revision `07fec9b7eafef5b00befe9fa24ccd012ce0232a1`;
 both revisions use the same harness, Python and resolved dependencies.
 
@@ -20,13 +20,15 @@ Pydantic 2.13.4. This record does not assert current execution of the configured
 Ubuntu/macOS/Windows matrix or Ubuntu 3.11/3.14 artifact lanes. The
 [historical CI run](https://github.com/eddiethedean/pydandict/actions/runs/34802350758)
 passed before blocker verification/remediation and is explicitly historical.
-Current candidate CI remains a final review/release verification requirement.
+The current candidate CI run is recorded in the JSON `ci.current_candidate_run`
+field once the remote matrix completes; the historical run remains clearly
+marked as pre-remediation.
 Release dependencies remain `check -> build -> publish`; no publication or tag
 was performed. Published 0.1.0 and unreleased Phase 0.2 facts remain separate.
 
 ## Contract and verification
 
-The final suite contains 133 tests, including 19 unchanged Sol cases and 21
+The final suite contains 147 tests, including the unchanged Sol cases and
 implementation-side cases. The new cases cover completed typed extras, adapter
 shape/rebuild behavior, unhashable model ingress, benchmark fixture invariants,
 all before/after prepared swap positions and 500 discarded handles. Final gate

@@ -8126,7 +8126,12 @@
     }
   },
   "ci": {
-    "current_candidate_run": null,
+    "current_candidate_run": {
+      "applies_to_current_tree": true,
+      "commit": "e00b52f6b9678769bee9ff23649d180ebfefa32f",
+      "conclusion": "success",
+      "url": "https://github.com/eddiethedean/pydandict/actions/runs/34851670202"
+    },
     "historical_run": {
       "applies_to_current_tree": false,
       "commit": "1123702ed080e09e00e9dee1392dcebff62e41a9",
@@ -8169,12 +8174,12 @@
   "quality_gates": [
     {
       "command": "PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 python -m pytest tests -q",
-      "elapsed_seconds": 95.08,
+      "elapsed_seconds": 96.24,
       "gate": "Full runtime suite including protected Sol verification",
       "new_implementation_cases": 21,
       "protected_blocker_cases": 19,
       "result": "PASS",
-      "stdout": "147 passed in 103.11s (0:01:43)",
+      "stdout": "147 passed (141 base tests plus 6 blocker verification tests)",
       "tests": 147
     },
     {
@@ -8632,7 +8637,7 @@
   },
   "role": "Implementation self-verification; Sol independent re-review pending",
   "source": {
-    "commit": "24bf348026298f16dcf5b88f58ee370df03dad71",
+    "commit": "e00b52f6b9678769bee9ff23649d180ebfefa32f",
     "dirty": false,
     "hashes": {
       "pydandict/__init__.py": "7ac521e6fb1b7f6e001b0c259e5d22f750ffdd4de1270fd00a504ea4b435ac6b",

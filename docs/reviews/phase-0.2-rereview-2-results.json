@@ -1,0 +1,185 @@
+{
+  "role": "Sol independent production re-review; verification-only changes",
+  "date": "2026-09-14",
+  "verdict": "NEEDS FIXES",
+  "source": {
+    "commit": "8560c5b31863e29eaf3f740784b0db06e85e1b23",
+    "production_modified_by_review": false,
+    "approved_plan_commit": "0df17e2e069c115734d2a9811f322897284bf1e3",
+    "baseline": "07fec9b7eafef5b00befe9fa24ccd012ce0232a1",
+    "hashes": {
+      "pydandict/__init__.py": "7ac521e6fb1b7f6e001b0c259e5d22f750ffdd4de1270fd00a504ea4b435ac6b",
+      "pydandict/_compat.py": "599b42420352fe1214504a4d5d6306199ab2250cb65512359b73db1a5edd36c9",
+      "pydandict/_containers.py": "b4240fe2af4b7a5ca3a2000eb017133e1889288b7ccea2ff79363208906f2857",
+      "pydandict/_core.py": "432c5b50a71813cc545124e6b0662b79e794506b40ed01afc63309407aadc84f",
+      "pydandict/py.typed": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "environment": {
+    "python": "3.14.3",
+    "platform": "macOS-26.5.2-arm64-arm-64bit-Mach-O",
+    "pydantic": "2.13.4",
+    "pydantic_core": "2.46.4",
+    "fastapi": "0.141.1",
+    "starlette": "1.6.0",
+    "httpx": "0.28.1",
+    "pyright": "1.1.411",
+    "pytest": "9.1.1",
+    "hypothesis": "6.151.9"
+  },
+  "acceptance_criteria": {
+    "AC-001": {"status": "REGRESSED", "blockers": ["SOL-001"]},
+    "AC-002": {"status": "PARTIALLY SATISFIED", "blockers": ["SOL-001"]},
+    "AC-003": {"status": "VERIFIED", "evidence": ["tests/test_hash_ingress.py", "tests/test_sol_phase02_rereview.py::test_sol002_*", "tests/test_phase02_contract.py"]},
+    "AC-004": {"status": "VERIFIED", "evidence": ["tests/test_inventory.py", "tests/test_prototype.py", "tests/test_phase02_contract.py"]},
+    "AC-005": {"status": "VERIFIED", "evidence": ["tests/test_inventory.py", "tests/test_prototype.py", "tests/typing_positive.py"]},
+    "AC-006": {"status": "VERIFIED", "evidence": ["tests/test_sol_phase02_rereview.py::test_sol010_*", "tests/test_inventory.py", "tests/test_prototype.py"]},
+    "AC-007": {"status": "REGRESSED", "blockers": ["SOL-013"]},
+    "AC-008": {"status": "VERIFIED", "evidence": ["tests/test_inventory.py", "tests/test_stateful.py", "tests/test_phase02_contract.py"]},
+    "AC-009": {"status": "REGRESSED", "blockers": ["SOL-013"], "fixed_context_contract": "tests/test_sol_phase02_rereview.py::test_sol012_*"},
+    "AC-010": {"status": "REGRESSED", "blockers": ["SOL-013"]},
+    "AC-011": {"status": "VERIFIED", "evidence": ["tests/test_sol_phase02_blockers.py::test_sol003_*", "tests/test_inventory.py"]},
+    "AC-012": {"status": "REGRESSED", "blockers": ["SOL-013"]},
+    "AC-013": {"status": "VERIFIED", "evidence": ["tests/test_inventory.py", "tests/test_prototype.py", "tests/test_transaction_remediation.py"]},
+    "AC-014": {"status": "VERIFIED", "evidence": ["tests/test_phase02_contract.py", "tests/test_inventory.py", "tests/test_prototype.py"]},
+    "AC-015": {"status": "REGRESSED", "blockers": ["SOL-013"], "evidence": ["manual existing-model computed-cache finalizer probe"]},
+    "AC-016": {"status": "VERIFIED", "evidence": ["tests/test_sol_phase02_rereview.py::test_sol002_*", "tests/test_inventory.py", "tests/test_phase02_contract.py"]},
+    "AC-017": {"status": "REGRESSED", "blockers": ["SOL-004"]},
+    "AC-018": {"status": "VERIFIED", "evidence": ["tests/test_compat_remediation.py", "tests/test_inventory.py", "tests/test_prototype.py"]},
+    "AC-019": {"status": "VERIFIED", "evidence": ["tests/test_prototype.py::test_all_construction_paths_and_frameworks", "ci.artifact_jobs"]},
+    "AC-020": {"status": "REGRESSED", "blockers": ["SOL-013"], "fixed_iterable_contract": "tests/test_sol_phase02_rereview.py::test_sol010_*"},
+    "AC-021": {"status": "REGRESSED", "blockers": ["SOL-013"], "normal_transaction_verification": ["tests/test_transaction_remediation.py", "tests/test_sol_phase02_blockers.py::test_sol009_*"]},
+    "AC-022": {"status": "VERIFIED", "evidence": ["tests/test_transaction_remediation.py", "tests/test_prototype.py"]},
+    "AC-023": {"status": "VERIFIED", "evidence": ["quality_gates.strict_typing", "quality_gates.public_completeness", "ci.artifact_jobs"]},
+    "AC-024": {"status": "VERIFIED", "evidence": ["quality_gates.strict_typing", "tests/test_sol_phase02_blockers.py::test_sol005_*", "ci.artifact_jobs"]},
+    "AC-025": {"status": "VERIFIED", "evidence": ["ci", ".github/workflows/check.yml", ".github/workflows/release.yml"]},
+    "AC-026": {"status": "VERIFIED", "evidence": ["ci.artifact_jobs", "tools/qualify_package.py"]},
+    "AC-027": {"status": "PARTIALLY SATISFIED", "blockers": ["SOL-008"], "generator_verified": "tests/test_sol_phase02_blockers.py::test_sol007_*"},
+    "AC-028": {"status": "PARTIALLY SATISFIED", "blockers": ["SOL-008"]}
+  },
+  "previous_blockers": {
+    "SOL-001": "PARTIALLY FIXED",
+    "SOL-002": "VERIFIED FIXED",
+    "SOL-003": "VERIFIED FIXED",
+    "SOL-004": "REGRESSED",
+    "SOL-005": "VERIFIED FIXED",
+    "SOL-006": "VERIFIED FIXED",
+    "SOL-007": "VERIFIED FIXED",
+    "SOL-008": "PARTIALLY FIXED",
+    "SOL-009": "VERIFIED FIXED",
+    "SOL-010": "VERIFIED FIXED",
+    "SOL-012": "VERIFIED FIXED"
+  },
+  "blockers": {
+    "SOL-001": {
+      "severity": "High",
+      "disposition": "BLOCKER",
+      "verification": "tests/test_sol_phase02_rereview_2.py::test_sol001_*",
+      "result": "2 expected failures: supported deferred ABC field/extra falsely rejected",
+      "relationship": "Same unresolved audit contract; new over-rejection introduced by remediation",
+      "escalation_recommended": true
+    },
+    "SOL-004": {
+      "severity": "Medium",
+      "disposition": "BLOCKER",
+      "verification": "tests/test_sol_phase02_rereview_2.py::test_sol004_*",
+      "result": "1 expected failure: raw core-schema getattr in _core.py:648",
+      "relationship": "Previously fixed compatibility boundary regressed"
+    },
+    "SOL-008": {
+      "severity": "Medium",
+      "disposition": "BLOCKER",
+      "verification": "tests/test_sol_phase02_rereview_2.py::test_sol008_*",
+      "result": "1 expected failure: stale source hashes and current_candidate_run=null",
+      "relationship": "Same unresolved authoritative final-evidence contract",
+      "escalation_recommended": true
+    },
+    "SOL-013": {
+      "severity": "High",
+      "disposition": "BLOCKER",
+      "verification": "tests/test_sol_phase02_rereview_2.py::test_sol013_*",
+      "result": "2 expected failures: valid strict revalidation rejected and failed validation changes source",
+      "relationship": "New ownership regression introduced by SOL-012 context remediation",
+      "manual_evidence": {
+        "nonstrict_result_is_input": true,
+        "original_saved_handle_staled": true,
+        "failed_validation_source": {"numbers": [1, 2]},
+        "old_cache_finalizer": {"number": 1, "busy": false}
+      }
+    }
+  },
+  "quality_gates": {
+    "original_full_suite": {"command": "PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 .venv/bin/python -m pytest tests -q", "result": "PASS", "passed": 141, "warnings": 2, "seconds": 168.74},
+    "previous_targeted_contracts": {"command": ".venv/bin/python -m pytest tests/test_sol_phase02_rereview.py -q", "result": "PASS", "passed": 8, "seconds": 0.61},
+    "new_targeted_contracts": {"command": ".venv/bin/python -m pytest tests/test_sol_phase02_rereview_2.py -q --tb=short", "classification": "EXPECTED BLOCKER VERIFICATION", "failed": 6, "seconds": 0.88},
+    "final_full_suite": {"command": "PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 .venv/bin/python -m pytest tests -q --tb=short", "classification": "EXPECTED BLOCKER VERIFICATION", "passed": 141, "failed": 6, "warnings": 2, "seconds": 103.11, "exit_code": 1, "all_failures_in": "tests/test_sol_phase02_rereview_2.py"},
+    "strict_typing": {"command": ".venv/bin/python tools/check_typing.py", "result": "PASS", "positive_files": 8, "positive_errors": 0, "negative_expected_errors": 4, "negative_actual_errors": 4, "independent_positive_json_exit": 0},
+    "public_completeness": {"command": ".venv/bin/python -m pyright --verifytypes pydandict --ignoreexternal", "result": "PASS", "percent": 100, "local_package_root": "/Volumes/T7/coding/pydandict/src/pydandict", "isolated_installed_proof": "ci.artifact_jobs"},
+    "ruff": {"commands": ["ruff check src tests tools/check_typing.py tools/qualify_package.py tools/benchmark.py", "ruff format --check src tests tools/check_typing.py tools/qualify_package.py tools/benchmark.py"], "result": "PASS", "formatted_files": 21},
+    "documentation": {"command": ".venv/bin/python tools/check_docs.py", "result": "PASS", "markdown_files": 31, "local_links": 200, "python_examples": 8, "errors": 0},
+    "review_record_integrity": {"result": "PASS", "checks": ["JSON parses", "all 28 AC entries present", "current source hashes match", "prior protected artifacts unchanged", "new verification hash matches"]},
+    "fresh_local_qualification": {"result": "NOT RUN", "notes": "Current execution independently verified from both required successful Ubuntu artifact logs instead"},
+    "release_preflight_publication": {"result": "NOT RUN", "notes": "Explicit non-scope; ordinary push correctly skipped release-only preflight"}
+  },
+  "ci": {
+    "run": "34846986132",
+    "url": "https://github.com/eddiethedean/pydandict/actions/runs/34846986132",
+    "head_sha": "8560c5b31863e29eaf3f740784b0db06e85e1b23",
+    "status": "completed",
+    "conclusion": "success",
+    "required_compatibility_jobs_passed": 8,
+    "docs_passed": true,
+    "release_only_preflight": "skipped as expected",
+    "verification_method": "gh run view --json headSha,status,conclusion,jobs; parsed each required artifact job's actual JSON from gh run view --job JOB --log",
+    "artifact_jobs": [
+      {
+        "job": "103985232677",
+        "python": "3.11.16",
+        "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+        "commands": 25,
+        "no_source_path_injection": true,
+        "direct_wheel_sha256": "701a659df52dc08e2e8a5ca9a47d53a7578bfd5d33af559a1ef915267be0f24f",
+        "rebuilt_wheel_sha256": "457666a6d3a8f7de5148e6e745872b7c410b897b5e45c7242bb65705a450c8c7",
+        "sdist_sha256": "a95414ea603c6957aa0ac3a9d91a4ca876f2ce73f20bb1d1f7730209787b067e",
+        "direct_import": "/tmp/pydandict-qualification-qvxa5iv8/direct-bare/lib/python3.11/site-packages/pydandict/__init__.py",
+        "rebuilt_import": "/tmp/pydandict-qualification-qvxa5iv8/rebuilt-bare/lib/python3.11/site-packages/pydandict/__init__.py",
+        "negative_typing_errors_per_artifact": 4,
+        "resolved_http_typing_dependencies": "annotated-doc==0.0.5\nannotated-types==0.8.0\nanyio==4.15.1\ncertifi==2026.7.22\nfastapi==0.141.1\nh11==0.16.0\nhttpcore==1.0.9\nhttpx==0.28.1\nidna==3.19\nnodeenv==1.10.0\npydantic==2.13.4\npydantic_core==2.46.4\npyright==1.1.411\nstarlette==1.6.0\ntyping-inspection==0.4.4\ntyping_extensions==4.16.0\n"
+      },
+      {
+        "job": "103985232401",
+        "python": "3.14.7",
+        "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+        "commands": 25,
+        "no_source_path_injection": true,
+        "direct_wheel_sha256": "e7b520626f97715ef6879175c7597300921bc79cde370fa4440c128b5e467a70",
+        "rebuilt_wheel_sha256": "6bf51582bfc02b757140c5e42f18f345db85aad83c2f1f4f6dca8fa8d8d6d10c",
+        "sdist_sha256": "2ae60e1662ce575ecc80ca184bc216d46061c5addcd21f477a6eb353bdc4a3b7",
+        "direct_import": "/tmp/pydandict-qualification-7o_itlu_/direct-bare/lib/python3.14/site-packages/pydandict/__init__.py",
+        "rebuilt_import": "/tmp/pydandict-qualification-7o_itlu_/rebuilt-bare/lib/python3.14/site-packages/pydandict/__init__.py",
+        "negative_typing_errors_per_artifact": 4,
+        "resolved_http_typing_dependencies": "annotated-doc==0.0.5\nannotated-types==0.8.0\nanyio==4.15.1\ncertifi==2026.7.22\nfastapi==0.141.1\nh11==0.16.0\nhttpcore==1.0.9\nhttpx==0.28.1\nidna==3.19\nnodeenv==1.10.0\npydantic==2.13.4\npydantic_core==2.46.4\npyright==1.1.411\nstarlette==1.6.0\ntyping-inspection==0.4.4\ntyping_extensions==4.16.0\n"
+      }
+    ]
+  },
+  "historical_comparison": {
+    "method": "git archive src into isolated temporary directory per revision; subprocess with that PYTHONPATH under same interpreter/dependencies",
+    "revisions": ["07fec9b7eafef5b00befe9fa24ccd012ce0232a1", "1123702ed080e09e00e9dee1392dcebff62e41a9", "HEAD"],
+    "deferred_abc_field": {"07fec9b": "constructs", "1123702": "constructs", "HEAD": "TypeError"},
+    "public_model_result_detaches": {"07fec9b": true, "1123702": true, "HEAD": false},
+    "original_handle_preserved": {"07fec9b": true, "1123702": true, "HEAD": false},
+    "qualification": "Historical versions drop context; they are not claimed to pass the new supplied-context failure test"
+  },
+  "protected_artifacts": {
+    "docs/reviews/phase-0.2-review.md": "e3699092e6e0af36065279f3692d58306f9e73254ecb0bb0a37db85172417b94",
+    "docs/reviews/phase-0.2-rereview.md": "ebdc8770afe8a143f1b995b8beb1c9352f8031fa3d1e1ac5fb6afdcaa193b605",
+    "docs/reviews/phase-0.2-rereview-results.json": "ef2d23340f327d4003102027bf63a03088800845dbea622772643ecf832a27f1",
+    "tests/test_sol_phase02_blockers.py": "e9164fb4ee267bdddcf0dce5154bc04008982b12feadded7042679bb63d8fe8c",
+    "tests/test_sol_phase02_rereview.py": "62337ad40a3cd28fa511f6646b1027c86f46dfd94e5dc2c33c0172f5a6349815"
+  },
+  "new_verification": {"path": "tests/test_sol_phase02_rereview_2.py", "sha256": "26188252602ae5cd13baa5b905aa5551ca6df8ba301bfe59e1a5c67da4f35439", "cases": 6},
+  "followups": [{"id": "SOL-011", "severity": "Low", "disposition": "FOLLOW-UP", "github_status": "EXISTING ISSUE #2", "url": "https://github.com/eddiethedean/pydandict/issues/2", "state": "OPEN", "implemented": false}],
+  "excluded_existing_followup": "https://github.com/eddiethedean/pydandict/issues/1",
+  "convergence": {"previous_blockers_verified_fixed": 8, "previous_blockers_remaining": 3, "new_remediation_root_cause_blockers": 1, "blockers_remaining": 4, "new_unrelated_followups": 0, "escalation_recommended": ["SOL-001", "SOL-008"]},
+  "handoff": ["SOL-001", "SOL-004", "SOL-008", "SOL-013"]
+}
