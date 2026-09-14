@@ -41,7 +41,7 @@ jobs:
           python-version: '3.11'
 
       - name: Install package and test dependencies
-        run: python -m pip install --upgrade pip && python -m pip install -e . pytest hypothesis pyright ruff
+        run: python -m pip install --upgrade pip && python -m pip install -e ".[dev]"
 
       - name: Run lint and format checks
         run: |
@@ -89,7 +89,7 @@ jobs:
           PY
 
       - name: Install package and test dependencies
-        run: python -m pip install --upgrade pip build pytest && python -m pip install -e .
+        run: python -m pip install --upgrade pip build && python -m pip install -e ".[dev]"
 
       - name: Run production tests
         run: python -m pytest -q
