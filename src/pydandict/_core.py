@@ -1102,7 +1102,10 @@ class DictModel(BaseModel, MutableMapping[str, object]):
             patch = dict(other, **kwargs)
             # Structural key errors have precedence over per-key policy errors
             # for the complete staged batch (including frozen fields).
-            if any(not isinstance(key, str) for key in patch):
+            if any(
+                not isinstance(key, str)  # pyright: ignore[reportUnnecessaryIsInstance]
+                for key in patch
+            ):
                 raise TypeError("pydandict_protected_name: model keys must be strings")
             for key in patch:
                 self._check_write(key)
@@ -1180,7 +1183,10 @@ class DictModel(BaseModel, MutableMapping[str, object]):
         def apply(input_value: object) -> tuple[object, set[Path]]:
             draft = cast(DictModel, input_value)
             names = tuple(dict.fromkeys(field_names))
-            if any(not isinstance(key, str) for key in names):
+            if any(
+                not isinstance(key, str)  # pyright: ignore[reportUnnecessaryIsInstance]
+                for key in names
+            ):
                 raise TypeError("pydandict_protected_name: model keys must be strings")
             for key in names:
                 self._check_write(key, reset=True)
