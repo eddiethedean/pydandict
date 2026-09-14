@@ -1,0 +1,33 @@
+{
+  "python": "3.11.14",
+  "versions": {
+    "pydantic": "2.13.4",
+    "fastapi": "0.141.1",
+    "httpx": "0.28.1",
+    "pyright": "1.1.411"
+  },
+  "checks": {
+    "basemodel_iteration": {
+      "pairs": [
+        [
+          "x",
+          1
+        ]
+      ],
+      "mapping": false
+    },
+    "failed_after_assignment_retains_value": {
+      "low": 5,
+      "high": 3
+    },
+    "frozen_and_root_descendants_are_unguarded": true,
+    "copy_update_and_construct_skip_validation": true,
+    "defaults_are_not_validated_by_default": true,
+    "ignore_input_vs_assignment": "input ignored; assignment rejected",
+    "mapping_serialization_and_fields_set_differ": true,
+    "typeadapter_typeddict_only_validates_at_boundary": true,
+    "minimal_bridge_reads_and_pydantic_serialization": true,
+    "minimal_bridge_fastapi_http_and_openapi": true
+  },
+  "scope": "Upstream observations and incomplete bridge only; no Pydandict implementation"
+}
