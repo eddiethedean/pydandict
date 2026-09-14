@@ -1,19 +1,261 @@
 {
-  "ac_evidence": {
-    "AC-024": [
-      "direct_library_example",
-      "rebuilt_library_example"
-    ],
-    "AC-025": [
-      "source_commit",
-      "commands",
-      "resolved_dependencies",
-      "artifact_sha256"
-    ],
-    "AC-028": [
-      "direct_library_example",
-      "rebuilt_library_example"
-    ]
+  "ac_test_lane_map": {
+    "AC-001": {
+      "lanes": [
+        "CI compatibility matrix"
+      ],
+      "qualification_status": "outside package-driver execution scope",
+      "tests": [
+        "tests/ (full runtime suite)"
+      ]
+    },
+    "AC-002": {
+      "lanes": [
+        "CI compatibility matrix"
+      ],
+      "qualification_status": "outside package-driver execution scope",
+      "tests": [
+        "tests/ (full runtime suite)"
+      ]
+    },
+    "AC-003": {
+      "lanes": [
+        "CI compatibility matrix"
+      ],
+      "qualification_status": "outside package-driver execution scope",
+      "tests": [
+        "tests/ (full runtime suite)"
+      ]
+    },
+    "AC-004": {
+      "lanes": [
+        "CI compatibility matrix"
+      ],
+      "qualification_status": "outside package-driver execution scope",
+      "tests": [
+        "tests/ (full runtime suite)"
+      ]
+    },
+    "AC-005": {
+      "lanes": [
+        "CI compatibility matrix"
+      ],
+      "qualification_status": "outside package-driver execution scope",
+      "tests": [
+        "tests/ (full runtime suite)"
+      ]
+    },
+    "AC-006": {
+      "lanes": [
+        "CI compatibility matrix"
+      ],
+      "qualification_status": "outside package-driver execution scope",
+      "tests": [
+        "tests/ (full runtime suite)"
+      ]
+    },
+    "AC-007": {
+      "lanes": [
+        "CI compatibility matrix"
+      ],
+      "qualification_status": "outside package-driver execution scope",
+      "tests": [
+        "tests/ (full runtime suite)"
+      ]
+    },
+    "AC-008": {
+      "lanes": [
+        "CI compatibility matrix"
+      ],
+      "qualification_status": "outside package-driver execution scope",
+      "tests": [
+        "tests/ (full runtime suite)"
+      ]
+    },
+    "AC-009": {
+      "lanes": [
+        "CI compatibility matrix"
+      ],
+      "qualification_status": "outside package-driver execution scope",
+      "tests": [
+        "tests/ (full runtime suite)"
+      ]
+    },
+    "AC-010": {
+      "lanes": [
+        "CI compatibility matrix"
+      ],
+      "qualification_status": "outside package-driver execution scope",
+      "tests": [
+        "tests/ (full runtime suite)"
+      ]
+    },
+    "AC-011": {
+      "lanes": [
+        "CI compatibility matrix"
+      ],
+      "qualification_status": "outside package-driver execution scope",
+      "tests": [
+        "tests/ (full runtime suite)"
+      ]
+    },
+    "AC-012": {
+      "lanes": [
+        "CI compatibility matrix"
+      ],
+      "qualification_status": "outside package-driver execution scope",
+      "tests": [
+        "tests/ (full runtime suite)"
+      ]
+    },
+    "AC-013": {
+      "lanes": [
+        "CI compatibility matrix"
+      ],
+      "qualification_status": "outside package-driver execution scope",
+      "tests": [
+        "tests/ (full runtime suite)"
+      ]
+    },
+    "AC-014": {
+      "lanes": [
+        "CI compatibility matrix"
+      ],
+      "qualification_status": "outside package-driver execution scope",
+      "tests": [
+        "tests/ (full runtime suite)"
+      ]
+    },
+    "AC-015": {
+      "lanes": [
+        "CI compatibility matrix"
+      ],
+      "qualification_status": "outside package-driver execution scope",
+      "tests": [
+        "tests/ (full runtime suite)"
+      ]
+    },
+    "AC-016": {
+      "lanes": [
+        "CI compatibility matrix"
+      ],
+      "qualification_status": "outside package-driver execution scope",
+      "tests": [
+        "tests/ (full runtime suite)"
+      ]
+    },
+    "AC-017": {
+      "lanes": [
+        "CI compatibility matrix"
+      ],
+      "qualification_status": "outside package-driver execution scope",
+      "tests": [
+        "tests/ (full runtime suite)"
+      ]
+    },
+    "AC-018": {
+      "lanes": [
+        "CI compatibility matrix"
+      ],
+      "qualification_status": "outside package-driver execution scope",
+      "tests": [
+        "tests/ (full runtime suite)"
+      ]
+    },
+    "AC-019": {
+      "lanes": [
+        "CI compatibility matrix"
+      ],
+      "qualification_status": "outside package-driver execution scope",
+      "tests": [
+        "tests/ (full runtime suite)"
+      ]
+    },
+    "AC-020": {
+      "lanes": [
+        "CI compatibility matrix"
+      ],
+      "qualification_status": "outside package-driver execution scope",
+      "tests": [
+        "tests/ (full runtime suite)"
+      ]
+    },
+    "AC-021": {
+      "lanes": [
+        "CI compatibility matrix"
+      ],
+      "qualification_status": "outside package-driver execution scope",
+      "tests": [
+        "tests/ (full runtime suite)"
+      ]
+    },
+    "AC-022": {
+      "lanes": [
+        "CI compatibility matrix"
+      ],
+      "qualification_status": "outside package-driver execution scope",
+      "tests": [
+        "tests/ (full runtime suite)"
+      ]
+    },
+    "AC-023": {
+      "lanes": [
+        "CI compatibility matrix"
+      ],
+      "qualification_status": "outside package-driver execution scope",
+      "tests": [
+        "tests/ (full runtime suite)"
+      ]
+    },
+    "AC-024": {
+      "lanes": [
+        "local package qualification",
+        "CI artifact lanes"
+      ],
+      "tests": [
+        "installed scalar example",
+        "bare nested consumer",
+        "HTTP/type consumers"
+      ]
+    },
+    "AC-025": {
+      "lanes": [
+        "local package qualification",
+        "CI compatibility/artifact matrix"
+      ],
+      "tests": [
+        "qualification provenance record"
+      ]
+    },
+    "AC-026": {
+      "lanes": [
+        "CI compatibility matrix"
+      ],
+      "qualification_status": "executed by the repository runtime/CI gate, not this artifact driver",
+      "tests": [
+        "tests/test_stateful.py::TestScalarTransactions"
+      ]
+    },
+    "AC-027": {
+      "lanes": [
+        "CI compatibility/artifact matrix"
+      ],
+      "qualification_status": "outside package-driver execution scope",
+      "tests": [
+        "tests/ (full runtime suite)"
+      ]
+    },
+    "AC-028": {
+      "lanes": [
+        "local package qualification",
+        "CI docs/artifact lanes"
+      ],
+      "qualification_status": "docs checker is outside package-driver execution scope",
+      "tests": [
+        "installed scalar example",
+        "tools/check_docs.py"
+      ]
+    }
   },
   "commands": [
     {
@@ -24,7 +266,7 @@
         "--sdist",
         "--wheel",
         "--outdir",
-        "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-cghn7w5w/direct"
+        "/Volumes/T7/pydandict-remediation-YVPoUE/pydandict-qualification-ec1sqz4f/direct"
       ],
       "cwd": "/Volumes/T7/coding/pydandict",
       "source_path_injection": false
@@ -35,8 +277,8 @@
         "-m",
         "twine",
         "check",
-        "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-cghn7w5w/direct/pydandict-0.2.0.tar.gz",
-        "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-cghn7w5w/direct/pydandict-0.2.0-py3-none-any.whl"
+        "/Volumes/T7/pydandict-remediation-YVPoUE/pydandict-qualification-ec1sqz4f/direct/pydandict-0.2.0.tar.gz",
+        "/Volumes/T7/pydandict-remediation-YVPoUE/pydandict-qualification-ec1sqz4f/direct/pydandict-0.2.0-py3-none-any.whl"
       ],
       "cwd": "/Volumes/T7/coding/pydandict",
       "source_path_injection": false
@@ -48,247 +290,265 @@
         "build",
         "--wheel",
         "--outdir",
-        "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-cghn7w5w/rebuilt"
+        "/Volumes/T7/pydandict-remediation-YVPoUE/pydandict-qualification-ec1sqz4f/rebuilt"
       ],
-      "cwd": "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-cghn7w5w/source/pydandict-0.2.0",
+      "cwd": "/Volumes/T7/pydandict-remediation-YVPoUE/pydandict-qualification-ec1sqz4f/source/pydandict-0.2.0",
       "source_path_injection": false
     },
     {
       "argv": [
-        "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-cghn7w5w/direct-bare/bin/python",
+        "/Volumes/T7/pydandict-remediation-YVPoUE/pydandict-qualification-ec1sqz4f/direct-bare/bin/python",
         "-m",
         "pip",
         "install",
-        "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-cghn7w5w/direct/pydandict-0.2.0-py3-none-any.whl"
+        "/Volumes/T7/pydandict-remediation-YVPoUE/pydandict-qualification-ec1sqz4f/direct/pydandict-0.2.0-py3-none-any.whl"
       ],
-      "cwd": "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-cghn7w5w",
+      "cwd": "/Volumes/T7/pydandict-remediation-YVPoUE/pydandict-qualification-ec1sqz4f",
       "source_path_injection": false
     },
     {
       "argv": [
-        "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-cghn7w5w/direct-bare/bin/python",
-        "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-cghn7w5w/direct-library_config.py"
+        "/Volumes/T7/pydandict-remediation-YVPoUE/pydandict-qualification-ec1sqz4f/direct-bare/bin/python",
+        "/Volumes/T7/pydandict-remediation-YVPoUE/pydandict-qualification-ec1sqz4f/direct-library_config.py"
       ],
-      "cwd": "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-cghn7w5w",
+      "cwd": "/Volumes/T7/pydandict-remediation-YVPoUE/pydandict-qualification-ec1sqz4f",
       "source_path_injection": false
     },
     {
       "argv": [
-        "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-cghn7w5w/direct-bare/bin/python",
+        "/Volumes/T7/pydandict-remediation-YVPoUE/pydandict-qualification-ec1sqz4f/direct-bare/bin/python",
+        "-c",
+        "from importlib.metadata import distribution\nfrom pathlib import Path\ndist = distribution('pydandict')\nassert dist.metadata['Name'] == 'pydandict'\nassert dist.version == '0.2.0'\nassert dist.metadata['License-Expression'] == 'MIT'\nruntime = [item for item in (dist.requires or []) if 'extra ==' not in item]\nassert runtime == ['pydantic==2.13.4'], runtime\nlicenses = [item for item in (dist.files or []) if str(item).lower().endswith('licenses/license')]\nassert len(licenses) == 1\nassert Path(dist.locate_file(licenses[0])).read_text().startswith('MIT License')\nprint('metadata verified')\n"
+      ],
+      "cwd": "/Volumes/T7/pydandict-remediation-YVPoUE/pydandict-qualification-ec1sqz4f",
+      "source_path_injection": false
+    },
+    {
+      "argv": [
+        "/Volumes/T7/pydandict-remediation-YVPoUE/pydandict-qualification-ec1sqz4f/direct-bare/bin/python",
         "-c",
         "from pathlib import Path\nfrom collections.abc import Mapping, MutableSequence\nimport sys, pydandict\nfrom pydantic import BaseModel, ValidationError\nfrom pydandict import DictModel\nmodule = Path(pydandict.__file__).resolve()\nassert module.is_relative_to(Path(sys.prefix).resolve())\nassert not module.is_relative_to(Path('/Volumes/T7/coding/pydandict').resolve())\nclass Item(DictModel):\n    numbers: MutableSequence[int]\nitem = Item(numbers=[1])\nassert isinstance(item, BaseModel) and isinstance(item, Mapping)\nhandle = item.numbers\nitem.numbers.append(2)\nassert item.numbers is handle and item.model_dump() == {'numbers': [1, 2]}\ntry:\n    item.numbers.append('bad')\nexcept ValidationError:\n    assert item.numbers == [1, 2]\nelse:\n    raise AssertionError('invalid library edit committed')\nclass Config(DictModel):\n    low: int = 1\n    high: int = 3\ncfg = Config()\nassert dict(cfg) == {'low': 1, 'high': 3} and cfg.model_fields_set == set()\ncfg.update(low=5, high=8)\nassert (cfg.low, cfg.high) == (5, 8)\ncopy_cfg = cfg.model_copy(update={'low': 6})\nassert copy_cfg.low == 6 and cfg.low == 5\ncfg.reset('low', 'high')\nassert dict(cfg) == {'low': 1, 'high': 3}\nprint(module)\n"
       ],
-      "cwd": "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-cghn7w5w",
+      "cwd": "/Volumes/T7/pydandict-remediation-YVPoUE/pydandict-qualification-ec1sqz4f",
       "source_path_injection": false
     },
     {
       "argv": [
-        "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-cghn7w5w/direct-bare/bin/python",
+        "/Volumes/T7/pydandict-remediation-YVPoUE/pydandict-qualification-ec1sqz4f/direct-bare/bin/python",
         "-m",
         "pip",
         "freeze"
       ],
-      "cwd": "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-cghn7w5w",
+      "cwd": "/Volumes/T7/pydandict-remediation-YVPoUE/pydandict-qualification-ec1sqz4f",
       "source_path_injection": false
     },
     {
       "argv": [
-        "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-cghn7w5w/direct-http/bin/python",
+        "/Volumes/T7/pydandict-remediation-YVPoUE/pydandict-qualification-ec1sqz4f/direct-http/bin/python",
         "-m",
         "pip",
         "install",
-        "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-cghn7w5w/direct/pydandict-0.2.0-py3-none-any.whl",
+        "/Volumes/T7/pydandict-remediation-YVPoUE/pydandict-qualification-ec1sqz4f/direct/pydandict-0.2.0-py3-none-any.whl",
         "fastapi==0.141.1",
         "httpx==0.28.1",
         "pyright==1.1.411"
       ],
-      "cwd": "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-cghn7w5w",
+      "cwd": "/Volumes/T7/pydandict-remediation-YVPoUE/pydandict-qualification-ec1sqz4f",
       "source_path_injection": false
     },
     {
       "argv": [
-        "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-cghn7w5w/direct-http/bin/python",
-        "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-cghn7w5w/direct-consumer.py"
+        "/Volumes/T7/pydandict-remediation-YVPoUE/pydandict-qualification-ec1sqz4f/direct-http/bin/python",
+        "/Volumes/T7/pydandict-remediation-YVPoUE/pydandict-qualification-ec1sqz4f/direct-consumer.py"
       ],
-      "cwd": "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-cghn7w5w",
+      "cwd": "/Volumes/T7/pydandict-remediation-YVPoUE/pydandict-qualification-ec1sqz4f",
       "source_path_injection": false
     },
     {
       "argv": [
-        "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-cghn7w5w/direct-http/bin/python",
-        "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-cghn7w5w/direct-typing.py"
+        "/Volumes/T7/pydandict-remediation-YVPoUE/pydandict-qualification-ec1sqz4f/direct-http/bin/python",
+        "/Volumes/T7/pydandict-remediation-YVPoUE/pydandict-qualification-ec1sqz4f/direct-typing.py"
       ],
-      "cwd": "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-cghn7w5w",
+      "cwd": "/Volumes/T7/pydandict-remediation-YVPoUE/pydandict-qualification-ec1sqz4f",
       "source_path_injection": false
     },
     {
       "argv": [
-        "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-cghn7w5w/direct-http/bin/python",
+        "/Volumes/T7/pydandict-remediation-YVPoUE/pydandict-qualification-ec1sqz4f/direct-http/bin/python",
         "-c",
         "import site; print(site.getsitepackages()[0])"
       ],
-      "cwd": "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-cghn7w5w",
+      "cwd": "/Volumes/T7/pydandict-remediation-YVPoUE/pydandict-qualification-ec1sqz4f",
       "source_path_injection": false
     },
     {
       "argv": [
-        "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-cghn7w5w/direct-http/bin/python",
+        "/Volumes/T7/pydandict-remediation-YVPoUE/pydandict-qualification-ec1sqz4f/direct-http/bin/python",
         "-m",
         "pyright",
         "--project",
-        "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-cghn7w5w/direct-pyrightconfig.json"
+        "/Volumes/T7/pydandict-remediation-YVPoUE/pydandict-qualification-ec1sqz4f/direct-pyrightconfig.json"
       ],
-      "cwd": "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-cghn7w5w",
+      "cwd": "/Volumes/T7/pydandict-remediation-YVPoUE/pydandict-qualification-ec1sqz4f",
       "source_path_injection": false
     },
     {
       "argv": [
-        "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-cghn7w5w/direct-http/bin/python",
+        "/Volumes/T7/pydandict-remediation-YVPoUE/pydandict-qualification-ec1sqz4f/direct-http/bin/python",
         "-m",
         "pyright",
         "--verifytypes",
         "pydandict",
         "--ignoreexternal"
       ],
-      "cwd": "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-cghn7w5w",
+      "cwd": "/Volumes/T7/pydandict-remediation-YVPoUE/pydandict-qualification-ec1sqz4f",
       "source_path_injection": false
     },
     {
       "argv": [
-        "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-cghn7w5w/direct-http/bin/python",
+        "/Volumes/T7/pydandict-remediation-YVPoUE/pydandict-qualification-ec1sqz4f/direct-http/bin/python",
         "-c",
-        "\nimport json, subprocess, sys\nfrom pathlib import Path\nfixture = Path('/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-cghn7w5w/direct-negative.py')\nexpected = sorted([(14, 'reportAttributeAccessIssue'), (15, 'reportArgumentType'), (16, 'reportAssignmentType'), (17, 'reportAssertTypeFailure')])\nresult = subprocess.run(\n    [sys.executable, \"-m\", \"pyright\", \"--project\", '/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-cghn7w5w/direct-negative-config.json', \"--outputjson\"],\n    text=True, capture_output=True, check=False,\n)\nassert result.returncode == 1, result.stdout + result.stderr\nreport = json.loads(result.stdout)\ndiagnostics = report[\"generalDiagnostics\"]\nactual = []\nfor diagnostic in diagnostics:\n    assert diagnostic[\"severity\"] == \"error\", diagnostic\n    assert Path(diagnostic[\"file\"]).resolve() == fixture.resolve(), diagnostic\n    actual.append((diagnostic[\"range\"][\"start\"][\"line\"] + 1, diagnostic[\"rule\"]))\nassert sorted(actual) == expected, (actual, expected)\nassert report[\"summary\"][\"errorCount\"] == len(expected), report\nassert report[\"summary\"][\"filesAnalyzed\"] == 1, report\nprint(json.dumps({\"expected_errors\": len(expected), \"actual_errors\": len(actual)}))\n"
+        "\nimport json, subprocess, sys\nfrom pathlib import Path\nfixture = Path('/Volumes/T7/pydandict-remediation-YVPoUE/pydandict-qualification-ec1sqz4f/direct-negative.py')\nexpected = sorted([(14, 'reportAttributeAccessIssue'), (15, 'reportArgumentType'), (16, 'reportAssignmentType'), (17, 'reportAssertTypeFailure')])\nresult = subprocess.run(\n    [sys.executable, \"-m\", \"pyright\", \"--project\", '/Volumes/T7/pydandict-remediation-YVPoUE/pydandict-qualification-ec1sqz4f/direct-negative-config.json', \"--outputjson\"],\n    text=True, capture_output=True, check=False,\n)\nassert result.returncode == 1, result.stdout + result.stderr\nreport = json.loads(result.stdout)\ndiagnostics = report[\"generalDiagnostics\"]\nactual = []\nfor diagnostic in diagnostics:\n    assert diagnostic[\"severity\"] == \"error\", diagnostic\n    assert Path(diagnostic[\"file\"]).resolve() == fixture.resolve(), diagnostic\n    actual.append((diagnostic[\"range\"][\"start\"][\"line\"] + 1, diagnostic[\"rule\"]))\nassert sorted(actual) == expected, (actual, expected)\nassert report[\"summary\"][\"errorCount\"] == len(expected), report\nassert report[\"summary\"][\"filesAnalyzed\"] == 1, report\nprint(json.dumps({\"expected_errors\": len(expected), \"actual_errors\": len(actual)}))\n"
       ],
-      "cwd": "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-cghn7w5w",
+      "cwd": "/Volumes/T7/pydandict-remediation-YVPoUE/pydandict-qualification-ec1sqz4f",
       "source_path_injection": false
     },
     {
       "argv": [
-        "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-cghn7w5w/direct-http/bin/python",
+        "/Volumes/T7/pydandict-remediation-YVPoUE/pydandict-qualification-ec1sqz4f/direct-http/bin/python",
         "-m",
         "pip",
         "freeze"
       ],
-      "cwd": "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-cghn7w5w",
+      "cwd": "/Volumes/T7/pydandict-remediation-YVPoUE/pydandict-qualification-ec1sqz4f",
       "source_path_injection": false
     },
     {
       "argv": [
-        "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-cghn7w5w/rebuilt-bare/bin/python",
+        "/Volumes/T7/pydandict-remediation-YVPoUE/pydandict-qualification-ec1sqz4f/rebuilt-bare/bin/python",
         "-m",
         "pip",
         "install",
-        "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-cghn7w5w/rebuilt/pydandict-0.2.0-py3-none-any.whl"
+        "/Volumes/T7/pydandict-remediation-YVPoUE/pydandict-qualification-ec1sqz4f/rebuilt/pydandict-0.2.0-py3-none-any.whl"
       ],
-      "cwd": "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-cghn7w5w",
+      "cwd": "/Volumes/T7/pydandict-remediation-YVPoUE/pydandict-qualification-ec1sqz4f",
       "source_path_injection": false
     },
     {
       "argv": [
-        "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-cghn7w5w/rebuilt-bare/bin/python",
-        "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-cghn7w5w/rebuilt-library_config.py"
+        "/Volumes/T7/pydandict-remediation-YVPoUE/pydandict-qualification-ec1sqz4f/rebuilt-bare/bin/python",
+        "/Volumes/T7/pydandict-remediation-YVPoUE/pydandict-qualification-ec1sqz4f/rebuilt-library_config.py"
       ],
-      "cwd": "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-cghn7w5w",
+      "cwd": "/Volumes/T7/pydandict-remediation-YVPoUE/pydandict-qualification-ec1sqz4f",
       "source_path_injection": false
     },
     {
       "argv": [
-        "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-cghn7w5w/rebuilt-bare/bin/python",
+        "/Volumes/T7/pydandict-remediation-YVPoUE/pydandict-qualification-ec1sqz4f/rebuilt-bare/bin/python",
+        "-c",
+        "from importlib.metadata import distribution\nfrom pathlib import Path\ndist = distribution('pydandict')\nassert dist.metadata['Name'] == 'pydandict'\nassert dist.version == '0.2.0'\nassert dist.metadata['License-Expression'] == 'MIT'\nruntime = [item for item in (dist.requires or []) if 'extra ==' not in item]\nassert runtime == ['pydantic==2.13.4'], runtime\nlicenses = [item for item in (dist.files or []) if str(item).lower().endswith('licenses/license')]\nassert len(licenses) == 1\nassert Path(dist.locate_file(licenses[0])).read_text().startswith('MIT License')\nprint('metadata verified')\n"
+      ],
+      "cwd": "/Volumes/T7/pydandict-remediation-YVPoUE/pydandict-qualification-ec1sqz4f",
+      "source_path_injection": false
+    },
+    {
+      "argv": [
+        "/Volumes/T7/pydandict-remediation-YVPoUE/pydandict-qualification-ec1sqz4f/rebuilt-bare/bin/python",
         "-c",
         "from pathlib import Path\nfrom collections.abc import Mapping, MutableSequence\nimport sys, pydandict\nfrom pydantic import BaseModel, ValidationError\nfrom pydandict import DictModel\nmodule = Path(pydandict.__file__).resolve()\nassert module.is_relative_to(Path(sys.prefix).resolve())\nassert not module.is_relative_to(Path('/Volumes/T7/coding/pydandict').resolve())\nclass Item(DictModel):\n    numbers: MutableSequence[int]\nitem = Item(numbers=[1])\nassert isinstance(item, BaseModel) and isinstance(item, Mapping)\nhandle = item.numbers\nitem.numbers.append(2)\nassert item.numbers is handle and item.model_dump() == {'numbers': [1, 2]}\ntry:\n    item.numbers.append('bad')\nexcept ValidationError:\n    assert item.numbers == [1, 2]\nelse:\n    raise AssertionError('invalid library edit committed')\nclass Config(DictModel):\n    low: int = 1\n    high: int = 3\ncfg = Config()\nassert dict(cfg) == {'low': 1, 'high': 3} and cfg.model_fields_set == set()\ncfg.update(low=5, high=8)\nassert (cfg.low, cfg.high) == (5, 8)\ncopy_cfg = cfg.model_copy(update={'low': 6})\nassert copy_cfg.low == 6 and cfg.low == 5\ncfg.reset('low', 'high')\nassert dict(cfg) == {'low': 1, 'high': 3}\nprint(module)\n"
       ],
-      "cwd": "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-cghn7w5w",
+      "cwd": "/Volumes/T7/pydandict-remediation-YVPoUE/pydandict-qualification-ec1sqz4f",
       "source_path_injection": false
     },
     {
       "argv": [
-        "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-cghn7w5w/rebuilt-bare/bin/python",
+        "/Volumes/T7/pydandict-remediation-YVPoUE/pydandict-qualification-ec1sqz4f/rebuilt-bare/bin/python",
         "-m",
         "pip",
         "freeze"
       ],
-      "cwd": "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-cghn7w5w",
+      "cwd": "/Volumes/T7/pydandict-remediation-YVPoUE/pydandict-qualification-ec1sqz4f",
       "source_path_injection": false
     },
     {
       "argv": [
-        "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-cghn7w5w/rebuilt-http/bin/python",
+        "/Volumes/T7/pydandict-remediation-YVPoUE/pydandict-qualification-ec1sqz4f/rebuilt-http/bin/python",
         "-m",
         "pip",
         "install",
-        "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-cghn7w5w/rebuilt/pydandict-0.2.0-py3-none-any.whl",
+        "/Volumes/T7/pydandict-remediation-YVPoUE/pydandict-qualification-ec1sqz4f/rebuilt/pydandict-0.2.0-py3-none-any.whl",
         "fastapi==0.141.1",
         "httpx==0.28.1",
         "pyright==1.1.411"
       ],
-      "cwd": "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-cghn7w5w",
+      "cwd": "/Volumes/T7/pydandict-remediation-YVPoUE/pydandict-qualification-ec1sqz4f",
       "source_path_injection": false
     },
     {
       "argv": [
-        "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-cghn7w5w/rebuilt-http/bin/python",
-        "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-cghn7w5w/rebuilt-consumer.py"
+        "/Volumes/T7/pydandict-remediation-YVPoUE/pydandict-qualification-ec1sqz4f/rebuilt-http/bin/python",
+        "/Volumes/T7/pydandict-remediation-YVPoUE/pydandict-qualification-ec1sqz4f/rebuilt-consumer.py"
       ],
-      "cwd": "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-cghn7w5w",
+      "cwd": "/Volumes/T7/pydandict-remediation-YVPoUE/pydandict-qualification-ec1sqz4f",
       "source_path_injection": false
     },
     {
       "argv": [
-        "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-cghn7w5w/rebuilt-http/bin/python",
-        "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-cghn7w5w/rebuilt-typing.py"
+        "/Volumes/T7/pydandict-remediation-YVPoUE/pydandict-qualification-ec1sqz4f/rebuilt-http/bin/python",
+        "/Volumes/T7/pydandict-remediation-YVPoUE/pydandict-qualification-ec1sqz4f/rebuilt-typing.py"
       ],
-      "cwd": "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-cghn7w5w",
+      "cwd": "/Volumes/T7/pydandict-remediation-YVPoUE/pydandict-qualification-ec1sqz4f",
       "source_path_injection": false
     },
     {
       "argv": [
-        "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-cghn7w5w/rebuilt-http/bin/python",
+        "/Volumes/T7/pydandict-remediation-YVPoUE/pydandict-qualification-ec1sqz4f/rebuilt-http/bin/python",
         "-c",
         "import site; print(site.getsitepackages()[0])"
       ],
-      "cwd": "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-cghn7w5w",
+      "cwd": "/Volumes/T7/pydandict-remediation-YVPoUE/pydandict-qualification-ec1sqz4f",
       "source_path_injection": false
     },
     {
       "argv": [
-        "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-cghn7w5w/rebuilt-http/bin/python",
+        "/Volumes/T7/pydandict-remediation-YVPoUE/pydandict-qualification-ec1sqz4f/rebuilt-http/bin/python",
         "-m",
         "pyright",
         "--project",
-        "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-cghn7w5w/rebuilt-pyrightconfig.json"
+        "/Volumes/T7/pydandict-remediation-YVPoUE/pydandict-qualification-ec1sqz4f/rebuilt-pyrightconfig.json"
       ],
-      "cwd": "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-cghn7w5w",
+      "cwd": "/Volumes/T7/pydandict-remediation-YVPoUE/pydandict-qualification-ec1sqz4f",
       "source_path_injection": false
     },
     {
       "argv": [
-        "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-cghn7w5w/rebuilt-http/bin/python",
+        "/Volumes/T7/pydandict-remediation-YVPoUE/pydandict-qualification-ec1sqz4f/rebuilt-http/bin/python",
         "-m",
         "pyright",
         "--verifytypes",
         "pydandict",
         "--ignoreexternal"
       ],
-      "cwd": "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-cghn7w5w",
+      "cwd": "/Volumes/T7/pydandict-remediation-YVPoUE/pydandict-qualification-ec1sqz4f",
       "source_path_injection": false
     },
     {
       "argv": [
-        "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-cghn7w5w/rebuilt-http/bin/python",
+        "/Volumes/T7/pydandict-remediation-YVPoUE/pydandict-qualification-ec1sqz4f/rebuilt-http/bin/python",
         "-c",
-        "\nimport json, subprocess, sys\nfrom pathlib import Path\nfixture = Path('/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-cghn7w5w/rebuilt-negative.py')\nexpected = sorted([(14, 'reportAttributeAccessIssue'), (15, 'reportArgumentType'), (16, 'reportAssignmentType'), (17, 'reportAssertTypeFailure')])\nresult = subprocess.run(\n    [sys.executable, \"-m\", \"pyright\", \"--project\", '/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-cghn7w5w/rebuilt-negative-config.json', \"--outputjson\"],\n    text=True, capture_output=True, check=False,\n)\nassert result.returncode == 1, result.stdout + result.stderr\nreport = json.loads(result.stdout)\ndiagnostics = report[\"generalDiagnostics\"]\nactual = []\nfor diagnostic in diagnostics:\n    assert diagnostic[\"severity\"] == \"error\", diagnostic\n    assert Path(diagnostic[\"file\"]).resolve() == fixture.resolve(), diagnostic\n    actual.append((diagnostic[\"range\"][\"start\"][\"line\"] + 1, diagnostic[\"rule\"]))\nassert sorted(actual) == expected, (actual, expected)\nassert report[\"summary\"][\"errorCount\"] == len(expected), report\nassert report[\"summary\"][\"filesAnalyzed\"] == 1, report\nprint(json.dumps({\"expected_errors\": len(expected), \"actual_errors\": len(actual)}))\n"
+        "\nimport json, subprocess, sys\nfrom pathlib import Path\nfixture = Path('/Volumes/T7/pydandict-remediation-YVPoUE/pydandict-qualification-ec1sqz4f/rebuilt-negative.py')\nexpected = sorted([(14, 'reportAttributeAccessIssue'), (15, 'reportArgumentType'), (16, 'reportAssignmentType'), (17, 'reportAssertTypeFailure')])\nresult = subprocess.run(\n    [sys.executable, \"-m\", \"pyright\", \"--project\", '/Volumes/T7/pydandict-remediation-YVPoUE/pydandict-qualification-ec1sqz4f/rebuilt-negative-config.json', \"--outputjson\"],\n    text=True, capture_output=True, check=False,\n)\nassert result.returncode == 1, result.stdout + result.stderr\nreport = json.loads(result.stdout)\ndiagnostics = report[\"generalDiagnostics\"]\nactual = []\nfor diagnostic in diagnostics:\n    assert diagnostic[\"severity\"] == \"error\", diagnostic\n    assert Path(diagnostic[\"file\"]).resolve() == fixture.resolve(), diagnostic\n    actual.append((diagnostic[\"range\"][\"start\"][\"line\"] + 1, diagnostic[\"rule\"]))\nassert sorted(actual) == expected, (actual, expected)\nassert report[\"summary\"][\"errorCount\"] == len(expected), report\nassert report[\"summary\"][\"filesAnalyzed\"] == 1, report\nprint(json.dumps({\"expected_errors\": len(expected), \"actual_errors\": len(actual)}))\n"
       ],
-      "cwd": "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-cghn7w5w",
+      "cwd": "/Volumes/T7/pydandict-remediation-YVPoUE/pydandict-qualification-ec1sqz4f",
       "source_path_injection": false
     },
     {
       "argv": [
-        "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-cghn7w5w/rebuilt-http/bin/python",
+        "/Volumes/T7/pydandict-remediation-YVPoUE/pydandict-qualification-ec1sqz4f/rebuilt-http/bin/python",
         "-m",
         "pip",
         "freeze"
       ],
-      "cwd": "/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-cghn7w5w",
+      "cwd": "/Volumes/T7/pydandict-remediation-YVPoUE/pydandict-qualification-ec1sqz4f",
       "source_path_injection": false
     },
     {
@@ -302,25 +562,41 @@
     }
   ],
   "direct_wheel": "pydandict-0.2.0-py3-none-any.whl",
-  "direct_wheel_sha256": "d5a9638beaa7d843ca48213a5a1938ab2580a7c06f93bfe6bc33aebbf574ffc4",
+  "direct_wheel_sha256": "b8959755c075d8df48d98e60676d62b3cd31a3c86c7202049ed98d3b9be51ae9",
+  "limitations": [
+    "This local package qualification does not prove every advertised CI lane.",
+    "The full runtime suite, scalar stateful profile and docs checker are recorded as external required gates rather than asserted as executed here."
+  ],
+  "observed_failures": [],
   "platform": "macOS-26.5.2-arm64-arm-64bit",
   "python": "3.11.14 (main, Oct  9 2025, 16:16:55) [Clang 17.0.0 (clang-1700.6.3.2)]",
   "qualification_profile": "phase-0.3-scalar-installed-consumers",
+  "qualification_status": "qualified",
   "rebuilt_wheel": "pydandict-0.2.0-py3-none-any.whl",
-  "rebuilt_wheel_sha256": "2024db4f51e49fb4fcbe25174dbb28272610064b0a79e874ebd85bd1b3a78173",
+  "rebuilt_wheel_sha256": "13ee8dd15acbbab7793ccdd419ef447b877dc59d7020f31a4679f71bf65e17ff",
   "resolved_dependencies": {
-    "direct": "annotated-doc==0.0.5\nannotated-types==0.8.0\nanyio==4.15.1\ncertifi==2026.7.22\nfastapi==0.141.1\nh11==0.16.0\nhttpcore==1.0.9\nhttpx==0.28.1\nidna==3.19\nnodeenv==1.10.0\npydandict @ file:///var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-cghn7w5w/direct/pydandict-0.2.0-py3-none-any.whl#sha256=d5a9638beaa7d843ca48213a5a1938ab2580a7c06f93bfe6bc33aebbf574ffc4\npydantic==2.13.4\npydantic_core==2.46.4\npyright==1.1.411\nstarlette==1.6.0\ntyping-inspection==0.4.4\ntyping_extensions==4.16.0\n",
-    "direct_bare": "annotated-types==0.8.0\npydandict @ file:///var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-cghn7w5w/direct/pydandict-0.2.0-py3-none-any.whl#sha256=d5a9638beaa7d843ca48213a5a1938ab2580a7c06f93bfe6bc33aebbf574ffc4\npydantic==2.13.4\npydantic_core==2.46.4\ntyping-inspection==0.4.4\ntyping_extensions==4.16.0\n",
-    "direct_bare_import": "/private/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-cghn7w5w/direct-bare/lib/python3.11/site-packages/pydandict/__init__.py\n",
+    "direct": "annotated-doc==0.0.5\nannotated-types==0.8.0\nanyio==4.15.1\ncertifi==2026.7.22\nfastapi==0.141.1\nh11==0.16.0\nhttpcore==1.0.9\nhttpx==0.28.1\nidna==3.19\nnodeenv==1.10.0\npydandict @ file:///Volumes/T7/pydandict-remediation-YVPoUE/pydandict-qualification-ec1sqz4f/direct/pydandict-0.2.0-py3-none-any.whl#sha256=b8959755c075d8df48d98e60676d62b3cd31a3c86c7202049ed98d3b9be51ae9\npydantic==2.13.4\npydantic_core==2.46.4\npyright==1.1.411\nstarlette==1.6.0\ntyping-inspection==0.4.4\ntyping_extensions==4.16.0\n",
+    "direct_bare": "annotated-types==0.8.0\npydandict @ file:///Volumes/T7/pydandict-remediation-YVPoUE/pydandict-qualification-ec1sqz4f/direct/pydandict-0.2.0-py3-none-any.whl#sha256=b8959755c075d8df48d98e60676d62b3cd31a3c86c7202049ed98d3b9be51ae9\npydantic==2.13.4\npydantic_core==2.46.4\ntyping-inspection==0.4.4\ntyping_extensions==4.16.0\n",
+    "direct_bare_import": "/Volumes/T7/pydandict-remediation-YVPoUE/pydandict-qualification-ec1sqz4f/direct-bare/lib/python3.11/site-packages/pydandict/__init__.py\n",
     "direct_library_example": "",
+    "direct_metadata": "metadata verified\n",
     "direct_negative_typing": "{\"expected_errors\": 4, \"actual_errors\": 4}\n",
-    "rebuilt": "annotated-doc==0.0.5\nannotated-types==0.8.0\nanyio==4.15.1\ncertifi==2026.7.22\nfastapi==0.141.1\nh11==0.16.0\nhttpcore==1.0.9\nhttpx==0.28.1\nidna==3.19\nnodeenv==1.10.0\npydandict @ file:///var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-cghn7w5w/rebuilt/pydandict-0.2.0-py3-none-any.whl#sha256=2024db4f51e49fb4fcbe25174dbb28272610064b0a79e874ebd85bd1b3a78173\npydantic==2.13.4\npydantic_core==2.46.4\npyright==1.1.411\nstarlette==1.6.0\ntyping-inspection==0.4.4\ntyping_extensions==4.16.0\n",
-    "rebuilt_bare": "annotated-types==0.8.0\npydandict @ file:///var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-cghn7w5w/rebuilt/pydandict-0.2.0-py3-none-any.whl#sha256=2024db4f51e49fb4fcbe25174dbb28272610064b0a79e874ebd85bd1b3a78173\npydantic==2.13.4\npydantic_core==2.46.4\ntyping-inspection==0.4.4\ntyping_extensions==4.16.0\n",
-    "rebuilt_bare_import": "/private/var/folders/d0/m6dm9m4s1113jt883qbzzpph0000gn/T/pydandict-qualification-cghn7w5w/rebuilt-bare/lib/python3.11/site-packages/pydandict/__init__.py\n",
+    "rebuilt": "annotated-doc==0.0.5\nannotated-types==0.8.0\nanyio==4.15.1\ncertifi==2026.7.22\nfastapi==0.141.1\nh11==0.16.0\nhttpcore==1.0.9\nhttpx==0.28.1\nidna==3.19\nnodeenv==1.10.0\npydandict @ file:///Volumes/T7/pydandict-remediation-YVPoUE/pydandict-qualification-ec1sqz4f/rebuilt/pydandict-0.2.0-py3-none-any.whl#sha256=13ee8dd15acbbab7793ccdd419ef447b877dc59d7020f31a4679f71bf65e17ff\npydantic==2.13.4\npydantic_core==2.46.4\npyright==1.1.411\nstarlette==1.6.0\ntyping-inspection==0.4.4\ntyping_extensions==4.16.0\n",
+    "rebuilt_bare": "annotated-types==0.8.0\npydandict @ file:///Volumes/T7/pydandict-remediation-YVPoUE/pydandict-qualification-ec1sqz4f/rebuilt/pydandict-0.2.0-py3-none-any.whl#sha256=13ee8dd15acbbab7793ccdd419ef447b877dc59d7020f31a4679f71bf65e17ff\npydantic==2.13.4\npydantic_core==2.46.4\ntyping-inspection==0.4.4\ntyping_extensions==4.16.0\n",
+    "rebuilt_bare_import": "/Volumes/T7/pydandict-remediation-YVPoUE/pydandict-qualification-ec1sqz4f/rebuilt-bare/lib/python3.11/site-packages/pydandict/__init__.py\n",
     "rebuilt_library_example": "",
+    "rebuilt_metadata": "metadata verified\n",
     "rebuilt_negative_typing": "{\"expected_errors\": 4, \"actual_errors\": 4}\n"
   },
+  "scalar_stateful_profile": {
+    "deadline": null,
+    "derandomize": true,
+    "max_examples": 100,
+    "stateful_step_count": 100,
+    "status": "executed by the repository runtime/CI gate, not this artifact driver",
+    "test": "tests/test_stateful.py::TestScalarTransactions"
+  },
   "sdist": "pydandict-0.2.0.tar.gz",
-  "sdist_sha256": "0f8b67ffc3e6d6c26c289b2912de4a90ea1a23d7af74f14a3cd61e0f953d0ad1",
-  "source_commit": "66be92f394a77f6dd94396c531831e3584443280"
+  "sdist_sha256": "e7534c6852089c4ad792437248785f4d8ce4984e3c3f8b001085cc54e6c0a798",
+  "source_commit": "b8ff5071d215baca6c44a109ba6d0ebbae627ded"
 }
