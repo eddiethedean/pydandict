@@ -156,6 +156,16 @@ The earlier pushed `ba956ee` candidate passed all 11 applicable jobs in
 That run did not include the final scanner correction or its new regression and
 does not substitute for CI on the final corrected candidate.
 
+Final verified production/test/README/changelog bytes were committed as
+`d7840125f94c59d2d230a86c14c10c36817fdae4`. A fresh clean detached checkout of
+that commit passed all **31 direct/rebuilt artifact qualification commands**,
+including installed imports/consumers/HTTP, metadata and positive/exact-negative
+typing. [Final artifact evidence](phase-0.3-strings-ingress-artifacts-final.json)
+preserves that actual source and measurements separately from the earlier
+`b919462` artifact record. Documentation/evidence closure does not relabel either
+measured source or its hashes. Renewed production review and an independent
+final release check remain required before publication.
+
 The release still requires normal production review followed by the independent
 final release check. Historical approvals and measurements refer to their actual
 earlier source revisions, not this remediation.
