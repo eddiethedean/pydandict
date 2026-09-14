@@ -1,10 +1,12 @@
 # Contributing to Pydandict
 
-Pydandict is currently a planning repository. Start with the [README](README.md)
-and [decision log](docs/decisions/README.md). There is no installable package or
-implementation test suite yet.
+Pydandict starts at the integrated Phase 0.1 implementation. Start with the
+[README](README.md), [package source](src/pydandict/__init__.py), [prototype guide](prototypes/README.md)
+and [decision log](docs/decisions/README.md). The package is installable in editable
+form for development, but the `0.1.0` baseline is not published until its tag and
+release workflow complete.
 
-## Work on the plan today
+## Documentation and upstream controls
 
 ```sh
 git clone https://github.com/eddiethedean/pydandict.git
@@ -26,7 +28,7 @@ python3 -m venv .venv
 Use Python 3.11 or newer for the probes; ensure `python3` selects that interpreter
 before creating the environment (or use `python3.11` explicitly).
 
-These pins describe the recorded probe environment, not the future package's
+These pins describe the recorded probe environment, not the package's broader
 dependency bounds. Python 3.11.14 was used for the baseline. Probe classes are
 deliberately incomplete and must never be shipped as the implementation.
 
@@ -43,12 +45,32 @@ relevant test group T1–T12 and note unsupported cases. A design PR can contain
 experiments; label their limits. Do not claim a feature works because a minimal
 prototype demonstrated one method.
 
-## Implementation workflow after 0.2
+## Run the Phase 0.1 baseline
 
-Follow the [roadmap](ROADMAP.md). The packaging milestone will introduce
-`pyproject.toml`, a `src` layout, selected development dependencies, CI, and actual
-test commands. Expected tools are pytest, Hypothesis, Ruff, and Pyright; exact
-versions/configuration must be added with working code, not assumed here.
+Create a development environment, install the package, and run:
+
+```sh
+.venv/bin/python -m pip install -e ".[dev]"
+.venv/bin/python -m pytest tests -q
+.venv/bin/python prototypes/run_checks.py
+```
+
+The root test suite exercises the package. The prototype harness additionally builds
+local artifacts and checks isolated consumers and installed typing; it records
+source/artifact hashes and does not publish anything. Keep both suites passing during
+Phase 0.2 hardening. The old `tools/probe_*` files remain separate upstream controls.
+
+The [`ci.yml`](.github/workflows/ci.yml) entrypoint invokes the reusable
+[`check.yml`](.github/workflows/check.yml) workflow for every push and pull request.
+
+## Hardening workflow after 0.1
+
+Follow the [roadmap](ROADMAP.md), [work packages](docs/implementation-plan.md),
+and [quality bar](docs/quality-bar.md). W01–W04 provide the integrated feasibility
+baseline and W05 packaging scaffold is now present; Phase 0.2 finalizes contracts
+and hardens the implementation. Qualification uses automated consumer projects and
+maintainer checks; no external trials or additional people are required. The package
+uses pytest, Hypothesis, Pyright and Ruff for its development checks.
 
 Keep version-sensitive Pydantic access isolated. Do not add custom validation,
 serialization, persistence, or reactive frameworks. Safety-critical mutators need
@@ -57,7 +79,15 @@ APIs; justify and test private access across the supported matrix.
 
 Before a code PR is ready, run the relevant correctness/type checks, verify examples
 against the built package when applicable, and update documentation for observable
-changes. Before a release, complete the entire [release checklist](ROADMAP.md).
+changes. Name the work package and attach commit-specific evidence as well as
+the relevant R/I/T references. Before a release, complete the entire
+[release checklist](ROADMAP.md#release-checklist).
+
+Release automation is documented in [docs/release.md](docs/release.md). The
+workflow only accepts `vMAJOR.MINOR.PATCH` tags, runs the reusable checks first,
+and publishes through PyPI Trusted Publishing from the tagged root package. The
+development baseline is not a release artifact until its version and checklist gates
+are complete.
 
 ## Review checklist
 
@@ -70,6 +100,6 @@ changes. Before a release, complete the entire [release checklist](ROADMAP.md).
 - Are support and performance claims backed by the stated evidence?
 
 Use GitHub issues for ordinary design/bug discussion and pull requests for changes.
-For potential vulnerabilities, follow [SECURITY.md](SECURITY.md). A license has not
-yet been selected; do not assume this documentation commit grants redistribution
-rights. License selection is a required pre-distribution decision.
+For potential vulnerabilities, follow [SECURITY.md](SECURITY.md). The package is
+licensed under MIT; private reporting, supported versions and release triage still
+need to be configured before distribution.

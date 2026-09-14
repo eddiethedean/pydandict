@@ -1,7 +1,9 @@
 # Proposed API specification
 
-All Pydandict examples are design examples until an implementation is released.
-See [decision status](decisions/README.md) before treating an API choice as final.
+This is the Phase 0.1 package API. The original executable prototype remains under
+`prototypes/pydandict_prototype`; its [findings](research/prototype-findings.md)
+identify tested behavior and deliberate limitations. See [decision status](decisions/README.md)
+before treating a contract as final.
 
 ## Definition and construction
 
@@ -86,6 +88,10 @@ the ABC typeshed contracts. Values are accepted as `object` and validated at run
 | `m.clear()` | None | Remove all entries atomically; reject if any declared fields exist |
 | `m.reset(*field_names)` | None | Restore named defaults atomically; no arguments means no-op |
 | `m.model_copy(update=None, deep=False)` | New `Self` | Proposed validated copy; no mutation of original |
+
+Successful `pop`/`popitem` returns of mutable values are detached and usable;
+previously borrowed handles into removed state become stale. Preparing the return
+value is part of the transaction. See [ownership](nested-values.md#snapshots-copies-and-escape-paths).
 
 `update` consumes input fully before validation. Later duplicate keys win; keyword
 arguments win over the positional source. A malformed pair, failing generator, or

@@ -2,16 +2,25 @@
 
 ## Public target
 
-`DictModel` should be assignable to both `Mapping[str, object]` and
+`DictModel` is assignable to both `Mapping[str, object]` and
 `MutableMapping[str, object]`, while remaining assignable to `BaseModel`.
 Normal Pydantic field declarations retain attribute inference and constructor
-checking. Ship a `py.typed` marker with the future package and avoid a required
+checking. The package ships a `py.typed` marker and avoids a required
 checker plugin or generated per-model files for the base experience.
 
 Pyright describes typed-library packaging and completeness checks in its
 [typed libraries guide](https://github.com/microsoft/pyright/blob/main/docs/typed-libraries.md).
 The release pipeline should type-check the installed distribution, not only source
 files in the repository.
+
+## Phase 0.1 evidence
+
+The [prototype](research/prototype-findings.md) passes installed strict consumer
+fixtures, four expected negative diagnostics and 100% public type completeness.
+Owned mutable fields use private protocol guards. Prefer standard `MutableSequence`,
+`MutableMapping` and `MutableSet` annotations for honest runtime typing; concrete
+container annotations describe the input schema but do not establish concrete
+runtime identity. Finalizing that production contract is Phase 0.2 work.
 
 ## Heterogeneous mapping values
 

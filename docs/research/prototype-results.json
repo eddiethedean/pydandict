@@ -1,0 +1,119 @@
+{
+  "scope": "Integrated prototype evidence, not a supported package release",
+  "python": "3.14.3",
+  "platform": "macOS-26.5.2-arm64-arm-64bit-Mach-O",
+  "machine": "arm64",
+  "base_commit": "a4e1240513036cd75476cc743c643d864c6a598c",
+  "source_sha256": {
+    "prototypes/benchmark.py": "cb029b3f9fa1247bfbf173074b617915b33dd52b677aa2e2d7e7314579b42d7e",
+    "prototypes/compare_strategies.py": "a8fea8d4498dafef6f18979590a81a4f06e00cdb81c390e447a25dd33c81fb40",
+    "prototypes/consumers/fastapi_consumer.py": "a881067c5b2d284aa1787566a2f64355a05d74a5a53476405cd3f9a49e1a530a",
+    "prototypes/consumers/library_consumer.py": "9d0c7f7002aa33fa20d2047dd997f40351ea942051d639eddd97a22058ead599",
+    "prototypes/consumers/typing_negative.py": "fd7910898cc941e2d38522ac003f464e63ae710ef8ab4a07dca43e644fb408bc",
+    "prototypes/consumers/typing_positive.py": "a201c068aa446b3216ca8ec2973668bef886118c3abd141ce064094727e6cdff",
+    "prototypes/pydandict_prototype/__init__.py": "7fc80245b4be131d9cda40f40b27d032de8afc1e65d6c51658ca7e613c4d205f",
+    "prototypes/pydandict_prototype/_containers.py": "fbc8cb1b38f67a10d0815e8684cd6a7a9b93a92667c215092b4050bf22a2770a",
+    "prototypes/pydandict_prototype/_core.py": "88001d3b2031a9ef3be6510051191067b1e986401c1e25569fda8a9393e47328",
+    "prototypes/pyproject.toml": "a839181fd0a4bb0b20251c1fef7d3ec27e831223298d3263a2c9fbd9d01c5342",
+    "prototypes/requirements.txt": "a4617e1dee877cd5ca7024a83ff13f9ad6bde025172ee4496d9451160d49e2b3",
+    "prototypes/run_checks.py": "d45df661672d23bfa5cdd7e768ab02d56914bcab5aa4aafe2679c5e41d558414",
+    "prototypes/tests/test_inventory.py": "e5fabffe2ec4d69c141e1937a78fae5a5d84338a5b9055c711cc3ce9cea6d90b",
+    "prototypes/tests/test_prototype.py": "2ae4e97b0dfcd0e2b9d08e8c387046d43da1a1f233891328cbd70f4b67ea0279",
+    "prototypes/tests/test_stateful.py": "66b9e21a392ed59a996816d033673ee70bb4e2d599dc9123b3b7000679409adb"
+  },
+  "versions": {
+    "pydantic": "2.13.4",
+    "pydantic-core": "2.46.4",
+    "fastapi": "0.141.1",
+    "starlette": "1.6.0",
+    "httpx": "0.28.1",
+    "pyright": "1.1.411",
+    "pytest": "9.1.1",
+    "hypothesis": "6.151.9",
+    "build": "1.6.1",
+    "setuptools": "84.0.0"
+  },
+  "commands": [
+    "PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 PYTHONPATH=prototypes python -m pytest prototypes/tests -q",
+    "python -m build prototypes; rebuild wheel from the extracted sdist",
+    "Install each wheel into a separate clean environment; run library/HTTP consumers and positive/negative Pyright fixtures outside the checkout"
+  ],
+  "tests_output": "........................................................................ [ 82%]\n...............                                                          [100%]\n=============================== warnings summary ===============================\n../.venv/lib/python3.14/site-packages/fastapi/testclient.py:1\n  /Volumes/T7/coding/pydandict/.venv/lib/python3.14/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.\n    from starlette.testclient import TestClient as TestClient  # noqa\n\n../.venv/lib/python3.14/site-packages/starlette/testclient.py:53\n  /Volumes/T7/coding/pydandict/.venv/lib/python3.14/site-packages/starlette/testclient.py:53: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.\n    _PortalFactoryType = Callable[[], AbstractContextManager[anyio.abc.BlockingPortal]]\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n87 passed, 2 warnings in 4.36s",
+  "tests": {
+    "tests": 87,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "strategies": {
+    "sequential_assignment_failed_first_keys": [
+      "left",
+      "right"
+    ],
+    "full_candidate_coupled_update": {
+      "left": 2,
+      "right": 2
+    },
+    "original_preserved": {
+      "left": 1,
+      "right": 1
+    },
+    "upstream_wrapped_alias_by_name_requested": 2,
+    "upstream_wrapped_alias_by_name_observed": 1
+  },
+  "benchmarks": {
+    "workloads": [
+      {
+        "elements": 10,
+        "scalar_write_median_us": 120.81,
+        "scalar_write_max_us": 125.88,
+        "key_read_mean_ns": 413.77,
+        "write_peak_traced_bytes": 29344,
+        "samples": 30,
+        "warmup_writes": 5
+      },
+      {
+        "elements": 100,
+        "scalar_write_median_us": 328.6,
+        "scalar_write_max_us": 483.75,
+        "key_read_mean_ns": 425.92,
+        "write_peak_traced_bytes": 30640,
+        "samples": 30,
+        "warmup_writes": 5
+      },
+      {
+        "elements": 1000,
+        "scalar_write_median_us": 2371.19,
+        "scalar_write_max_us": 3338.46,
+        "key_read_mean_ns": 403.4,
+        "write_peak_traced_bytes": 133356,
+        "samples": 30,
+        "warmup_writes": 5
+      }
+    ],
+    "released_replaced_handles": 500,
+    "current_owned_nodes_after_500_replacements": 2,
+    "scope": "Local feasibility observations; no cross-machine budget or throughput claim."
+  },
+  "artifacts": {
+    "prototypes/dist/pydandict_prototype-0.1.0.dev0-py3-none-any.whl": "ba8ce5a1f17b8e228d20eaa9642141f6bd49f9af22cafdc2ace673773a5efeb0",
+    "prototypes/dist/pydandict_prototype-0.1.0.dev0.tar.gz": "33669b334088e412b764e90891286c138b78f9b3d430f65388302e0f2e9c8484",
+    "prototypes/dist/from-sdist/pydandict_prototype-0.1.0.dev0-py3-none-any.whl": "4dc38317f59f35f77d279c22696fe8d128483080b1ab2de4f515563beeec0b27"
+  },
+  "consumers": {
+    "library": "library consumer: passed",
+    "fastapi": "FastAPI consumer: passed"
+  },
+  "typing_positive": {
+    "filesAnalyzed": 1,
+    "errorCount": 0,
+    "warningCount": 0,
+    "informationCount": 0,
+    "timeInSec": 0.411
+  },
+  "typing_negative": {
+    "diagnostics_matched": 4,
+    "unexpected": 0
+  },
+  "type_completeness": 1
+}

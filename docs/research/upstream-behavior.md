@@ -76,3 +76,9 @@ contracts, not statements that upstream already behaves that way.
 Competitor primary package descriptions and their qualification are linked in the
 [competitive landscape](../competitive-landscape.md). Their mutation guarantees
 have not been independently tested by these probes.
+
+## Follow-up implementation evidence
+
+The later [Phase 0.1 prototype](prototype-findings.md) is the working project
+baseline. It has its own tests and artifact evidence; the upstream observations
+and original probe files above remain unchanged controls.

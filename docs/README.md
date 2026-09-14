@@ -1,7 +1,8 @@
-# Planning documentation
+# Design and prototype documentation
 
-This set records the Pydandict design as of 2026-09-13. It is an implementation
-contract under review, not documentation for an existing release.
+This set contains the Phase 0.1 package contracts and evidence from its integrated
+prototype. Start with the [root package](../src/pydandict/__init__.py), [prototype guide](../prototypes/README.md)
+and [findings](research/prototype-findings.md). There is no supported public release.
 
 ## Status vocabulary
 
@@ -11,10 +12,12 @@ contract under review, not documentation for an existing release.
   unspecified behavior; implementation work may revise it through a decision record.
 - **Prototype gate:** an unresolved feasibility question that must have evidence
   before the relevant feature or release can be claimed.
+- **Demonstrated prototype behavior:** tested in the recorded experimental envelope;
+  production support still requires qualification.
 - **Observed upstream behavior:** a fact about the recorded dependency versions,
   not proof that Pydandict implements it.
 
-Unless explicitly described as established or observed, normative API details in
+Unless explicitly described as established, observed or demonstrated, normative API details in
 this set are proposed contracts. “Must” describes an acceptance requirement, not
 functionality that already exists. The [decision log](decisions/README.md) is the
 authority for design status. The [mutation specification](mutation-semantics.md)
@@ -30,8 +33,14 @@ is the authority for mutator behavior; examples elsewhere must agree with it.
 [nested ownership](nested-values.md), [typing](typing.md).
 
 **Reviewing a release:** [compatibility](compatibility.md), [testing](testing.md),
-[security/performance](../ROADMAP.md), [roadmap](../ROADMAP.md),
+[security/performance](security-performance.md), [quality bar](quality-bar.md),
+[release automation](release.md), [roadmap and release checklist](../ROADMAP.md),
 [contributing](../CONTRIBUTING.md), [upstream evidence](research/upstream-behavior.md).
+
+**Starting implementation:** [work packages](implementation-plan.md),
+[roadmap priorities](../ROADMAP.md#priorities-and-critical-path),
+[gate decisions](decisions/README.md#open-gates). W01–W05 form the Phase 0.1
+baseline; Phase 0.2 hardens and finalizes its production contracts.
 
 ## Requirement traceability
 
@@ -51,6 +60,11 @@ is the authority for mutator behavior; examples elsewhere must agree with it.
 T1–T12 are defined in the [testing strategy](testing.md). Every implementation PR
 should name the relevant requirement and test group.
 
+The [quality bar](quality-bar.md) adds proposed measurable release thresholds and
+automated consumer qualification. The [work packages](implementation-plan.md)
+map those requirements to dependency-ordered deliverables. They do not introduce
+new public collections or an external-participant requirement.
+
 ## Design issues that must remain visible
 
 1. `BaseModel.__iter__` yields pairs; mapping iteration must yield keys. This is a
@@ -61,7 +75,9 @@ should name the relevant requirement and test group.
    useful declared types without exposing an unguarded mutation path.
 4. Pydantic metadata, trusted constructors/copies, cached properties, and inherited
    methods can bypass a naive mapping implementation.
-5. Exact Python/dependency bounds and an open-source license are unselected.
+5. The initial Python/dependency envelope and MIT license are selected for the
+   development baseline; broader support and release ownership remain open gates.
 
 See [roadmap gates](../ROADMAP.md) for the next concrete work, and
-[recorded probes](research/upstream-behavior.md) for what has actually been tested.
+[prototype findings](research/prototype-findings.md) for implemented evidence.
+The older [upstream probes](research/upstream-behavior.md) remain separate controls.

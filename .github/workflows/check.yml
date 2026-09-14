@@ -1,0 +1,95 @@
+name: Checks
+
+on:
+  workflow_call:
+    inputs:
+      require_package:
+        description: Require the production package metadata (used by releases)
+        required: false
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+jobs:
+  docs:
+    name: Documentation checks
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Validate Markdown links and examples
+        run: python tools/check_docs.py
+
+  prototype:
+    name: Phase 0.1 compatibility checks
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install package and test dependencies
+        run: python -m pip install --upgrade pip && python -m pip install -e . pytest hypothesis pyright ruff
+
+      - name: Run lint and format checks
+        run: |
+          ruff check src tests
+          ruff format --check src tests
+
+      - name: Run Phase 0.1 package tests
+        env:
+          PYTEST_DISABLE_PLUGIN_AUTOLOAD: '1'
+        run: python -m pytest tests -q
+
+      - name: Type-check installed consumer
+        run: |
+          PYTHONPATH=src pyright
+          PYTHONPATH=src pyright --verifytypes pydandict --ignoreexternal
+          PYTHONPATH=src pyright tests/typing_negative.py
+
+  package:
+    name: Production package preflight
+    # Release calls this reusable workflow with require_package=true.
+    if: ${{ inputs.require_package }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Validate production package metadata
+        run: |
+          python - <<'PY'
+          import tomllib
+          from pathlib import Path
+
+          metadata = tomllib.loads(Path("pyproject.toml").read_text())["project"]
+          if metadata["name"] != "pydandict":
+              raise SystemExit(
+                  f"Production release metadata must name pydandict, got {metadata['name']!r}"
+              )
+          if not Path("src/pydandict").is_dir():
+              raise SystemExit("Production releases require src/pydandict")
+          PY
+
+      - name: Install package and test dependencies
+        run: python -m pip install --upgrade pip build pytest && python -m pip install -e .
+
+      - name: Run production tests
+        run: python -m pytest -q

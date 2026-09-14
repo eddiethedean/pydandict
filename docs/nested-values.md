@@ -13,6 +13,19 @@ External inputs are detached on adoption. Supported mutable descendants route
 their writes to the root transaction coordinator. Immutable leaves may be shared.
 This is implementation machinery for `DictModel`, not a separate collection API.
 
+## Phase 0.1 implementation choice
+
+The [prototype findings](research/prototype-findings.md) select private mutable ABC
+handles with a single payload per node. Annotate fields with `MutableSequence`,
+`MutableMapping` and `MutableSet` for matching runtime interfaces. Concrete
+`list`/`dict`/`set` annotations still define validation schemas, but the prototype
+returns protocol handles rather than instances of those built-ins. Full-root
+serialization uses a raw snapshot to preserve Pydantic serializer behavior.
+
+This resolves the unused-built-in-storage problem demonstrated by the experiments.
+Phase 0.2 must finalize this scope refinement for the production API; the broader
+initial target below must not be mistaken for demonstrated concrete-type identity.
+
 ## Proposed initial support envelope
 
 | Value | Intended treatment | Required evidence |
@@ -56,6 +69,18 @@ In a full-root transaction, reconciling candidate nodes with retained handles is
 part of commit preparation. If guards cannot implement this safely, that is a G3
 failure, not a reason to expose unguarded live storage.
 
+Reconciliation must distinguish unchanged, moved, replaced and validator-created
+nodes without trusting user equality or hash callbacks to establish identity.
+Test a nested value moving to another index and a union changing branch. Validators
+that reconstruct containers need an explicit handle-retention rule in the G3
+report; do not silently attach a saved handle to a different equal-valued node.
+
+G3 must also select root-lifetime behavior: either a retained handle keeps its root
+alive or access after root collection raises an explicit orphan error. Neither
+choice may permit unvalidated detached writes. Prove that releasing all external
+references permits collection and that repeated subtree replacement does not grow
+ownership bookkeeping without bound.
+
 ## Mutation inventory
 
 The G3 prototype must cover all ordinary supported public methods, including:
@@ -94,6 +119,21 @@ For immutable aggregates, recursively owned mutable descendants still need guard
 unless the aggregate is rejected by the safe envelope.
 
 ## Snapshots, copies, and escape paths
+
+Proposed removal-result contract: `pop` and `popitem` return a usable detached
+value representing the removed value immediately before the operation. This applies
+to allowed model extras and owned containers. Immutable leaves may be shared;
+mutable containers are detached, and any returned DictModel becomes an independent
+validated ownership root. Handles previously borrowed from the removed subtree
+become stale as specified above; the return value is a distinct object when needed.
+Prepare the detached result before commit so a copying/adoption failure leaves
+the original root unchanged. A rejected removal returns nothing and invalidates
+no handles. Identity with an earlier borrowed mutable value is not promised.
+
+Test mutating the removal result, reading/writing the old handle, parent-constraint
+rejection of removal, and a failure while preparing the detached result. Other
+container operations returning values need the same explicit ownership analysis;
+never make a successful `pop` return an immediately unusable stale handle.
 
 `dict(m)` is shallow: nested values remain owned handles, and mutation through
 those references still validates against `m`. It is not a detached editable payload.

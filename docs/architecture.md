@@ -19,6 +19,11 @@ flowchart TD
     S --> P[Pydantic serializers and JSON Schema]
 ```
 
+The [Phase 0.1 prototype](research/prototype-findings.md) implements this design
+with private mutable ABC guards and a centralized Pydantic adapter. The sections
+below retain the production requirements; prototype decisions and limitations
+are distinguished in the findings.
+
 The intended class hierarchy uses `BaseModel` before `MutableMapping[str, object]`.
 The runtime experiment in [upstream evidence](research/upstream-behavior.md) checks
 only a minimal bridge, not the full mutation design. Avoid a custom metaclass or
@@ -35,10 +40,10 @@ core-schema rewrite until a concrete public-API limitation requires it.
 | Ownership layer | Guard nested mutations and notify the owning root | Expose a public typed-collection framework |
 | Typing surface | Honest signatures and packaged type information | Hide runtime incompatibility with broad `Any` |
 
-Proposed future layout is `src/pydandict/__init__.py`, `model.py`,
-`_transactions.py`, `_compat.py`, `_ownership.py`, and `py.typed`. These files do
-not exist in this planning commit. Start smaller if prototypes show fewer modules
-are sufficient.
+The Phase 0.1 package uses `src/pydandict/__init__.py`, `_core.py`, `_containers.py`
+and `py.typed`. The implementation keeps the transaction, compatibility and
+ownership mechanisms concentrated while the contracts are hardened; split them
+during Phase 0.2 when it improves auditability.
 
 ## Transaction engine
 
@@ -67,6 +72,15 @@ construction needs an internal phase distinct from ordinary public assignment so
 that Pydantic initialization and supported validators do not recursively enter
 the transaction engine.
 
+Treat the proposed internal phases as idle, staging, validating, preparing and
+committing, with restoration and return to idle on failure. Acquire the same-root
+reentrancy guard before consuming user iterables or invoking callbacks, not only
+before validation. Reads during preparation see committed state. These are private
+engine states, not a public transaction API. G2/G3 must test recovery after each
+failure boundary and audit finalizers triggered by disposing of old references;
+callback-free commit needs implementation evidence, not an assumption about Python
+assignment. Prepare removal results along with ownership and metadata.
+
 ## Validator semantics: G2
 
 Pydantic owns validation ordering and error generation. Pydandict must not manually
@@ -82,7 +96,8 @@ skip validation under instance-revalidation settings. These are distinct issues.
 The prototype must compare two strategies: validating a fully isolated existing
 state with a carefully controlled patch path, and validating a reconstructed raw
 candidate. It must demonstrate atomic bulk updates and state preservation before
-either is selected. No production algorithm is claimed in this document.
+either is selected. Phase 0.1 selected isolated full-candidate validation within
+the explicit validator contract; production qualification remains open.
 
 Proposed initial supported contract: validators are deterministic and safe to
 rerun on canonical Python state; normalization is idempotent; after validators

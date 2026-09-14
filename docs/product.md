@@ -71,6 +71,12 @@ speed claims. Adoption goals are qualitative until prototypes establish a baseli
 small public API, clear migration, no application framework requirement, and
 errors that explain why a state change was rejected.
 
+The [quality bar](quality-bar.md) makes these goals reviewable: public typing
+completeness, failure/recovery evidence, measured performance budgets, three
+executable guides, and two isolated automated consumer projects. External trials
+and other participants are not required. The [work packages](implementation-plan.md)
+sequence delivery while preserving the narrow v1 scope.
+
 ## Honest positioning
 
 “Pydantic models with dictionary semantics” is the primary description. Avoid

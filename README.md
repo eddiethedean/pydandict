@@ -2,15 +2,28 @@
 
 **Pydantic models with dictionary semantics.**
 
-Pydandict is a planned Python library whose primary base class, `DictModel`, is
+Pydandict is a Python library whose primary base class, `DictModel`, is
 both a genuine Pydantic `BaseModel` and a Python mutable mapping. It is designed
 to let existing mapping-oriented code consume models directly, and to let
 package authors keep internal records valid as they change.
 
-**Status: planning only.** This repository contains the design and implementation
-plan; it does not yet contain an installable Pydandict implementation. Examples
-below describe the proposed API, not released functionality. No compatibility,
-performance, or production-readiness claim has been established yet.
+**Status: Phase 0.1 implementation baseline.** The installable source package is in
+[`src/pydandict`](src/pydandict/__init__.py), at release version `0.1.0`.
+It has 87 passing runtime tests, installed typing checks and working library/FastAPI
+consumers in the recorded dependency envelope. See the [findings and limitations](docs/research/prototype-findings.md)
+for exact evidence. The package is a release candidate and is not published yet;
+the original [prototype guide](prototypes/README.md) remains as a reproducible evidence fixture.
+
+The plan prioritizes a dependable dependency: atomic failure behavior, protected
+nested values, complete public typing, tested ecosystem compatibility, measured
+costs, and verified distribution artifacts. Start with the
+[roadmap](ROADMAP.md), [implementation work packages](docs/implementation-plan.md),
+and [quality bar](docs/quality-bar.md). Qualification uses automated consumer
+projects and maintainer checks; no external trials or participants are required.
+
+For a local Phase 0.1 checkout, install the package and development tools with
+`python -m pip install -e ".[dev]"`. A public install command will be documented
+when the release is published.
 
 ## One model, two ways to work
 
@@ -95,7 +108,7 @@ operation for defaults. Extras follow a documented Pydantic configuration policy
 It cannot be delivered merely by enabling `validate_assignment`. The design
 requires ownership and mutation guards for supported mutable values, validation
 of affected parent constraints, and rejection of values that cannot be protected.
-The exact supported value set and guard implementation remain prototype gates;
+The exact supported value set and guard implementation remain Phase 0.2 hardening gates;
 there is no silent fallback to unvalidated nested state. See
 [mutation semantics](docs/mutation-semantics.md) and
 [nested ownership](docs/nested-values.md).
@@ -136,6 +149,9 @@ See the [typing strategy](docs/typing.md).
 
 | Document | Purpose |
 | --- | --- |
+| [Phase 0.1 package](src/pydandict/__init__.py) | Installable `DictModel` implementation |
+| [Prototype guide](prototypes/README.md) | Reproducible evidence commands and runnable example |
+| [Prototype findings](docs/research/prototype-findings.md) | Demonstrated solutions, evidence and remaining limitations |
 | [Documentation index](docs/README.md) | Reading paths and requirement traceability |
 | [Product and scope](docs/product.md) | Audiences, use cases, success criteria |
 | [Architecture](docs/architecture.md) | BaseModel integration and transactional state |
@@ -148,6 +164,9 @@ See the [typing strategy](docs/typing.md).
 | [Competition](docs/competitive-landscape.md) | Alternatives and focused positioning |
 | [Testing](docs/testing.md) | Acceptance cases and release gates |
 | [Roadmap](ROADMAP.md) | Sequenced implementation and release policy |
+| [Implementation work packages](docs/implementation-plan.md) | Priorities, dependencies, first increments and stop criteria |
+| [Quality bar](docs/quality-bar.md) | Measurable gates, automated consumer journeys and maintenance standards |
+| [Release automation](docs/release.md) | Tag-gated checks, artifact build, and PyPI Trusted Publishing |
 | [Security and performance](docs/security-performance.md) | Trust boundary, costs, benchmarks |
 | [Decision log](docs/decisions/README.md) | Established requirements and proposed choices |
 | [Upstream evidence](docs/research/upstream-behavior.md) | Sources and reproducible baseline observations |
@@ -156,9 +175,8 @@ See the [typing strategy](docs/typing.md).
 
 Start with [CONTRIBUTING.md](CONTRIBUTING.md). Design contributions should identify
 the invariant they preserve and the acceptance test that will prove it. The next
-work is a small set of feasibility prototypes, not a broad framework build.
+work is Phase 0.2 hardening and contract finalization on the Phase 0.1 package.
 
-The repository was inspected as empty before this planning set was added. No
-license has been selected or granted in this planning commit; license selection
-and package-name availability checks are pre-release tasks. See
-[security reporting](SECURITY.md) and the [changelog](CHANGELOG.md).
+The package is distributed under the MIT license; package-name ownership and the
+private security reporting route remain pre-release checks. See [security reporting](SECURITY.md)
+and the [changelog](CHANGELOG.md).

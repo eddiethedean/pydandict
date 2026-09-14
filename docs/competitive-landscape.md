@@ -3,7 +3,7 @@
 Reviewed 2026-09-13 using upstream documentation and project-maintained package
 descriptions. This is a focused comparison of abstractions, not an exhaustive
 market survey or benchmark. Competitor mutation/compatibility claims below are
-documented claims unless identified as locally probed. Pydandict is still a plan.
+documented claims unless identified as locally probed. Pydandict now has an experimental prototype; it is not a supported release.
 
 ## Comparison
 

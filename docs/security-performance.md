@@ -68,6 +68,12 @@ belongs at class setup, not on every assignment. Cache only safe structural meta
 such as field maps; do not cache validation results across changing state without
 proof. Preserve correctness before attempting incremental validation.
 
+## Phase 0.1 measurements
+
+The [prototype report](research/prototype-findings.md#initial-costs) records initial
+read/write timings, allocation samples and handle-retention checks. These are a
+starting baseline, not the broader benchmark plan or production budgets below.
+
 ## Benchmark plan
 
 | Workload | Variations | Measures |
@@ -89,6 +95,26 @@ Establish budgets only after a measured baseline and representative library use
 cases. Do not publish invented percentage overhead or speed claims. Investigate
 material regressions against the same workload/environment; benchmark changes
 must not bypass parent validators, defaults, or rollback to improve a number.
+
+W04 records an early feasibility cost sample; W07 establishes the scalar baseline;
+W09/W10 establish the supported nested baseline and numeric budgets before beta.
+For each gating workload record input shape, expected behavior, measurement command,
+baseline commit, machine/runtime, median and tail latency where meaningful, peak
+allocation, repetitions, noise range, and allowed absolute and relative regression.
+Select absolute ceilings using the library-config and FastAPI consumer workloads;
+do not let a relative comparison hide an already unusable baseline.
+
+Use repeated comparable runs to confirm a suspected regression before blocking
+on timing noise. Budget changes need an evidence record and rationale, not an
+automatic reset to a slower candidate. Keep small/medium/large graph measurements
+to expose scaling changes, and measure batches against equivalent sequences of
+valid single writes. Report validation invocation counts for both; do not promise
+that Pydantic internally calls each validator exactly once.
+
+Track cold import, direct/transitive runtime dependencies and wheel size alongside
+latency. The proposed runtime dependency is Pydantic only; FastAPI, benchmarks,
+documentation and testing tools stay outside the core installation. A new runtime
+dependency requires a concrete need and measured cost, not just convenience.
 
 Future optimization candidates include changed-path isolation and cached immutable
 metadata. Any optimization must pass the full mutation/ownership contract before

@@ -90,6 +90,11 @@ key. `clear()` fails as a whole when declared fields exist; it never means “cl
 extras” or “reset everything.” A fieldless model may clear its extras if its model
 validators allow an empty result.
 
+Successful removal of a mutable extra returns a detached usable value prepared
+before commit; prior borrowed handles become stale. The same ownership rule applies
+to supported nested removal operations. See the
+[removal-result contract](nested-values.md#snapshots-copies-and-escape-paths).
+
 ## Bulk writes and coupled fields
 
 Suppose a model requires `low <= high`. Moving from `(1, 3)` to `(5, 8)` must work

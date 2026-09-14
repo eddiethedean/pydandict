@@ -1,8 +1,10 @@
 # Testing and acceptance strategy
 
-This is the future implementation test plan. The planning repository currently
-contains only documentation checks and small upstream probes, not a Pydandict
-test suite. Never report those probes as proof of Pydandict mutation safety.
+This is the production acceptance plan. The Phase 0.1 package has a root
+[runtime, inventory and stateful suite](../tests/test_prototype.py), installed typing
+checks and the original isolated artifact consumers. Its [recorded results](research/prototype-findings.md)
+are scoped feasibility evidence, not completion of the production T1–T12 matrix.
+The older upstream probes remain controls, not implementation safety tests.
 
 ## Test groups and release criteria
 
@@ -94,15 +96,71 @@ back; test isolation of model state without pretending external rollback exists.
 
 ## CI plan
 
-Once implementation exists, use pytest for units/integration, Hypothesis for
-stateful cases, Ruff for formatting/lint, and strict Pyright for types. Select
-and lock development versions in the packaging milestone; none is configured as
-a fictional package workflow in this planning commit.
+Use pytest for units/integration, Hypothesis for stateful cases, Ruff for
+formatting/lint, and strict Pyright for types. The Phase 0.1 package pins the
+recorded Pydantic/FastAPI/httpx/Pyright envelope in its development extras and
+the [`ci.yml`](../.github/workflows/ci.yml) entrypoint runs the reusable checks on
+every push and pull request.
 
 Run fast correctness/type checks on every PR. Run the supported dependency matrix,
 artifact-install checks, and full integration suite before release. Add a periodic
 upstream prerelease lane only when actual CI is introduced. Use relevant checks
 for documentation-only PRs rather than rebuilding an unrelated package matrix.
+
+## Qualification thresholds
+
+These are proposed execution requirements for W10–W12, not achieved coverage or
+timing claims. Keep coverage of the declared contract separate from line coverage.
+
+| Check | Beta and 1.0 qualification requirement |
+| --- | --- |
+| Contract inventory | Every supported mutator and construction/copy/escape path has a test ID, applicable I invariants, and success/rejection/recovery cases; justify non-applicable cells |
+| Correctness | Zero unresolved reproducible violations of I1–I8 within the advertised envelope; required cases cannot be skipped or marked expected failures |
+| Branch coverage | Target at least 95% in transaction, ownership and compatibility modules; inspect every uncovered branch and document unreachable/platform-specific exclusions; percentage alone cannot close an invariant gate |
+| Stateful sequences | At least 100 generated sequences of 100 steps for each representative schema family in release qualification; record settings and replayable failures, keeping shrunk regressions permanently |
+| Fault injection | Cover each pre-commit boundary and supported rollback path, followed by a successful write proving recovery; inspect handle/metadata/cache state as well as values |
+| Typing | Zero unexpected strict Pyright diagnostics and 100% public completeness on the installed package; negative fixtures assert diagnostic kind/location |
+| Consumers | Both isolated consumer projects and all three quality-bar journeys pass from built artifacts without source imports or internal API access |
+| Performance/memory | Meet the recorded numeric budgets selected before beta; publish baseline and candidate measurements with environment and variance |
+
+Representative state-machine families are coupled scalar/default/extra records,
+nested list/dict/set trees, and nested DictModel trees with ancestor/frozen/union
+constraints. Use smaller deterministic smoke profiles on PRs and the full profile
+for candidates. A count of generated sequences measures exercised workload, not
+a mathematical proof or a claim of exhaustive coverage.
+
+Inject failure during input iteration, default creation, validation, candidate
+adoption, detached-result preparation and handle reconciliation. Exercise validator,
+comparison, hashing, sort-key and finalizer callbacks where supported. Verify an
+attempted same-root reentrant mutation is rejected before live changes and cannot
+leave the transaction busy. An implementation that can fail midway through commit
+must test restoration of each affected storage slot.
+
+Add targeted test-sensitivity checks: temporarily disable validation, metadata
+restoration, ancestor-freeze enforcement or stale-handle checks in isolated test
+runs and verify the corresponding tests fail. Do not maintain a whole-package
+mutation-testing percentage as a substitute for these safety checks.
+
+Memory qualification includes repeated successful and rejected writes, replacing
+subtrees, making/dropping copies, and retaining/releasing handles. After warmup and
+garbage collection, inspect retained owners/nodes and compare measured allocation
+growth with the selected budget. Test the eventual orphan/retention policy explicitly;
+a process RSS sample alone cannot establish an ownership leak.
+
+## Execution lanes
+
+| Lane | Planned checks | Gate |
+| --- | --- | --- |
+| Documentation change | Local links/fences/Python syntax; released examples if changed | Required |
+| Implementation PR | Lint, strict types, relevant unit/integration cases, stateful smoke and branch coverage | Required |
+| Scheduled dependency check | Supported boundary matrix, extended stateful cases, upstream prerelease warning lane | Supported versions required; prereleases advisory |
+| Release candidate | Full T1–T12, extended stateful/fault cases, all supported Python versions, dependency boundaries, artifact consumers and benchmark budgets | Required for publication |
+
+Test every advertised Python minor on at least one supported platform; run OS
+smokes on Linux, macOS and Windows before claiming those platforms. Dependency
+boundary combinations must be compatible upstream combinations, not an impossible
+Cartesian product. Record omissions instead of claiming untested platforms,
+interpreters or prerelease runtimes. See the [compatibility matrix](compatibility.md).
 
 ## Documentation checks now
 

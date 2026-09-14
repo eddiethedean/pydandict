@@ -2,7 +2,9 @@
 
 ## Policy and baseline
 
-V1 targets Pydantic v2 only. Exact dependency bounds remain G4 work; no version
+The [Phase 0.1 findings](research/prototype-findings.md) record implemented
+compatibility on the pinned experimental stack. The matrix below remains the
+production target. V1 targets Pydantic v2 only. Exact dependency bounds remain G4 work; no version
 range is supported merely because it is v2. The planning probes use Python
 3.11.14, Pydantic 2.13.4, FastAPI 0.141.1, and Pyright 1.1.411. These are locally
 observed versions, not a declaration that they are the latest releases or a tested
@@ -123,3 +125,15 @@ minimum and latest supported Pydantic v2 minor, and supported FastAPI bounds wit
 compatible Starlette/httpx versions. Use a prerelease dependency lane as an early
 warning, without implying prerelease support. Bound dependencies by evidence and
 document any private-API reliance in release notes.
+
+Additionally smoke-test every advertised intermediate Python minor and each claimed
+OS (initial candidates: Linux, macOS, Windows). Maintain a versioned matrix recording
+Python, platform, Pydantic, its resolved pydantic-core, FastAPI/Starlette/httpx and
+Pyright, plus exact commands and results. Keep development pins reproducible while
+package dependency bounds express the actually tested support policy. Do not add
+a separately incompatible pydantic-core constraint.
+
+Pyright is the required checker. Other checkers and Python implementations may be
+evaluated later but have no launch support claim without fixtures. New upstream
+failures receive a minimal reproducer and an adapter assessment; do not expand
+dependency bounds until supported cases pass.

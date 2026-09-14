@@ -32,8 +32,8 @@ def headings(text: str) -> set[str]:
 
 
 def main() -> int:
-    files = [ROOT / "README.md", ROOT / "CONTRIBUTING.md", ROOT / "SECURITY.md",
-             ROOT / "CHANGELOG.md", *sorted((ROOT / "docs").rglob("*.md"))]
+    files = [*sorted(ROOT.glob("*.md")), *sorted((ROOT / "docs").rglob("*.md")),
+             *sorted((ROOT / "prototypes").glob("*.md"))]
     errors: list[str] = []
     links = blocks = 0
     for path in files:

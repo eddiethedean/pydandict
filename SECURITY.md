@@ -1,7 +1,7 @@
 # Security policy
 
-Pydandict is planning-only and has no released package or supported release series
-at this time. See the [security design](docs/security-performance.md) for the
+Pydandict has a local Phase 0.1 development package and no publicly released
+supported release series at this time. See the [security design](docs/security-performance.md) for the
 proposed validation boundary and release requirements.
 
 For a potential vulnerability, use the repository's GitHub **Security → Report a

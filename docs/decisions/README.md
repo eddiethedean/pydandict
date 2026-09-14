@@ -22,6 +22,23 @@ recommendations added in this planning set.
 | D13 | Private guards for owned nested values; reject unprotectable mutability | Proposed; release gate | Meet lifetime validation without a public collection framework |
 | D14 | Validate `model_copy(update=...)`; reject public `model_construct` in v1 | Proposed | Close named public construction/copy bypasses; document narrower BaseModel API |
 | D15 | No configurable validation-off mode for `DictModel` | Proposed | Avoid two safety levels under one type |
+| D16 | Qualify releases against a measurable quality bar and commit-specific evidence | Proposed | Correctness, typing, integration, performance and packaging need inspectable results, not milestone labels |
+| D17 | Integrate G1–G3 in one vertical slice before choosing production internals | Proposed | Successful isolated prototypes may have incompatible transaction, type or serialization assumptions |
+| D18 | Use automated isolated consumer projects and maintainer walkthroughs; require no external trials or participants | Established constraint | The user explicitly requires qualification without involving other people; this supplies reproducible integration evidence without claiming independent adoption research |
+| D19 | Return detached usable mutable values from successful removal; invalidate prior borrowed handles | Proposed; G3 evidence required | `pop`/`popitem` must not return immediately stale handles; prepare return values before commit for failure safety |
+
+## Phase 0.1 decisions
+
+| ID | Decision | Status | Rationale and consequence |
+| --- | --- | --- | --- |
+| D20 | Use private mutable ABC guards with one payload per node; recommend matching ABC field annotations | Demonstrated prototype choice; production contract review in 0.2 | Built-in subclass buffers can be read directly by ordinary C consumers; protocol guards avoid silent empty data and permit pointer-swap commits |
+| D21 | Centralize raw snapshots, canonical core-schema variants, outer schema references and serializer delegation in the prototype adapter | Demonstrated on the pinned upstream stack; production matrix open | Resolves isolated validation, alias-wrap behavior and recursive serialization without a parallel validation engine |
+| D22 | Treat the integrated prototype and promoted root package as Phase 0.1 and the project's starting baseline | Established | The user explicitly selected this baseline; Phase 0.2 hardens/finalizes it while retaining the tests and working mechanisms |
+
+The [findings](../research/prototype-findings.md) describe the validator restrictions,
+identity-writeback behavior, root retention and concrete-container limitations.
+Baseline acceptance does not silently turn these experimental choices into a
+universal Pydantic compatibility promise.
 
 ## Alternatives considered
 
@@ -53,6 +70,10 @@ may exist only to enforce model ownership, with no public `TypedList`/`TypedMap`
 
 ## Open gates
 
+G1–G3 now have integrated Phase 0.1 evidence within the
+[prototype envelope](../research/prototype-findings.md). The table records what
+still needs production qualification; it no longer means there is no experiment.
+
 | Gate | Concrete question | Evidence required | Blocks |
 | --- | --- | --- | --- |
 | G1 | Can nominal mapping inheritance coexist with model serialization and useful Pyright signatures? | Runtime/FastAPI spike and strict typing fixtures, including the iterator conflict | First alpha |
@@ -60,6 +81,13 @@ may exist only to enforce model ownership, with no public `TypedList`/`TypedMap`
 | G3 | Can nested guards preserve declared types, root invariants, escaped references, and serialization? | Mutation-path inventory plus adversarial ownership tests | Lifetime guarantee and v1 |
 | G4 | Which Python, Pydantic, FastAPI, and Pyright versions pass the matrix? | CI results with exact versions and boundary tests | Every release |
 | G5 | What license and distribution metadata should be adopted? | Maintainer-selected license, name availability, metadata review | Distribution |
+
+Execution mapping: W01–W04 are demonstrated in the Phase 0.1 baseline; Phase 0.2
+reviews and hardens their production implications. G1/G2 need qualification for the
+first scalar alpha; G3 needs production qualification at W09 before nested support
+is advertised. G4 applies to every distribution; W05 must resolve G5 before the
+first distribution. The [work packages](../implementation-plan.md) and
+[quality bar](../quality-bar.md) define required outputs and evidence.
 
 Maintain decisions in this log until a choice requires a substantial separate
 record. A revision must state the trigger, alternatives, compatibility impact,
