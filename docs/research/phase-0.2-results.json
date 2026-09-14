@@ -8174,8 +8174,8 @@
       "new_implementation_cases": 21,
       "protected_blocker_cases": 19,
       "result": "PASS",
-      "stdout": "133 passed in 95.08s (0:01:35)",
-      "tests": 133
+      "stdout": "147 passed in 103.11s (0:01:43)",
+      "tests": 147
     },
     {
       "before_after_injections": 82,
@@ -8632,42 +8632,13 @@
   },
   "role": "Implementation self-verification; Sol independent re-review pending",
   "source": {
-    "commit": "1123702ed080e09e00e9dee1392dcebff62e41a9",
-    "dirty": true,
-    "git_status": [
-      "M .github/workflows/check.yml",
-      " M CHANGELOG.md",
-      " M README.md",
-      " M docs/architecture.md",
-      " M docs/compatibility.md",
-      " M docs/decisions/README.md",
-      " M docs/mutation-semantics.md",
-      " M docs/nested-values.md",
-      " M docs/security-performance.md",
-      " M docs/testing.md",
-      " M docs/typing.md",
-      " M src/pydandict/_compat.py",
-      " M src/pydandict/_containers.py",
-      " M src/pydandict/_core.py",
-      " M tests/typing_positive.py",
-      " M tools/benchmark.py",
-      " M tools/check_typing.py",
-      " M tools/qualify_package.py",
-      "?? docs/research/phase-0.2-findings.md",
-      "?? docs/research/phase-0.2-remediation.md",
-      "?? docs/research/phase-0.2-results.json",
-      "?? docs/reviews/",
-      "?? tests/test_benchmark_contract.py",
-      "?? tests/test_compat_remediation.py",
-      "?? tests/test_extra_annotation_completion.py",
-      "?? tests/test_hash_ingress.py",
-      "?? tests/test_sol_phase02_blockers.py"
-    ],
+    "commit": "24bf348026298f16dcf5b88f58ee370df03dad71",
+    "dirty": false,
     "hashes": {
       "pydandict/__init__.py": "7ac521e6fb1b7f6e001b0c259e5d22f750ffdd4de1270fd00a504ea4b435ac6b",
-      "pydandict/_compat.py": "86800b671cff5bbeadea131fd5c72173fa13134b6a74f6dfcd8775a13f8863fc",
-      "pydandict/_containers.py": "523454b6532b2e2393b1c0336817841317f10a368b85038fd86bc8ff39f9b738",
-      "pydandict/_core.py": "e21393dd4cf78deeccff1c0c944121918831da244f63a57a9175bf84c5fba74a",
+      "pydandict/_compat.py": "82a51bd0f9e811abb3ddb535d9cd8fd4c9068d08d3b1628b107ab34aa049d51e",
+      "pydandict/_containers.py": "b4240fe2af4b7a5ca3a2000eb017133e1889288b7ccea2ff79363208906f2857",
+      "pydandict/_core.py": "b6e066034b59d7976901f2c37c9b9b0c15957182483eb2a92899c2dc0d18df50",
       "pydandict/py.typed": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
     }
   },
