@@ -13,11 +13,12 @@ The workflow builds the Phase 0.1 package from the repository root:
 - The package version must equal the tag with its leading `v` removed. For example,
   `v1.2.3` requires `project.version = "1.2.3"`.
 
-The Phase 0.1 package is prepared as version `0.1.0` and is not published yet. A
-release tag still stops in the reusable checks if metadata, tests or artifacts fail;
-publication requires the matching `v0.1.0` tag and the scoped release checklist.
+The Phase 0.1 package was released as version `0.1.0` on 2026-09-13. The matching
+`v0.1.0` tag passed the reusable checks, built the wheel and sdist, and published
+both artifacts to [PyPI](https://pypi.org/project/pydandict/0.1.0/). A future release
+tag still stops in the reusable checks if metadata, tests or artifacts fail.
 
-## 0.1.0 repository readiness
+## 0.1.0 release record
 
 The repository release gates are complete for the documented alpha envelope:
 
@@ -27,13 +28,12 @@ The repository release gates are complete for the documented alpha envelope:
   documentation validation and artifact metadata checks pass locally and in CI.
 - The changelog contains the versioned `0.1.0` entry, and the workflow accepts only
   a matching `v0.1.0` tag.
+- The release tag points to commit `6bfbd6082b8157decffc1b58e00505c670f00bdc`.
+- The [successful release workflow run](https://github.com/eddiethedean/pydandict/actions/runs/34797121742)
+  completed the checks, artifact build and Trusted Publishing upload.
 
-Before publishing, configure the PyPI Trusted Publisher and `pypi` environment for
-this repository, verify package-name ownership, and create the matching tag from the
-reviewed commit.
-
-Before the first release, configure a PyPI Trusted Publisher for this repository's
-`release.yml` workflow and the `pypi` environment. The publish job grants only
+The repository's PyPI Trusted Publisher and `pypi` environment are configured. The
+publish job grants only
 `id-token: write` (and read-only contents access), uses no PyPI token secret, and
 publishes through `pypa/gh-action-pypi-publish@release/v1`. Configure environment
 protection rules in GitHub if a manual approval gate is desired; the workflow does

@@ -1,5 +1,10 @@
 # PydanDict
 
+[![CI](https://github.com/eddiethedean/pydandict/actions/workflows/ci.yml/badge.svg)](https://github.com/eddiethedean/pydandict/actions/workflows/ci.yml)
+[![PyPI](https://img.shields.io/pypi/v/pydandict.svg)](https://pypi.org/project/pydandict/)
+[![Python versions](https://img.shields.io/pypi/pyversions/pydandict.svg)](https://pypi.org/project/pydandict/)
+[![License](https://img.shields.io/pypi/l/pydandict.svg)](https://github.com/eddiethedean/pydandict/blob/main/LICENSE)
+
 **Pydantic models with dictionary semantics.**
 
 PydanDict is a Python library whose primary base class, `DictModel`, is
@@ -7,12 +12,14 @@ both a genuine Pydantic `BaseModel` and a Python mutable mapping. It is designed
 to let existing mapping-oriented code consume models directly, and to let
 package authors keep internal records valid as they change.
 
-**Status: Phase 0.1 implementation baseline.** The installable source package is in
+**Status: Phase 0.1 released.** The installable source package is in
 [`src/pydandict`](src/pydandict/__init__.py), at release version `0.1.0`.
+It was published to [PyPI](https://pypi.org/project/pydandict/0.1.0/) on
+2026-09-13 from the immutable [`v0.1.0` tag](https://github.com/eddiethedean/pydandict/tree/v0.1.0).
 It has 87 passing runtime tests, installed typing checks and working library/FastAPI
 consumers in the recorded dependency envelope. See the [findings and limitations](docs/research/prototype-findings.md)
-for exact evidence. The package is a release candidate and is not published yet;
-the original [prototype guide](prototypes/README.md) remains as a reproducible evidence fixture.
+for exact evidence. The original [prototype guide](prototypes/README.md) remains
+as a reproducible evidence fixture.
 
 The plan prioritizes a dependable dependency: atomic failure behavior, protected
 nested values, complete public typing, tested ecosystem compatibility, measured
@@ -21,9 +28,9 @@ costs, and verified distribution artifacts. Start with the
 and [quality bar](docs/quality-bar.md). Qualification uses automated consumer
 projects and maintainer checks; no external trials or participants are required.
 
-For a local Phase 0.1 checkout, install the package and development tools with
-`python -m pip install -e ".[dev]"`. A public install command will be documented
-when the release is published.
+Install the released package with `python -m pip install pydandict`. For a local
+Phase 0.1 checkout, install the package and development tools with
+`python -m pip install -e ".[dev]"`.
 
 ## One model, two ways to work
 

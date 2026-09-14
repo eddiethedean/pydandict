@@ -6,8 +6,8 @@ honest types, and predictable costs. **Phase `0.1` is the working integrated
 implementation and our starting baseline.** Its demonstrated behavior and explicit
 limitations are recorded in the [prototype findings](docs/research/prototype-findings.md).
 
-Phases are gated by evidence, not dates. The package is prepared at release version
-`0.1.0`; publication still requires its tag and workflow gates. Phase `0.2` hardens that baseline,
+Phases are gated by evidence, not dates. The package was published as release
+`0.1.0` from the matching tag after passing its workflow gates. Phase `0.2` hardens that baseline,
 and broader package checkpoints begin at `0.3`, subject to license, compatibility
 and artifact gates. Preserve and extend the Phase 0.1 tests and mechanisms during
 hardening; do not restart from scratch.
@@ -55,9 +55,9 @@ and [source/artifact evidence](docs/research/prototype-results.json).
 
 Baseline boundary: package `pydandict` at release version `0.1.0`,
 protocol-based mutable values, rerunnable canonical validators and one pinned
-upstream stack. This is an implemented development baseline, not a public release
-guarantee. The release workflow must publish only artifacts built from the matching
-`v0.1.0` tag.
+upstream stack. This is an implemented alpha baseline with a public release limited
+to the documented support envelope. The release workflow publishes only artifacts
+built from the matching `v0.1.0` tag.
 
 ## 0.2 — Prototype hardening and contract finalization
 

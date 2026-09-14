@@ -2,9 +2,9 @@
 
 PydanDict starts at the integrated Phase 0.1 implementation. Start with the
 [README](README.md), [package source](src/pydandict/__init__.py), [prototype guide](prototypes/README.md)
-and [decision log](docs/decisions/README.md). The package is installable in editable
-form for development, but the `0.1.0` baseline is not published until its tag and
-release workflow complete.
+and [decision log](docs/decisions/README.md). The package is installable from PyPI
+at `0.1.0` and in editable form for development. The release was built from the
+matching tag and passed the release workflow checks.
 
 ## Documentation and upstream controls
 
