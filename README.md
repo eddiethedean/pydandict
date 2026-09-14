@@ -33,6 +33,11 @@ costs, and verified distribution artifacts. Start with the
 and [quality bar](docs/quality-bar.md). Qualification uses automated consumer
 projects and maintainer checks; no external trials or participants are required.
 
+The initial Phase 0.3 scalar-core implementation is complete and pending
+independent review. See the [Phase 0.3 contract](docs/phase-0.3-plan.md) for its
+scope, acceptance criteria and remaining qualification work; no 0.3 release has
+been tagged or published.
+
 Install the released package with `python -m pip install pydandict`. For a local
 source checkout, install the package and development tools with
 `python -m pip install -e ".[dev]"`.

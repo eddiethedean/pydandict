@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+### Phase 0.3 implementation
+
+- Add the focused scalar-core contract regression suite and runnable
+  `examples/library_config.py` workflow.
+- Reject non-string `pop` mutation keys before fallback handling, matching the
+  documented mutation-key contract.
+
 ## 0.2.0 - 2026-09-14
 
 ### Changed

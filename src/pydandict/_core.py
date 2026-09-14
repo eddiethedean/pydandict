@@ -1122,6 +1122,12 @@ class DictModel(BaseModel, MutableMapping[str, object]):
         self._transaction(self, apply)
 
     def pop(self, key: str, default: object = _MISSING) -> object:
+        # Mutation keys are canonical string names. Validate the key before
+        # checking presence so a non-string key cannot silently return a
+        # caller-supplied fallback (unlike read-side ``get`` semantics).
+        if not isinstance(key, str):  # pyright: ignore[reportUnnecessaryIsInstance]
+            raise TypeError("pydandict_protected_name: model keys must be strings")
+
         def apply(input_value: object) -> tuple[object, set[Path]]:
             draft = cast(DictModel, input_value)
             if key not in _data(self):

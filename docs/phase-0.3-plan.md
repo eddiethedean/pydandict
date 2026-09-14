@@ -1,9 +1,10 @@
 # Phase 0.3 — Architecture and implementation contract
 
-Status: **READY FOR IMPLEMENTATION**. This document defines a planned change;
-it does not claim Phase 0.3 implementation, qualification or publication.
+Status: **INITIAL IMPLEMENTATION COMPLETE; PENDING INDEPENDENT REVIEW**. This
+document defines the approved change and records the initial implementation;
+it does not claim independent approval, production readiness or publication.
 
-This is the implementation and review boundary for the
+This remains the implementation and review boundary for the
 [minimal scalar core milestone](../ROADMAP.md#03--minimal-scalar-core), covering
 W05 qualification and W06–W07 in the [work packages](implementation-plan.md).
 Acceptance IDs below are local to Phase 0.3; cite them as `0.3/AC-001`, etc., to
@@ -541,12 +542,15 @@ does not itself mean version 0.3.0 was tagged or published.
 ### Final planning verification note
 
 The plan is grounded in source inspection and the planning checks listed above;
-Phase 0.3's new contracts and artifact/matrix acceptance work remain unimplemented.
-After adding this plan and its navigation links, documentation verification passed
-for 38 Markdown files, 251 local links and eight Python examples with zero errors;
-`git diff --check` passed. Only planning/navigation Markdown files were changed;
-production code, tests, package metadata, workflows and historical evidence were
-not modified. The 151-test run proves the inspected baseline, not completion of
-the new acceptance criteria.
+Phase 0.3's full matrix/artifact qualification and independent review remain open.
+After implementation, documentation verification passed for 38 Markdown files,
+252 local links and eight Python examples with zero errors;
+`git diff --check` passed. The initial implementation changed the scalar `pop`
+key-policy boundary, added focused contract tests and a runnable scalar example,
+and updated the Unreleased changelog. The full matrix/artifact qualification and
+independent review remain open; this record must be refreshed with actual candidate
+evidence before release. The final local run passed 155 tests; this proves the
+inspected implementation on the local environment, not completion of the new
+acceptance criteria.
 
-READY FOR IMPLEMENTATION
+INITIAL IMPLEMENTATION COMPLETE; PENDING INDEPENDENT REVIEW

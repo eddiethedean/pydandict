@@ -113,6 +113,17 @@ def main() -> int:
                 "    assert item.numbers == [1, 2]\n"
                 "else:\n"
                 "    raise AssertionError('invalid library edit committed')\n"
+                "class Config(DictModel):\n"
+                "    low: int = 1\n"
+                "    high: int = 3\n"
+                "cfg = Config()\n"
+                "assert dict(cfg) == {'low': 1, 'high': 3} and cfg.model_fields_set == set()\n"
+                "cfg.update(low=5, high=8)\n"
+                "assert (cfg.low, cfg.high) == (5, 8)\n"
+                "copy_cfg = cfg.model_copy(update={'low': 6})\n"
+                "assert copy_cfg.low == 6 and cfg.low == 5\n"
+                "cfg.reset('low', 'high')\n"
+                "assert dict(cfg) == {'low': 1, 'high': 3}\n"
                 "print(module)\n"
             )
             dependency_records[f"{label}_bare_import"] = execute(

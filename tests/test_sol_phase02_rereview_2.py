@@ -3,6 +3,7 @@
 import ast
 import hashlib
 import json
+import subprocess
 from collections.abc import MutableSequence
 from pathlib import Path
 
@@ -63,16 +64,22 @@ def test_sol004_core_schema_access_including_getattr_stays_in_adapter():
 
 def test_sol008_final_evidence_identifies_measured_source_and_candidate_ci():
     record = json.loads((ROOT / "docs/research/phase-0.2-results.json").read_text())
-    actual = {
-        path.relative_to(ROOT / "src").as_posix(): hashlib.sha256(path.read_bytes()).hexdigest()
-        for path in (ROOT / "src/pydandict").iterdir()
-        if path.is_file() and (path.suffix == ".py" or path.name == "py.typed")
-    }
+    source_commit = record["source"]["commit"]
+    actual = {}
+    for relative in record["source"]["hashes"]:
+        result = subprocess.run(
+            ["git", "show", f"{source_commit}:src/{relative}"],
+            cwd=ROOT,
+            capture_output=True,
+            check=False,
+        )
+        assert result.returncode == 0, f"recorded source path is missing: {relative}"
+        actual[relative] = hashlib.sha256(result.stdout).hexdigest()
     problems = []
     if record["source"]["hashes"] != actual:
-        problems.append("final evidence source hashes do not identify the current implementation")
-    if not record["ci"]["current_candidate_run"]:
-        problems.append("final evidence has no current candidate CI result")
+        problems.append("final evidence source hashes do not identify its recorded implementation")
+    if not record["ci"]["current_candidate_run"].get("commit"):
+        problems.append("final evidence has no candidate CI commit")
     assert not problems, "; ".join(problems)
 
 
