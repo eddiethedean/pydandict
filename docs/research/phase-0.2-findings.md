@@ -9,27 +9,30 @@ Historical prototype evidence and the approved plan remain unchanged.
 
 ## Source and qualification boundary
 
-The measured candidate is the committed implementation at
-`e00b52f6b9678769bee9ff23649d180ebfefa32f`; the source record is clean and its
-hashes identify the package files directly. Benchmark baseline is the
-unmodified production revision `07fec9b7eafef5b00befe9fa24ccd012ce0232a1`;
-both revisions use the same harness, Python and resolved dependencies.
+The measured candidate is the current Phase 0.2 implementation at commit
+`7bf838325c462ceef66d32a2467ffafa40f938f2`, with the working-tree production
+fix and review verification recorded explicitly in the source block. Benchmark
+baseline is the unmodified production revision
+`07fec9b7eafef5b00befe9fa24ccd012ce0232a1`; both revisions use the same
+harness, Python and resolved dependencies.
 
-Local runtime is macOS-26.5.2-arm64-arm-64bit, Python 3.11.14 and
+Local runtime is macOS-26.5.2-arm64-arm-64bit, Python 3.14.3 and
 Pydantic 2.13.4. This record does not assert current execution of the configured
-Ubuntu/macOS/Windows matrix or Ubuntu 3.11/3.14 artifact lanes. The
+Ubuntu/macOS/Windows matrix or Ubuntu 3.11/3.14 artifact lanes for this dirty
+working-tree fix. The successful parent-source run
+[34855996934](https://github.com/eddiethedean/pydandict/actions/runs/34855996934)
+is retained as parent-source evidence; it does not qualify this unpushed
+working-tree fix. The earlier
 [historical CI run](https://github.com/eddiethedean/pydandict/actions/runs/34802350758)
-passed before blocker verification/remediation and is explicitly historical.
-The current candidate CI run is recorded in the JSON `ci.current_candidate_run`
-field once the remote matrix completes; the historical run remains clearly
-marked as pre-remediation.
+remains explicitly pre-remediation.
 Release dependencies remain `check -> build -> publish`; no publication or tag
 was performed. Published 0.1.0 and unreleased Phase 0.2 facts remain separate.
 
 ## Contract and verification
 
-The final suite contains 147 tests, including the unchanged Sol cases and
-implementation-side cases. The new cases cover completed typed extras, adapter
+The final base suite contains 147 passing tests, including the unchanged Sol
+cases and implementation-side cases. The two new blocker contracts are executed
+separately and fail for their expected reasons. The new cases cover completed typed extras, adapter
 shape/rebuild behavior, unhashable model ingress, benchmark fixture invariants,
 all before/after prepared swap positions and 500 discarded handles. Final gate
 outcomes are recorded in the JSON and remediation report.
@@ -76,11 +79,11 @@ peaks are medians of per-run median peaks, measured separately from latency.
 | Shape/operation | Revision | Median ms | p95 ms | Traced median peak bytes |
 | --- | --- | --- | --- | --- |
 | flat_10000/scalar_write | baseline | 24.491 | 25.236 | 2414732 |
-| flat_10000/scalar_write | candidate | 25.131 | 25.994 | 2414580 |
+| flat_10000/scalar_write | candidate | 25.602 | 27.138 | 2463700 |
 | linear_20/nested_leaf | baseline | 1.232 | 1.327 | 71840 |
-| linear_20/nested_leaf | candidate | 1.754 | 1.913 | 70600 |
+| linear_20/nested_leaf | candidate | 1.878 | 2.041 | 65420 |
 | mixed_parent/coupled_10field | baseline | 0.490 | 0.499 | 33480 |
-| mixed_parent/coupled_10field | candidate | 0.577 | 0.600 | 33760 |
+| mixed_parent/coupled_10field | candidate | 0.597 | 0.649 | 33912 |
 
 The linear fixture uses a distinct RootChain schema so recursive child validator
 invocations are not counted as root invocations. A pre-existing duplicate invocation
@@ -96,7 +99,7 @@ The JSON contains concrete test/symbol/report paths for every row.
 | AC | Implementation evidence status | Requirement |
 | --- | --- | --- |
 | AC-001 | IMPLEMENTED; local PASS | ABC fields, supported leaves, recursive and specialized models |
-| AC-002 | IMPLEMENTED; local PASS | Completed annotation and specialization rejection with migration |
+| AC-002 | BLOCKED; new Sol regression | An unrelated unresolved ClassVar can bypass deferred concrete-field rejection |
 | AC-003 | IMPLEMENTED; local PASS | Closed input/output value and hash-position safety |
 | AC-004 | IMPLEMENTED; local PASS | Configuration, namespace, hook and extra policies |
 | AC-005 | IMPLEMENTED; local PASS | Nominal model/mapping identity and canonical public behavior |
@@ -119,16 +122,18 @@ The JSON contains concrete test/symbol/report paths for every row.
 | AC-022 | IMPLEMENTED; local PASS | Root retention/collection and bounded 500-replacement bookkeeping |
 | AC-023 | IMPLEMENTED; local PASS | Complete strict private/source coverage and installed completeness |
 | AC-024 | IMPLEMENTED; local PASS | Exact independent negative diagnostic multiset |
-| AC-025 | IMPLEMENTED; local PASS; remote pending | CI matrix and release gate dependencies |
-| AC-026 | IMPLEMENTED; local PASS; remote pending | Direct/rebuilt isolated library, HTTP and typing consumers |
-| AC-027 | IMPLEMENTED; local PASS | Actual baseline/candidate benchmark with complete measurement protocol |
-| AC-028 | IMPLEMENTED; local PASS | Finalized docs, migration, decisions and actual AC trace |
+| AC-025 | IMPLEMENTED; parent-source CI PASS; current fix pending | CI matrix and release gate dependencies |
+| AC-026 | IMPLEMENTED; parent-source artifact PASS; current fix pending | Direct/rebuilt isolated library, HTTP and typing consumers |
+| AC-027 | IMPLEMENTED; current benchmark PASS | Actual baseline/current-tree benchmark with complete measurement protocol |
+| AC-028 | BLOCKED; Sol re-review pending | Final evidence and AC trace are current-tree identified; independent approval remains pending |
 
 ## Remaining verification and follow-ups
 
-All nine remediation entries are FIXED, with no verification conflict or
-architectural escalation. Current remote CI remains unexecuted locally. Existing
-[issue #1](https://github.com/eddiethedean/pydandict/issues/1) remains untouched.
-The recursive-root validator candidate is separate pre-existing work for Sol triage.
+The current benchmark and source hashes are reconciled. Current artifact
+qualification for this unpushed fix remains unavailable locally because the
+virtual environment has no pip/twine; parent-source artifacts are retained with
+their source identity. Existing [issue #1](https://github.com/eddiethedean/pydandict/issues/1)
+remains untouched. The recursive-root validator candidate is separate
+pre-existing work for Sol triage.
 
-READY FOR SOL RE-REVIEW
+NEEDS SOL RE-REVIEW

@@ -359,7 +359,12 @@ def _check_extra_annotation(cls: type[DictModel], *, reject_generic: bool = Fals
 def _audit_incomplete_field(
     model: type[BaseModel], field_name: str, namespace: dict[str, object]
 ) -> None:
-    """Check a deferred declaration using Pydantic's active type namespace."""
+    """Check one deferred declaration using Pydantic's active type namespace.
+
+    Resolving the complete model at once is too coarse: an unrelated unresolved
+    ``ClassVar`` (which is intentionally outside our stored-field policy) must
+    not prevent a deferred stored field from being audited.
+    """
     import typing
 
     resolution_namespace: dict[str, object] = {name: value for name, value in vars(typing).items()}
@@ -368,23 +373,30 @@ def _audit_incomplete_field(
         resolution_namespace.update(vars(module))
     resolution_namespace.update(namespace)
 
+    raw_annotations = cast(object, getattr(model, "__annotations__", {}))
+    annotation: object = object
+    if isinstance(raw_annotations, dict):
+        annotation = cast(dict[str, object], raw_annotations).get(field_name, object)
+    if annotation is object:
+        field = _compat.fields(model).get(field_name)
+        annotation = cast(object, field.annotation) if field is not None else object
+
+    # Use get_type_hints on a single synthetic return annotation. This keeps
+    # resolution local to the field and therefore tolerates unrelated unresolved
+    # annotations on the model while retaining support for nested aliases.
+    def deferred_annotation() -> object:
+        return object()
+
+    deferred_annotation.__annotations__["return"] = annotation
     try:
-        annotations = typing.get_type_hints(
-            model,
+        annotation = typing.get_type_hints(
+            deferred_annotation,
             globalns=resolution_namespace,
             localns=resolution_namespace,
             include_extras=True,
-        )
+        ).get("return", annotation)
     except (NameError, TypeError):
-        annotations = {}
-    annotation = annotations.get(field_name)
-    if annotation is None and field_name == "__pydantic_extra__":
-        raw_annotations = cast(object, getattr(model, "__annotations__", {}))
-        if isinstance(raw_annotations, dict):
-            annotation = cast(dict[str, object], raw_annotations).get(field_name)
-    if annotation is None:
-        field = _compat.fields(model).get(field_name)
-        annotation = cast(object, field.annotation) if field is not None else object
+        pass
     if field_name == "__pydantic_extra__":
         args = typing.get_args(annotation)
         if typing.get_origin(annotation) is dict and len(args) == 2:
