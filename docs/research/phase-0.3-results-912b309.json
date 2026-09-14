@@ -1,0 +1,682 @@
+{
+  "ac_test_lane_map": {
+    "AC-001": {
+      "lanes": [
+        {
+          "execution": "required external runtime gate; recorded separately from this artifact driver",
+          "name": "CI compatibility matrix"
+        }
+      ],
+      "tests": [
+        "tests/test_sol_phase03_blockers.py::test_sol017_strict_scalar_entry_modes_match_pinned_basemodel",
+        "tests/test_sol_phase03_rereview_2.py::test_sol017_type_adapter_strict_json_matches_pinned_basemodel"
+      ]
+    },
+    "AC-002": {
+      "lanes": [
+        {
+          "execution": "required external runtime gate; recorded separately from this artifact driver",
+          "name": "CI compatibility matrix"
+        }
+      ],
+      "tests": [
+        "tests/test_phase02_contract.py::test_concrete_mutable_annotations_fail_with_migration_hint",
+        "tests/test_hash_ingress.py::test_unhashable_model_members_get_the_ownership_diagnostic"
+      ]
+    },
+    "AC-003": {
+      "lanes": [
+        {
+          "execution": "required external runtime gate; recorded separately from this artifact driver",
+          "name": "CI compatibility matrix"
+        }
+      ],
+      "tests": [
+        "tests/test_phase03_contract.py::test_scalar_reads_views_and_canonical_namespace"
+      ]
+    },
+    "AC-004": {
+      "lanes": [
+        {
+          "execution": "required external runtime gate; recorded separately from this artifact driver",
+          "name": "CI compatibility matrix"
+        }
+      ],
+      "tests": [
+        "tests/test_phase03_contract.py::test_scalar_reads_views_and_canonical_namespace"
+      ]
+    },
+    "AC-005": {
+      "lanes": [
+        {
+          "execution": "required external runtime gate; recorded separately from this artifact driver",
+          "name": "CI compatibility matrix"
+        }
+      ],
+      "tests": [
+        "tests/test_prototype.py::test_identity_serialization_and_mapping_views"
+      ]
+    },
+    "AC-006": {
+      "lanes": [
+        {
+          "execution": "required external runtime gate; recorded separately from this artifact driver",
+          "name": "CI compatibility matrix"
+        }
+      ],
+      "tests": [
+        "tests/test_inventory.py::test_explicit_public_alias_flags"
+      ]
+    },
+    "AC-007": {
+      "lanes": [
+        {
+          "execution": "required external runtime gate; recorded separately from this artifact driver",
+          "name": "CI compatibility matrix"
+        }
+      ],
+      "tests": [
+        "tests/test_phase03_contract.py::test_scalar_bulk_failure_is_atomic_and_reset_updates_metadata"
+      ]
+    },
+    "AC-008": {
+      "lanes": [
+        {
+          "execution": "required external runtime gate; recorded separately from this artifact driver",
+          "name": "CI compatibility matrix"
+        }
+      ],
+      "tests": [
+        "tests/test_stateful.py::TestScalarTransactions"
+      ]
+    },
+    "AC-009": {
+      "lanes": [
+        {
+          "execution": "required external runtime gate; recorded separately from this artifact driver",
+          "name": "CI compatibility matrix"
+        }
+      ],
+      "tests": [
+        "tests/test_phase03_contract.py::test_non_string_pop_is_rejected_before_fallback",
+        "tests/test_sol_phase03_blockers.py::test_sol014_non_string_bulk_names_precede_frozen_policy"
+      ]
+    },
+    "AC-010": {
+      "lanes": [
+        {
+          "execution": "required external runtime gate; recorded separately from this artifact driver",
+          "name": "CI compatibility matrix"
+        }
+      ],
+      "tests": [
+        "tests/test_stateful.py::TestScalarTransactions"
+      ]
+    },
+    "AC-011": {
+      "lanes": [
+        {
+          "execution": "required external runtime gate; recorded separately from this artifact driver",
+          "name": "CI compatibility matrix"
+        }
+      ],
+      "tests": [
+        "tests/test_prototype.py::test_extras_destructive_metadata_and_errors"
+      ]
+    },
+    "AC-012": {
+      "lanes": [
+        {
+          "execution": "required external runtime gate; recorded separately from this artifact driver",
+          "name": "CI compatibility matrix"
+        }
+      ],
+      "tests": [
+        "tests/test_stateful.py::TestScalarTransactions"
+      ]
+    },
+    "AC-013": {
+      "lanes": [
+        {
+          "execution": "required external runtime gate; recorded separately from this artifact driver",
+          "name": "CI compatibility matrix"
+        }
+      ],
+      "tests": [
+        "tests/test_prototype.py::test_frozen_ancestors_and_copy"
+      ]
+    },
+    "AC-014": {
+      "lanes": [
+        {
+          "execution": "required external runtime gate; recorded separately from this artifact driver",
+          "name": "CI compatibility matrix"
+        }
+      ],
+      "tests": [
+        "tests/test_phase03_contract.py::test_scalar_bulk_failure_is_atomic_and_reset_updates_metadata",
+        "tests/test_stateful.py::TestScalarTransactions"
+      ]
+    },
+    "AC-015": {
+      "lanes": [
+        {
+          "execution": "required external runtime gate; recorded separately from this artifact driver",
+          "name": "CI compatibility matrix"
+        }
+      ],
+      "tests": [
+        "tests/test_prototype.py::test_nonidempotent_unchanged_normalizer_rejected_without_drift"
+      ]
+    },
+    "AC-016": {
+      "lanes": [
+        {
+          "execution": "required external runtime gate; recorded separately from this artifact driver",
+          "name": "CI compatibility matrix"
+        }
+      ],
+      "tests": [
+        "tests/test_transaction_remediation.py::test_every_prepared_swap_boundary_recovers"
+      ]
+    },
+    "AC-017": {
+      "lanes": [
+        {
+          "execution": "required external runtime gate; recorded separately from this artifact driver",
+          "name": "CI compatibility matrix"
+        }
+      ],
+      "tests": [
+        "tests/test_inventory.py::test_cached_computed_fields_are_invalidated"
+      ]
+    },
+    "AC-018": {
+      "lanes": [
+        {
+          "execution": "required external runtime gate; recorded separately from this artifact driver",
+          "name": "CI compatibility matrix"
+        }
+      ],
+      "tests": [
+        "tests/test_phase03_contract.py::test_scalar_copy_is_validated_and_independent"
+      ]
+    },
+    "AC-019": {
+      "lanes": [
+        {
+          "execution": "required external runtime gate; recorded separately from this artifact driver",
+          "name": "CI compatibility matrix"
+        }
+      ],
+      "tests": [
+        "tests/test_prototype.py::test_unsafe_inputs_hooks_and_trusted_paths_rejected"
+      ]
+    },
+    "AC-020": {
+      "lanes": [
+        {
+          "execution": "required external runtime gate; recorded separately from this artifact driver",
+          "name": "CI compatibility matrix"
+        }
+      ],
+      "tests": [
+        "tests/test_compat_remediation.py::test_type_adapter_native_mode_keeps_dynamic_strict_and_extra_options",
+        "tests/test_sol_phase03_rereview.py::test_sol017_json_entry_options_match_pinned_basemodel",
+        "tests/test_sol_phase03_rereview_2.py::test_sol017_type_adapter_strict_json_matches_pinned_basemodel"
+      ]
+    },
+    "AC-021": {
+      "lanes": [
+        {
+          "execution": "required external runtime gate; recorded separately from this artifact driver",
+          "name": "CI compatibility matrix"
+        }
+      ],
+      "tests": [
+        "tests/test_prototype.py::test_serializers_exclusions_computed_and_context"
+      ]
+    },
+    "AC-022": {
+      "lanes": [
+        {
+          "execution": "required external runtime gate; recorded separately from this artifact driver",
+          "name": "CI compatibility matrix"
+        }
+      ],
+      "tests": [
+        "tests/test_inventory.py::test_stale_child_repr_equality_and_metadata"
+      ]
+    },
+    "AC-023": {
+      "lanes": [
+        {
+          "execution": "required external runtime gate; recorded separately from this artifact driver",
+          "name": "CI compatibility matrix"
+        }
+      ],
+      "tests": [
+        "tools/check_typing.py",
+        "pyright --verifytypes pydandict --ignoreexternal"
+      ]
+    },
+    "AC-024": {
+      "lanes": [
+        {
+          "execution": "executed by this driver for the recorded source/artifacts",
+          "name": "local package qualification"
+        }
+      ],
+      "tests": [
+        "examples/library_config.py (direct/rebuilt clean-wheel execution)",
+        "installed metadata, nested, HTTP and typing consumers"
+      ]
+    },
+    "AC-025": {
+      "lanes": [
+        {
+          "execution": "executed by this driver for the recorded source/artifacts",
+          "name": "local package qualification"
+        },
+        {
+          "execution": "required external runtime gate; recorded separately from this artifact driver",
+          "name": "CI compatibility matrix"
+        }
+      ],
+      "tests": [
+        "tests/test_sol_phase03_rereview.py::test_sol015_missing_provenance_cannot_replace_durable_evidence",
+        "tools/qualify_package.py"
+      ]
+    },
+    "AC-026": {
+      "lanes": [
+        {
+          "execution": "required external runtime gate; recorded separately from this artifact driver",
+          "name": "CI compatibility matrix"
+        }
+      ],
+      "stateful_profile": {
+        "deadline": null,
+        "derandomize": true,
+        "max_examples": 100,
+        "stateful_step_count": 100,
+        "status": "executed by the repository runtime/CI gate, not this artifact driver",
+        "test": "tests/test_stateful.py::TestScalarTransactions"
+      },
+      "tests": [
+        "tests/test_stateful.py::TestScalarTransactions"
+      ]
+    },
+    "AC-027": {
+      "lanes": [
+        {
+          "execution": "required external runtime gate; recorded separately from this artifact driver",
+          "name": "CI compatibility matrix"
+        }
+      ],
+      "tests": [
+        "tests/test_stateful.py::TestTransactions",
+        "tests/test_sol_phase02_rereview_5.py",
+        "tests/test_sol_phase03_blockers.py"
+      ]
+    },
+    "AC-028": {
+      "lanes": [
+        {
+          "execution": "executed by this driver for the recorded source/artifacts",
+          "name": "local package qualification"
+        },
+        {
+          "execution": "required external runtime gate; recorded separately from this artifact driver",
+          "name": "CI compatibility matrix"
+        }
+      ],
+      "tests": [
+        "examples/library_config.py (direct/rebuilt clean-wheel execution)",
+        "tools/check_docs.py"
+      ]
+    }
+  },
+  "commands": [
+    {
+      "argv": [
+        "/opt/homebrew/opt/python@3.11/bin/python3.11",
+        "-m",
+        "build",
+        "--sdist",
+        "--wheel",
+        "--outdir",
+        "/Volumes/T7/pydandict-sol-rereview-QL053o/pydandict-qualification-azt8e9y9/direct"
+      ],
+      "cwd": "/Volumes/T7/coding/pydandict",
+      "source_path_injection": false
+    },
+    {
+      "argv": [
+        "/opt/homebrew/opt/python@3.11/bin/python3.11",
+        "-m",
+        "twine",
+        "check",
+        "/Volumes/T7/pydandict-sol-rereview-QL053o/pydandict-qualification-azt8e9y9/direct/pydandict-0.2.0.tar.gz",
+        "/Volumes/T7/pydandict-sol-rereview-QL053o/pydandict-qualification-azt8e9y9/direct/pydandict-0.2.0-py3-none-any.whl"
+      ],
+      "cwd": "/Volumes/T7/coding/pydandict",
+      "source_path_injection": false
+    },
+    {
+      "argv": [
+        "/opt/homebrew/opt/python@3.11/bin/python3.11",
+        "-m",
+        "build",
+        "--wheel",
+        "--outdir",
+        "/Volumes/T7/pydandict-sol-rereview-QL053o/pydandict-qualification-azt8e9y9/rebuilt"
+      ],
+      "cwd": "/Volumes/T7/pydandict-sol-rereview-QL053o/pydandict-qualification-azt8e9y9/source/pydandict-0.2.0",
+      "source_path_injection": false
+    },
+    {
+      "argv": [
+        "/Volumes/T7/pydandict-sol-rereview-QL053o/pydandict-qualification-azt8e9y9/direct-bare/bin/python",
+        "-m",
+        "pip",
+        "install",
+        "/Volumes/T7/pydandict-sol-rereview-QL053o/pydandict-qualification-azt8e9y9/direct/pydandict-0.2.0-py3-none-any.whl"
+      ],
+      "cwd": "/Volumes/T7/pydandict-sol-rereview-QL053o/pydandict-qualification-azt8e9y9",
+      "source_path_injection": false
+    },
+    {
+      "argv": [
+        "/Volumes/T7/pydandict-sol-rereview-QL053o/pydandict-qualification-azt8e9y9/direct-bare/bin/python",
+        "/Volumes/T7/pydandict-sol-rereview-QL053o/pydandict-qualification-azt8e9y9/direct-library_config.py"
+      ],
+      "cwd": "/Volumes/T7/pydandict-sol-rereview-QL053o/pydandict-qualification-azt8e9y9",
+      "source_path_injection": false
+    },
+    {
+      "argv": [
+        "/Volumes/T7/pydandict-sol-rereview-QL053o/pydandict-qualification-azt8e9y9/direct-bare/bin/python",
+        "-c",
+        "from importlib.metadata import distribution\nfrom pathlib import Path\ndist = distribution('pydandict')\nassert dist.metadata['Name'] == 'pydandict'\nassert dist.version == '0.2.0'\nassert dist.metadata['License-Expression'] == 'MIT'\nruntime = [item for item in (dist.requires or []) if 'extra ==' not in item]\nassert runtime == ['pydantic==2.13.4'], runtime\nlicenses = [item for item in (dist.files or []) if str(item).lower().endswith('licenses/license')]\nassert len(licenses) == 1\nassert Path(dist.locate_file(licenses[0])).read_text().startswith('MIT License')\nprint('metadata verified')\n"
+      ],
+      "cwd": "/Volumes/T7/pydandict-sol-rereview-QL053o/pydandict-qualification-azt8e9y9",
+      "source_path_injection": false
+    },
+    {
+      "argv": [
+        "/Volumes/T7/pydandict-sol-rereview-QL053o/pydandict-qualification-azt8e9y9/direct-bare/bin/python",
+        "-c",
+        "from pathlib import Path\nfrom collections.abc import Mapping, MutableSequence\nimport sys, pydandict\nfrom pydantic import BaseModel, ValidationError\nfrom pydandict import DictModel\nmodule = Path(pydandict.__file__).resolve()\nassert module.is_relative_to(Path(sys.prefix).resolve())\nassert not module.is_relative_to(Path('/Volumes/T7/coding/pydandict').resolve())\nclass Item(DictModel):\n    numbers: MutableSequence[int]\nitem = Item(numbers=[1])\nassert isinstance(item, BaseModel) and isinstance(item, Mapping)\nhandle = item.numbers\nitem.numbers.append(2)\nassert item.numbers is handle and item.model_dump() == {'numbers': [1, 2]}\ntry:\n    item.numbers.append('bad')\nexcept ValidationError:\n    assert item.numbers == [1, 2]\nelse:\n    raise AssertionError('invalid library edit committed')\nclass Config(DictModel):\n    low: int = 1\n    high: int = 3\ncfg = Config()\nassert dict(cfg) == {'low': 1, 'high': 3} and cfg.model_fields_set == set()\ncfg.update(low=5, high=8)\nassert (cfg.low, cfg.high) == (5, 8)\ncopy_cfg = cfg.model_copy(update={'low': 6})\nassert copy_cfg.low == 6 and cfg.low == 5\ncfg.reset('low', 'high')\nassert dict(cfg) == {'low': 1, 'high': 3}\nprint(module)\n"
+      ],
+      "cwd": "/Volumes/T7/pydandict-sol-rereview-QL053o/pydandict-qualification-azt8e9y9",
+      "source_path_injection": false
+    },
+    {
+      "argv": [
+        "/Volumes/T7/pydandict-sol-rereview-QL053o/pydandict-qualification-azt8e9y9/direct-bare/bin/python",
+        "-m",
+        "pip",
+        "freeze"
+      ],
+      "cwd": "/Volumes/T7/pydandict-sol-rereview-QL053o/pydandict-qualification-azt8e9y9",
+      "source_path_injection": false
+    },
+    {
+      "argv": [
+        "/Volumes/T7/pydandict-sol-rereview-QL053o/pydandict-qualification-azt8e9y9/direct-http/bin/python",
+        "-m",
+        "pip",
+        "install",
+        "/Volumes/T7/pydandict-sol-rereview-QL053o/pydandict-qualification-azt8e9y9/direct/pydandict-0.2.0-py3-none-any.whl",
+        "fastapi==0.141.1",
+        "httpx==0.28.1",
+        "pyright==1.1.411"
+      ],
+      "cwd": "/Volumes/T7/pydandict-sol-rereview-QL053o/pydandict-qualification-azt8e9y9",
+      "source_path_injection": false
+    },
+    {
+      "argv": [
+        "/Volumes/T7/pydandict-sol-rereview-QL053o/pydandict-qualification-azt8e9y9/direct-http/bin/python",
+        "/Volumes/T7/pydandict-sol-rereview-QL053o/pydandict-qualification-azt8e9y9/direct-consumer.py"
+      ],
+      "cwd": "/Volumes/T7/pydandict-sol-rereview-QL053o/pydandict-qualification-azt8e9y9",
+      "source_path_injection": false
+    },
+    {
+      "argv": [
+        "/Volumes/T7/pydandict-sol-rereview-QL053o/pydandict-qualification-azt8e9y9/direct-http/bin/python",
+        "/Volumes/T7/pydandict-sol-rereview-QL053o/pydandict-qualification-azt8e9y9/direct-typing.py"
+      ],
+      "cwd": "/Volumes/T7/pydandict-sol-rereview-QL053o/pydandict-qualification-azt8e9y9",
+      "source_path_injection": false
+    },
+    {
+      "argv": [
+        "/Volumes/T7/pydandict-sol-rereview-QL053o/pydandict-qualification-azt8e9y9/direct-http/bin/python",
+        "-c",
+        "import site; print(site.getsitepackages()[0])"
+      ],
+      "cwd": "/Volumes/T7/pydandict-sol-rereview-QL053o/pydandict-qualification-azt8e9y9",
+      "source_path_injection": false
+    },
+    {
+      "argv": [
+        "/Volumes/T7/pydandict-sol-rereview-QL053o/pydandict-qualification-azt8e9y9/direct-http/bin/python",
+        "-m",
+        "pyright",
+        "--project",
+        "/Volumes/T7/pydandict-sol-rereview-QL053o/pydandict-qualification-azt8e9y9/direct-pyrightconfig.json"
+      ],
+      "cwd": "/Volumes/T7/pydandict-sol-rereview-QL053o/pydandict-qualification-azt8e9y9",
+      "source_path_injection": false
+    },
+    {
+      "argv": [
+        "/Volumes/T7/pydandict-sol-rereview-QL053o/pydandict-qualification-azt8e9y9/direct-http/bin/python",
+        "-m",
+        "pyright",
+        "--verifytypes",
+        "pydandict",
+        "--ignoreexternal"
+      ],
+      "cwd": "/Volumes/T7/pydandict-sol-rereview-QL053o/pydandict-qualification-azt8e9y9",
+      "source_path_injection": false
+    },
+    {
+      "argv": [
+        "/Volumes/T7/pydandict-sol-rereview-QL053o/pydandict-qualification-azt8e9y9/direct-http/bin/python",
+        "-c",
+        "\nimport json, subprocess, sys\nfrom pathlib import Path\nfixture = Path('/Volumes/T7/pydandict-sol-rereview-QL053o/pydandict-qualification-azt8e9y9/direct-negative.py')\nexpected = sorted([(14, 'reportAttributeAccessIssue'), (15, 'reportArgumentType'), (16, 'reportAssignmentType'), (17, 'reportAssertTypeFailure')])\nresult = subprocess.run(\n    [sys.executable, \"-m\", \"pyright\", \"--project\", '/Volumes/T7/pydandict-sol-rereview-QL053o/pydandict-qualification-azt8e9y9/direct-negative-config.json', \"--outputjson\"],\n    text=True, capture_output=True, check=False,\n)\nassert result.returncode == 1, result.stdout + result.stderr\nreport = json.loads(result.stdout)\ndiagnostics = report[\"generalDiagnostics\"]\nactual = []\nfor diagnostic in diagnostics:\n    assert diagnostic[\"severity\"] == \"error\", diagnostic\n    assert Path(diagnostic[\"file\"]).resolve() == fixture.resolve(), diagnostic\n    actual.append((diagnostic[\"range\"][\"start\"][\"line\"] + 1, diagnostic[\"rule\"]))\nassert sorted(actual) == expected, (actual, expected)\nassert report[\"summary\"][\"errorCount\"] == len(expected), report\nassert report[\"summary\"][\"filesAnalyzed\"] == 1, report\nprint(json.dumps({\"expected_errors\": len(expected), \"actual_errors\": len(actual)}))\n"
+      ],
+      "cwd": "/Volumes/T7/pydandict-sol-rereview-QL053o/pydandict-qualification-azt8e9y9",
+      "source_path_injection": false
+    },
+    {
+      "argv": [
+        "/Volumes/T7/pydandict-sol-rereview-QL053o/pydandict-qualification-azt8e9y9/direct-http/bin/python",
+        "-m",
+        "pip",
+        "freeze"
+      ],
+      "cwd": "/Volumes/T7/pydandict-sol-rereview-QL053o/pydandict-qualification-azt8e9y9",
+      "source_path_injection": false
+    },
+    {
+      "argv": [
+        "/Volumes/T7/pydandict-sol-rereview-QL053o/pydandict-qualification-azt8e9y9/rebuilt-bare/bin/python",
+        "-m",
+        "pip",
+        "install",
+        "/Volumes/T7/pydandict-sol-rereview-QL053o/pydandict-qualification-azt8e9y9/rebuilt/pydandict-0.2.0-py3-none-any.whl"
+      ],
+      "cwd": "/Volumes/T7/pydandict-sol-rereview-QL053o/pydandict-qualification-azt8e9y9",
+      "source_path_injection": false
+    },
+    {
+      "argv": [
+        "/Volumes/T7/pydandict-sol-rereview-QL053o/pydandict-qualification-azt8e9y9/rebuilt-bare/bin/python",
+        "/Volumes/T7/pydandict-sol-rereview-QL053o/pydandict-qualification-azt8e9y9/rebuilt-library_config.py"
+      ],
+      "cwd": "/Volumes/T7/pydandict-sol-rereview-QL053o/pydandict-qualification-azt8e9y9",
+      "source_path_injection": false
+    },
+    {
+      "argv": [
+        "/Volumes/T7/pydandict-sol-rereview-QL053o/pydandict-qualification-azt8e9y9/rebuilt-bare/bin/python",
+        "-c",
+        "from importlib.metadata import distribution\nfrom pathlib import Path\ndist = distribution('pydandict')\nassert dist.metadata['Name'] == 'pydandict'\nassert dist.version == '0.2.0'\nassert dist.metadata['License-Expression'] == 'MIT'\nruntime = [item for item in (dist.requires or []) if 'extra ==' not in item]\nassert runtime == ['pydantic==2.13.4'], runtime\nlicenses = [item for item in (dist.files or []) if str(item).lower().endswith('licenses/license')]\nassert len(licenses) == 1\nassert Path(dist.locate_file(licenses[0])).read_text().startswith('MIT License')\nprint('metadata verified')\n"
+      ],
+      "cwd": "/Volumes/T7/pydandict-sol-rereview-QL053o/pydandict-qualification-azt8e9y9",
+      "source_path_injection": false
+    },
+    {
+      "argv": [
+        "/Volumes/T7/pydandict-sol-rereview-QL053o/pydandict-qualification-azt8e9y9/rebuilt-bare/bin/python",
+        "-c",
+        "from pathlib import Path\nfrom collections.abc import Mapping, MutableSequence\nimport sys, pydandict\nfrom pydantic import BaseModel, ValidationError\nfrom pydandict import DictModel\nmodule = Path(pydandict.__file__).resolve()\nassert module.is_relative_to(Path(sys.prefix).resolve())\nassert not module.is_relative_to(Path('/Volumes/T7/coding/pydandict').resolve())\nclass Item(DictModel):\n    numbers: MutableSequence[int]\nitem = Item(numbers=[1])\nassert isinstance(item, BaseModel) and isinstance(item, Mapping)\nhandle = item.numbers\nitem.numbers.append(2)\nassert item.numbers is handle and item.model_dump() == {'numbers': [1, 2]}\ntry:\n    item.numbers.append('bad')\nexcept ValidationError:\n    assert item.numbers == [1, 2]\nelse:\n    raise AssertionError('invalid library edit committed')\nclass Config(DictModel):\n    low: int = 1\n    high: int = 3\ncfg = Config()\nassert dict(cfg) == {'low': 1, 'high': 3} and cfg.model_fields_set == set()\ncfg.update(low=5, high=8)\nassert (cfg.low, cfg.high) == (5, 8)\ncopy_cfg = cfg.model_copy(update={'low': 6})\nassert copy_cfg.low == 6 and cfg.low == 5\ncfg.reset('low', 'high')\nassert dict(cfg) == {'low': 1, 'high': 3}\nprint(module)\n"
+      ],
+      "cwd": "/Volumes/T7/pydandict-sol-rereview-QL053o/pydandict-qualification-azt8e9y9",
+      "source_path_injection": false
+    },
+    {
+      "argv": [
+        "/Volumes/T7/pydandict-sol-rereview-QL053o/pydandict-qualification-azt8e9y9/rebuilt-bare/bin/python",
+        "-m",
+        "pip",
+        "freeze"
+      ],
+      "cwd": "/Volumes/T7/pydandict-sol-rereview-QL053o/pydandict-qualification-azt8e9y9",
+      "source_path_injection": false
+    },
+    {
+      "argv": [
+        "/Volumes/T7/pydandict-sol-rereview-QL053o/pydandict-qualification-azt8e9y9/rebuilt-http/bin/python",
+        "-m",
+        "pip",
+        "install",
+        "/Volumes/T7/pydandict-sol-rereview-QL053o/pydandict-qualification-azt8e9y9/rebuilt/pydandict-0.2.0-py3-none-any.whl",
+        "fastapi==0.141.1",
+        "httpx==0.28.1",
+        "pyright==1.1.411"
+      ],
+      "cwd": "/Volumes/T7/pydandict-sol-rereview-QL053o/pydandict-qualification-azt8e9y9",
+      "source_path_injection": false
+    },
+    {
+      "argv": [
+        "/Volumes/T7/pydandict-sol-rereview-QL053o/pydandict-qualification-azt8e9y9/rebuilt-http/bin/python",
+        "/Volumes/T7/pydandict-sol-rereview-QL053o/pydandict-qualification-azt8e9y9/rebuilt-consumer.py"
+      ],
+      "cwd": "/Volumes/T7/pydandict-sol-rereview-QL053o/pydandict-qualification-azt8e9y9",
+      "source_path_injection": false
+    },
+    {
+      "argv": [
+        "/Volumes/T7/pydandict-sol-rereview-QL053o/pydandict-qualification-azt8e9y9/rebuilt-http/bin/python",
+        "/Volumes/T7/pydandict-sol-rereview-QL053o/pydandict-qualification-azt8e9y9/rebuilt-typing.py"
+      ],
+      "cwd": "/Volumes/T7/pydandict-sol-rereview-QL053o/pydandict-qualification-azt8e9y9",
+      "source_path_injection": false
+    },
+    {
+      "argv": [
+        "/Volumes/T7/pydandict-sol-rereview-QL053o/pydandict-qualification-azt8e9y9/rebuilt-http/bin/python",
+        "-c",
+        "import site; print(site.getsitepackages()[0])"
+      ],
+      "cwd": "/Volumes/T7/pydandict-sol-rereview-QL053o/pydandict-qualification-azt8e9y9",
+      "source_path_injection": false
+    },
+    {
+      "argv": [
+        "/Volumes/T7/pydandict-sol-rereview-QL053o/pydandict-qualification-azt8e9y9/rebuilt-http/bin/python",
+        "-m",
+        "pyright",
+        "--project",
+        "/Volumes/T7/pydandict-sol-rereview-QL053o/pydandict-qualification-azt8e9y9/rebuilt-pyrightconfig.json"
+      ],
+      "cwd": "/Volumes/T7/pydandict-sol-rereview-QL053o/pydandict-qualification-azt8e9y9",
+      "source_path_injection": false
+    },
+    {
+      "argv": [
+        "/Volumes/T7/pydandict-sol-rereview-QL053o/pydandict-qualification-azt8e9y9/rebuilt-http/bin/python",
+        "-m",
+        "pyright",
+        "--verifytypes",
+        "pydandict",
+        "--ignoreexternal"
+      ],
+      "cwd": "/Volumes/T7/pydandict-sol-rereview-QL053o/pydandict-qualification-azt8e9y9",
+      "source_path_injection": false
+    },
+    {
+      "argv": [
+        "/Volumes/T7/pydandict-sol-rereview-QL053o/pydandict-qualification-azt8e9y9/rebuilt-http/bin/python",
+        "-c",
+        "\nimport json, subprocess, sys\nfrom pathlib import Path\nfixture = Path('/Volumes/T7/pydandict-sol-rereview-QL053o/pydandict-qualification-azt8e9y9/rebuilt-negative.py')\nexpected = sorted([(14, 'reportAttributeAccessIssue'), (15, 'reportArgumentType'), (16, 'reportAssignmentType'), (17, 'reportAssertTypeFailure')])\nresult = subprocess.run(\n    [sys.executable, \"-m\", \"pyright\", \"--project\", '/Volumes/T7/pydandict-sol-rereview-QL053o/pydandict-qualification-azt8e9y9/rebuilt-negative-config.json', \"--outputjson\"],\n    text=True, capture_output=True, check=False,\n)\nassert result.returncode == 1, result.stdout + result.stderr\nreport = json.loads(result.stdout)\ndiagnostics = report[\"generalDiagnostics\"]\nactual = []\nfor diagnostic in diagnostics:\n    assert diagnostic[\"severity\"] == \"error\", diagnostic\n    assert Path(diagnostic[\"file\"]).resolve() == fixture.resolve(), diagnostic\n    actual.append((diagnostic[\"range\"][\"start\"][\"line\"] + 1, diagnostic[\"rule\"]))\nassert sorted(actual) == expected, (actual, expected)\nassert report[\"summary\"][\"errorCount\"] == len(expected), report\nassert report[\"summary\"][\"filesAnalyzed\"] == 1, report\nprint(json.dumps({\"expected_errors\": len(expected), \"actual_errors\": len(actual)}))\n"
+      ],
+      "cwd": "/Volumes/T7/pydandict-sol-rereview-QL053o/pydandict-qualification-azt8e9y9",
+      "source_path_injection": false
+    },
+    {
+      "argv": [
+        "/Volumes/T7/pydandict-sol-rereview-QL053o/pydandict-qualification-azt8e9y9/rebuilt-http/bin/python",
+        "-m",
+        "pip",
+        "freeze"
+      ],
+      "cwd": "/Volumes/T7/pydandict-sol-rereview-QL053o/pydandict-qualification-azt8e9y9",
+      "source_path_injection": false
+    },
+    {
+      "argv": [
+        "git",
+        "rev-parse",
+        "HEAD"
+      ],
+      "cwd": "/Volumes/T7/coding/pydandict",
+      "source_path_injection": false
+    }
+  ],
+  "direct_wheel": "pydandict-0.2.0-py3-none-any.whl",
+  "direct_wheel_sha256": "f8452c581936ee423e02cb08e21e3c77e3f3a165de818759e96ee49b3f8c302e",
+  "limitations": [
+    "This local package qualification does not prove every advertised CI lane.",
+    "The full runtime suite, scalar stateful profile and docs checker are recorded as external required gates rather than asserted as executed here."
+  ],
+  "observed_failures": [],
+  "platform": "macOS-26.5.2-arm64-arm-64bit",
+  "python": "3.11.14 (main, Oct  9 2025, 16:16:55) [Clang 17.0.0 (clang-1700.6.3.2)]",
+  "qualification_profile": "phase-0.3-scalar-installed-consumers",
+  "qualification_status": "qualified",
+  "rebuilt_wheel": "pydandict-0.2.0-py3-none-any.whl",
+  "rebuilt_wheel_sha256": "14a69fcbc2f4b1f78380eb9e7c557f587044846c4d4de78f4bf9254f4b840881",
+  "resolved_dependencies": {
+    "direct": "annotated-doc==0.0.5\nannotated-types==0.8.0\nanyio==4.15.1\ncertifi==2026.7.22\nfastapi==0.141.1\nh11==0.16.0\nhttpcore==1.0.9\nhttpx==0.28.1\nidna==3.19\nnodeenv==1.10.0\npydandict @ file:///Volumes/T7/pydandict-sol-rereview-QL053o/pydandict-qualification-azt8e9y9/direct/pydandict-0.2.0-py3-none-any.whl#sha256=f8452c581936ee423e02cb08e21e3c77e3f3a165de818759e96ee49b3f8c302e\npydantic==2.13.4\npydantic_core==2.46.4\npyright==1.1.411\nstarlette==1.6.0\ntyping-inspection==0.4.4\ntyping_extensions==4.16.0\n",
+    "direct_bare": "annotated-types==0.8.0\npydandict @ file:///Volumes/T7/pydandict-sol-rereview-QL053o/pydandict-qualification-azt8e9y9/direct/pydandict-0.2.0-py3-none-any.whl#sha256=f8452c581936ee423e02cb08e21e3c77e3f3a165de818759e96ee49b3f8c302e\npydantic==2.13.4\npydantic_core==2.46.4\ntyping-inspection==0.4.4\ntyping_extensions==4.16.0\n",
+    "direct_bare_import": "/Volumes/T7/pydandict-sol-rereview-QL053o/pydandict-qualification-azt8e9y9/direct-bare/lib/python3.11/site-packages/pydandict/__init__.py\n",
+    "direct_library_example": "",
+    "direct_metadata": "metadata verified\n",
+    "direct_negative_typing": "{\"expected_errors\": 4, \"actual_errors\": 4}\n",
+    "rebuilt": "annotated-doc==0.0.5\nannotated-types==0.8.0\nanyio==4.15.1\ncertifi==2026.7.22\nfastapi==0.141.1\nh11==0.16.0\nhttpcore==1.0.9\nhttpx==0.28.1\nidna==3.19\nnodeenv==1.10.0\npydandict @ file:///Volumes/T7/pydandict-sol-rereview-QL053o/pydandict-qualification-azt8e9y9/rebuilt/pydandict-0.2.0-py3-none-any.whl#sha256=14a69fcbc2f4b1f78380eb9e7c557f587044846c4d4de78f4bf9254f4b840881\npydantic==2.13.4\npydantic_core==2.46.4\npyright==1.1.411\nstarlette==1.6.0\ntyping-inspection==0.4.4\ntyping_extensions==4.16.0\n",
+    "rebuilt_bare": "annotated-types==0.8.0\npydandict @ file:///Volumes/T7/pydandict-sol-rereview-QL053o/pydandict-qualification-azt8e9y9/rebuilt/pydandict-0.2.0-py3-none-any.whl#sha256=14a69fcbc2f4b1f78380eb9e7c557f587044846c4d4de78f4bf9254f4b840881\npydantic==2.13.4\npydantic_core==2.46.4\ntyping-inspection==0.4.4\ntyping_extensions==4.16.0\n",
+    "rebuilt_bare_import": "/Volumes/T7/pydandict-sol-rereview-QL053o/pydandict-qualification-azt8e9y9/rebuilt-bare/lib/python3.11/site-packages/pydandict/__init__.py\n",
+    "rebuilt_library_example": "",
+    "rebuilt_metadata": "metadata verified\n",
+    "rebuilt_negative_typing": "{\"expected_errors\": 4, \"actual_errors\": 4}\n"
+  },
+  "scalar_stateful_profile": {
+    "deadline": null,
+    "derandomize": true,
+    "max_examples": 100,
+    "stateful_step_count": 100,
+    "status": "executed by the repository runtime/CI gate, not this artifact driver",
+    "test": "tests/test_stateful.py::TestScalarTransactions"
+  },
+  "sdist": "pydandict-0.2.0.tar.gz",
+  "sdist_sha256": "e2b91a9393e0e0d6acc325677f2ddb95821102efe626b736e771b8c4bd92811c",
+  "source_commit": "912b309350d94f75b8a8608f71c83b8d13132e05"
+}

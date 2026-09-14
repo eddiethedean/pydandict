@@ -1,0 +1,1750 @@
+{
+  "qualification_status": "non-qualifying",
+  "reason": "SOL-017 remains open; coverage audit and current all-platform candidate execution remain incomplete.",
+  "review_date": "2026-09-14",
+  "source": {
+    "base_commit": "5c72df2f2a6f6d3244810c39f2ef6a9d676f441e",
+    "worktree_clean": false,
+    "file_sha256": {
+      "src/pydandict/__init__.py": "7ac521e6fb1b7f6e001b0c259e5d22f750ffdd4de1270fd00a504ea4b435ac6b",
+      "src/pydandict/_compat.py": "00156cc74d036e4f402936d075409362650890e978934d076baf0e93fe80c0d3",
+      "src/pydandict/_containers.py": "b4240fe2af4b7a5ca3a2000eb017133e1889288b7ccea2ff79363208906f2857",
+      "src/pydandict/_core.py": "dd62456dc64e4d929b397173f22f6722e46f04de6e2a617e34d2ab9ea1946251",
+      "src/pydandict/py.typed": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "tests/test_benchmark_contract.py": "34f34419364d18054df714dbd1b1b76b8fabccf75de7c6dcd676c5ad27a17da5",
+      "tests/test_compat_remediation.py": "1809ce453dabd2f9fad38e7169b8addc6de2ad0c8d4405ca2b769997692d2650",
+      "tests/test_extra_annotation_completion.py": "7ac4afa5e3a1e52bfa8060bc39866c2e9d6f181d532d678619b5cf0d71497354",
+      "tests/test_hash_ingress.py": "027e5dbf1bdf50a18e06201432f053e110dbf856c4ae124714781c7ba8826656",
+      "tests/test_inventory.py": "59fe3203b6b92063a5b6833cc0cfb737a15bf06c6615f85d6625a7ceb7821690",
+      "tests/test_phase02_contract.py": "b7f60cc3e65c5ff59bb6e9f7f6053b729335ecd56c4aca37b29b4647f24d068c",
+      "tests/test_phase03_contract.py": "0646a3c343f61f8aa3d6a3bffb0adb05ec875c5c19dfe370c26fa578670e2f6c",
+      "tests/test_phase03_evidence_contract.py": "c4094bc1285d7df8352b8ed9ac495aa13dc6bdf9126253146bc7f14738849740",
+      "tests/test_prototype.py": "16a697a8fab06396ad2dfcf7566bf1f5af1f47eae62b971f38e0e1daa96f8834",
+      "tests/test_sol_phase02_blockers.py": "e9164fb4ee267bdddcf0dce5154bc04008982b12feadded7042679bb63d8fe8c",
+      "tests/test_sol_phase02_rereview.py": "62337ad40a3cd28fa511f6646b1027c86f46dfd94e5dc2c33c0172f5a6349815",
+      "tests/test_sol_phase02_rereview_2.py": "de0d6fcee0e73fb0b5bbcad6e19fb0c22cdf59399cfd9adb6f6a1adc8fee94e3",
+      "tests/test_sol_phase02_rereview_3.py": "2debc4534eb79be6ece66e2675e69227b417c06ee7401af0fb6e5556b1b71430",
+      "tests/test_sol_phase02_rereview_4.py": "fafd74735f20345c49f414fb2a987d845b174b07c70881ea17e1da8be112be3f",
+      "tests/test_sol_phase02_rereview_5.py": "29fa9b27d32127c2b1636d5450b15bda2a7d5d7b57e6550280ea7b5b170b24aa",
+      "tests/test_sol_phase03_blockers.py": "ee8fb4068ca58fd4d84e6d10dc53fee21e5543f522d1948f522d82e29d929bde",
+      "tests/test_sol_phase03_rereview.py": "0bcd2622c180067756e00ee9ca7caaf615224509b374e0e923674179c37f7072",
+      "tests/test_sol_phase03_rereview_2.py": "951f500c90f6f330d91753cf0ed0425c80decc156c453466f42060268ec7550d",
+      "tests/test_sol_phase03_rereview_3.py": "a0bab3487285dc2b91a0d171c6f1064f69f9e1b82275beb587c9598ed0749bd0",
+      "tests/test_stateful.py": "e5223d3bcc4d7cddae6416a24a6e2ac98b88f4156d181633466c62b9ce9ce66d",
+      "tests/test_transaction_remediation.py": "505e294f9d3f44977857cd95eafa08ba4ea1406e458def610f138d36276f372d",
+      "tools/check_typing.py": "6bb840d091c4aedadacc4265a09991358bb923c42a31cdaff20a07de9b29f22d",
+      "tools/qualify_package.py": "3dc8f542f909d53f09b47db19be7c2f6625fc0575d5d3ea37170f1356f09e269",
+      "tools/benchmark.py": "435c6d629708db6b8a45cc0bad22ff5e11cd78f5f9bb1890ded39cff2dccd62a",
+      "tools/check_docs.py": "33ac751040281ef2f8d53a140b28e9405bff6b8c96499c82218d6d0a7451f4df",
+      ".github/workflows/check.yml": "d972644a97b6acf63252d70017103086deffda7854dcda0c31df379489d68cf9",
+      "pyproject.toml": "1d16e34069b7bae5dbcfd7809d294d60e09fe883ceab856fecfaa2560462c88f",
+      "examples/library_config.py": "27758d2a5c549649c7ca557216b0275a4aa3a2147ad262a94c8c36f191b1e4a2"
+    },
+    "identity_scope": "file hashes identify this uncommitted implementation/test snapshot; base_commit alone does not identify it"
+  },
+  "local_environment": {
+    "python_executable": "/opt/homebrew/opt/python@3.11/bin/python3.11",
+    "python": "3.11.14",
+    "platform": "macOS-26.5.2-arm64-arm-64bit",
+    "versions": {
+      "pydantic": "2.13.4",
+      "pydantic-core": "2.46.4",
+      "fastapi": "0.141.1",
+      "starlette": "0.48.0",
+      "httpx": "0.28.1",
+      "pyright": "1.1.411",
+      "pytest": "9.1.1",
+      "hypothesis": "6.151.9",
+      "ruff": "0.15.6"
+    }
+  },
+  "local_runtime": {
+    "command": "PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 PYTHONPATH=src python -m pytest tests -q",
+    "exit_code": 1,
+    "passed": 173,
+    "failed": 2,
+    "seconds": 101.67,
+    "passed_nodes": [
+      "tests/test_benchmark_contract.py::test_production_workload_shapes_and_operations_are_complete",
+      "tests/test_benchmark_contract.py::test_mixed_parent_rejection_and_coupled_batch_have_verified_state",
+      "tests/test_compat_remediation.py::test_type_adapter_native_mode_keeps_dynamic_strict_and_extra_options",
+      "tests/test_compat_remediation.py::test_canonical_validator_is_class_local_and_rebuilt",
+      "tests/test_compat_remediation.py::test_corrupt_required_storage_fails_closed[__dict__-value0]",
+      "tests/test_compat_remediation.py::test_corrupt_required_storage_fails_closed[__pydantic_extra__-value1]",
+      "tests/test_compat_remediation.py::test_corrupt_required_storage_fails_closed[__pydantic_fields_set__-value2]",
+      "tests/test_compat_remediation.py::test_malformed_consumed_model_schema_fails_before_compilation",
+      "tests/test_compat_remediation.py::test_json_schema_metadata_is_not_treated_as_validator_nodes",
+      "tests/test_compat_remediation.py::test_rebuild_resolves_forward_references_in_its_callers_namespace",
+      "tests/test_compat_remediation.py::test_public_validation_completes_deferred_schemas_before_adapter_access[python]",
+      "tests/test_compat_remediation.py::test_public_validation_completes_deferred_schemas_before_adapter_access[json]",
+      "tests/test_compat_remediation.py::test_public_validation_completes_deferred_schemas_before_adapter_access[strings]",
+      "tests/test_extra_annotation_completion.py::test_future_typed_extra_concrete_values_are_rejected",
+      "tests/test_extra_annotation_completion.py::test_deferred_extra_completion_audits_the_resolved_value",
+      "tests/test_extra_annotation_completion.py::test_specialized_extra_type_variables_are_audited",
+      "tests/test_extra_annotation_completion.py::test_inherited_extra_model_annotations_require_specialization",
+      "tests/test_hash_ingress.py::test_unhashable_model_members_get_the_ownership_diagnostic[mapping_set]",
+      "tests/test_hash_ingress.py::test_unhashable_model_members_get_the_ownership_diagnostic[set_add]",
+      "tests/test_hash_ingress.py::test_unhashable_model_members_get_the_ownership_diagnostic[set_update]",
+      "tests/test_inventory.py::test_list_mutation_inventory[set]",
+      "tests/test_inventory.py::test_list_mutation_inventory[slice]",
+      "tests/test_inventory.py::test_list_mutation_inventory[del]",
+      "tests/test_inventory.py::test_list_mutation_inventory[delslice]",
+      "tests/test_inventory.py::test_list_mutation_inventory[append]",
+      "tests/test_inventory.py::test_list_mutation_inventory[extend]",
+      "tests/test_inventory.py::test_list_mutation_inventory[insert]",
+      "tests/test_inventory.py::test_list_mutation_inventory[pop]",
+      "tests/test_inventory.py::test_list_mutation_inventory[remove]",
+      "tests/test_inventory.py::test_list_mutation_inventory[reverse]",
+      "tests/test_inventory.py::test_list_mutation_inventory[sort]",
+      "tests/test_inventory.py::test_list_mutation_inventory[iadd]",
+      "tests/test_inventory.py::test_list_mutation_inventory[imul]",
+      "tests/test_inventory.py::test_list_failure_inventory[<lambda>0]",
+      "tests/test_inventory.py::test_list_failure_inventory[<lambda>1]",
+      "tests/test_inventory.py::test_list_failure_inventory[<lambda>2]",
+      "tests/test_inventory.py::test_list_failure_inventory[<lambda>3]",
+      "tests/test_inventory.py::test_list_failure_inventory[<lambda>4]",
+      "tests/test_inventory.py::test_list_read_inventory",
+      "tests/test_inventory.py::test_dict_mutation_inventory[set]",
+      "tests/test_inventory.py::test_dict_mutation_inventory[del]",
+      "tests/test_inventory.py::test_dict_mutation_inventory[update]",
+      "tests/test_inventory.py::test_dict_mutation_inventory[setdefault]",
+      "tests/test_inventory.py::test_dict_mutation_inventory[pop]",
+      "tests/test_inventory.py::test_dict_mutation_inventory[popitem]",
+      "tests/test_inventory.py::test_dict_mutation_inventory[clear]",
+      "tests/test_inventory.py::test_dict_mutation_inventory[ior]",
+      "tests/test_inventory.py::test_dict_reads_views_and_rejected_update",
+      "tests/test_inventory.py::test_set_mutation_inventory[add]",
+      "tests/test_inventory.py::test_set_mutation_inventory[discard]",
+      "tests/test_inventory.py::test_set_mutation_inventory[remove]",
+      "tests/test_inventory.py::test_set_mutation_inventory[clear]",
+      "tests/test_inventory.py::test_set_mutation_inventory[update]",
+      "tests/test_inventory.py::test_set_mutation_inventory[intersection_update]",
+      "tests/test_inventory.py::test_set_mutation_inventory[difference_update]",
+      "tests/test_inventory.py::test_set_mutation_inventory[symmetric_difference_update]",
+      "tests/test_inventory.py::test_set_mutation_inventory[ior]",
+      "tests/test_inventory.py::test_set_mutation_inventory[iand]",
+      "tests/test_inventory.py::test_set_mutation_inventory[isub]",
+      "tests/test_inventory.py::test_set_mutation_inventory[ixor]",
+      "tests/test_inventory.py::test_set_read_inventory_and_pop",
+      "tests/test_inventory.py::test_mutable_repetition_tuple_descendants_and_alias_isolation",
+      "tests/test_inventory.py::test_cached_computed_fields_are_invalidated",
+      "tests/test_inventory.py::test_generic_union_and_recursive_schema",
+      "tests/test_inventory.py::test_nested_aliases_and_data_dependent_reset",
+      "tests/test_inventory.py::test_sort_callback_failure_and_programming_error",
+      "tests/test_inventory.py::test_stale_child_repr_equality_and_metadata",
+      "tests/test_inventory.py::test_validated_copy_rejects_unknown_keys_and_drift",
+      "tests/test_inventory.py::test_alias_choices_paths_typed_extras_and_properties",
+      "tests/test_inventory.py::test_shape_changing_validator_rejected_and_factory_failure_recovers",
+      "tests/test_inventory.py::test_protocol_annotations_have_honest_runtime_types_and_adapter_inputs",
+      "tests/test_inventory.py::test_explicit_public_alias_flags[python]",
+      "tests/test_inventory.py::test_explicit_public_alias_flags[json]",
+      "tests/test_inventory.py::test_explicit_public_alias_flags[strings]",
+      "tests/test_phase02_contract.py::test_concrete_mutable_annotations_fail_with_migration_hint",
+      "tests/test_phase02_contract.py::test_generic_models_must_be_explicitly_specialized",
+      "tests/test_phase02_contract.py::test_custom_timezone_values_are_rejected_without_state_escape",
+      "tests/test_phase02_contract.py::test_cycles_and_ordinary_base_models_are_rejected",
+      "tests/test_phase02_contract.py::test_deepcopy_of_a_guard_installs_independent_nested_models",
+      "tests/test_phase02_contract.py::test_identity_handle_assignment_checks_frozen_ancestors",
+      "tests/test_phase03_contract.py::test_scalar_reads_views_and_canonical_namespace",
+      "tests/test_phase03_contract.py::test_non_string_pop_is_rejected_before_fallback",
+      "tests/test_phase03_contract.py::test_scalar_bulk_failure_is_atomic_and_reset_updates_metadata",
+      "tests/test_phase03_contract.py::test_scalar_copy_is_validated_and_independent",
+      "tests/test_phase03_evidence_contract.py::test_scalar_iterator_structure_and_exhaustion_contract",
+      "tests/test_phase03_evidence_contract.py::test_scalar_model_equality_and_hash_contract",
+      "tests/test_phase03_evidence_contract.py::test_qualification_rejects_dirty_or_missing_source_identity",
+      "tests/test_prototype.py::test_identity_serialization_and_mapping_views",
+      "tests/test_prototype.py::test_coupled_updates_rollback_aliases_and_defaults",
+      "tests/test_prototype.py::test_late_generator_and_reentrancy_recover",
+      "tests/test_prototype.py::test_fault_injection_preserves_state_handles_and_recovery[staged]",
+      "tests/test_prototype.py::test_fault_injection_preserves_state_handles_and_recovery[validated]",
+      "tests/test_prototype.py::test_fault_injection_preserves_state_handles_and_recovery[result]",
+      "tests/test_prototype.py::test_fault_injection_preserves_state_handles_and_recovery[prepared]",
+      "tests/test_prototype.py::test_nested_parent_constraints_aliases_and_coercion",
+      "tests/test_prototype.py::test_stale_handles_and_detached_removal_results",
+      "tests/test_prototype.py::test_node_identity_survives_reorder_and_unrelated_update",
+      "tests/test_prototype.py::test_augmented_assignment_exactly_one_transaction",
+      "tests/test_prototype.py::test_frozen_ancestors_and_copy",
+      "tests/test_prototype.py::test_copy_ownership[copy]",
+      "tests/test_prototype.py::test_copy_ownership[deepcopy]",
+      "tests/test_prototype.py::test_copy_ownership[<lambda>]",
+      "tests/test_prototype.py::test_extras_destructive_metadata_and_errors",
+      "tests/test_prototype.py::test_all_construction_paths_and_frameworks",
+      "tests/test_prototype.py::test_serializers_exclusions_computed_and_context",
+      "tests/test_prototype.py::test_nonidempotent_unchanged_normalizer_rejected_without_drift",
+      "tests/test_prototype.py::test_validator_topology_changes_fail_safely",
+      "tests/test_prototype.py::test_unsafe_inputs_hooks_and_trusted_paths_rejected",
+      "tests/test_prototype.py::test_root_lifetime_and_collection",
+      "tests/test_prototype.py::test_generated_nested_transactions",
+      "tests/test_prototype.py::test_commit_slot_failure_restores_all_live_state[False-1]",
+      "tests/test_prototype.py::test_commit_slot_failure_restores_all_live_state[False-2]",
+      "tests/test_prototype.py::test_commit_slot_failure_restores_all_live_state[False-5]",
+      "tests/test_prototype.py::test_commit_slot_failure_restores_all_live_state[False-10]",
+      "tests/test_prototype.py::test_commit_slot_failure_restores_all_live_state[True-1]",
+      "tests/test_prototype.py::test_commit_slot_failure_restores_all_live_state[True-2]",
+      "tests/test_prototype.py::test_commit_slot_failure_restores_all_live_state[True-5]",
+      "tests/test_prototype.py::test_commit_slot_failure_restores_all_live_state[True-10]",
+      "tests/test_prototype.py::test_properties_do_not_shadow_extra_mapping_state",
+      "tests/test_sol_phase02_blockers.py::test_sol001_deferred_concrete_annotation_rejected_on_completion",
+      "tests/test_sol_phase02_blockers.py::test_sol001_typed_extra_values_are_recursively_audited",
+      "tests/test_sol_phase02_blockers.py::test_sol001_unbound_nested_generic_cannot_escape",
+      "tests/test_sol_phase02_blockers.py::test_sol002_models_in_hash_positions_rejected_without_committing[key]",
+      "tests/test_sol_phase02_blockers.py::test_sol002_models_in_hash_positions_rejected_without_committing[set]",
+      "tests/test_sol_phase02_blockers.py::test_sol002_models_in_hash_positions_rejected_without_committing[frozenset]",
+      "tests/test_sol_phase02_blockers.py::test_sol003_nested_model_identity_assignment_is_a_noop[sequence]",
+      "tests/test_sol_phase02_blockers.py::test_sol003_nested_model_identity_assignment_is_a_noop[mapping]",
+      "tests/test_sol_phase02_blockers.py::test_sol003_model_identity_assignment_checks_frozen_ancestors",
+      "tests/test_sol_phase02_blockers.py::test_sol004_rebuild_invalidates_compiled_alias_variants_before_first_instance",
+      "tests/test_sol_phase02_blockers.py::test_sol004_incompatible_schema_shape_fails_with_compatibility_diagnostic",
+      "tests/test_sol_phase02_blockers.py::test_sol004_raw_storage_and_schema_operations_stay_in_compatibility_boundary",
+      "tests/test_sol_phase02_blockers.py::test_sol005_positive_gate_rejects_incomplete_source_coverage",
+      "tests/test_sol_phase02_blockers.py::test_sol005_negative_gate_rejects_every_unexpected_diagnostic[duplicate]",
+      "tests/test_sol_phase02_blockers.py::test_sol005_negative_gate_rejects_every_unexpected_diagnostic[unruled]",
+      "tests/test_sol_phase02_blockers.py::test_sol006_qualification_installs_and_exercises_both_artifacts",
+      "tests/test_sol_phase02_blockers.py::test_sol007_benchmark_records_the_required_source_baseline",
+      "tests/test_sol_phase02_blockers.py::test_sol008_phase02_evidence_record_and_readable_findings_exist",
+      "tests/test_sol_phase02_blockers.py::test_sol009_discarded_cache_finalizes_after_all_swaps_while_root_is_busy",
+      "tests/test_sol_phase02_rereview.py::test_sol001_named_aliases_audit_their_resolved_mutable_type",
+      "tests/test_sol_phase02_rereview.py::test_sol001_parent_completion_audits_deferred_nested_fields",
+      "tests/test_sol_phase02_rereview.py::test_sol001_parent_completion_audits_deferred_nested_extras",
+      "tests/test_sol_phase02_rereview.py::test_sol002_every_key_insertion_rejects_models_before_native_hashing[setdefault]",
+      "tests/test_sol_phase02_rereview.py::test_sol002_every_key_insertion_rejects_models_before_native_hashing[update_pairs]",
+      "tests/test_sol_phase02_rereview.py::test_sol010_input_callbacks_run_under_the_same_root_guard[slice]",
+      "tests/test_sol_phase02_rereview.py::test_sol010_input_callbacks_run_under_the_same_root_guard[mapping_update]",
+      "tests/test_sol_phase02_rereview.py::test_sol012_existing_model_public_validation_preserves_supplied_context",
+      "tests/test_sol_phase02_rereview_2.py::test_sol001_deferred_nested_abc_migration_remains_supported[field]",
+      "tests/test_sol_phase02_rereview_2.py::test_sol001_deferred_nested_abc_migration_remains_supported[typed_extra]",
+      "tests/test_sol_phase02_rereview_2.py::test_sol004_core_schema_access_including_getattr_stays_in_adapter",
+      "tests/test_sol_phase02_rereview_2.py::test_sol008_final_evidence_identifies_measured_source_and_candidate_ci",
+      "tests/test_sol_phase02_rereview_2.py::test_sol013_existing_model_validation_produces_independent_owned_result",
+      "tests/test_sol_phase02_rereview_2.py::test_sol013_failed_public_validation_does_not_mutate_existing_input",
+      "tests/test_sol_phase02_rereview_3.py::test_sol001_unresolved_ignored_classvar_cannot_bypass_deferred_field_audit",
+      "tests/test_sol_phase02_rereview_3.py::test_sol008_final_benchmark_identifies_the_qualified_candidate_source",
+      "tests/test_sol_phase02_rereview_4.py::test_sol008_claimed_candidate_ci_qualifies_the_recorded_package_source",
+      "tests/test_sol_phase02_rereview_5.py::test_sol008_readable_benchmark_summaries_match_recorded_runs",
+      "tests/test_sol_phase03_blockers.py::test_sol014_non_string_bulk_names_precede_frozen_policy[update]",
+      "tests/test_sol_phase03_blockers.py::test_sol014_non_string_bulk_names_precede_frozen_policy[reset]",
+      "tests/test_sol_phase03_blockers.py::test_sol015_phase03_has_fresh_qualification_records[readable]",
+      "tests/test_sol_phase03_blockers.py::test_sol015_phase03_has_fresh_qualification_records[machine-readable]",
+      "tests/test_sol_phase03_blockers.py::test_sol016_qualification_executes_actual_example_against_both_bare_wheels",
+      "tests/test_sol_phase03_blockers.py::test_sol017_strict_scalar_entry_modes_match_pinned_basemodel[strings]",
+      "tests/test_sol_phase03_blockers.py::test_sol017_strict_scalar_entry_modes_match_pinned_basemodel[json]",
+      "tests/test_sol_phase03_rereview.py::test_sol017_json_entry_options_match_pinned_basemodel[strict]",
+      "tests/test_sol_phase03_rereview.py::test_sol017_json_entry_options_match_pinned_basemodel[extra]",
+      "tests/test_sol_phase03_rereview.py::test_sol017_json_entry_options_match_pinned_basemodel[context]",
+      "tests/test_sol_phase03_rereview.py::test_sol017_rejected_strings_callback_cannot_mutate_entry_source",
+      "tests/test_sol_phase03_rereview.py::test_sol015_missing_provenance_cannot_replace_durable_evidence",
+      "tests/test_sol_phase03_rereview_2.py::test_sol017_type_adapter_strict_json_matches_pinned_basemodel",
+      "tests/test_stateful.py::TestTransactions::runTest",
+      "tests/test_stateful.py::TestScalarTransactions::runTest",
+      "tests/test_transaction_remediation.py::test_every_prepared_swap_boundary_recovers",
+      "tests/test_transaction_remediation.py::test_replacements_collect_discarded_handles_and_bound_bookkeeping"
+    ],
+    "failed_nodes": [
+      "tests/test_sol_phase03_rereview_3.py::test_sol017_type_adapter_strict_strings_matches_pinned_basemodel",
+      "tests/test_sol_phase03_rereview_3.py::test_sol017_type_adapter_json_preserves_field_specific_strictness"
+    ],
+    "failure_classification": "FAIL — OPEN BLOCKER",
+    "failure_reason": "int_type on value for strict strings, and count for field-specific strict JSON; BaseModel controls accepted both"
+  },
+  "targeted_compatibility": {
+    "command": "PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 PYTHONPATH=src python -m pytest -q tests/test_phase03_evidence_contract.py tests/test_sol_phase03_blockers.py tests/test_sol_phase03_rereview.py tests/test_sol_phase03_rereview_2.py tests/test_compat_remediation.py",
+    "passed": 27,
+    "seconds": 0.33
+  },
+  "collection_audit": {
+    "command": "PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 PYTHONPATH=src python -m pytest tests --collect-only -q",
+    "collected_nodes": 175,
+    "unmatched_inventory_selectors": []
+  },
+  "static_gates": [
+    {
+      "command": "ruff check src tests tools/check_typing.py tools/qualify_package.py tools/benchmark.py",
+      "result": "PASS"
+    },
+    {
+      "command": "ruff format --check src tests tools/check_typing.py tools/qualify_package.py tools/benchmark.py",
+      "result": "PASS",
+      "files": 30
+    },
+    {
+      "command": "PYTHONPATH=src python tools/check_typing.py",
+      "result": "PASS"
+    },
+    {
+      "command": "PYTHONPATH=src python -m pyright --verifytypes pydandict --ignoreexternal",
+      "result": "PASS",
+      "completeness_percent": 100
+    },
+    {
+      "command": "python tools/check_docs.py",
+      "result": "PASS",
+      "markdown_files": 48,
+      "local_links": 274,
+      "python_examples": 8,
+      "errors": 0
+    },
+    {
+      "command": "git diff --check",
+      "result": "PASS"
+    }
+  ],
+  "artifact_attempt": {
+    "command": "TMPDIR=/Volumes/T7/pydandict-sol-third-cOhhBy PIP_CACHE_DIR=/Volumes/T7/pydandict-sol-rereview-QL053o/pip-cache python tools/qualify_package.py",
+    "exit_code": 0,
+    "artifact_measurements": {
+      "candidate_source_commit": "5c72df2f2a6f6d3244810c39f2ef6a9d676f441e",
+      "commands": [
+        {
+          "argv": [
+            "/opt/homebrew/opt/python@3.11/bin/python3.11",
+            "-m",
+            "build",
+            "--sdist",
+            "--wheel",
+            "--outdir",
+            "/Volumes/T7/pydandict-sol-third-cOhhBy/pydandict-qualification-wmatu2e4/direct"
+          ],
+          "cwd": "/Volumes/T7/coding/pydandict",
+          "source_path_injection": false
+        },
+        {
+          "argv": [
+            "/opt/homebrew/opt/python@3.11/bin/python3.11",
+            "-m",
+            "twine",
+            "check",
+            "/Volumes/T7/pydandict-sol-third-cOhhBy/pydandict-qualification-wmatu2e4/direct/pydandict-0.2.0.tar.gz",
+            "/Volumes/T7/pydandict-sol-third-cOhhBy/pydandict-qualification-wmatu2e4/direct/pydandict-0.2.0-py3-none-any.whl"
+          ],
+          "cwd": "/Volumes/T7/coding/pydandict",
+          "source_path_injection": false
+        },
+        {
+          "argv": [
+            "/opt/homebrew/opt/python@3.11/bin/python3.11",
+            "-m",
+            "build",
+            "--wheel",
+            "--outdir",
+            "/Volumes/T7/pydandict-sol-third-cOhhBy/pydandict-qualification-wmatu2e4/rebuilt"
+          ],
+          "cwd": "/Volumes/T7/pydandict-sol-third-cOhhBy/pydandict-qualification-wmatu2e4/source/pydandict-0.2.0",
+          "source_path_injection": false
+        },
+        {
+          "argv": [
+            "/Volumes/T7/pydandict-sol-third-cOhhBy/pydandict-qualification-wmatu2e4/direct-bare/bin/python",
+            "-m",
+            "pip",
+            "install",
+            "/Volumes/T7/pydandict-sol-third-cOhhBy/pydandict-qualification-wmatu2e4/direct/pydandict-0.2.0-py3-none-any.whl"
+          ],
+          "cwd": "/Volumes/T7/pydandict-sol-third-cOhhBy/pydandict-qualification-wmatu2e4",
+          "source_path_injection": false
+        },
+        {
+          "argv": [
+            "/Volumes/T7/pydandict-sol-third-cOhhBy/pydandict-qualification-wmatu2e4/direct-bare/bin/python",
+            "/Volumes/T7/pydandict-sol-third-cOhhBy/pydandict-qualification-wmatu2e4/direct-library_config.py"
+          ],
+          "cwd": "/Volumes/T7/pydandict-sol-third-cOhhBy/pydandict-qualification-wmatu2e4",
+          "source_path_injection": false
+        },
+        {
+          "argv": [
+            "/Volumes/T7/pydandict-sol-third-cOhhBy/pydandict-qualification-wmatu2e4/direct-bare/bin/python",
+            "-c",
+            "from importlib.metadata import distribution\nfrom pathlib import Path\ndist = distribution('pydandict')\nassert dist.metadata['Name'] == 'pydandict'\nassert dist.version == '0.2.0'\nassert dist.metadata['License-Expression'] == 'MIT'\nruntime = [item for item in (dist.requires or []) if 'extra ==' not in item]\nassert runtime == ['pydantic==2.13.4'], runtime\nlicenses = [item for item in (dist.files or []) if str(item).lower().endswith('licenses/license')]\nassert len(licenses) == 1\nassert Path(dist.locate_file(licenses[0])).read_text().startswith('MIT License')\nprint('metadata verified')\n"
+          ],
+          "cwd": "/Volumes/T7/pydandict-sol-third-cOhhBy/pydandict-qualification-wmatu2e4",
+          "source_path_injection": false
+        },
+        {
+          "argv": [
+            "/Volumes/T7/pydandict-sol-third-cOhhBy/pydandict-qualification-wmatu2e4/direct-bare/bin/python",
+            "-c",
+            "from pathlib import Path\nfrom collections.abc import Mapping, MutableSequence\nimport sys, pydandict\nfrom pydantic import BaseModel, ValidationError\nfrom pydandict import DictModel\nmodule = Path(pydandict.__file__).resolve()\nassert module.is_relative_to(Path(sys.prefix).resolve())\nassert not module.is_relative_to(Path('/Volumes/T7/coding/pydandict').resolve())\nclass Item(DictModel):\n    numbers: MutableSequence[int]\nitem = Item(numbers=[1])\nassert isinstance(item, BaseModel) and isinstance(item, Mapping)\nhandle = item.numbers\nitem.numbers.append(2)\nassert item.numbers is handle and item.model_dump() == {'numbers': [1, 2]}\ntry:\n    item.numbers.append('bad')\nexcept ValidationError:\n    assert item.numbers == [1, 2]\nelse:\n    raise AssertionError('invalid library edit committed')\nclass Config(DictModel):\n    low: int = 1\n    high: int = 3\ncfg = Config()\nassert dict(cfg) == {'low': 1, 'high': 3} and cfg.model_fields_set == set()\ncfg.update(low=5, high=8)\nassert (cfg.low, cfg.high) == (5, 8)\ncopy_cfg = cfg.model_copy(update={'low': 6})\nassert copy_cfg.low == 6 and cfg.low == 5\ncfg.reset('low', 'high')\nassert dict(cfg) == {'low': 1, 'high': 3}\nprint(module)\n"
+          ],
+          "cwd": "/Volumes/T7/pydandict-sol-third-cOhhBy/pydandict-qualification-wmatu2e4",
+          "source_path_injection": false
+        },
+        {
+          "argv": [
+            "/Volumes/T7/pydandict-sol-third-cOhhBy/pydandict-qualification-wmatu2e4/direct-bare/bin/python",
+            "-m",
+            "pip",
+            "freeze"
+          ],
+          "cwd": "/Volumes/T7/pydandict-sol-third-cOhhBy/pydandict-qualification-wmatu2e4",
+          "source_path_injection": false
+        },
+        {
+          "argv": [
+            "/Volumes/T7/pydandict-sol-third-cOhhBy/pydandict-qualification-wmatu2e4/direct-http/bin/python",
+            "-m",
+            "pip",
+            "install",
+            "/Volumes/T7/pydandict-sol-third-cOhhBy/pydandict-qualification-wmatu2e4/direct/pydandict-0.2.0-py3-none-any.whl",
+            "fastapi==0.141.1",
+            "httpx==0.28.1",
+            "pyright==1.1.411"
+          ],
+          "cwd": "/Volumes/T7/pydandict-sol-third-cOhhBy/pydandict-qualification-wmatu2e4",
+          "source_path_injection": false
+        },
+        {
+          "argv": [
+            "/Volumes/T7/pydandict-sol-third-cOhhBy/pydandict-qualification-wmatu2e4/direct-http/bin/python",
+            "/Volumes/T7/pydandict-sol-third-cOhhBy/pydandict-qualification-wmatu2e4/direct-consumer.py"
+          ],
+          "cwd": "/Volumes/T7/pydandict-sol-third-cOhhBy/pydandict-qualification-wmatu2e4",
+          "source_path_injection": false
+        },
+        {
+          "argv": [
+            "/Volumes/T7/pydandict-sol-third-cOhhBy/pydandict-qualification-wmatu2e4/direct-http/bin/python",
+            "/Volumes/T7/pydandict-sol-third-cOhhBy/pydandict-qualification-wmatu2e4/direct-typing.py"
+          ],
+          "cwd": "/Volumes/T7/pydandict-sol-third-cOhhBy/pydandict-qualification-wmatu2e4",
+          "source_path_injection": false
+        },
+        {
+          "argv": [
+            "/Volumes/T7/pydandict-sol-third-cOhhBy/pydandict-qualification-wmatu2e4/direct-http/bin/python",
+            "-c",
+            "import site; print(site.getsitepackages()[0])"
+          ],
+          "cwd": "/Volumes/T7/pydandict-sol-third-cOhhBy/pydandict-qualification-wmatu2e4",
+          "source_path_injection": false
+        },
+        {
+          "argv": [
+            "/Volumes/T7/pydandict-sol-third-cOhhBy/pydandict-qualification-wmatu2e4/direct-http/bin/python",
+            "-m",
+            "pyright",
+            "--project",
+            "/Volumes/T7/pydandict-sol-third-cOhhBy/pydandict-qualification-wmatu2e4/direct-pyrightconfig.json"
+          ],
+          "cwd": "/Volumes/T7/pydandict-sol-third-cOhhBy/pydandict-qualification-wmatu2e4",
+          "source_path_injection": false
+        },
+        {
+          "argv": [
+            "/Volumes/T7/pydandict-sol-third-cOhhBy/pydandict-qualification-wmatu2e4/direct-http/bin/python",
+            "-m",
+            "pyright",
+            "--verifytypes",
+            "pydandict",
+            "--ignoreexternal"
+          ],
+          "cwd": "/Volumes/T7/pydandict-sol-third-cOhhBy/pydandict-qualification-wmatu2e4",
+          "source_path_injection": false
+        },
+        {
+          "argv": [
+            "/Volumes/T7/pydandict-sol-third-cOhhBy/pydandict-qualification-wmatu2e4/direct-http/bin/python",
+            "-c",
+            "\nimport json, subprocess, sys\nfrom pathlib import Path\nfixture = Path('/Volumes/T7/pydandict-sol-third-cOhhBy/pydandict-qualification-wmatu2e4/direct-negative.py')\nexpected = sorted([(14, 'reportAttributeAccessIssue'), (15, 'reportArgumentType'), (16, 'reportAssignmentType'), (17, 'reportAssertTypeFailure')])\nresult = subprocess.run(\n    [sys.executable, \"-m\", \"pyright\", \"--project\", '/Volumes/T7/pydandict-sol-third-cOhhBy/pydandict-qualification-wmatu2e4/direct-negative-config.json', \"--outputjson\"],\n    text=True, capture_output=True, check=False,\n)\nassert result.returncode == 1, result.stdout + result.stderr\nreport = json.loads(result.stdout)\ndiagnostics = report[\"generalDiagnostics\"]\nactual = []\nfor diagnostic in diagnostics:\n    assert diagnostic[\"severity\"] == \"error\", diagnostic\n    assert Path(diagnostic[\"file\"]).resolve() == fixture.resolve(), diagnostic\n    actual.append((diagnostic[\"range\"][\"start\"][\"line\"] + 1, diagnostic[\"rule\"]))\nassert sorted(actual) == expected, (actual, expected)\nassert report[\"summary\"][\"errorCount\"] == len(expected), report\nassert report[\"summary\"][\"filesAnalyzed\"] == 1, report\nprint(json.dumps({\"expected_errors\": len(expected), \"actual_errors\": len(actual)}))\n"
+          ],
+          "cwd": "/Volumes/T7/pydandict-sol-third-cOhhBy/pydandict-qualification-wmatu2e4",
+          "source_path_injection": false
+        },
+        {
+          "argv": [
+            "/Volumes/T7/pydandict-sol-third-cOhhBy/pydandict-qualification-wmatu2e4/direct-http/bin/python",
+            "-m",
+            "pip",
+            "freeze"
+          ],
+          "cwd": "/Volumes/T7/pydandict-sol-third-cOhhBy/pydandict-qualification-wmatu2e4",
+          "source_path_injection": false
+        },
+        {
+          "argv": [
+            "/Volumes/T7/pydandict-sol-third-cOhhBy/pydandict-qualification-wmatu2e4/rebuilt-bare/bin/python",
+            "-m",
+            "pip",
+            "install",
+            "/Volumes/T7/pydandict-sol-third-cOhhBy/pydandict-qualification-wmatu2e4/rebuilt/pydandict-0.2.0-py3-none-any.whl"
+          ],
+          "cwd": "/Volumes/T7/pydandict-sol-third-cOhhBy/pydandict-qualification-wmatu2e4",
+          "source_path_injection": false
+        },
+        {
+          "argv": [
+            "/Volumes/T7/pydandict-sol-third-cOhhBy/pydandict-qualification-wmatu2e4/rebuilt-bare/bin/python",
+            "/Volumes/T7/pydandict-sol-third-cOhhBy/pydandict-qualification-wmatu2e4/rebuilt-library_config.py"
+          ],
+          "cwd": "/Volumes/T7/pydandict-sol-third-cOhhBy/pydandict-qualification-wmatu2e4",
+          "source_path_injection": false
+        },
+        {
+          "argv": [
+            "/Volumes/T7/pydandict-sol-third-cOhhBy/pydandict-qualification-wmatu2e4/rebuilt-bare/bin/python",
+            "-c",
+            "from importlib.metadata import distribution\nfrom pathlib import Path\ndist = distribution('pydandict')\nassert dist.metadata['Name'] == 'pydandict'\nassert dist.version == '0.2.0'\nassert dist.metadata['License-Expression'] == 'MIT'\nruntime = [item for item in (dist.requires or []) if 'extra ==' not in item]\nassert runtime == ['pydantic==2.13.4'], runtime\nlicenses = [item for item in (dist.files or []) if str(item).lower().endswith('licenses/license')]\nassert len(licenses) == 1\nassert Path(dist.locate_file(licenses[0])).read_text().startswith('MIT License')\nprint('metadata verified')\n"
+          ],
+          "cwd": "/Volumes/T7/pydandict-sol-third-cOhhBy/pydandict-qualification-wmatu2e4",
+          "source_path_injection": false
+        },
+        {
+          "argv": [
+            "/Volumes/T7/pydandict-sol-third-cOhhBy/pydandict-qualification-wmatu2e4/rebuilt-bare/bin/python",
+            "-c",
+            "from pathlib import Path\nfrom collections.abc import Mapping, MutableSequence\nimport sys, pydandict\nfrom pydantic import BaseModel, ValidationError\nfrom pydandict import DictModel\nmodule = Path(pydandict.__file__).resolve()\nassert module.is_relative_to(Path(sys.prefix).resolve())\nassert not module.is_relative_to(Path('/Volumes/T7/coding/pydandict').resolve())\nclass Item(DictModel):\n    numbers: MutableSequence[int]\nitem = Item(numbers=[1])\nassert isinstance(item, BaseModel) and isinstance(item, Mapping)\nhandle = item.numbers\nitem.numbers.append(2)\nassert item.numbers is handle and item.model_dump() == {'numbers': [1, 2]}\ntry:\n    item.numbers.append('bad')\nexcept ValidationError:\n    assert item.numbers == [1, 2]\nelse:\n    raise AssertionError('invalid library edit committed')\nclass Config(DictModel):\n    low: int = 1\n    high: int = 3\ncfg = Config()\nassert dict(cfg) == {'low': 1, 'high': 3} and cfg.model_fields_set == set()\ncfg.update(low=5, high=8)\nassert (cfg.low, cfg.high) == (5, 8)\ncopy_cfg = cfg.model_copy(update={'low': 6})\nassert copy_cfg.low == 6 and cfg.low == 5\ncfg.reset('low', 'high')\nassert dict(cfg) == {'low': 1, 'high': 3}\nprint(module)\n"
+          ],
+          "cwd": "/Volumes/T7/pydandict-sol-third-cOhhBy/pydandict-qualification-wmatu2e4",
+          "source_path_injection": false
+        },
+        {
+          "argv": [
+            "/Volumes/T7/pydandict-sol-third-cOhhBy/pydandict-qualification-wmatu2e4/rebuilt-bare/bin/python",
+            "-m",
+            "pip",
+            "freeze"
+          ],
+          "cwd": "/Volumes/T7/pydandict-sol-third-cOhhBy/pydandict-qualification-wmatu2e4",
+          "source_path_injection": false
+        },
+        {
+          "argv": [
+            "/Volumes/T7/pydandict-sol-third-cOhhBy/pydandict-qualification-wmatu2e4/rebuilt-http/bin/python",
+            "-m",
+            "pip",
+            "install",
+            "/Volumes/T7/pydandict-sol-third-cOhhBy/pydandict-qualification-wmatu2e4/rebuilt/pydandict-0.2.0-py3-none-any.whl",
+            "fastapi==0.141.1",
+            "httpx==0.28.1",
+            "pyright==1.1.411"
+          ],
+          "cwd": "/Volumes/T7/pydandict-sol-third-cOhhBy/pydandict-qualification-wmatu2e4",
+          "source_path_injection": false
+        },
+        {
+          "argv": [
+            "/Volumes/T7/pydandict-sol-third-cOhhBy/pydandict-qualification-wmatu2e4/rebuilt-http/bin/python",
+            "/Volumes/T7/pydandict-sol-third-cOhhBy/pydandict-qualification-wmatu2e4/rebuilt-consumer.py"
+          ],
+          "cwd": "/Volumes/T7/pydandict-sol-third-cOhhBy/pydandict-qualification-wmatu2e4",
+          "source_path_injection": false
+        },
+        {
+          "argv": [
+            "/Volumes/T7/pydandict-sol-third-cOhhBy/pydandict-qualification-wmatu2e4/rebuilt-http/bin/python",
+            "/Volumes/T7/pydandict-sol-third-cOhhBy/pydandict-qualification-wmatu2e4/rebuilt-typing.py"
+          ],
+          "cwd": "/Volumes/T7/pydandict-sol-third-cOhhBy/pydandict-qualification-wmatu2e4",
+          "source_path_injection": false
+        },
+        {
+          "argv": [
+            "/Volumes/T7/pydandict-sol-third-cOhhBy/pydandict-qualification-wmatu2e4/rebuilt-http/bin/python",
+            "-c",
+            "import site; print(site.getsitepackages()[0])"
+          ],
+          "cwd": "/Volumes/T7/pydandict-sol-third-cOhhBy/pydandict-qualification-wmatu2e4",
+          "source_path_injection": false
+        },
+        {
+          "argv": [
+            "/Volumes/T7/pydandict-sol-third-cOhhBy/pydandict-qualification-wmatu2e4/rebuilt-http/bin/python",
+            "-m",
+            "pyright",
+            "--project",
+            "/Volumes/T7/pydandict-sol-third-cOhhBy/pydandict-qualification-wmatu2e4/rebuilt-pyrightconfig.json"
+          ],
+          "cwd": "/Volumes/T7/pydandict-sol-third-cOhhBy/pydandict-qualification-wmatu2e4",
+          "source_path_injection": false
+        },
+        {
+          "argv": [
+            "/Volumes/T7/pydandict-sol-third-cOhhBy/pydandict-qualification-wmatu2e4/rebuilt-http/bin/python",
+            "-m",
+            "pyright",
+            "--verifytypes",
+            "pydandict",
+            "--ignoreexternal"
+          ],
+          "cwd": "/Volumes/T7/pydandict-sol-third-cOhhBy/pydandict-qualification-wmatu2e4",
+          "source_path_injection": false
+        },
+        {
+          "argv": [
+            "/Volumes/T7/pydandict-sol-third-cOhhBy/pydandict-qualification-wmatu2e4/rebuilt-http/bin/python",
+            "-c",
+            "\nimport json, subprocess, sys\nfrom pathlib import Path\nfixture = Path('/Volumes/T7/pydandict-sol-third-cOhhBy/pydandict-qualification-wmatu2e4/rebuilt-negative.py')\nexpected = sorted([(14, 'reportAttributeAccessIssue'), (15, 'reportArgumentType'), (16, 'reportAssignmentType'), (17, 'reportAssertTypeFailure')])\nresult = subprocess.run(\n    [sys.executable, \"-m\", \"pyright\", \"--project\", '/Volumes/T7/pydandict-sol-third-cOhhBy/pydandict-qualification-wmatu2e4/rebuilt-negative-config.json', \"--outputjson\"],\n    text=True, capture_output=True, check=False,\n)\nassert result.returncode == 1, result.stdout + result.stderr\nreport = json.loads(result.stdout)\ndiagnostics = report[\"generalDiagnostics\"]\nactual = []\nfor diagnostic in diagnostics:\n    assert diagnostic[\"severity\"] == \"error\", diagnostic\n    assert Path(diagnostic[\"file\"]).resolve() == fixture.resolve(), diagnostic\n    actual.append((diagnostic[\"range\"][\"start\"][\"line\"] + 1, diagnostic[\"rule\"]))\nassert sorted(actual) == expected, (actual, expected)\nassert report[\"summary\"][\"errorCount\"] == len(expected), report\nassert report[\"summary\"][\"filesAnalyzed\"] == 1, report\nprint(json.dumps({\"expected_errors\": len(expected), \"actual_errors\": len(actual)}))\n"
+          ],
+          "cwd": "/Volumes/T7/pydandict-sol-third-cOhhBy/pydandict-qualification-wmatu2e4",
+          "source_path_injection": false
+        },
+        {
+          "argv": [
+            "/Volumes/T7/pydandict-sol-third-cOhhBy/pydandict-qualification-wmatu2e4/rebuilt-http/bin/python",
+            "-m",
+            "pip",
+            "freeze"
+          ],
+          "cwd": "/Volumes/T7/pydandict-sol-third-cOhhBy/pydandict-qualification-wmatu2e4",
+          "source_path_injection": false
+        },
+        {
+          "argv": [
+            "git",
+            "rev-parse",
+            "HEAD"
+          ],
+          "cwd": "/Volumes/T7/coding/pydandict",
+          "source_path_injection": false
+        },
+        {
+          "argv": [
+            "git",
+            "status",
+            "--porcelain",
+            "--",
+            "src",
+            "tests",
+            "tools",
+            "examples",
+            "pyproject.toml",
+            ".github",
+            "LICENSE"
+          ],
+          "cwd": "/Volumes/T7/coding/pydandict",
+          "source_path_injection": false
+        }
+      ],
+      "direct_wheel": "pydandict-0.2.0-py3-none-any.whl",
+      "direct_wheel_sha256": "772c5524452ae34613a780c08d2176e0588bf731606c6b1ab348ed87aeab26e1",
+      "platform": "macOS-26.5.2-arm64-arm-64bit",
+      "python": "3.11.14 (main, Oct  9 2025, 16:16:55) [Clang 17.0.0 (clang-1700.6.3.2)]",
+      "rebuilt_wheel": "pydandict-0.2.0-py3-none-any.whl",
+      "rebuilt_wheel_sha256": "3bf6619926742ba327d77316f3fc9b0618c599348f481ea6bb49c27fefa84e01",
+      "relevant_worktree_status": " M tools/qualify_package.py\n?? tests/test_phase03_evidence_contract.py\n?? tests/test_sol_phase03_rereview_3.py\n",
+      "resolved_dependencies": {
+        "direct": "annotated-doc==0.0.5\nannotated-types==0.8.0\nanyio==4.15.1\ncertifi==2026.7.22\nfastapi==0.141.1\nh11==0.16.0\nhttpcore==1.0.9\nhttpx==0.28.1\nidna==3.19\nnodeenv==1.10.0\npydandict @ file:///Volumes/T7/pydandict-sol-third-cOhhBy/pydandict-qualification-wmatu2e4/direct/pydandict-0.2.0-py3-none-any.whl#sha256=772c5524452ae34613a780c08d2176e0588bf731606c6b1ab348ed87aeab26e1\npydantic==2.13.4\npydantic_core==2.46.4\npyright==1.1.411\nstarlette==1.6.0\ntyping-inspection==0.4.4\ntyping_extensions==4.16.0\n",
+        "direct_bare": "annotated-types==0.8.0\npydandict @ file:///Volumes/T7/pydandict-sol-third-cOhhBy/pydandict-qualification-wmatu2e4/direct/pydandict-0.2.0-py3-none-any.whl#sha256=772c5524452ae34613a780c08d2176e0588bf731606c6b1ab348ed87aeab26e1\npydantic==2.13.4\npydantic_core==2.46.4\ntyping-inspection==0.4.4\ntyping_extensions==4.16.0\n",
+        "direct_bare_import": "/Volumes/T7/pydandict-sol-third-cOhhBy/pydandict-qualification-wmatu2e4/direct-bare/lib/python3.11/site-packages/pydandict/__init__.py\n",
+        "direct_library_example": "",
+        "direct_metadata": "metadata verified\n",
+        "direct_negative_typing": "{\"expected_errors\": 4, \"actual_errors\": 4}\n",
+        "rebuilt": "annotated-doc==0.0.5\nannotated-types==0.8.0\nanyio==4.15.1\ncertifi==2026.7.22\nfastapi==0.141.1\nh11==0.16.0\nhttpcore==1.0.9\nhttpx==0.28.1\nidna==3.19\nnodeenv==1.10.0\npydandict @ file:///Volumes/T7/pydandict-sol-third-cOhhBy/pydandict-qualification-wmatu2e4/rebuilt/pydandict-0.2.0-py3-none-any.whl#sha256=3bf6619926742ba327d77316f3fc9b0618c599348f481ea6bb49c27fefa84e01\npydantic==2.13.4\npydantic_core==2.46.4\npyright==1.1.411\nstarlette==1.6.0\ntyping-inspection==0.4.4\ntyping_extensions==4.16.0\n",
+        "rebuilt_bare": "annotated-types==0.8.0\npydandict @ file:///Volumes/T7/pydandict-sol-third-cOhhBy/pydandict-qualification-wmatu2e4/rebuilt/pydandict-0.2.0-py3-none-any.whl#sha256=3bf6619926742ba327d77316f3fc9b0618c599348f481ea6bb49c27fefa84e01\npydantic==2.13.4\npydantic_core==2.46.4\ntyping-inspection==0.4.4\ntyping_extensions==4.16.0\n",
+        "rebuilt_bare_import": "/Volumes/T7/pydandict-sol-third-cOhhBy/pydandict-qualification-wmatu2e4/rebuilt-bare/lib/python3.11/site-packages/pydandict/__init__.py\n",
+        "rebuilt_library_example": "",
+        "rebuilt_metadata": "metadata verified\n",
+        "rebuilt_negative_typing": "{\"expected_errors\": 4, \"actual_errors\": 4}\n"
+      },
+      "sdist": "pydandict-0.2.0.tar.gz",
+      "sdist_sha256": "b9e234d3b0cffe076f96f17a4c277bcb14e3ed1708e69f94bb7eb9e137dec15b"
+    },
+    "qualification_status": "non-qualifying",
+    "reason": "source identity was unavailable or relevant files differ from HEAD"
+  },
+  "prior_ci": {
+    "run_url": "https://github.com/eddiethedean/pydandict/actions/runs/34888302784",
+    "source_commit": "5c72df2f2a6f6d3244810c39f2ef6a9d676f441e",
+    "result": "success",
+    "applies_to_current_worktree": false,
+    "reason": "predates the two Sol regression tests and current tool/test changes",
+    "cells": {
+      "runtime/ubuntu/3.11": {
+        "historical_source_commit": "5c72df2f2a6f6d3244810c39f2ef6a9d676f441e",
+        "historical_job_url": "https://github.com/eddiethedean/pydandict/actions/runs/34888302784/job/104124327857",
+        "historical_result": "success",
+        "python": "3.11.16",
+        "resolved_job_dependencies": {
+          "pydantic": "2.13.4",
+          "pydantic-core": "2.46.4",
+          "fastapi": "0.141.1",
+          "starlette": "1.6.0",
+          "httpx": "0.28.1",
+          "pyright": "1.1.411",
+          "pytest": "9.1.1",
+          "hypothesis": "6.168.0",
+          "ruff": "0.16.7"
+        },
+        "dependency_scope": "job environment",
+        "evidence": "gh run view 34888302784 --log: setup, successful pip install and gate output",
+        "current_worktree_result": "not-executed",
+        "applies_to_current_worktree": false
+      },
+      "runtime/ubuntu/3.12": {
+        "historical_source_commit": "5c72df2f2a6f6d3244810c39f2ef6a9d676f441e",
+        "historical_job_url": "https://github.com/eddiethedean/pydandict/actions/runs/34888302784/job/104124327994",
+        "historical_result": "success",
+        "python": "3.12.14",
+        "resolved_job_dependencies": {
+          "pydantic": "2.13.4",
+          "pydantic-core": "2.46.4",
+          "fastapi": "0.141.1",
+          "starlette": "1.6.0",
+          "httpx": "0.28.1",
+          "pyright": "1.1.411",
+          "pytest": "9.1.1",
+          "hypothesis": "6.168.0",
+          "ruff": "0.16.7"
+        },
+        "dependency_scope": "job environment",
+        "evidence": "gh run view 34888302784 --log: setup, successful pip install and gate output",
+        "current_worktree_result": "not-executed",
+        "applies_to_current_worktree": false
+      },
+      "runtime/ubuntu/3.13": {
+        "historical_source_commit": "5c72df2f2a6f6d3244810c39f2ef6a9d676f441e",
+        "historical_job_url": "https://github.com/eddiethedean/pydandict/actions/runs/34888302784/job/104124327961",
+        "historical_result": "success",
+        "python": "3.13.15",
+        "resolved_job_dependencies": {
+          "pydantic": "2.13.4",
+          "pydantic-core": "2.46.4",
+          "fastapi": "0.141.1",
+          "starlette": "1.6.0",
+          "httpx": "0.28.1",
+          "pyright": "1.1.411",
+          "pytest": "9.1.1",
+          "hypothesis": "6.168.0",
+          "ruff": "0.16.7"
+        },
+        "dependency_scope": "job environment",
+        "evidence": "gh run view 34888302784 --log: setup, successful pip install and gate output",
+        "current_worktree_result": "not-executed",
+        "applies_to_current_worktree": false
+      },
+      "runtime/ubuntu/3.14": {
+        "historical_source_commit": "5c72df2f2a6f6d3244810c39f2ef6a9d676f441e",
+        "historical_job_url": "https://github.com/eddiethedean/pydandict/actions/runs/34888302784/job/104124327916",
+        "historical_result": "success",
+        "python": "3.14.7",
+        "resolved_job_dependencies": {
+          "pydantic": "2.13.4",
+          "pydantic-core": "2.46.4",
+          "fastapi": "0.141.1",
+          "starlette": "1.6.0",
+          "httpx": "0.28.1",
+          "pyright": "1.1.411",
+          "pytest": "9.1.1",
+          "hypothesis": "6.168.0",
+          "ruff": "0.16.7"
+        },
+        "dependency_scope": "job environment",
+        "evidence": "gh run view 34888302784 --log: setup, successful pip install and gate output",
+        "current_worktree_result": "not-executed",
+        "applies_to_current_worktree": false
+      },
+      "runtime/macos/3.11": {
+        "historical_source_commit": "5c72df2f2a6f6d3244810c39f2ef6a9d676f441e",
+        "historical_job_url": "https://github.com/eddiethedean/pydandict/actions/runs/34888302784/job/104124327687",
+        "historical_result": "success",
+        "python": "3.11.9",
+        "resolved_job_dependencies": {
+          "pydantic": "2.13.4",
+          "pydantic-core": "2.46.4",
+          "fastapi": "0.141.1",
+          "starlette": "1.6.0",
+          "httpx": "0.28.1",
+          "pyright": "1.1.411",
+          "pytest": "9.1.1",
+          "hypothesis": "6.168.0",
+          "ruff": "0.16.7"
+        },
+        "dependency_scope": "job environment",
+        "evidence": "gh run view 34888302784 --log: setup, successful pip install and gate output",
+        "current_worktree_result": "not-executed",
+        "applies_to_current_worktree": false
+      },
+      "runtime/macos/3.14": {
+        "historical_source_commit": "5c72df2f2a6f6d3244810c39f2ef6a9d676f441e",
+        "historical_job_url": "https://github.com/eddiethedean/pydandict/actions/runs/34888302784/job/104124327745",
+        "historical_result": "success",
+        "python": "3.14.7",
+        "resolved_job_dependencies": {
+          "pydantic": "2.13.4",
+          "pydantic-core": "2.46.4",
+          "fastapi": "0.141.1",
+          "starlette": "1.6.0",
+          "httpx": "0.28.1",
+          "pyright": "1.1.411",
+          "pytest": "9.1.1",
+          "hypothesis": "6.168.0",
+          "ruff": "0.16.7"
+        },
+        "dependency_scope": "job environment",
+        "evidence": "gh run view 34888302784 --log: setup, successful pip install and gate output",
+        "current_worktree_result": "not-executed",
+        "applies_to_current_worktree": false
+      },
+      "runtime/windows/3.11": {
+        "historical_source_commit": "5c72df2f2a6f6d3244810c39f2ef6a9d676f441e",
+        "historical_job_url": "https://github.com/eddiethedean/pydandict/actions/runs/34888302784/job/104124327983",
+        "historical_result": "success",
+        "python": "3.11.9",
+        "resolved_job_dependencies": {
+          "pydantic": "2.13.4",
+          "pydantic-core": "2.46.4",
+          "fastapi": "0.141.1",
+          "starlette": "1.6.0",
+          "httpx": "0.28.1",
+          "pyright": "1.1.411",
+          "pytest": "9.1.1",
+          "hypothesis": "6.168.0",
+          "ruff": "0.16.7"
+        },
+        "dependency_scope": "job environment",
+        "evidence": "gh run view 34888302784 --log: setup, successful pip install and gate output",
+        "current_worktree_result": "not-executed",
+        "applies_to_current_worktree": false
+      },
+      "runtime/windows/3.14": {
+        "historical_source_commit": "5c72df2f2a6f6d3244810c39f2ef6a9d676f441e",
+        "historical_job_url": "https://github.com/eddiethedean/pydandict/actions/runs/34888302784/job/104124327776",
+        "historical_result": "success",
+        "python": "3.14.7",
+        "resolved_job_dependencies": {
+          "pydantic": "2.13.4",
+          "pydantic-core": "2.46.4",
+          "fastapi": "0.141.1",
+          "starlette": "1.6.0",
+          "httpx": "0.28.1",
+          "pyright": "1.1.411",
+          "pytest": "9.1.1",
+          "hypothesis": "6.168.0",
+          "ruff": "0.16.7"
+        },
+        "dependency_scope": "job environment",
+        "evidence": "gh run view 34888302784 --log: setup, successful pip install and gate output",
+        "current_worktree_result": "not-executed",
+        "applies_to_current_worktree": false
+      },
+      "artifact/ubuntu/3.11": {
+        "historical_source_commit": "5c72df2f2a6f6d3244810c39f2ef6a9d676f441e",
+        "historical_job_url": "https://github.com/eddiethedean/pydandict/actions/runs/34888302784/job/104124327581",
+        "historical_result": "success",
+        "python": "3.11.16",
+        "resolved_job_dependencies": {
+          "pydantic": "2.13.4",
+          "pydantic-core": "2.46.4",
+          "fastapi": "0.141.1",
+          "starlette": "1.6.0",
+          "httpx": "0.28.1",
+          "pyright": "1.1.411",
+          "pytest": "9.1.1",
+          "hypothesis": "6.168.0",
+          "ruff": "0.16.7"
+        },
+        "dependency_scope": "qualification tooling; isolated consumer resolutions and hashes are in the job's qualification JSON output",
+        "evidence": "gh run view 34888302784 --log: setup, successful pip install and gate output",
+        "current_worktree_result": "not-executed",
+        "applies_to_current_worktree": false
+      },
+      "artifact/ubuntu/3.14": {
+        "historical_source_commit": "5c72df2f2a6f6d3244810c39f2ef6a9d676f441e",
+        "historical_job_url": "https://github.com/eddiethedean/pydandict/actions/runs/34888302784/job/104124327739",
+        "historical_result": "success",
+        "python": "3.14.7",
+        "resolved_job_dependencies": {
+          "pydantic": "2.13.4",
+          "pydantic-core": "2.46.4",
+          "fastapi": "0.141.1",
+          "starlette": "1.6.0",
+          "httpx": "0.28.1",
+          "pyright": "1.1.411",
+          "pytest": "9.1.1",
+          "hypothesis": "6.168.0",
+          "ruff": "0.16.7"
+        },
+        "dependency_scope": "qualification tooling; isolated consumer resolutions and hashes are in the job's qualification JSON output",
+        "evidence": "gh run view 34888302784 --log: setup, successful pip install and gate output",
+        "current_worktree_result": "not-executed",
+        "applies_to_current_worktree": false
+      },
+      "docs/ubuntu/3.11": {
+        "historical_source_commit": "5c72df2f2a6f6d3244810c39f2ef6a9d676f441e",
+        "historical_job_url": "https://github.com/eddiethedean/pydandict/actions/runs/34888302784/job/104124327465",
+        "historical_result": "success",
+        "python": "3.11.16",
+        "resolved_job_dependencies": {},
+        "dependency_scope": "job environment",
+        "evidence": "gh run view 34888302784 --log: setup, successful pip install and gate output",
+        "current_worktree_result": "not-executed",
+        "applies_to_current_worktree": false
+      }
+    }
+  },
+  "ac_inventory": {
+    "AC-001": {
+      "pytest_nodes": [
+        "tests/test_compat_remediation.py::test_public_validation_completes_deferred_schemas_before_adapter_access[python]",
+        "tests/test_compat_remediation.py::test_public_validation_completes_deferred_schemas_before_adapter_access[json]",
+        "tests/test_compat_remediation.py::test_public_validation_completes_deferred_schemas_before_adapter_access[strings]",
+        "tests/test_sol_phase03_blockers.py::test_sol017_strict_scalar_entry_modes_match_pinned_basemodel[strings]",
+        "tests/test_sol_phase03_blockers.py::test_sol017_strict_scalar_entry_modes_match_pinned_basemodel[json]",
+        "tests/test_sol_phase03_rereview_2.py::test_sol017_type_adapter_strict_json_matches_pinned_basemodel",
+        "tests/test_sol_phase03_rereview_3.py::test_sol017_type_adapter_strict_strings_matches_pinned_basemodel",
+        "tests/test_sol_phase03_rereview_3.py::test_sol017_type_adapter_json_preserves_field_specific_strictness"
+      ],
+      "non_pytest_proof_anchors": [],
+      "applicable_ci_cells": [
+        "runtime/ubuntu/3.11",
+        "runtime/ubuntu/3.12",
+        "runtime/ubuntu/3.13",
+        "runtime/ubuntu/3.14",
+        "runtime/macos/3.11",
+        "runtime/macos/3.14",
+        "runtime/windows/3.11",
+        "runtime/windows/3.14"
+      ],
+      "non_applicable_ci_cells": {
+        "artifact/ubuntu/3.11": "This criterion's listed proof is not executed by the artifact job.",
+        "artifact/ubuntu/3.14": "This criterion's listed proof is not executed by the artifact job.",
+        "docs/ubuntu/3.11": "This criterion's listed proof is not executed by the docs job."
+      },
+      "coverage_status": "open SOL-017 native-mode failures"
+    },
+    "AC-002": {
+      "pytest_nodes": [
+        "tests/test_hash_ingress.py::test_unhashable_model_members_get_the_ownership_diagnostic[mapping_set]",
+        "tests/test_hash_ingress.py::test_unhashable_model_members_get_the_ownership_diagnostic[set_add]",
+        "tests/test_hash_ingress.py::test_unhashable_model_members_get_the_ownership_diagnostic[set_update]",
+        "tests/test_phase02_contract.py::test_concrete_mutable_annotations_fail_with_migration_hint"
+      ],
+      "non_pytest_proof_anchors": [],
+      "applicable_ci_cells": [
+        "runtime/ubuntu/3.11",
+        "runtime/ubuntu/3.12",
+        "runtime/ubuntu/3.13",
+        "runtime/ubuntu/3.14",
+        "runtime/macos/3.11",
+        "runtime/macos/3.14",
+        "runtime/windows/3.11",
+        "runtime/windows/3.14"
+      ],
+      "non_applicable_ci_cells": {
+        "artifact/ubuntu/3.11": "This criterion's listed proof is not executed by the artifact job.",
+        "artifact/ubuntu/3.14": "This criterion's listed proof is not executed by the artifact job.",
+        "docs/ubuntu/3.11": "This criterion's listed proof is not executed by the docs job."
+      },
+      "coverage_status": "named anchors; complete AC-subclause audit not claimed"
+    },
+    "AC-003": {
+      "pytest_nodes": [
+        "tests/test_phase03_contract.py::test_scalar_reads_views_and_canonical_namespace"
+      ],
+      "non_pytest_proof_anchors": [],
+      "applicable_ci_cells": [
+        "runtime/ubuntu/3.11",
+        "runtime/ubuntu/3.12",
+        "runtime/ubuntu/3.13",
+        "runtime/ubuntu/3.14",
+        "runtime/macos/3.11",
+        "runtime/macos/3.14",
+        "runtime/windows/3.11",
+        "runtime/windows/3.14"
+      ],
+      "non_applicable_ci_cells": {
+        "artifact/ubuntu/3.11": "This criterion's listed proof is not executed by the artifact job.",
+        "artifact/ubuntu/3.14": "This criterion's listed proof is not executed by the artifact job.",
+        "docs/ubuntu/3.11": "This criterion's listed proof is not executed by the docs job."
+      },
+      "coverage_status": "named anchors; complete AC-subclause audit not claimed"
+    },
+    "AC-004": {
+      "pytest_nodes": [
+        "tests/test_phase03_contract.py::test_scalar_reads_views_and_canonical_namespace"
+      ],
+      "non_pytest_proof_anchors": [],
+      "applicable_ci_cells": [
+        "runtime/ubuntu/3.11",
+        "runtime/ubuntu/3.12",
+        "runtime/ubuntu/3.13",
+        "runtime/ubuntu/3.14",
+        "runtime/macos/3.11",
+        "runtime/macos/3.14",
+        "runtime/windows/3.11",
+        "runtime/windows/3.14"
+      ],
+      "non_applicable_ci_cells": {
+        "artifact/ubuntu/3.11": "This criterion's listed proof is not executed by the artifact job.",
+        "artifact/ubuntu/3.14": "This criterion's listed proof is not executed by the artifact job.",
+        "docs/ubuntu/3.11": "This criterion's listed proof is not executed by the docs job."
+      },
+      "coverage_status": "named anchors; complete AC-subclause audit not claimed"
+    },
+    "AC-005": {
+      "pytest_nodes": [
+        "tests/test_phase03_evidence_contract.py::test_scalar_iterator_structure_and_exhaustion_contract"
+      ],
+      "non_pytest_proof_anchors": [],
+      "applicable_ci_cells": [
+        "runtime/ubuntu/3.11",
+        "runtime/ubuntu/3.12",
+        "runtime/ubuntu/3.13",
+        "runtime/ubuntu/3.14",
+        "runtime/macos/3.11",
+        "runtime/macos/3.14",
+        "runtime/windows/3.11",
+        "runtime/windows/3.14"
+      ],
+      "non_applicable_ci_cells": {
+        "artifact/ubuntu/3.11": "This criterion's listed proof is not executed by the artifact job.",
+        "artifact/ubuntu/3.14": "This criterion's listed proof is not executed by the artifact job.",
+        "docs/ubuntu/3.11": "This criterion's listed proof is not executed by the docs job."
+      },
+      "coverage_status": "named anchors; complete AC-subclause audit not claimed"
+    },
+    "AC-006": {
+      "pytest_nodes": [
+        "tests/test_inventory.py::test_alias_choices_paths_typed_extras_and_properties",
+        "tests/test_inventory.py::test_explicit_public_alias_flags[python]",
+        "tests/test_inventory.py::test_explicit_public_alias_flags[json]",
+        "tests/test_inventory.py::test_explicit_public_alias_flags[strings]",
+        "tests/test_prototype.py::test_properties_do_not_shadow_extra_mapping_state"
+      ],
+      "non_pytest_proof_anchors": [],
+      "applicable_ci_cells": [
+        "runtime/ubuntu/3.11",
+        "runtime/ubuntu/3.12",
+        "runtime/ubuntu/3.13",
+        "runtime/ubuntu/3.14",
+        "runtime/macos/3.11",
+        "runtime/macos/3.14",
+        "runtime/windows/3.11",
+        "runtime/windows/3.14"
+      ],
+      "non_applicable_ci_cells": {
+        "artifact/ubuntu/3.11": "This criterion's listed proof is not executed by the artifact job.",
+        "artifact/ubuntu/3.14": "This criterion's listed proof is not executed by the artifact job.",
+        "docs/ubuntu/3.11": "This criterion's listed proof is not executed by the docs job."
+      },
+      "coverage_status": "named anchors; complete AC-subclause audit not claimed"
+    },
+    "AC-007": {
+      "pytest_nodes": [
+        "tests/test_phase03_contract.py::test_scalar_bulk_failure_is_atomic_and_reset_updates_metadata",
+        "tests/test_prototype.py::test_coupled_updates_rollback_aliases_and_defaults",
+        "tests/test_stateful.py::TestScalarTransactions::runTest"
+      ],
+      "non_pytest_proof_anchors": [],
+      "applicable_ci_cells": [
+        "runtime/ubuntu/3.11",
+        "runtime/ubuntu/3.12",
+        "runtime/ubuntu/3.13",
+        "runtime/ubuntu/3.14",
+        "runtime/macos/3.11",
+        "runtime/macos/3.14",
+        "runtime/windows/3.11",
+        "runtime/windows/3.14"
+      ],
+      "non_applicable_ci_cells": {
+        "artifact/ubuntu/3.11": "This criterion's listed proof is not executed by the artifact job.",
+        "artifact/ubuntu/3.14": "This criterion's listed proof is not executed by the artifact job.",
+        "docs/ubuntu/3.11": "This criterion's listed proof is not executed by the docs job."
+      },
+      "coverage_status": "named anchors; complete AC-subclause audit not claimed"
+    },
+    "AC-008": {
+      "pytest_nodes": [
+        "tests/test_prototype.py::test_coupled_updates_rollback_aliases_and_defaults",
+        "tests/test_stateful.py::TestScalarTransactions::runTest"
+      ],
+      "non_pytest_proof_anchors": [],
+      "applicable_ci_cells": [
+        "runtime/ubuntu/3.11",
+        "runtime/ubuntu/3.12",
+        "runtime/ubuntu/3.13",
+        "runtime/ubuntu/3.14",
+        "runtime/macos/3.11",
+        "runtime/macos/3.14",
+        "runtime/windows/3.11",
+        "runtime/windows/3.14"
+      ],
+      "non_applicable_ci_cells": {
+        "artifact/ubuntu/3.11": "This criterion's listed proof is not executed by the artifact job.",
+        "artifact/ubuntu/3.14": "This criterion's listed proof is not executed by the artifact job.",
+        "docs/ubuntu/3.11": "This criterion's listed proof is not executed by the docs job."
+      },
+      "coverage_status": "named anchors; complete AC-subclause audit not claimed"
+    },
+    "AC-009": {
+      "pytest_nodes": [
+        "tests/test_phase03_contract.py::test_non_string_pop_is_rejected_before_fallback",
+        "tests/test_prototype.py::test_late_generator_and_reentrancy_recover",
+        "tests/test_sol_phase02_rereview.py::test_sol010_input_callbacks_run_under_the_same_root_guard[slice]",
+        "tests/test_sol_phase02_rereview.py::test_sol010_input_callbacks_run_under_the_same_root_guard[mapping_update]",
+        "tests/test_sol_phase03_blockers.py::test_sol014_non_string_bulk_names_precede_frozen_policy[update]",
+        "tests/test_sol_phase03_blockers.py::test_sol014_non_string_bulk_names_precede_frozen_policy[reset]"
+      ],
+      "non_pytest_proof_anchors": [],
+      "applicable_ci_cells": [
+        "runtime/ubuntu/3.11",
+        "runtime/ubuntu/3.12",
+        "runtime/ubuntu/3.13",
+        "runtime/ubuntu/3.14",
+        "runtime/macos/3.11",
+        "runtime/macos/3.14",
+        "runtime/windows/3.11",
+        "runtime/windows/3.14"
+      ],
+      "non_applicable_ci_cells": {
+        "artifact/ubuntu/3.11": "This criterion's listed proof is not executed by the artifact job.",
+        "artifact/ubuntu/3.14": "This criterion's listed proof is not executed by the artifact job.",
+        "docs/ubuntu/3.11": "This criterion's listed proof is not executed by the docs job."
+      },
+      "coverage_status": "named anchors; complete AC-subclause audit not claimed"
+    },
+    "AC-010": {
+      "pytest_nodes": [
+        "tests/test_inventory.py::test_alias_choices_paths_typed_extras_and_properties",
+        "tests/test_prototype.py::test_extras_destructive_metadata_and_errors",
+        "tests/test_stateful.py::TestScalarTransactions::runTest"
+      ],
+      "non_pytest_proof_anchors": [],
+      "applicable_ci_cells": [
+        "runtime/ubuntu/3.11",
+        "runtime/ubuntu/3.12",
+        "runtime/ubuntu/3.13",
+        "runtime/ubuntu/3.14",
+        "runtime/macos/3.11",
+        "runtime/macos/3.14",
+        "runtime/windows/3.11",
+        "runtime/windows/3.14"
+      ],
+      "non_applicable_ci_cells": {
+        "artifact/ubuntu/3.11": "This criterion's listed proof is not executed by the artifact job.",
+        "artifact/ubuntu/3.14": "This criterion's listed proof is not executed by the artifact job.",
+        "docs/ubuntu/3.11": "This criterion's listed proof is not executed by the docs job."
+      },
+      "coverage_status": "named anchors; complete AC-subclause audit not claimed"
+    },
+    "AC-011": {
+      "pytest_nodes": [
+        "tests/test_prototype.py::test_extras_destructive_metadata_and_errors"
+      ],
+      "non_pytest_proof_anchors": [],
+      "applicable_ci_cells": [
+        "runtime/ubuntu/3.11",
+        "runtime/ubuntu/3.12",
+        "runtime/ubuntu/3.13",
+        "runtime/ubuntu/3.14",
+        "runtime/macos/3.11",
+        "runtime/macos/3.14",
+        "runtime/windows/3.11",
+        "runtime/windows/3.14"
+      ],
+      "non_applicable_ci_cells": {
+        "artifact/ubuntu/3.11": "This criterion's listed proof is not executed by the artifact job.",
+        "artifact/ubuntu/3.14": "This criterion's listed proof is not executed by the artifact job.",
+        "docs/ubuntu/3.11": "This criterion's listed proof is not executed by the docs job."
+      },
+      "coverage_status": "named anchors; complete AC-subclause audit not claimed"
+    },
+    "AC-012": {
+      "pytest_nodes": [
+        "tests/test_inventory.py::test_nested_aliases_and_data_dependent_reset",
+        "tests/test_inventory.py::test_shape_changing_validator_rejected_and_factory_failure_recovers",
+        "tests/test_prototype.py::test_coupled_updates_rollback_aliases_and_defaults",
+        "tests/test_stateful.py::TestScalarTransactions::runTest"
+      ],
+      "non_pytest_proof_anchors": [],
+      "applicable_ci_cells": [
+        "runtime/ubuntu/3.11",
+        "runtime/ubuntu/3.12",
+        "runtime/ubuntu/3.13",
+        "runtime/ubuntu/3.14",
+        "runtime/macos/3.11",
+        "runtime/macos/3.14",
+        "runtime/windows/3.11",
+        "runtime/windows/3.14"
+      ],
+      "non_applicable_ci_cells": {
+        "artifact/ubuntu/3.11": "This criterion's listed proof is not executed by the artifact job.",
+        "artifact/ubuntu/3.14": "This criterion's listed proof is not executed by the artifact job.",
+        "docs/ubuntu/3.11": "This criterion's listed proof is not executed by the docs job."
+      },
+      "coverage_status": "named anchors; complete AC-subclause audit not claimed"
+    },
+    "AC-013": {
+      "pytest_nodes": [
+        "tests/test_prototype.py::test_frozen_ancestors_and_copy",
+        "tests/test_sol_phase03_blockers.py::test_sol014_non_string_bulk_names_precede_frozen_policy[update]",
+        "tests/test_sol_phase03_blockers.py::test_sol014_non_string_bulk_names_precede_frozen_policy[reset]"
+      ],
+      "non_pytest_proof_anchors": [],
+      "applicable_ci_cells": [
+        "runtime/ubuntu/3.11",
+        "runtime/ubuntu/3.12",
+        "runtime/ubuntu/3.13",
+        "runtime/ubuntu/3.14",
+        "runtime/macos/3.11",
+        "runtime/macos/3.14",
+        "runtime/windows/3.11",
+        "runtime/windows/3.14"
+      ],
+      "non_applicable_ci_cells": {
+        "artifact/ubuntu/3.11": "This criterion's listed proof is not executed by the artifact job.",
+        "artifact/ubuntu/3.14": "This criterion's listed proof is not executed by the artifact job.",
+        "docs/ubuntu/3.11": "This criterion's listed proof is not executed by the docs job."
+      },
+      "coverage_status": "named anchors; complete AC-subclause audit not claimed"
+    },
+    "AC-014": {
+      "pytest_nodes": [
+        "tests/test_phase03_contract.py::test_scalar_bulk_failure_is_atomic_and_reset_updates_metadata",
+        "tests/test_prototype.py::test_extras_destructive_metadata_and_errors",
+        "tests/test_stateful.py::TestScalarTransactions::runTest"
+      ],
+      "non_pytest_proof_anchors": [],
+      "applicable_ci_cells": [
+        "runtime/ubuntu/3.11",
+        "runtime/ubuntu/3.12",
+        "runtime/ubuntu/3.13",
+        "runtime/ubuntu/3.14",
+        "runtime/macos/3.11",
+        "runtime/macos/3.14",
+        "runtime/windows/3.11",
+        "runtime/windows/3.14"
+      ],
+      "non_applicable_ci_cells": {
+        "artifact/ubuntu/3.11": "This criterion's listed proof is not executed by the artifact job.",
+        "artifact/ubuntu/3.14": "This criterion's listed proof is not executed by the artifact job.",
+        "docs/ubuntu/3.11": "This criterion's listed proof is not executed by the docs job."
+      },
+      "coverage_status": "named anchors; complete AC-subclause audit not claimed"
+    },
+    "AC-015": {
+      "pytest_nodes": [
+        "tests/test_inventory.py::test_sort_callback_failure_and_programming_error",
+        "tests/test_prototype.py::test_nonidempotent_unchanged_normalizer_rejected_without_drift",
+        "tests/test_sol_phase02_rereview.py::test_sol012_existing_model_public_validation_preserves_supplied_context"
+      ],
+      "non_pytest_proof_anchors": [],
+      "applicable_ci_cells": [
+        "runtime/ubuntu/3.11",
+        "runtime/ubuntu/3.12",
+        "runtime/ubuntu/3.13",
+        "runtime/ubuntu/3.14",
+        "runtime/macos/3.11",
+        "runtime/macos/3.14",
+        "runtime/windows/3.11",
+        "runtime/windows/3.14"
+      ],
+      "non_applicable_ci_cells": {
+        "artifact/ubuntu/3.11": "This criterion's listed proof is not executed by the artifact job.",
+        "artifact/ubuntu/3.14": "This criterion's listed proof is not executed by the artifact job.",
+        "docs/ubuntu/3.11": "This criterion's listed proof is not executed by the docs job."
+      },
+      "coverage_status": "named anchors; complete AC-subclause audit not claimed"
+    },
+    "AC-016": {
+      "pytest_nodes": [
+        "tests/test_prototype.py::test_late_generator_and_reentrancy_recover",
+        "tests/test_prototype.py::test_commit_slot_failure_restores_all_live_state[False-1]",
+        "tests/test_prototype.py::test_commit_slot_failure_restores_all_live_state[False-2]",
+        "tests/test_prototype.py::test_commit_slot_failure_restores_all_live_state[False-5]",
+        "tests/test_prototype.py::test_commit_slot_failure_restores_all_live_state[False-10]",
+        "tests/test_prototype.py::test_commit_slot_failure_restores_all_live_state[True-1]",
+        "tests/test_prototype.py::test_commit_slot_failure_restores_all_live_state[True-2]",
+        "tests/test_prototype.py::test_commit_slot_failure_restores_all_live_state[True-5]",
+        "tests/test_prototype.py::test_commit_slot_failure_restores_all_live_state[True-10]",
+        "tests/test_transaction_remediation.py::test_every_prepared_swap_boundary_recovers"
+      ],
+      "non_pytest_proof_anchors": [],
+      "applicable_ci_cells": [
+        "runtime/ubuntu/3.11",
+        "runtime/ubuntu/3.12",
+        "runtime/ubuntu/3.13",
+        "runtime/ubuntu/3.14",
+        "runtime/macos/3.11",
+        "runtime/macos/3.14",
+        "runtime/windows/3.11",
+        "runtime/windows/3.14"
+      ],
+      "non_applicable_ci_cells": {
+        "artifact/ubuntu/3.11": "This criterion's listed proof is not executed by the artifact job.",
+        "artifact/ubuntu/3.14": "This criterion's listed proof is not executed by the artifact job.",
+        "docs/ubuntu/3.11": "This criterion's listed proof is not executed by the docs job."
+      },
+      "coverage_status": "named anchors; complete AC-subclause audit not claimed"
+    },
+    "AC-017": {
+      "pytest_nodes": [
+        "tests/test_inventory.py::test_cached_computed_fields_are_invalidated"
+      ],
+      "non_pytest_proof_anchors": [],
+      "applicable_ci_cells": [
+        "runtime/ubuntu/3.11",
+        "runtime/ubuntu/3.12",
+        "runtime/ubuntu/3.13",
+        "runtime/ubuntu/3.14",
+        "runtime/macos/3.11",
+        "runtime/macos/3.14",
+        "runtime/windows/3.11",
+        "runtime/windows/3.14"
+      ],
+      "non_applicable_ci_cells": {
+        "artifact/ubuntu/3.11": "This criterion's listed proof is not executed by the artifact job.",
+        "artifact/ubuntu/3.14": "This criterion's listed proof is not executed by the artifact job.",
+        "docs/ubuntu/3.11": "This criterion's listed proof is not executed by the docs job."
+      },
+      "coverage_status": "named anchors; complete AC-subclause audit not claimed"
+    },
+    "AC-018": {
+      "pytest_nodes": [
+        "tests/test_inventory.py::test_validated_copy_rejects_unknown_keys_and_drift",
+        "tests/test_phase03_contract.py::test_scalar_copy_is_validated_and_independent",
+        "tests/test_prototype.py::test_frozen_ancestors_and_copy",
+        "tests/test_prototype.py::test_copy_ownership[copy]",
+        "tests/test_prototype.py::test_copy_ownership[deepcopy]",
+        "tests/test_prototype.py::test_copy_ownership[<lambda>]"
+      ],
+      "non_pytest_proof_anchors": [],
+      "applicable_ci_cells": [
+        "runtime/ubuntu/3.11",
+        "runtime/ubuntu/3.12",
+        "runtime/ubuntu/3.13",
+        "runtime/ubuntu/3.14",
+        "runtime/macos/3.11",
+        "runtime/macos/3.14",
+        "runtime/windows/3.11",
+        "runtime/windows/3.14"
+      ],
+      "non_applicable_ci_cells": {
+        "artifact/ubuntu/3.11": "This criterion's listed proof is not executed by the artifact job.",
+        "artifact/ubuntu/3.14": "This criterion's listed proof is not executed by the artifact job.",
+        "docs/ubuntu/3.11": "This criterion's listed proof is not executed by the docs job."
+      },
+      "coverage_status": "named anchors; complete AC-subclause audit not claimed"
+    },
+    "AC-019": {
+      "pytest_nodes": [
+        "tests/test_prototype.py::test_unsafe_inputs_hooks_and_trusted_paths_rejected"
+      ],
+      "non_pytest_proof_anchors": [],
+      "applicable_ci_cells": [
+        "runtime/ubuntu/3.11",
+        "runtime/ubuntu/3.12",
+        "runtime/ubuntu/3.13",
+        "runtime/ubuntu/3.14",
+        "runtime/macos/3.11",
+        "runtime/macos/3.14",
+        "runtime/windows/3.11",
+        "runtime/windows/3.14"
+      ],
+      "non_applicable_ci_cells": {
+        "artifact/ubuntu/3.11": "This criterion's listed proof is not executed by the artifact job.",
+        "artifact/ubuntu/3.14": "This criterion's listed proof is not executed by the artifact job.",
+        "docs/ubuntu/3.11": "This criterion's listed proof is not executed by the docs job."
+      },
+      "coverage_status": "named anchors; complete AC-subclause audit not claimed"
+    },
+    "AC-020": {
+      "pytest_nodes": [
+        "tests/test_compat_remediation.py::test_type_adapter_native_mode_keeps_dynamic_strict_and_extra_options",
+        "tests/test_sol_phase02_rereview.py::test_sol012_existing_model_public_validation_preserves_supplied_context",
+        "tests/test_sol_phase02_rereview_2.py::test_sol013_failed_public_validation_does_not_mutate_existing_input",
+        "tests/test_sol_phase03_rereview.py::test_sol017_json_entry_options_match_pinned_basemodel[strict]",
+        "tests/test_sol_phase03_rereview.py::test_sol017_json_entry_options_match_pinned_basemodel[extra]",
+        "tests/test_sol_phase03_rereview.py::test_sol017_json_entry_options_match_pinned_basemodel[context]",
+        "tests/test_sol_phase03_rereview.py::test_sol017_rejected_strings_callback_cannot_mutate_entry_source",
+        "tests/test_sol_phase03_rereview_2.py::test_sol017_type_adapter_strict_json_matches_pinned_basemodel",
+        "tests/test_sol_phase03_rereview_3.py::test_sol017_type_adapter_strict_strings_matches_pinned_basemodel",
+        "tests/test_sol_phase03_rereview_3.py::test_sol017_type_adapter_json_preserves_field_specific_strictness"
+      ],
+      "non_pytest_proof_anchors": [],
+      "applicable_ci_cells": [
+        "runtime/ubuntu/3.11",
+        "runtime/ubuntu/3.12",
+        "runtime/ubuntu/3.13",
+        "runtime/ubuntu/3.14",
+        "runtime/macos/3.11",
+        "runtime/macos/3.14",
+        "runtime/windows/3.11",
+        "runtime/windows/3.14"
+      ],
+      "non_applicable_ci_cells": {
+        "artifact/ubuntu/3.11": "This criterion's listed proof is not executed by the artifact job.",
+        "artifact/ubuntu/3.14": "This criterion's listed proof is not executed by the artifact job.",
+        "docs/ubuntu/3.11": "This criterion's listed proof is not executed by the docs job."
+      },
+      "coverage_status": "open SOL-017 native-mode failures"
+    },
+    "AC-021": {
+      "pytest_nodes": [
+        "tests/test_prototype.py::test_serializers_exclusions_computed_and_context"
+      ],
+      "non_pytest_proof_anchors": [],
+      "applicable_ci_cells": [
+        "runtime/ubuntu/3.11",
+        "runtime/ubuntu/3.12",
+        "runtime/ubuntu/3.13",
+        "runtime/ubuntu/3.14",
+        "runtime/macos/3.11",
+        "runtime/macos/3.14",
+        "runtime/windows/3.11",
+        "runtime/windows/3.14"
+      ],
+      "non_applicable_ci_cells": {
+        "artifact/ubuntu/3.11": "This criterion's listed proof is not executed by the artifact job.",
+        "artifact/ubuntu/3.14": "This criterion's listed proof is not executed by the artifact job.",
+        "docs/ubuntu/3.11": "This criterion's listed proof is not executed by the docs job."
+      },
+      "coverage_status": "named anchors; complete AC-subclause audit not claimed"
+    },
+    "AC-022": {
+      "pytest_nodes": [
+        "tests/test_phase03_evidence_contract.py::test_scalar_model_equality_and_hash_contract"
+      ],
+      "non_pytest_proof_anchors": [],
+      "applicable_ci_cells": [
+        "runtime/ubuntu/3.11",
+        "runtime/ubuntu/3.12",
+        "runtime/ubuntu/3.13",
+        "runtime/ubuntu/3.14",
+        "runtime/macos/3.11",
+        "runtime/macos/3.14",
+        "runtime/windows/3.11",
+        "runtime/windows/3.14"
+      ],
+      "non_applicable_ci_cells": {
+        "artifact/ubuntu/3.11": "This criterion's listed proof is not executed by the artifact job.",
+        "artifact/ubuntu/3.14": "This criterion's listed proof is not executed by the artifact job.",
+        "docs/ubuntu/3.11": "This criterion's listed proof is not executed by the docs job."
+      },
+      "coverage_status": "named anchors; complete AC-subclause audit not claimed"
+    },
+    "AC-023": {
+      "pytest_nodes": [],
+      "non_pytest_proof_anchors": [
+        "tools/check_typing.py",
+        "pyright --verifytypes pydandict --ignoreexternal"
+      ],
+      "applicable_ci_cells": [
+        "runtime/ubuntu/3.11",
+        "runtime/ubuntu/3.12",
+        "runtime/ubuntu/3.13",
+        "runtime/ubuntu/3.14",
+        "runtime/macos/3.11",
+        "runtime/macos/3.14",
+        "runtime/windows/3.11",
+        "runtime/windows/3.14"
+      ],
+      "non_applicable_ci_cells": {
+        "artifact/ubuntu/3.11": "This criterion's listed proof is not executed by the artifact job.",
+        "artifact/ubuntu/3.14": "This criterion's listed proof is not executed by the artifact job.",
+        "docs/ubuntu/3.11": "This criterion's listed proof is not executed by the docs job."
+      },
+      "coverage_status": "named anchors; complete AC-subclause audit not claimed"
+    },
+    "AC-024": {
+      "pytest_nodes": [],
+      "non_pytest_proof_anchors": [
+        "examples/library_config.py (direct/rebuilt clean-wheel execution)",
+        "installed metadata, nested, HTTP and typing consumers"
+      ],
+      "applicable_ci_cells": [
+        "artifact/ubuntu/3.11",
+        "artifact/ubuntu/3.14"
+      ],
+      "non_applicable_ci_cells": {
+        "runtime/ubuntu/3.11": "This criterion's listed proof is not executed by the runtime job.",
+        "runtime/ubuntu/3.12": "This criterion's listed proof is not executed by the runtime job.",
+        "runtime/ubuntu/3.13": "This criterion's listed proof is not executed by the runtime job.",
+        "runtime/ubuntu/3.14": "This criterion's listed proof is not executed by the runtime job.",
+        "runtime/macos/3.11": "This criterion's listed proof is not executed by the runtime job.",
+        "runtime/macos/3.14": "This criterion's listed proof is not executed by the runtime job.",
+        "runtime/windows/3.11": "This criterion's listed proof is not executed by the runtime job.",
+        "runtime/windows/3.14": "This criterion's listed proof is not executed by the runtime job.",
+        "docs/ubuntu/3.11": "This criterion's listed proof is not executed by the docs job."
+      },
+      "coverage_status": "named anchors; complete AC-subclause audit not claimed"
+    },
+    "AC-025": {
+      "pytest_nodes": [
+        "tests/test_sol_phase03_rereview.py::test_sol015_missing_provenance_cannot_replace_durable_evidence"
+      ],
+      "non_pytest_proof_anchors": [
+        "tools/qualify_package.py"
+      ],
+      "applicable_ci_cells": [
+        "runtime/ubuntu/3.11",
+        "runtime/ubuntu/3.12",
+        "runtime/ubuntu/3.13",
+        "runtime/ubuntu/3.14",
+        "runtime/macos/3.11",
+        "runtime/macos/3.14",
+        "runtime/windows/3.11",
+        "runtime/windows/3.14",
+        "artifact/ubuntu/3.11",
+        "artifact/ubuntu/3.14",
+        "docs/ubuntu/3.11"
+      ],
+      "non_applicable_ci_cells": {},
+      "coverage_status": "named anchors; complete AC-subclause audit not claimed"
+    },
+    "AC-026": {
+      "pytest_nodes": [
+        "tests/test_stateful.py::TestScalarTransactions::runTest"
+      ],
+      "non_pytest_proof_anchors": [],
+      "applicable_ci_cells": [
+        "runtime/ubuntu/3.11",
+        "runtime/ubuntu/3.12",
+        "runtime/ubuntu/3.13",
+        "runtime/ubuntu/3.14",
+        "runtime/macos/3.11",
+        "runtime/macos/3.14",
+        "runtime/windows/3.11",
+        "runtime/windows/3.14"
+      ],
+      "non_applicable_ci_cells": {
+        "artifact/ubuntu/3.11": "This criterion's listed proof is not executed by the artifact job.",
+        "artifact/ubuntu/3.14": "This criterion's listed proof is not executed by the artifact job.",
+        "docs/ubuntu/3.11": "This criterion's listed proof is not executed by the docs job."
+      },
+      "coverage_status": "named anchors; complete AC-subclause audit not claimed"
+    },
+    "AC-027": {
+      "pytest_nodes": [
+        "tests/test_benchmark_contract.py::test_production_workload_shapes_and_operations_are_complete",
+        "tests/test_benchmark_contract.py::test_mixed_parent_rejection_and_coupled_batch_have_verified_state",
+        "tests/test_compat_remediation.py::test_type_adapter_native_mode_keeps_dynamic_strict_and_extra_options",
+        "tests/test_compat_remediation.py::test_canonical_validator_is_class_local_and_rebuilt",
+        "tests/test_compat_remediation.py::test_corrupt_required_storage_fails_closed[__dict__-value0]",
+        "tests/test_compat_remediation.py::test_corrupt_required_storage_fails_closed[__pydantic_extra__-value1]",
+        "tests/test_compat_remediation.py::test_corrupt_required_storage_fails_closed[__pydantic_fields_set__-value2]",
+        "tests/test_compat_remediation.py::test_malformed_consumed_model_schema_fails_before_compilation",
+        "tests/test_compat_remediation.py::test_json_schema_metadata_is_not_treated_as_validator_nodes",
+        "tests/test_compat_remediation.py::test_rebuild_resolves_forward_references_in_its_callers_namespace",
+        "tests/test_compat_remediation.py::test_public_validation_completes_deferred_schemas_before_adapter_access[python]",
+        "tests/test_compat_remediation.py::test_public_validation_completes_deferred_schemas_before_adapter_access[json]",
+        "tests/test_compat_remediation.py::test_public_validation_completes_deferred_schemas_before_adapter_access[strings]",
+        "tests/test_extra_annotation_completion.py::test_future_typed_extra_concrete_values_are_rejected",
+        "tests/test_extra_annotation_completion.py::test_deferred_extra_completion_audits_the_resolved_value",
+        "tests/test_extra_annotation_completion.py::test_specialized_extra_type_variables_are_audited",
+        "tests/test_extra_annotation_completion.py::test_inherited_extra_model_annotations_require_specialization",
+        "tests/test_hash_ingress.py::test_unhashable_model_members_get_the_ownership_diagnostic[mapping_set]",
+        "tests/test_hash_ingress.py::test_unhashable_model_members_get_the_ownership_diagnostic[set_add]",
+        "tests/test_hash_ingress.py::test_unhashable_model_members_get_the_ownership_diagnostic[set_update]",
+        "tests/test_inventory.py::test_list_mutation_inventory[set]",
+        "tests/test_inventory.py::test_list_mutation_inventory[slice]",
+        "tests/test_inventory.py::test_list_mutation_inventory[del]",
+        "tests/test_inventory.py::test_list_mutation_inventory[delslice]",
+        "tests/test_inventory.py::test_list_mutation_inventory[append]",
+        "tests/test_inventory.py::test_list_mutation_inventory[extend]",
+        "tests/test_inventory.py::test_list_mutation_inventory[insert]",
+        "tests/test_inventory.py::test_list_mutation_inventory[pop]",
+        "tests/test_inventory.py::test_list_mutation_inventory[remove]",
+        "tests/test_inventory.py::test_list_mutation_inventory[reverse]",
+        "tests/test_inventory.py::test_list_mutation_inventory[sort]",
+        "tests/test_inventory.py::test_list_mutation_inventory[iadd]",
+        "tests/test_inventory.py::test_list_mutation_inventory[imul]",
+        "tests/test_inventory.py::test_list_failure_inventory[<lambda>0]",
+        "tests/test_inventory.py::test_list_failure_inventory[<lambda>1]",
+        "tests/test_inventory.py::test_list_failure_inventory[<lambda>2]",
+        "tests/test_inventory.py::test_list_failure_inventory[<lambda>3]",
+        "tests/test_inventory.py::test_list_failure_inventory[<lambda>4]",
+        "tests/test_inventory.py::test_list_read_inventory",
+        "tests/test_inventory.py::test_dict_mutation_inventory[set]",
+        "tests/test_inventory.py::test_dict_mutation_inventory[del]",
+        "tests/test_inventory.py::test_dict_mutation_inventory[update]",
+        "tests/test_inventory.py::test_dict_mutation_inventory[setdefault]",
+        "tests/test_inventory.py::test_dict_mutation_inventory[pop]",
+        "tests/test_inventory.py::test_dict_mutation_inventory[popitem]",
+        "tests/test_inventory.py::test_dict_mutation_inventory[clear]",
+        "tests/test_inventory.py::test_dict_mutation_inventory[ior]",
+        "tests/test_inventory.py::test_dict_reads_views_and_rejected_update",
+        "tests/test_inventory.py::test_set_mutation_inventory[add]",
+        "tests/test_inventory.py::test_set_mutation_inventory[discard]",
+        "tests/test_inventory.py::test_set_mutation_inventory[remove]",
+        "tests/test_inventory.py::test_set_mutation_inventory[clear]",
+        "tests/test_inventory.py::test_set_mutation_inventory[update]",
+        "tests/test_inventory.py::test_set_mutation_inventory[intersection_update]",
+        "tests/test_inventory.py::test_set_mutation_inventory[difference_update]",
+        "tests/test_inventory.py::test_set_mutation_inventory[symmetric_difference_update]",
+        "tests/test_inventory.py::test_set_mutation_inventory[ior]",
+        "tests/test_inventory.py::test_set_mutation_inventory[iand]",
+        "tests/test_inventory.py::test_set_mutation_inventory[isub]",
+        "tests/test_inventory.py::test_set_mutation_inventory[ixor]",
+        "tests/test_inventory.py::test_set_read_inventory_and_pop",
+        "tests/test_inventory.py::test_mutable_repetition_tuple_descendants_and_alias_isolation",
+        "tests/test_inventory.py::test_cached_computed_fields_are_invalidated",
+        "tests/test_inventory.py::test_generic_union_and_recursive_schema",
+        "tests/test_inventory.py::test_nested_aliases_and_data_dependent_reset",
+        "tests/test_inventory.py::test_sort_callback_failure_and_programming_error",
+        "tests/test_inventory.py::test_stale_child_repr_equality_and_metadata",
+        "tests/test_inventory.py::test_validated_copy_rejects_unknown_keys_and_drift",
+        "tests/test_inventory.py::test_alias_choices_paths_typed_extras_and_properties",
+        "tests/test_inventory.py::test_shape_changing_validator_rejected_and_factory_failure_recovers",
+        "tests/test_inventory.py::test_protocol_annotations_have_honest_runtime_types_and_adapter_inputs",
+        "tests/test_inventory.py::test_explicit_public_alias_flags[python]",
+        "tests/test_inventory.py::test_explicit_public_alias_flags[json]",
+        "tests/test_inventory.py::test_explicit_public_alias_flags[strings]",
+        "tests/test_phase02_contract.py::test_concrete_mutable_annotations_fail_with_migration_hint",
+        "tests/test_phase02_contract.py::test_generic_models_must_be_explicitly_specialized",
+        "tests/test_phase02_contract.py::test_custom_timezone_values_are_rejected_without_state_escape",
+        "tests/test_phase02_contract.py::test_cycles_and_ordinary_base_models_are_rejected",
+        "tests/test_phase02_contract.py::test_deepcopy_of_a_guard_installs_independent_nested_models",
+        "tests/test_phase02_contract.py::test_identity_handle_assignment_checks_frozen_ancestors",
+        "tests/test_phase03_contract.py::test_scalar_reads_views_and_canonical_namespace",
+        "tests/test_phase03_contract.py::test_non_string_pop_is_rejected_before_fallback",
+        "tests/test_phase03_contract.py::test_scalar_bulk_failure_is_atomic_and_reset_updates_metadata",
+        "tests/test_phase03_contract.py::test_scalar_copy_is_validated_and_independent",
+        "tests/test_prototype.py::test_identity_serialization_and_mapping_views",
+        "tests/test_prototype.py::test_coupled_updates_rollback_aliases_and_defaults",
+        "tests/test_prototype.py::test_late_generator_and_reentrancy_recover",
+        "tests/test_prototype.py::test_fault_injection_preserves_state_handles_and_recovery[staged]",
+        "tests/test_prototype.py::test_fault_injection_preserves_state_handles_and_recovery[validated]",
+        "tests/test_prototype.py::test_fault_injection_preserves_state_handles_and_recovery[result]",
+        "tests/test_prototype.py::test_fault_injection_preserves_state_handles_and_recovery[prepared]",
+        "tests/test_prototype.py::test_nested_parent_constraints_aliases_and_coercion",
+        "tests/test_prototype.py::test_stale_handles_and_detached_removal_results",
+        "tests/test_prototype.py::test_node_identity_survives_reorder_and_unrelated_update",
+        "tests/test_prototype.py::test_augmented_assignment_exactly_one_transaction",
+        "tests/test_prototype.py::test_frozen_ancestors_and_copy",
+        "tests/test_prototype.py::test_copy_ownership[copy]",
+        "tests/test_prototype.py::test_copy_ownership[deepcopy]",
+        "tests/test_prototype.py::test_copy_ownership[<lambda>]",
+        "tests/test_prototype.py::test_extras_destructive_metadata_and_errors",
+        "tests/test_prototype.py::test_all_construction_paths_and_frameworks",
+        "tests/test_prototype.py::test_serializers_exclusions_computed_and_context",
+        "tests/test_prototype.py::test_nonidempotent_unchanged_normalizer_rejected_without_drift",
+        "tests/test_prototype.py::test_validator_topology_changes_fail_safely",
+        "tests/test_prototype.py::test_unsafe_inputs_hooks_and_trusted_paths_rejected",
+        "tests/test_prototype.py::test_root_lifetime_and_collection",
+        "tests/test_prototype.py::test_generated_nested_transactions",
+        "tests/test_prototype.py::test_commit_slot_failure_restores_all_live_state[False-1]",
+        "tests/test_prototype.py::test_commit_slot_failure_restores_all_live_state[False-2]",
+        "tests/test_prototype.py::test_commit_slot_failure_restores_all_live_state[False-5]",
+        "tests/test_prototype.py::test_commit_slot_failure_restores_all_live_state[False-10]",
+        "tests/test_prototype.py::test_commit_slot_failure_restores_all_live_state[True-1]",
+        "tests/test_prototype.py::test_commit_slot_failure_restores_all_live_state[True-2]",
+        "tests/test_prototype.py::test_commit_slot_failure_restores_all_live_state[True-5]",
+        "tests/test_prototype.py::test_commit_slot_failure_restores_all_live_state[True-10]",
+        "tests/test_prototype.py::test_properties_do_not_shadow_extra_mapping_state",
+        "tests/test_sol_phase02_blockers.py::test_sol001_deferred_concrete_annotation_rejected_on_completion",
+        "tests/test_sol_phase02_blockers.py::test_sol001_typed_extra_values_are_recursively_audited",
+        "tests/test_sol_phase02_blockers.py::test_sol001_unbound_nested_generic_cannot_escape",
+        "tests/test_sol_phase02_blockers.py::test_sol002_models_in_hash_positions_rejected_without_committing[key]",
+        "tests/test_sol_phase02_blockers.py::test_sol002_models_in_hash_positions_rejected_without_committing[set]",
+        "tests/test_sol_phase02_blockers.py::test_sol002_models_in_hash_positions_rejected_without_committing[frozenset]",
+        "tests/test_sol_phase02_blockers.py::test_sol003_nested_model_identity_assignment_is_a_noop[sequence]",
+        "tests/test_sol_phase02_blockers.py::test_sol003_nested_model_identity_assignment_is_a_noop[mapping]",
+        "tests/test_sol_phase02_blockers.py::test_sol003_model_identity_assignment_checks_frozen_ancestors",
+        "tests/test_sol_phase02_blockers.py::test_sol004_rebuild_invalidates_compiled_alias_variants_before_first_instance",
+        "tests/test_sol_phase02_blockers.py::test_sol004_incompatible_schema_shape_fails_with_compatibility_diagnostic",
+        "tests/test_sol_phase02_blockers.py::test_sol004_raw_storage_and_schema_operations_stay_in_compatibility_boundary",
+        "tests/test_sol_phase02_blockers.py::test_sol005_positive_gate_rejects_incomplete_source_coverage",
+        "tests/test_sol_phase02_blockers.py::test_sol005_negative_gate_rejects_every_unexpected_diagnostic[duplicate]",
+        "tests/test_sol_phase02_blockers.py::test_sol005_negative_gate_rejects_every_unexpected_diagnostic[unruled]",
+        "tests/test_sol_phase02_blockers.py::test_sol006_qualification_installs_and_exercises_both_artifacts",
+        "tests/test_sol_phase02_blockers.py::test_sol007_benchmark_records_the_required_source_baseline",
+        "tests/test_sol_phase02_blockers.py::test_sol008_phase02_evidence_record_and_readable_findings_exist",
+        "tests/test_sol_phase02_blockers.py::test_sol009_discarded_cache_finalizes_after_all_swaps_while_root_is_busy",
+        "tests/test_sol_phase02_rereview.py::test_sol001_named_aliases_audit_their_resolved_mutable_type",
+        "tests/test_sol_phase02_rereview.py::test_sol001_parent_completion_audits_deferred_nested_fields",
+        "tests/test_sol_phase02_rereview.py::test_sol001_parent_completion_audits_deferred_nested_extras",
+        "tests/test_sol_phase02_rereview.py::test_sol002_every_key_insertion_rejects_models_before_native_hashing[setdefault]",
+        "tests/test_sol_phase02_rereview.py::test_sol002_every_key_insertion_rejects_models_before_native_hashing[update_pairs]",
+        "tests/test_sol_phase02_rereview.py::test_sol010_input_callbacks_run_under_the_same_root_guard[slice]",
+        "tests/test_sol_phase02_rereview.py::test_sol010_input_callbacks_run_under_the_same_root_guard[mapping_update]",
+        "tests/test_sol_phase02_rereview.py::test_sol012_existing_model_public_validation_preserves_supplied_context",
+        "tests/test_sol_phase02_rereview_2.py::test_sol001_deferred_nested_abc_migration_remains_supported[field]",
+        "tests/test_sol_phase02_rereview_2.py::test_sol001_deferred_nested_abc_migration_remains_supported[typed_extra]",
+        "tests/test_sol_phase02_rereview_2.py::test_sol004_core_schema_access_including_getattr_stays_in_adapter",
+        "tests/test_sol_phase02_rereview_2.py::test_sol008_final_evidence_identifies_measured_source_and_candidate_ci",
+        "tests/test_sol_phase02_rereview_2.py::test_sol013_existing_model_validation_produces_independent_owned_result",
+        "tests/test_sol_phase02_rereview_2.py::test_sol013_failed_public_validation_does_not_mutate_existing_input",
+        "tests/test_sol_phase02_rereview_3.py::test_sol001_unresolved_ignored_classvar_cannot_bypass_deferred_field_audit",
+        "tests/test_sol_phase02_rereview_3.py::test_sol008_final_benchmark_identifies_the_qualified_candidate_source",
+        "tests/test_sol_phase02_rereview_4.py::test_sol008_claimed_candidate_ci_qualifies_the_recorded_package_source",
+        "tests/test_sol_phase02_rereview_5.py::test_sol008_readable_benchmark_summaries_match_recorded_runs",
+        "tests/test_sol_phase03_blockers.py::test_sol014_non_string_bulk_names_precede_frozen_policy[update]",
+        "tests/test_sol_phase03_blockers.py::test_sol014_non_string_bulk_names_precede_frozen_policy[reset]",
+        "tests/test_sol_phase03_blockers.py::test_sol015_phase03_has_fresh_qualification_records[readable]",
+        "tests/test_sol_phase03_blockers.py::test_sol015_phase03_has_fresh_qualification_records[machine-readable]",
+        "tests/test_sol_phase03_blockers.py::test_sol016_qualification_executes_actual_example_against_both_bare_wheels",
+        "tests/test_sol_phase03_blockers.py::test_sol017_strict_scalar_entry_modes_match_pinned_basemodel[strings]",
+        "tests/test_sol_phase03_blockers.py::test_sol017_strict_scalar_entry_modes_match_pinned_basemodel[json]",
+        "tests/test_sol_phase03_rereview.py::test_sol017_json_entry_options_match_pinned_basemodel[strict]",
+        "tests/test_sol_phase03_rereview.py::test_sol017_json_entry_options_match_pinned_basemodel[extra]",
+        "tests/test_sol_phase03_rereview.py::test_sol017_json_entry_options_match_pinned_basemodel[context]",
+        "tests/test_sol_phase03_rereview.py::test_sol017_rejected_strings_callback_cannot_mutate_entry_source",
+        "tests/test_sol_phase03_rereview.py::test_sol015_missing_provenance_cannot_replace_durable_evidence",
+        "tests/test_sol_phase03_rereview_2.py::test_sol017_type_adapter_strict_json_matches_pinned_basemodel",
+        "tests/test_stateful.py::TestTransactions::runTest",
+        "tests/test_stateful.py::TestScalarTransactions::runTest",
+        "tests/test_transaction_remediation.py::test_every_prepared_swap_boundary_recovers",
+        "tests/test_transaction_remediation.py::test_replacements_collect_discarded_handles_and_bound_bookkeeping"
+      ],
+      "non_pytest_proof_anchors": [],
+      "applicable_ci_cells": [
+        "runtime/ubuntu/3.11",
+        "runtime/ubuntu/3.12",
+        "runtime/ubuntu/3.13",
+        "runtime/ubuntu/3.14",
+        "runtime/macos/3.11",
+        "runtime/macos/3.14",
+        "runtime/windows/3.11",
+        "runtime/windows/3.14"
+      ],
+      "non_applicable_ci_cells": {
+        "artifact/ubuntu/3.11": "This criterion's listed proof is not executed by the artifact job.",
+        "artifact/ubuntu/3.14": "This criterion's listed proof is not executed by the artifact job.",
+        "docs/ubuntu/3.11": "This criterion's listed proof is not executed by the docs job."
+      },
+      "coverage_status": "named anchors; complete AC-subclause audit not claimed"
+    },
+    "AC-028": {
+      "pytest_nodes": [],
+      "non_pytest_proof_anchors": [
+        "examples/library_config.py (direct/rebuilt clean-wheel execution)",
+        "tools/check_docs.py"
+      ],
+      "applicable_ci_cells": [
+        "artifact/ubuntu/3.11",
+        "artifact/ubuntu/3.14",
+        "docs/ubuntu/3.11"
+      ],
+      "non_applicable_ci_cells": {
+        "runtime/ubuntu/3.11": "This criterion's listed proof is not executed by the runtime job.",
+        "runtime/ubuntu/3.12": "This criterion's listed proof is not executed by the runtime job.",
+        "runtime/ubuntu/3.13": "This criterion's listed proof is not executed by the runtime job.",
+        "runtime/ubuntu/3.14": "This criterion's listed proof is not executed by the runtime job.",
+        "runtime/macos/3.11": "This criterion's listed proof is not executed by the runtime job.",
+        "runtime/macos/3.14": "This criterion's listed proof is not executed by the runtime job.",
+        "runtime/windows/3.11": "This criterion's listed proof is not executed by the runtime job.",
+        "runtime/windows/3.14": "This criterion's listed proof is not executed by the runtime job."
+      },
+      "coverage_status": "named anchors; complete AC-subclause audit not claimed"
+    }
+  },
+  "scalar_stateful_profile": {
+    "pytest_node": "tests/test_stateful.py::TestScalarTransactions::runTest",
+    "max_examples": 100,
+    "stateful_step_count": 100,
+    "deadline": null,
+    "derandomize": true,
+    "result": "passed in local full suite"
+  },
+  "observed_failures": [
+    {
+      "node": "tests/test_sol_phase03_rereview_3.py::test_sol017_type_adapter_strict_strings_matches_pinned_basemodel",
+      "finding": "SOL-017",
+      "classification": "FAIL — OPEN BLOCKER"
+    },
+    {
+      "node": "tests/test_sol_phase03_rereview_3.py::test_sol017_type_adapter_json_preserves_field_specific_strictness",
+      "finding": "SOL-017",
+      "classification": "FAIL — OPEN BLOCKER"
+    }
+  ],
+  "limitations": [
+    "All 28 AC keys have named proof anchors and explicit CI job applicability. This is not a complete audit of every AC subclause or annotation/mutator-policy cell.",
+    "The full scalar leaf/annotation/entry-mode table and complete mutator-policy/freeze table still need explicit coverage reconciliation.",
+    "New AC-005/022 proof passes locally but is not present in the historical CI run.",
+    "Current CI lanes have not executed this worktree; historical successful jobs are not substituted for them.",
+    "Current installed artifact checks passed, but dirty source identity prevents replacing durable qualifying records.",
+    "Artifact temporary environments were removed by the driver; measured hashes, commands and resolutions are preserved here, not downloadable artifacts.",
+    "Production implementation and protected Sol verification were not modified; no commit, push, publication or unrelated follow-up fix occurred."
+  ]
+}

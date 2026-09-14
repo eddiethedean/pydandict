@@ -2,41 +2,95 @@
 
 from __future__ import annotations
 
-import json
 from collections.abc import Callable, Mapping
-from contextlib import contextmanager
-from contextvars import ContextVar
 from typing import Any, TypeVar, cast
 
 import pydantic
 from pydantic import BaseModel, ConfigDict, GetCoreSchemaHandler
-from pydantic.config import ExtraValues
 from pydantic.fields import FieldInfo
-from pydantic_core import CoreSchema, SchemaValidator, ValidationError
+from pydantic_core import CoreSchema, SchemaValidator
 from pydantic_core import core_schema as schema_tools
 
 SUPPORTED_PYDANTIC_VERSION = "2.13.4"
 M = TypeVar("M", bound=BaseModel)
 SlotUpdate = tuple[object, str, object]
-EntryOptions = tuple[bool | None, bool | None, bool | None, ExtraValues | None, object]
-_ENTRY_OPTIONS: ContextVar[EntryOptions | None] = ContextVar(
-    "pydandict_entry_options", default=None
-)
 
 
-@contextmanager
-def entry_options(
-    by_alias: bool | None,
-    by_name: bool | None,
-    strict: bool | None,
-    extra: ExtraValues | None,
-    context: object,
-):
-    token = _ENTRY_OPTIONS.set((by_alias, by_name, strict, extra, context))
-    try:
-        yield
-    finally:
-        _ENTRY_OPTIONS.reset(token)
+def _native_model_schema(node: dict[str, Any]) -> dict[str, Any]:
+    if node.get("metadata", {}).get("pydandict_entry_boundary"):
+        result = dict(node["schema"]["json_schema"])
+        if "ref" in node:
+            result["ref"] = node["ref"]
+        return result
+    return node
+
+
+def _identity(value: Any) -> Any:
+    return value
+
+
+def _isolated_callback(function: Any, detach: Callable[[object], object], *, after: bool) -> Any:
+    def isolated(value: Any, *args: Any) -> Any:
+        # After-model callbacks receive a newly allocated model, whose fields
+        # were detached at the model-fields boundary. Preserve its identity.
+        candidate = value if after and isinstance(value, BaseModel) else detach(value)
+        return function(candidate, *args)
+
+    return isolated
+
+
+def _native_schema(value: Any, detach: Callable[[object], object]) -> Any:
+    """Keep native input until validation; isolate only existing callback inputs.
+
+    A root before/wrap/chain callback changes JSON/StringInput to Python input.
+    Existing user callbacks already perform that conversion, so cloning inside
+    their callable preserves the original schema's coercion and option semantics.
+    Detach validated fields/extras before model allocation and after callbacks.
+    """
+    if isinstance(value, dict):
+        node = cast(dict[str, Any], value)
+        node = _native_model_schema(node)
+        if node.get("metadata", {}).get("pydandict_native_boundary"):
+            return node  # A nested DictModel already owns this boundary.
+        result: dict[str, Any] = {
+            key: child if key in ("metadata", "serialization") else _native_schema(child, detach)
+            for key, child in node.items()
+        }
+        kind = node.get("type")
+        if kind in ("function-before", "function-wrap", "function-after", "function-plain"):
+            function = dict(result["function"])
+            function["function"] = _isolated_callback(
+                function["function"], detach, after=kind == "function-after"
+            )
+            result["function"] = function
+            result["metadata"] = {
+                **result.get("metadata", {}),
+                "pydandict_original_function": node["function"],
+            }
+        if kind == "model-fields":
+            return schema_tools.no_info_after_validator_function(
+                detach, cast(CoreSchema, result), metadata={"pydandict_detached_fields": True}
+            )
+        if kind == "model-field":
+            field_schema = result["schema"]
+            # ModelFields detects required/default status from the outer node.
+            # Keep defaults outermost while detaching before the next factory.
+            if field_schema.get("type") == "default":
+                field_schema = dict(field_schema)
+                field_schema["schema"] = schema_tools.no_info_after_validator_function(
+                    detach, field_schema["schema"], metadata={"pydandict_detached_fields": True}
+                )
+                result["schema"] = field_schema
+            else:
+                result["schema"] = schema_tools.no_info_after_validator_function(
+                    detach, field_schema, metadata={"pydandict_detached_fields": True}
+                )
+        return result
+    if isinstance(value, list):
+        return [_native_schema(child, detach) for child in cast(list[Any], value)]
+    if isinstance(value, tuple):
+        return tuple(_native_schema(child, detach) for child in cast(tuple[Any, ...], value))
+    return value
 
 
 def _incompatible(message: str) -> TypeError:
@@ -243,6 +297,12 @@ def audit_incomplete_model(
                     and not is_complete(model)
                 ):
                     inner = _string_dict(node_map.get("schema"), "incomplete model schema")
+                    while inner.get("type") in (
+                        "function-before",
+                        "function-after",
+                        "function-wrap",
+                    ):
+                        inner = _string_dict(inner.get("schema"), "incomplete model inner schema")
                     fields_map = _string_dict(inner.get("fields", {}), "incomplete model fields")
                     for field_name, field_node in fields_map.items():
                         field_map = _string_dict(field_node, "incomplete model field")
@@ -301,7 +361,7 @@ def _rewrite(
 
 def invalidate_validators(cls: type[BaseModel]) -> None:
     # Class-local storage avoids a global cache retaining generated model classes.
-    for name in ("_pd_canonical_validator", "_pd_alias_validators"):
+    for name in ("_pd_canonical_validator", "_pd_alias_validators", "_pd_python_validators"):
         setattr(cls, name, None)
 
 
@@ -309,16 +369,63 @@ def canonical_validator(cls: type[BaseModel]) -> SchemaValidator:
     schema = core_schema(cls)
     cache = cls.__dict__.get("_pd_canonical_validator")
     if cache is None or cache[0] is not schema:
-        cache = (schema, compile_validator(_rewrite(schema, canonical=True)))
+        cache = (schema, compile_validator(_rewrite(_python_schema(schema), canonical=True)))
         setattr(cls, "_pd_canonical_validator", cache)
     return cast(SchemaValidator, cache[1])
+
+
+def _python_schema(value: Any) -> Any:
+    """Select isolated Python validation without changing native public schemas."""
+    if isinstance(value, dict):
+        node = cast(dict[str, Any], value)
+        metadata = node.get("metadata", {})
+        if metadata.get("pydandict_entry_boundary"):
+            result = _python_schema(node["schema"]["json_schema"])
+            if "ref" in node:
+                result["ref"] = node["ref"]
+            return result
+        if metadata.get("pydandict_detached_fields"):
+            return _python_schema(node["schema"])
+        result = {
+            key: child if key in ("metadata", "serialization") else _python_schema(child)
+            for key, child in node.items()
+        }
+        if metadata.get("pydandict_native_boundary"):
+            result["type"] = "function-wrap"
+            result["function"] = {
+                "type": "with-info",
+                "function": metadata["pydandict_python_function"],
+            }
+        elif "pydandict_original_function" in metadata:
+            result["function"] = metadata["pydandict_original_function"]
+        return result
+    if isinstance(value, list):
+        return [_python_schema(child) for child in cast(list[Any], value)]
+    if isinstance(value, tuple):
+        return tuple(_python_schema(child) for child in cast(tuple[Any, ...], value))
+    return value
+
+
+def python_entry_validator(
+    cls: type[BaseModel], by_alias: bool | None, by_name: bool | None
+) -> SchemaValidator:
+    schema = core_schema(cls)
+    cache: Any = cls.__dict__.get("_pd_python_validators")
+    if cache is None or cache[0] is not schema:
+        cache = (schema, {})
+        setattr(cls, "_pd_python_validators", cache)
+    variants = cache[1]
+    key = (by_alias, by_name)
+    if key not in variants:
+        variants[key] = compile_validator(
+            _rewrite(_python_schema(schema), canonical=False, by_alias=by_alias, by_name=by_name)
+        )
+    return cast(SchemaValidator, variants[key])
 
 
 def entry_validator(
     cls: type[BaseModel], by_alias: bool | None, by_name: bool | None
 ) -> SchemaValidator:
-    if by_alias is None and by_name is None:
-        return validator(cls)
     schema = core_schema(cls)
     cache: Any = cls.__dict__.get("_pd_alias_validators")
     if cache is None or cache[0] is not schema:
@@ -340,9 +447,17 @@ def wrap_model_schema(
         [object, Callable[[object], BaseModel], object, CoreSchema, dict[str, object]], BaseModel
     ],
     snapshot: Callable[[BaseModel], object],
+    native_finish: Callable[[BaseModel, CoreSchema, dict[str, object]], BaseModel],
+    detach: Callable[[object], object],
 ) -> CoreSchema:
     namespace = schema_namespace(handler)
     schema: dict[str, Any] = dict(_checked_schema(handler(source)))
+    # Embedded schemas must remain model-shaped for discriminator inference.
+    # Their containing DictModel's Python branch reconstructs the isolated
+    # wrappers recursively; JSON/strings retain these native model boundaries.
+    schema = _native_model_schema(schema)
+    if schema.get("metadata", {}).get("pydandict_native_boundary"):
+        return cast(CoreSchema, schema)
     ref = schema.pop("ref", None)
     if ref is not None and not isinstance(ref, str):
         raise _incompatible("model schema reference must be a string")
@@ -354,111 +469,32 @@ def wrap_model_schema(
                 raise _incompatible("model validator returned an incompatible value")
             return result
 
-        # DictModel's public class methods make their entry options available
-        # here.  TypeAdapter enters this schema directly, however, and
-        # ValidationInfo deliberately exposes neither strict nor extra.  Start
-        # with the original handler in that path: pydantic keeps its dynamic
-        # strict/extra policies there.  Its handler is Python-mode, so only
-        # replay the small set of strict JSON/string scalar representations
-        # that Pydantic accepts in their native mode but rejects in Python mode.
-        options = _ENTRY_OPTIONS.get()
-        if options is None:
-
-            def type_adapter_model(input_value: object) -> BaseModel:
-                try:
-                    return next_model(input_value)
-                except ValidationError as error:
-                    replayable = {
-                        "bytes_type",
-                        "date_type",
-                        "datetime_type",
-                        "time_type",
-                        "time_delta_type",
-                        "is_instance_of",
-                    }
-                    errors = error.errors()
-                    if (
-                        info.mode not in ("json", "string")
-                        or not errors
-                        or not all(
-                            item.get("type") in replayable | {"extra_forbidden"} for item in errors
-                        )
-                    ):
-                        raise
-                    mode_validator = SchemaValidator(cast(CoreSchema, schema))
-                    if info.mode == "json":
-                        parsed = mode_validator.validate_json(
-                            json.dumps(input_value),
-                            strict=True,
-                            extra="allow",
-                            context=info.context,
-                        )
-                    else:
-                        parsed = mode_validator.validate_strings(
-                            cast(Any, input_value), strict=True, extra="allow", context=info.context
-                        )
-                    # Feed the native-mode scalar representation back through
-                    # the original handler so TypeAdapter's dynamic extra
-                    # policy is still enforced there.
-                    return next_model(parsed)
-
-            return finish(
-                value, type_adapter_model, info.context, cast(CoreSchema, schema), namespace
-            )
-
-        # A wrap validator's ``next_validator`` is a Python-mode handler even
-        # when the outer SchemaValidator was entered through validate_json or
-        # validate_strings. Re-run the unwrapped model schema in that mode, but
-        # do so through ``finish``: it detaches caller input before user
-        # validators run. The class-method boundary supplies its applicable
-        # strict, extra, alias and context options above.
-        by_alias, by_name, strict, extra, context = options
-        mode_schema = _rewrite(
-            schema,
-            canonical=False,
-            by_alias=by_alias,
-            by_name=by_name,
-        )
-        if info.mode == "string":
-            mode_validator = SchemaValidator(cast(CoreSchema, mode_schema))
-            return finish(
-                value,
-                lambda input_value: cast(
-                    BaseModel,
-                    mode_validator.validate_strings(
-                        cast(Any, input_value), strict=strict, extra=extra, context=context
-                    ),
-                ),
-                info.context,
-                cast(CoreSchema, schema),
-                namespace,
-            )
-        if info.mode == "json":
-            mode_validator = SchemaValidator(cast(CoreSchema, mode_schema))
-            return finish(
-                value,
-                lambda input_value: cast(
-                    BaseModel,
-                    mode_validator.validate_json(
-                        json.dumps(input_value), strict=strict, extra=extra, context=context
-                    ),
-                ),
-                info.context,
-                cast(CoreSchema, schema),
-                namespace,
-            )
         return finish(value, next_model, info.context, cast(CoreSchema, schema), namespace)
+
+    def finish_native(value: Any) -> BaseModel:
+        if not isinstance(value, BaseModel):
+            raise _incompatible("model validator returned an incompatible value")
+        return native_finish(value, cast(CoreSchema, schema), namespace)
 
     def serialize(value: Any, next_serializer: Any, info: Any) -> Any:
         if not isinstance(value, BaseModel):
             raise _incompatible("model serializer received an incompatible value")
         return next_serializer(snapshot(value))
 
-    return schema_tools.with_info_wrap_validator_function(
-        validate,
-        cast(CoreSchema, schema),
-        ref=ref,
+    # The public schema remains model-shaped for Pydantic's discriminated-union
+    # inference. No root callback runs until native input has been validated.
+    native = schema_tools.no_info_after_validator_function(
+        finish_native,
+        cast(CoreSchema, _native_schema(schema, detach)),
+        metadata={"pydandict_native_boundary": True, "pydandict_python_function": validate},
         serialization=schema_tools.wrap_serializer_function_ser_schema(serialize, info_arg=True),
+    )
+    python = schema_tools.no_info_before_validator_function(detach, native)
+    return schema_tools.no_info_after_validator_function(
+        _identity,
+        schema_tools.json_or_python_schema(native, cast(CoreSchema, python)),
+        ref=ref,
+        metadata={"pydandict_entry_boundary": True},
     )
 
 

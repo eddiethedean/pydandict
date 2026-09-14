@@ -621,6 +621,39 @@ class DictModel(BaseModel, MutableMapping[str, object]):
     def __get_pydantic_core_schema__(
         cls, source: type[BaseModel], handler: GetCoreSchemaHandler
     ) -> CoreSchema:
+        def audit(schema: CoreSchema, active_namespace: dict[str, object]) -> None:
+            if not _BUILDING.get() and _compat.generic_parameters(cls):
+                raise TypeError(
+                    "pydandict_unsupported_annotation: generic DictModel instances "
+                    "must be explicitly specialized"
+                )
+            if not _BUILDING.get():
+                for field_name, field in cls.model_fields.items():
+                    _check_annotation(field.annotation, field_name, reject_generic=True)
+                _check_extra_annotation(cls, reject_generic=True)
+            if not _CANONICAL.get():
+                _compat.audit_incomplete_model(
+                    schema,
+                    lambda model, field_name: _audit_incomplete_field(
+                        model, field_name, active_namespace
+                    ),
+                )
+
+        def native_finish(
+            value: BaseModel, schema: CoreSchema, namespace: dict[str, object]
+        ) -> BaseModel:
+            active_namespace = namespace or _DEFERRED_NAMESPACE.get() or {}
+            token = _DEFERRED_NAMESPACE.set(active_namespace)
+            try:
+                audit(schema, active_namespace)
+                if not isinstance(value, DictModel):
+                    raise TypeError(
+                        "pydandict_incompatible_pydantic: validation changed model type"
+                    )
+                return value if _BUILDING.get() else _install(value)
+            finally:
+                _DEFERRED_NAMESPACE.reset(token)
+
         def finish(
             value: object,
             next_validator: Callable[[object], BaseModel],
@@ -631,22 +664,7 @@ class DictModel(BaseModel, MutableMapping[str, object]):
             active_namespace = namespace or _DEFERRED_NAMESPACE.get() or {}
             namespace_token = _DEFERRED_NAMESPACE.set(active_namespace)
             try:
-                if not _BUILDING.get() and _compat.generic_parameters(cls):
-                    raise TypeError(
-                        "pydandict_unsupported_annotation: generic DictModel instances "
-                        "must be explicitly specialized"
-                    )
-                if not _BUILDING.get():
-                    for field_name, field in cls.model_fields.items():
-                        _check_annotation(field.annotation, field_name, reject_generic=True)
-                    _check_extra_annotation(cls, reject_generic=True)
-                if not _CANONICAL.get():
-                    _compat.audit_incomplete_model(
-                        schema,
-                        lambda model, field_name: _audit_incomplete_field(
-                            model, field_name, active_namespace
-                        ),
-                    )
+                audit(schema, active_namespace)
                 if _BUILDING.get():
                     if isinstance(value, DictModel):
                         if not _CANONICAL.get():
@@ -683,7 +701,7 @@ class DictModel(BaseModel, MutableMapping[str, object]):
             model._ensure_alive()
             return _clone(model)
 
-        return _compat.wrap_model_schema(source, handler, finish, snapshot)
+        return _compat.wrap_model_schema(source, handler, finish, snapshot, native_finish, _clone)
 
     @classmethod
     def _entry_validator(
@@ -712,14 +730,10 @@ class DictModel(BaseModel, MutableMapping[str, object]):
         by_alias: bool | None = None,
         by_name: bool | None = None,
     ) -> Self:
-        with _compat.entry_options(by_alias, by_name, strict, extra, context):
-            return cls._entry_validator(by_alias, by_name).validate_python(
-                obj,
-                strict=strict,
-                extra=extra,
-                from_attributes=from_attributes,
-                context=context,
-            )
+        cls._entry_validator(by_alias, by_name)  # Complete deferred schemas and check alias flags.
+        return _compat.python_entry_validator(cls, by_alias, by_name).validate_python(
+            obj, strict=strict, extra=extra, from_attributes=from_attributes, context=context
+        )
 
     @classmethod
     def model_validate_json(
@@ -732,10 +746,9 @@ class DictModel(BaseModel, MutableMapping[str, object]):
         by_alias: bool | None = None,
         by_name: bool | None = None,
     ) -> Self:
-        with _compat.entry_options(by_alias, by_name, strict, extra, context):
-            return cls._entry_validator(by_alias, by_name).validate_json(
-                json_data, strict=strict, extra=extra, context=context
-            )
+        return cls._entry_validator(by_alias, by_name).validate_json(
+            json_data, strict=strict, extra=extra, context=context
+        )
 
     @classmethod
     def model_validate_strings(
@@ -748,10 +761,9 @@ class DictModel(BaseModel, MutableMapping[str, object]):
         by_alias: bool | None = None,
         by_name: bool | None = None,
     ) -> Self:
-        with _compat.entry_options(by_alias, by_name, strict, extra, context):
-            return cls._entry_validator(by_alias, by_name).validate_strings(
-                obj, strict=strict, extra=extra, context=context
-            )
+        return cls._entry_validator(by_alias, by_name).validate_strings(
+            obj, strict=strict, extra=extra, context=context
+        )
 
     @classmethod
     def __pydantic_init_subclass__(cls, **kwargs: object) -> None:
@@ -849,6 +861,13 @@ class DictModel(BaseModel, MutableMapping[str, object]):
             raise RuntimeError("pydandict_stale_handle: stale owned model")
 
     def __getattribute__(self, name: str) -> object:
+        if name == "__pydantic_validator__":
+            # BaseModel.__init__ accesses the validator through self; keep its
+            # isolated Python entry while class/TypeAdapter validators stay native.
+            cls = type(self)
+            if not _compat.is_complete(cls):
+                cls.model_rebuild(_parent_namespace_depth=4)
+            return _compat.python_entry_validator(cls, None, None)
         if not name.startswith("_"):
             DictModel._ensure_alive(self)
         return super().__getattribute__(name)
