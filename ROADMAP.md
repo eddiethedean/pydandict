@@ -1,9 +1,10 @@
 # Roadmap and release plan
 
-Dates and version promises are intentionally unset. Milestones are gated by
-evidence, not elapsed time. The current repository is at M0.
+The roadmap uses pre-1.0 release phases. Each `0.x` phase is a usable release
+checkpoint with a deliberately narrow support boundary; phases are gated by
+evidence, not elapsed time. The current repository is at `0.1` planning baseline.
 
-## M0 — Planning baseline
+## 0.1 — Planning baseline
 
 - [x] Inspect the new repository and preserve established product decisions.
 - [x] Document product, API, architecture, mutation, ownership, typing, compatibility,
@@ -11,9 +12,9 @@ evidence, not elapsed time. The current repository is at M0.
 - [x] Record small reproducible upstream probes and unresolved feasibility gates.
 - [ ] Review proposed contracts D07–D15 during the implementation kickoff.
 
-Exit: linked, internally consistent planning set with no released-feature claims.
+Exit: linked, internally consistent planning set with no implementation claims.
 
-## M1 — Feasibility prototypes
+## 0.2 — Feasibility prototype
 
 | Work item | Output | Exit criterion |
 | --- | --- | --- |
@@ -26,7 +27,7 @@ then must be tested together. Review prototype findings before establishing the
 production internals. If a core goal proves infeasible, revise the design openly;
 do not substitute a weaker guarantee under unchanged documentation.
 
-## M2 — Minimal package and scalar core
+## 0.3 — Minimal package and scalar core
 
 Create `src/pydandict`, build metadata, development dependencies, `py.typed`, CI,
 and tests. Implement reads, class namespace policy, scalar field/extra writes,
@@ -34,20 +35,20 @@ bulk changes, errors, defaults/reset, metadata, frozen handling, and safe copies
 Resolve trusted/deprecated APIs. Choose the license and Python/Pydantic floor.
 
 Exit: T1–T6/T10 pass for the explicitly supported scalar subset; unsupported
-mutable values fail clearly. Any experimental alpha must advertise that subset
-and must not claim full lifetime support for arbitrary nested data.
+mutable values fail clearly. The `0.3` release must advertise that subset and
+must not claim full lifetime support for arbitrary nested data.
 
-## M3 — Ownership and ecosystem integration
+## 0.4 — Ownership and ecosystem integration
 
 Integrate the G3 ownership design for its proven supported value envelope. Close
 all ordinary mutation paths, aliasing, stale handles, parent constraints, and
 copy behavior. Exercise serializers, schemas, unions, generics, and FastAPI on
 the selected dependency matrix. Finish migration and error examples.
 
-Exit: T7–T9 pass, G1–G4 resolved for the proposed release, and the supported-type
+Exit: T7–T9 pass, G1–G4 resolved for the proposed `0.4` release, and the supported-type
 table matches actual behavior. No unguarded mutable fallback exists.
 
-## M4 — Beta hardening
+## 0.5 — Beta hardening
 
 Run stateful/adversarial tests, measure performance and memory, review inherited
 bypass paths, and test installed artifacts. Have independent application/library
@@ -57,22 +58,24 @@ typing-contract, and serialization-leak defects before release candidates.
 Exit: T1–T12 pass; examples run; support bounds and limitations are published;
 API signatures, error codes, and deliberate BaseModel divergences are stable.
 
-## M5 — 1.0 release
+## 0.6 — Release candidate
 
 Review the exact candidate commit, build and test wheel/sdist, verify metadata and
-license, confirm package-name ownership, prepare release notes, and publish through
-the configured secure release process. Install from the distribution and run a
-consumer smoke check. A docs push is not a package release; this planning task
-does not publish to PyPI or create a release tag.
+license, confirm package-name ownership, prepare release notes, and validate the
+candidate through the configured secure release process. Install from the
+distribution and run a consumer smoke check. A docs push is not a package release;
+this planning task does not publish to PyPI or create a release tag.
 
-V1 requires the lifetime guarantee for the advertised support envelope, real
-BaseModel/Mapping identity, atomic mutation, strict typing evidence, and working
-Pydantic/FastAPI integration. Outstanding core gates block 1.0.
+The `0.6` release candidate requires the lifetime guarantee for the advertised
+support envelope, real BaseModel/Mapping identity, atomic mutation, strict typing
+evidence, and working Pydantic/FastAPI integration. Outstanding core gates block
+the `1.0` stable release.
 
 ## Version and support policy
 
-Adopt semantic versioning at 1.0. Before 1.0, document breaking changes prominently
-and use prerelease labels for experimental features. After 1.0, changes to key
+Adopt semantic versioning from the first `0.x` release. Before 1.0, document
+breaking changes prominently and treat each `0.x` release as potentially breaking.
+After 1.0, changes to key
 space, accepted mutation behavior, return types, alias interpretation, ownership,
 or guaranteed errors are compatibility changes requiring appropriate versioning.
 
@@ -87,7 +90,11 @@ for every release. If a bad release is published, stop further publication, asse
 yanking the affected distribution, and publish a corrective version; never silently
 replace an existing artifact or rewrite a published tag.
 
-## After v1
+## 1.0 and after
+
+Publish `1.0` only after the `0.6` release candidate has passed the complete
+release matrix and the advertised lifetime guarantee has survived real consumer
+testing. After that, follow the stable support policy above.
 
 Consider optional literal-key typing tools, conversion from existing models,
 additional safely owned types, and measured optimizations only when users show a

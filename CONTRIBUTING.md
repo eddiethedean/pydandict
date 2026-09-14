@@ -43,7 +43,7 @@ relevant test group T1–T12 and note unsupported cases. A design PR can contain
 experiments; label their limits. Do not claim a feature works because a minimal
 prototype demonstrated one method.
 
-## Implementation workflow after M1
+## Implementation workflow after 0.2
 
 Follow the [roadmap](ROADMAP.md). The packaging milestone will introduce
 `pyproject.toml`, a `src` layout, selected development dependencies, CI, and actual
