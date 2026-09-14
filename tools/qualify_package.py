@@ -514,6 +514,23 @@ for _criterion, _proofs in {
     )
 
 
+for _criterion, _proofs in {
+    "AC-003": ["test_scalar_mapping_consumers_do_not_invoke_serializers"],
+    "AC-004": ["test_scalar_mapping_consumers_do_not_invoke_serializers"],
+    "AC-011": ["test_scalar_fieldless_rejected_clear_and_typed_extra_reset_errors"],
+    "AC-012": ["test_scalar_fieldless_rejected_clear_and_typed_extra_reset_errors"],
+    "AC-014": ["test_scalar_cache_metadata_context_failure_and_noop_transitions"],
+    "AC-015": ["test_scalar_cache_metadata_context_failure_and_noop_transitions"],
+    "AC-017": ["test_scalar_cache_metadata_context_failure_and_noop_transitions"],
+    "AC-018": ["test_scalar_copy_and_inherited_api_inventory"],
+    "AC-019": ["test_scalar_copy_and_inherited_api_inventory"],
+    "AC-021": ["test_scalar_cache_metadata_context_failure_and_noop_transitions"],
+}.items():
+    cast(list[str], _AC_TEST_LANE_MAP[_criterion]["tests"]).extend(
+        "tests/test_phase03_evidence_contract.py::" + _proof for _proof in _proofs
+    )
+
+
 def qualifying_source(source_commit: str, relevant_status: str) -> bool:
     """Never attribute uncommitted implementation or verification to HEAD."""
     return bool(_COMMIT.fullmatch(source_commit)) and not relevant_status.strip()

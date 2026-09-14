@@ -54,6 +54,12 @@ def test_scalar_role_policy_freeze_matrix(policy, freeze, role):
         assert model.setdefault("value", "bad") == model.value
         assert model.update() is None and model.reset() is None
         assert (dict(model), model.model_fields_set) == snapshot
+        if freeze != "mutable":
+            with pytest.raises(ValidationError):
+                model["value"] = model.value
+            with pytest.raises(ValidationError):
+                model.update(value=model.value, extra=3)
+            assert (dict(model), model.model_fields_set) == snapshot
 
 
 @pytest.mark.parametrize("policy", ["allow", "ignore", "forbid"])
