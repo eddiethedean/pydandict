@@ -2,7 +2,10 @@
 
 from __future__ import annotations
 
+import json
 from collections.abc import Callable, Mapping
+from contextlib import contextmanager
+from contextvars import ContextVar
 from typing import Any, TypeVar, cast
 
 import pydantic
@@ -14,6 +17,18 @@ from pydantic_core import core_schema as schema_tools
 SUPPORTED_PYDANTIC_VERSION = "2.13.4"
 M = TypeVar("M", bound=BaseModel)
 SlotUpdate = tuple[object, str, object]
+_ENTRY_OPTIONS: ContextVar[tuple[bool | None, bool | None] | None] = ContextVar(
+    "pydandict_entry_options", default=None
+)
+
+
+@contextmanager
+def entry_options(by_alias: bool | None, by_name: bool | None):
+    token = _ENTRY_OPTIONS.set((by_alias, by_name))
+    try:
+        yield
+    finally:
+        _ENTRY_OPTIONS.reset(token)
 
 
 def _incompatible(message: str) -> TypeError:
@@ -331,6 +346,56 @@ def wrap_model_schema(
                 raise _incompatible("model validator returned an incompatible value")
             return result
 
+        # A wrap validator's ``next_validator`` is a Python-mode handler even
+        # when the outer SchemaValidator was entered through validate_json or
+        # validate_strings.  Re-run the unwrapped model schema in that mode so
+        # strict/coercing scalar semantics remain those of BaseModel.  The
+        # finished model is handed to the normal ownership installer; no
+        # serialized model state is used as transaction input.
+        if info.mode == "string":
+            options = _ENTRY_OPTIONS.get()
+            config = cast(dict[str, Any], info.config or {})
+            by_alias, by_name = options or (
+                config.get("validate_by_alias"),
+                config.get("validate_by_name"),
+            )
+            mode_schema = _rewrite(
+                schema,
+                canonical=False,
+                by_alias=by_alias,
+                by_name=by_name,
+            )
+            mode_validator = SchemaValidator(cast(CoreSchema, mode_schema))
+            parsed = mode_validator.validate_strings(value)
+            return finish(
+                value,
+                lambda _input: cast(BaseModel, parsed),
+                info.context,
+                cast(CoreSchema, schema),
+                namespace,
+            )
+        if info.mode == "json":
+            options = _ENTRY_OPTIONS.get()
+            config = cast(dict[str, Any], info.config or {})
+            by_alias, by_name = options or (
+                config.get("validate_by_alias"),
+                config.get("validate_by_name"),
+            )
+            mode_schema = _rewrite(
+                schema,
+                canonical=False,
+                by_alias=by_alias,
+                by_name=by_name,
+            )
+            mode_validator = SchemaValidator(cast(CoreSchema, mode_schema))
+            parsed = mode_validator.validate_json(json.dumps(value))
+            return finish(
+                value,
+                lambda _input: cast(BaseModel, parsed),
+                info.context,
+                cast(CoreSchema, schema),
+                namespace,
+            )
         return finish(value, next_model, info.context, cast(CoreSchema, schema), namespace)
 
     def serialize(value: Any, next_serializer: Any, info: Any) -> Any:

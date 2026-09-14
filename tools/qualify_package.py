@@ -91,6 +91,11 @@ def main() -> int:
             venv.EnvBuilder(with_pip=True, clear=True, symlinks=os.name != "nt").create(bare)
             bare_python = python_in(bare)
             execute([str(bare_python), "-m", "pip", "install", str(artifact)], work, env=clean_env)
+            library_example = work / f"{label}-library_config.py"
+            library_example.write_text((ROOT / "examples" / "library_config.py").read_text())
+            dependency_records[f"{label}_library_example"] = execute(
+                [str(bare_python), str(library_example)], work, env=clean_env
+            ).stdout
             bare_consumer = (
                 "from pathlib import Path\n"
                 "from collections.abc import Mapping, MutableSequence\n"
@@ -280,6 +285,35 @@ def main() -> int:
         exercise(rebuilt_wheel, "rebuilt")
         hashes["resolved_dependencies"] = dependency_records
         hashes["commands"] = commands
+        hashes["source_commit"] = execute(["git", "rev-parse", "HEAD"], ROOT).stdout.strip()
+        hashes["qualification_profile"] = "phase-0.3-scalar-installed-consumers"
+        hashes["ac_evidence"] = {
+            "AC-024": ["direct_library_example", "rebuilt_library_example"],
+            "AC-025": ["source_commit", "commands", "resolved_dependencies", "artifact_sha256"],
+            "AC-028": ["direct_library_example", "rebuilt_library_example"],
+        }
+        research = ROOT / "docs" / "research"
+        research.mkdir(parents=True, exist_ok=True)
+        (research / "phase-0.3-results.json").write_text(
+            json.dumps(hashes, indent=2, sort_keys=True) + "\n"
+        )
+        (research / "phase-0.3-findings.md").write_text(
+            "# Phase 0.3 qualification findings\n\n"
+            f"Source commit: `{hashes['source_commit']}`\n\n"
+            "This record was generated after direct and sdist-rebuilt wheel "
+            "qualification. Both isolated bare environments executed the "
+            "installed `examples/library_config.py` workflow with `PYTHONPATH` "
+            "cleared. See `phase-0.3-results.json` for exact commands, resolved "
+            "dependencies and SHA-256 artifact identities.\n\n"
+            "## Evidence map\n\n"
+            "- AC-024: direct/rebuilt installed scalar example and consumer records.\n"
+            "- AC-025: source commit, interpreter/platform, commands, dependency "
+            "resolutions and direct/rebuilt artifact hashes.\n"
+            "- AC-028: installed scalar library-config example records.\n\n"
+            "The scalar 100 × 100 stateful profile is executed by the repository "
+            "test gate (`tests/test_stateful.py::TestScalarTransactions`); this "
+            "artifact records package qualification only.\n"
+        )
         for label, artifact in (("direct", wheel), ("rebuilt", rebuilt_wheel)):
             if not artifact.is_file():
                 raise RuntimeError(f"{label} artifact disappeared during qualification")

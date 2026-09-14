@@ -2,10 +2,11 @@
 
 from collections.abc import MutableMapping, MutableSequence, MutableSet
 
+import pytest
 from hypothesis import settings
 from hypothesis import strategies as st
 from hypothesis.stateful import RuleBasedStateMachine, invariant, rule
-from pydantic import Field, ValidationError, model_validator
+from pydantic import ConfigDict, Field, ValidationError, model_validator
 
 from pydandict import DictModel
 
@@ -126,5 +127,123 @@ class Transactions(RuleBasedStateMachine):
 
 TestTransactions = Transactions.TestCase
 TestTransactions.settings = settings(
+    max_examples=100, stateful_step_count=100, deadline=None, derandomize=True
+)
+
+
+class ScalarState(DictModel):
+    model_config = ConfigDict(extra="allow")
+
+    low: int = Field(default=1, ge=0)
+    high: int = Field(default=3, ge=0)
+
+    @model_validator(mode="after")
+    def ordered(self):
+        if self.low > self.high:
+            raise ValueError("low must not exceed high")
+        return self
+
+
+class ScalarTransactions(RuleBasedStateMachine):
+    """Independent scalar values/order/fields-set oracle for Phase 0.3."""
+
+    def __init__(self):
+        super().__init__()
+        self.model = ScalarState()
+        self.values = {"low": 1, "high": 3}
+        self.order = ["low", "high"]
+        self.fields_set = set()
+
+    def snapshot(self):
+        return dict(self.model), tuple(self.model), set(self.model.model_fields_set)
+
+    def assert_oracle(self):
+        assert dict(self.model) == self.values
+        assert tuple(self.model) == tuple(self.order)
+        assert self.model.model_fields_set == self.fields_set
+
+    @rule(value=st.integers(min_value=0, max_value=12))
+    def set_low(self, value):
+        before = self.snapshot()
+        if value > self.values["high"]:
+            with pytest.raises(ValidationError):
+                self.model.low = value
+        else:
+            self.model.low = value
+            self.values["low"] = value
+            self.fields_set.add("low")
+        assert self.snapshot() == before if value > self.values["high"] else True
+        self.assert_oracle()
+
+    @rule(value=st.integers(min_value=0, max_value=12))
+    def set_high(self, value):
+        before = self.snapshot()
+        if value < self.values["low"]:
+            with pytest.raises(ValidationError):
+                self.model.high = value
+        else:
+            self.model.high = value
+            self.values["high"] = value
+            self.fields_set.add("high")
+        assert self.snapshot() == before if value < self.values["low"] else True
+        self.assert_oracle()
+
+    @rule(low=st.integers(0, 12), high=st.integers(0, 12))
+    def coupled_update(self, low, high):
+        before = self.snapshot()
+        if low > high:
+            with pytest.raises(ValidationError):
+                self.model.update(low=low, high=high)
+        else:
+            self.model.update(low=low, high=high)
+            self.values.update(low=low, high=high)
+            self.fields_set.update(("low", "high"))
+        if low > high:
+            assert self.snapshot() == before
+        self.assert_oracle()
+
+    @rule(key=st.sampled_from(["a", "b", "c"]), value=st.integers(-5, 20))
+    def extra_write(self, key, value):
+        existed = key in self.values
+        self.model[key] = value
+        self.values[key] = value
+        if not existed:
+            self.order.append(key)
+        self.fields_set.add(key)
+        self.assert_oracle()
+
+    @rule(key=st.sampled_from(["a", "b", "c"]))
+    def extra_pop(self, key):
+        before = self.snapshot()
+        existed = key in self.values
+        if not existed:
+            with pytest.raises(KeyError):
+                self.model.pop(key)
+        else:
+            assert self.model.pop(key) == self.values.pop(key)
+            self.order.remove(key)
+            self.fields_set.discard(key)
+        if not existed:
+            assert self.snapshot() == before
+        self.assert_oracle()
+
+    @rule()
+    def reset_defaults(self):
+        self.model.reset("low", "high")
+        self.values.update(low=1, high=3)
+        self.fields_set.difference_update(("low", "high"))
+        self.assert_oracle()
+
+    @rule()
+    def no_op(self):
+        before = self.snapshot()
+        self.model.update()
+        self.model.setdefault("low", object())
+        assert self.snapshot() == before
+        self.assert_oracle()
+
+
+TestScalarTransactions = ScalarTransactions.TestCase
+TestScalarTransactions.settings = settings(
     max_examples=100, stateful_step_count=100, deadline=None, derandomize=True
 )
