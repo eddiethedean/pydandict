@@ -2,10 +2,7 @@
 
 from __future__ import annotations
 
-import json
-import re
 from collections.abc import Callable, Mapping
-from functools import wraps
 from typing import Any, Literal, LiteralString, TypeVar, cast
 
 import pydantic
@@ -30,72 +27,15 @@ SlotUpdate = tuple[object, str, object]
 _AUDIT_TAG = f"__pydandict_input_audit_{id(SlotUpdate):x}__"
 
 
-class _NativeValidationError(ValidationError):
-    """Keep the native error payload, exposing paths without our internal tag.
-
-    Equal native layouts (empty slots) let us retain the actual Rust line errors,
-    including custom error templates, context, input mode and hide-input policy.
-    Reconstructing errors from rendered messages would lose that information.
-    """
-
-    __slots__ = ()
-
-    def errors(self, **kwargs: Any) -> Any:
-        errors = super().errors(**kwargs)
-        for error in errors:
-            error["loc"] = tuple(part for part in error["loc"] if part != _AUDIT_TAG)
-        return errors
-
-    def json(self, **kwargs: Any) -> str:
-        native = json.loads(super().json(**kwargs))
-        for error in native:
-            error["loc"] = [part for part in error["loc"] if part != _AUDIT_TAG]
-        indent = kwargs.get("indent")
-        return json.dumps(
-            native,
-            indent=indent,
-            ensure_ascii=False,
-            separators=(",", ":") if indent is None else None,
-        )
-
-    def __str__(self) -> str:
-        # Only location lines are changed: message/input lines can contain the
-        # same text and must retain the native formatting and hide-input policy.
-        rendered = super().__str__()
-        locations = {
-            ".".join(str(part) for part in error["loc"]): ".".join(
-                str(part) for part in error["loc"] if part != _AUDIT_TAG
-            )
-            for error in super().errors(include_input=False, include_context=False)
-        }
-        for location, cleaned in locations.items():
-            if _AUDIT_TAG in location:
-                rendered = re.sub(
-                    rf"(?m)^{re.escape(location)}\n",
-                    lambda _: (cleaned + "\n") if cleaned else "",
-                    rendered,
-                )
-        return rendered
-
-    def __repr__(self) -> str:
-        return str(self)
-
-
-def _project_native_error(error: ValidationError) -> None:
-    """Project an audit location on an error crossing a public Pydantic API."""
-    if any(_AUDIT_TAG in item["loc"] for item in error.errors()):
-        error.__class__ = _NativeValidationError
-
-
 def _relay_native_error(
     error: ValidationError, *, input_type: Literal["python", "json"]
 ) -> ValidationError:
     """Remove the audit tag from the native payload before another validator sees it.
 
-    Changing the exception class is sufficient at a final public boundary, but
-    pydantic-core reads the stored line errors when a user callback relays the
-    exception through another validator. Rebuild only those tagged errors here so
-    an already-compiled outer constructor cannot re-expose the private location.
+    Pydantic-core reads stored line errors when a user callback relays an
+    exception through another validator. Rebuild only tagged errors at their
+    pydandict boundary so precompiled outer validators cannot expose the private
+    location and no ordinary Pydantic entry point needs to be replaced.
     """
     raw_errors: list[ErrorDetails] = ValidationError.errors(error, include_url=False)
     if not any(_AUDIT_TAG in item["loc"] for item in raw_errors):
@@ -127,64 +67,6 @@ def _relay_native_error(
         input_type=input_type,
         hide_input=hide_input,
     )
-
-
-def _install_public_error_projection() -> None:
-    """Cover validators compiled before the private factory adapters were installed.
-
-    Existing BaseModel and TypeAdapter validators cannot be retroactively replaced.
-    Their public entry points still expose the same native error object, so a thin
-    exception boundary removes only pydandict's internal audit component while
-    preserving the original call signatures and native payload.
-    """
-    base_methods = (
-        "model_validate",
-        "model_validate_json",
-        "model_validate_strings",
-    )
-    for name in base_methods:
-        original = getattr(BaseModel, name)
-        if getattr(original, "_pydandict_error_projection", False):
-            continue
-        function = original.__func__
-
-        def make_model_wrapper(__function: Any) -> Any:
-            @wraps(__function)
-            def wrapped(cls: type[BaseModel], *args: Any, **kwargs: Any) -> Any:
-                try:
-                    return __function(cls, *args, **kwargs)
-                except ValidationError as error:
-                    _project_native_error(error)
-                    raise
-
-            return wrapped
-
-        wrapped = make_model_wrapper(function)
-        wrapped._pydandict_error_projection = True  # pyright: ignore[reportAttributeAccessIssue]
-        setattr(BaseModel, name, classmethod(wrapped))
-
-    from pydantic import TypeAdapter
-
-    adapter_methods = ("validate_python", "validate_json", "validate_strings")
-    for name in adapter_methods:
-        original = getattr(TypeAdapter, name)
-        if getattr(original, "_pydandict_error_projection", False):
-            continue
-
-        def make_adapter_wrapper(__function: Any) -> Any:
-            @wraps(__function)
-            def wrapped_adapter(self: TypeAdapter[Any], *args: Any, **kwargs: Any) -> Any:
-                try:
-                    return __function(self, *args, **kwargs)
-                except ValidationError as error:
-                    _project_native_error(error)
-                    raise
-
-            return wrapped_adapter
-
-        wrapped_adapter = make_adapter_wrapper(original)
-        wrapped_adapter._pydandict_error_projection = True  # pyright: ignore[reportAttributeAccessIssue]
-        setattr(TypeAdapter, name, wrapped_adapter)
 
 
 class _NativeValidator:
@@ -916,4 +798,3 @@ def extra_value_annotation(cls: type[BaseModel]) -> object | None:
 
 ensure_supported()
 _install_native_entries()
-_install_public_error_projection()

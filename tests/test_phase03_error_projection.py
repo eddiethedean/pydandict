@@ -85,21 +85,48 @@ for validate in (lambda value: Envelope(**value), Envelope.model_validate,
     assert result.returncode == 0, result.stderr
 
 
-def test_import_does_not_wrap_base_model_constructor_or_shift_its_namespace():
+def test_import_does_not_wrap_pydantic_entries_or_shift_their_namespace():
     source = """
-from pydantic import BaseModel
+from pydantic import BaseModel, TypeAdapter
 
 original_init = BaseModel.__init__
+base_methods = {
+    name: getattr(BaseModel, name).__func__
+    for name in ('model_validate', 'model_validate_json', 'model_validate_strings')
+}
+adapter_methods = {
+    name: getattr(TypeAdapter, name)
+    for name in ('validate_python', 'validate_json', 'validate_strings')
+}
 from pydandict import DictModel
 assert BaseModel.__init__ is original_init
+assert all(getattr(BaseModel, name).__func__ is method for name, method in base_methods.items())
+assert all(getattr(TypeAdapter, name) is method for name, method in adapter_methods.items())
 
-def construct():
+def construct(entry):
     class Plain(BaseModel):
         value: 'Later'
+    adapter = TypeAdapter(Plain)
     Later = int
-    return Plain(value='2').value
+    if entry == 'constructor':
+        return Plain(value='2').value
+    if entry == 'model-python':
+        return Plain.model_validate({'value': '2'}).value
+    if entry == 'model-json':
+        return Plain.model_validate_json('{"value":"2"}').value
+    if entry == 'model-strings':
+        return Plain.model_validate_strings({'value': '2'}).value
+    if entry == 'adapter-python':
+        return adapter.validate_python({'value': '2'}).value
+    if entry == 'adapter-json':
+        return adapter.validate_json('{"value":"2"}').value
+    return adapter.validate_strings({'value': '2'}).value
 
-assert construct() == 2
+for entry in (
+    'constructor', 'model-python', 'model-json', 'model-strings',
+    'adapter-python', 'adapter-json', 'adapter-strings',
+):
+    assert construct(entry) == 2
 """
     environment = dict(os.environ)
     environment["PYTHONPATH"] = str(Path(__file__).parents[1] / "src")
