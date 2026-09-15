@@ -6,12 +6,19 @@ import json
 import re
 from collections.abc import Callable, Mapping
 from functools import wraps
-from typing import Any, TypeVar, cast
+from typing import Any, Literal, LiteralString, TypeVar, cast
 
 import pydantic
 from pydantic import BaseModel, ConfigDict, GetCoreSchemaHandler
 from pydantic.fields import FieldInfo
-from pydantic_core import CoreSchema, SchemaValidator, ValidationError
+from pydantic_core import (
+    CoreSchema,
+    ErrorDetails,
+    InitErrorDetails,
+    PydanticCustomError,
+    SchemaValidator,
+    ValidationError,
+)
 from pydantic_core import core_schema as schema_tools
 
 SUPPORTED_PYDANTIC_VERSION = "2.13.4"
@@ -80,6 +87,48 @@ def _project_native_error(error: ValidationError) -> None:
         error.__class__ = _NativeValidationError
 
 
+def _relay_native_error(
+    error: ValidationError, *, input_type: Literal["python", "json"]
+) -> ValidationError:
+    """Remove the audit tag from the native payload before another validator sees it.
+
+    Changing the exception class is sufficient at a final public boundary, but
+    pydantic-core reads the stored line errors when a user callback relays the
+    exception through another validator. Rebuild only those tagged errors here so
+    an already-compiled outer constructor cannot re-expose the private location.
+    """
+    raw_errors: list[ErrorDetails] = ValidationError.errors(error, include_url=False)
+    if not any(_AUDIT_TAG in item["loc"] for item in raw_errors):
+        return error
+
+    cleaned: list[InitErrorDetails] = []
+    for raw in raw_errors:
+        item = cast(InitErrorDetails, dict(raw))
+        location = raw.get("loc", ())
+        item["loc"] = tuple(part for part in location if part != _AUDIT_TAG)
+        try:
+            ValidationError.from_exception_data(error.title, [item], input_type=input_type)
+        except KeyError:
+            # Custom errors are identified by their user-defined code rather than
+            # a built-in pydantic-core error type. Retain their rendered message,
+            # context and input in an equivalent native custom error detail.
+            item["type"] = PydanticCustomError(
+                cast(LiteralString, raw["type"]),
+                cast(LiteralString, raw["msg"]),
+                raw.get("ctx"),
+            )
+        cleaned.append(item)
+
+    native_render = ValidationError.__str__(error)
+    hide_input = "[type=" in native_render and "input_value=" not in native_render
+    return ValidationError.from_exception_data(
+        error.title,
+        cleaned,
+        input_type=input_type,
+        hide_input=hide_input,
+    )
+
+
 def _install_public_error_projection() -> None:
     """Cover validators compiled before the private factory adapters were installed.
 
@@ -113,20 +162,6 @@ def _install_public_error_projection() -> None:
         wrapped = make_model_wrapper(function)
         wrapped._pydandict_error_projection = True  # pyright: ignore[reportAttributeAccessIssue]
         setattr(BaseModel, name, classmethod(wrapped))
-
-    original_init = BaseModel.__init__
-    if not getattr(original_init, "_pydandict_error_projection", False):
-
-        @wraps(original_init)
-        def wrapped_init(self: BaseModel, /, **data: Any) -> None:
-            try:
-                original_init(self, **data)
-            except ValidationError as error:
-                _project_native_error(error)
-                raise
-
-        wrapped_init._pydandict_error_projection = True  # pyright: ignore[reportAttributeAccessIssue]
-        BaseModel.__init__ = wrapped_init
 
     from pydantic import TypeAdapter
 
@@ -172,8 +207,11 @@ class _NativeValidator:
             try:
                 return value(*args, **kwargs)
             except ValidationError as error:
-                if any(_AUDIT_TAG in item["loc"] for item in error.errors()):
-                    error.__class__ = _NativeValidationError
+                relayed = _relay_native_error(
+                    error, input_type="json" if name == "validate_json" else "python"
+                )
+                if relayed is not error:
+                    raise relayed from None
                 raise
 
         return validate

@@ -866,9 +866,7 @@ class DictModel(BaseModel, MutableMapping[str, object]):
             # isolated Python entry while class/TypeAdapter validators stay native.
             cls = type(self)
             if not _compat.is_complete(cls):
-                # The compatibility layer projects errors at BaseModel.__init__,
-                # adding one transparent frame around Pydantic's constructor.
-                cls.model_rebuild(_parent_namespace_depth=5)
+                cls.model_rebuild(_parent_namespace_depth=4)
             return _compat.python_entry_validator(cls, None, None)
         if not name.startswith("_"):
             DictModel._ensure_alive(self)

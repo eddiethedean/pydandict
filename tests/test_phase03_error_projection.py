@@ -83,3 +83,31 @@ for validate in (lambda value: Envelope(**value), Envelope.model_validate,
         env=environment,
     )
     assert result.returncode == 0, result.stderr
+
+
+def test_import_does_not_wrap_base_model_constructor_or_shift_its_namespace():
+    source = """
+from pydantic import BaseModel
+
+original_init = BaseModel.__init__
+from pydandict import DictModel
+assert BaseModel.__init__ is original_init
+
+def construct():
+    class Plain(BaseModel):
+        value: 'Later'
+    Later = int
+    return Plain(value='2').value
+
+assert construct() == 2
+"""
+    environment = dict(os.environ)
+    environment["PYTHONPATH"] = str(Path(__file__).parents[1] / "src")
+    result = subprocess.run(
+        [sys.executable, "-c", source],
+        check=False,
+        capture_output=True,
+        text=True,
+        env=environment,
+    )
+    assert result.returncode == 0, result.stderr
