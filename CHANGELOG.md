@@ -2,7 +2,7 @@
 
 ## Unreleased
 
-## 0.3.0 - Unreleased
+## 0.3.0 - 2026-09-14
 
 ### Added
 
@@ -32,8 +32,9 @@
   it adds no framework-plugin support guarantee.
 - No arbitrary nested-type expansion, thread-safety, persistence or unchecked
   construction support is added. No persisted data migration is required.
-- Version 0.3.0 is prepared but has not been tagged or published. Replace the
-  Unreleased date only when publication is explicitly initiated.
+- Version 0.3.0 was published from the immutable `v0.3.0` tag after the full
+  release workflow passed, including artifact qualification and PyPI Trusted
+  Publishing. See the [release record](docs/release.md#030-release-record).
 
 ## 0.2.0 - 2026-09-14
 

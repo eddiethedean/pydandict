@@ -23,11 +23,9 @@ dictionary.
 - **Pydantic integration:** retain supported fields, constraints, aliases,
   serializers, JSON Schema and FastAPI integration on the pinned stack.
 
-> **Release status:** 0.2.0 is the latest published release. This checkout prepares
-> 0.3.0. The final release check reopened native strings-input rejection; its fix
-> requires renewed production review and independent final approval, alongside
-> successful final-candidate CI and artifact checks. No 0.3.0 tag or
-> publication has occurred. See [release readiness](docs/research/release-0.3.0-readiness.md).
+> **Release status:** 0.3.0 is the latest published release. It passed the final
+> release check, was published from the immutable `v0.3.0` tag, and is available
+> on [PyPI](https://pypi.org/project/pydandict/0.3.0/). See the [release record](docs/release.md#030-release-record).
 
 ## Install
 
@@ -335,7 +333,7 @@ No persisted-data migration is required; see the [changelog](CHANGELOG.md).
 
 - [API reference](docs/api.md) and [mutation semantics](docs/mutation-semantics.md)
 - [Nested ownership](docs/nested-values.md), [compatibility](docs/compatibility.md) and [typing](docs/typing.md)
-- [Phase 0.3 contract](docs/phase-0.3-plan.md), [passed review](docs/reviews/phase-0.3-rereview-5.md) and [release preparation](docs/release.md#030-release-preparation)
+- [Phase 0.3 contract](docs/phase-0.3-plan.md), [passed review](docs/reviews/phase-0.3-rereview-5.md) and [release record](docs/release.md#030-release-record)
 - [Documentation index](docs/README.md), [roadmap](ROADMAP.md) and [contributing](CONTRIBUTING.md)
 
 After installing `.[dev]`, run from the repository root:

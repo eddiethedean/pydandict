@@ -93,8 +93,9 @@ contract fails, record the case and revise the design openly before promotion.
 The [Phase 0.3 architecture and implementation contract](docs/phase-0.3-plan.md)
 defines the scalar qualification boundary, AC-001–028 and W05–W07 verification.
 The [independent review](docs/reviews/phase-0.3-rereview-5.md) verifies all 28 ACs
-and all previous blockers. Version 0.3.0 is in
-[release preparation](docs/release.md#030-release-preparation), not yet published.
+and all previous blockers. Version 0.3.0 was published from the immutable
+[`v0.3.0` tag](https://github.com/eddiethedean/pydandict/tree/v0.3.0); see the
+[release record](docs/release.md#030-release-record).
 Build on Phase 0.2 and preserve its shipped nested behavior; this milestone does
 not introduce a scalar-only runtime mode or remove existing ownership support.
 
@@ -152,13 +153,13 @@ the `1.0` stable release.
 
 ## Release checklist
 
-The latest completed checkpoint is PydanDict 0.2.0, published on 2026-09-14
-through the tag-gated Trusted Publishing workflow. See the [0.2.0 release record](docs/release.md#020-release-record)
-and [qualification evidence](docs/research/release-0.2.0-results.json).
+The latest completed checkpoint is PydanDict 0.3.0, published on 2026-09-14
+through the tag-gated Trusted Publishing workflow. See the [0.3.0 release record](docs/release.md#030-release-record)
+and [qualification evidence](docs/research/release-0.3.0-final-execution.json).
 
-Phase 0.3 has since passed [independent review](docs/reviews/phase-0.3-rereview-5.md).
-The 0.3.0 candidate is prepared but unpublished; its version-specific checklist
-is in [release preparation](docs/release.md#030-release-preparation).
+Phase 0.3 has since passed [independent review](docs/reviews/phase-0.3-rereview-5.md)
+and was published as 0.3.0. Its version-specific preparation checklist is retained
+in [release preparation](docs/release.md#030-release-preparation-historical).
 
 Complete this checklist for every distributed checkpoint, scoped to its declared
 support envelope. For `1.0`, the nested lifetime contract and the complete quality

@@ -57,7 +57,24 @@ release-only preflight, verified version equality, built distributions and
 published through the existing Trusted Publisher. No additional reviewer or
 external trial was required.
 
-## 0.3.0 release preparation
+## 0.3.0 release record
+
+Version `0.3.0` was published on 2026-09-14 from the immutable
+[`v0.3.0` tag](https://github.com/eddiethedean/pydandict/tree/v0.3.0). The
+[tag-gated release workflow](https://github.com/eddiethedean/pydandict/actions/runs/34922906114)
+passed every required check, built both distributions and completed PyPI Trusted
+Publishing. The [published package](https://pypi.org/project/pydandict/0.3.0/)
+is the latest release and contains the Phase 0.3 contract described in the
+versioned changelog entry.
+
+- Release commit: `1f7863e7523823f527c3b02c8cd1c48478ae6bc9`
+- Tag: `v0.3.0`
+- Publication: PyPI Trusted Publishing completed successfully
+
+The preparation checklist below is retained as historical evidence of the gates
+completed before publication.
+
+## 0.3.0 release preparation (historical)
 
 The checkout declares version `0.3.0`. Phase 0.3
 [passed independent review](reviews/phase-0.3-rereview-5.md): all 28 ACs and all
@@ -73,7 +90,7 @@ and native/embedded ingress corrections. Python 3.11–3.14, the exact Pydantic
 Before tagging this candidate:
 
 - [x] Resolve every Phase 0.3 release blocker and complete independent review.
-- [x] Prepare 0.3.0 metadata, versioned changelog and accurate unpublished status.
+- [x] Prepare 0.3.0 metadata, versioned changelog and accurate pre-publication status.
 - [x] Qualify new 0.3.0 direct/rebuilt wheels outside the checkout, including
   installed metadata, scalar/nested/HTTP consumers and static gates; see
   [local readiness and measured source](research/release-0.3.0-readiness.md).
@@ -81,11 +98,11 @@ Before tagging this candidate:
   [run 34901690786](https://github.com/eddiethedean/pydandict/actions/runs/34901690786)
   passed all 11 applicable jobs; actual measured source and artifact identities
   are retained in [final execution](research/release-0.3.0-final-execution.json).
-- [ ] Explicitly initiate publication, finalize the changelog date and create
+- [x] Explicitly initiate publication, finalize the changelog date and create
   `v0.3.0` at that verified commit. Do not move or reuse an existing release tag.
 
-Creating and pushing the version tag triggers publication through the existing
-workflow. No tag or publication is part of release preparation. The existing
+Creating and pushing the version tag triggered publication through the existing
+workflow. The existing
 `pypi` environment and private-reporting configuration must not be broadened just
 to prepare a new version.
 
