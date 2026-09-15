@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from collections.abc import Callable, Mapping
-from typing import Any, Literal, LiteralString, TypeVar, cast
+from typing import Any, Literal, LiteralString, NoReturn, TypeVar, cast
 
 import pydantic
 from pydantic import BaseModel, ConfigDict, GetCoreSchemaHandler
@@ -69,6 +69,32 @@ def _relay_native_error(
     )
 
 
+def _raise_native_error(
+    error: ValidationError,
+    *,
+    cause: BaseException | None,
+    context: BaseException | None,
+    suppress_context: bool,
+) -> NoReturn:
+    """Raise a reconstructed error with the native exception chain restored.
+
+    Raising a replacement from an active ``except`` block makes Python retain the
+    tagged source error as ``__context__``. Raise after that block, then restore
+    the chain observed on the native error before the exception leaves this helper.
+    """
+    try:
+        if cause is not None or suppress_context:
+            raise error from cause
+        raise error
+    except ValidationError:
+        # A caller may already be handling an unrelated exception. Python links
+        # it while raising above, whereas pydantic-core's native error does not.
+        error.__cause__ = cause
+        error.__context__ = context
+        error.__suppress_context__ = suppress_context
+        raise
+
+
 class _NativeValidator:
     """Transparent entry wrapper; compiled validation still runs in Rust."""
 
@@ -92,9 +118,18 @@ class _NativeValidator:
                 relayed = _relay_native_error(
                     error, input_type="json" if name == "validate_json" else "python"
                 )
-                if relayed is not error:
-                    raise relayed from None
-                raise
+                if relayed is error:
+                    raise
+                cause = error.__cause__
+                context = error.__context__
+                suppress_context = error.__suppress_context__
+
+            _raise_native_error(
+                relayed,
+                cause=cause,
+                context=context,
+                suppress_context=suppress_context,
+            )
 
         return validate
 
