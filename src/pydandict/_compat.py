@@ -9,6 +9,7 @@ import pydantic
 from pydantic import BaseModel, ConfigDict, GetCoreSchemaHandler
 from pydantic.fields import FieldInfo
 from pydantic_core import (
+    CoreConfig,
     CoreSchema,
     ErrorDetails,
     InitErrorDetails,
@@ -423,7 +424,18 @@ def core_schema(cls: type[BaseModel]) -> CoreSchema:
     return _checked_schema(getattr(cls, "__pydantic_core_schema__", None))
 
 
-def compile_validator(schema: object) -> SchemaValidator:
+def model_core_config(cls: type[BaseModel]) -> CoreConfig:
+    """Build the pinned core-validator configuration for a model class."""
+    try:
+        from pydantic._internal._config import ConfigWrapper
+    except ImportError as exc:
+        raise _incompatible("model core configuration API is unavailable") from exc
+    return ConfigWrapper(config(cls)).core_config(title=cls.__name__)
+
+
+def compile_validator(
+    schema: object, validator_config: CoreConfig | None = None
+) -> SchemaValidator:
     # Rewritten validators must compile their own model nodes, not reuse a
     # class's public mode-dispatch validator and lose canonical/alias settings.
     # Compilation is synchronous and invokes no validation callbacks. Restore
@@ -448,7 +460,11 @@ def compile_validator(schema: object) -> SchemaValidator:
     try:
         for cls in classes:
             setattr(cls, "__pydantic_complete__", False)
-        compiled = SchemaValidator(checked)
+        compiled = (
+            SchemaValidator(checked)
+            if validator_config is None
+            else SchemaValidator(checked, validator_config)
+        )
         # Canonical/Python rewrites remove the audit node from their schema, but
         # user callbacks can still relay a native DictModel ValidationError. In
         # that case the Rust payload retains our internal audit location and the
@@ -620,7 +636,12 @@ def canonical_validator(cls: type[BaseModel]) -> SchemaValidator:
     schema = core_schema(cls)
     cache = cls.__dict__.get("_pd_canonical_validator")
     if cache is None or cache[0] is not schema:
-        cache = (schema, compile_validator(_rewrite(_python_schema(schema), canonical=True)))
+        cache = (
+            schema,
+            compile_validator(
+                _rewrite(_python_schema(schema), canonical=True), model_core_config(cls)
+            ),
+        )
         setattr(cls, "_pd_canonical_validator", cache)
     return cast(SchemaValidator, cache[1])
 
@@ -671,7 +692,8 @@ def python_entry_validator(
     key = (by_alias, by_name)
     if key not in variants:
         variants[key] = compile_validator(
-            _rewrite(_python_schema(schema), canonical=False, by_alias=by_alias, by_name=by_name)
+            _rewrite(_python_schema(schema), canonical=False, by_alias=by_alias, by_name=by_name),
+            model_core_config(cls),
         )
     return cast(SchemaValidator, variants[key])
 
@@ -688,7 +710,8 @@ def entry_validator(
     key = (by_alias, by_name)
     if key not in variants:
         variants[key] = compile_validator(
-            _rewrite(schema, canonical=False, by_alias=by_alias, by_name=by_name)
+            _rewrite(schema, canonical=False, by_alias=by_alias, by_name=by_name),
+            model_core_config(cls),
         )
     return cast(SchemaValidator, variants[key])
 

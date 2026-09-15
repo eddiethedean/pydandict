@@ -63,6 +63,39 @@ def _capture_error(
     return raised.value
 
 
+def _capture_constructor_error(
+    base: type[BaseModel], *, hide_input: bool, failure: str
+) -> ValidationError:
+    record = _model(base, hide_input=hide_input, failure=failure)
+    input_value = "not-an-integer" if failure == "parsing" else SECRET
+    with pytest.raises(ValidationError) as raised:
+        record(value=input_value)
+    return raised.value
+
+
+@pytest.mark.parametrize("failure", ["parsing", "value-error", "custom"])
+@pytest.mark.parametrize("hide_input", [False, True], ids=["visible", "hidden"])
+def test_constructor_preserves_hide_input_configuration(failure, hide_input):
+    expected = _capture_constructor_error(
+        BaseModel,
+        hide_input=hide_input,
+        failure=failure,
+    )
+    actual = _capture_constructor_error(
+        DictModel,
+        hide_input=hide_input,
+        failure=failure,
+    )
+
+    input_value = "not-an-integer" if failure == "parsing" else SECRET
+    assert str(actual) == str(expected)
+    assert (input_value in str(actual)) is not hide_input
+    assert actual.errors(include_context=False) == expected.errors(include_context=False)
+    assert json.loads(actual.json()) == json.loads(expected.json())
+    assert actual.__reduce__()[1][3] is hide_input
+    assert "__pydandict_input_audit_" not in repr(actual)
+
+
 @pytest.mark.parametrize("mode", ["python", "json", "strings"])
 @pytest.mark.parametrize("embedded", [False, True], ids=["direct", "embedded"])
 @pytest.mark.parametrize("failure", ["parsing", "value-error", "custom"])
