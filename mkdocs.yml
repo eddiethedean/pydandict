@@ -1,0 +1,38 @@
+site_name: PydanDict
+site_description: Pydantic models with validated mapping semantics
+site_url: https://pydandict.readthedocs.io/
+repo_url: https://github.com/eddiethedean/pydandict
+repo_name: eddiethedean/pydandict
+exclude_docs: README.md
+
+theme:
+  name: readthedocs
+
+validation:
+  nav:
+    omitted_files: ignore
+  links:
+    not_found: ignore
+    anchors: ignore
+
+nav:
+  - Overview: index.md
+  - Product and architecture:
+      - Product: product.md
+      - Architecture: architecture.md
+      - API: api.md
+      - Mutation semantics: mutation-semantics.md
+      - Nested values: nested-values.md
+      - Interoperability: interoperability.md
+  - Contracts and support:
+      - Compatibility: compatibility.md
+      - Typing: typing.md
+      - Testing: testing.md
+      - Security and performance: security-performance.md
+      - Quality bar: quality-bar.md
+  - Planning and release:
+      - Roadmap: https://github.com/eddiethedean/pydandict/blob/main/ROADMAP.md
+      - Phase 0.3 contract: phase-0.3-plan.md
+      - Release automation: release.md
+      - Contributing: https://github.com/eddiethedean/pydandict/blob/main/CONTRIBUTING.md
+      - Security policy: https://github.com/eddiethedean/pydandict/blob/main/SECURITY.md
