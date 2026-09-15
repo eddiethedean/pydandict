@@ -27,6 +27,31 @@ SlotUpdate = tuple[object, str, object]
 _AUDIT_TAG = f"__pydandict_input_audit_{id(SlotUpdate):x}__"
 
 
+def _native_hide_input(error: ValidationError) -> bool:
+    """Read the native display-redaction flag without parsing rendered error text."""
+    reduced_object: object = ValidationError.__reduce__(error)
+    if type(reduced_object) is not tuple:
+        raise _incompatible("validation error reduction has an incompatible shape")
+    reduced = cast(tuple[object, ...], reduced_object)
+    if len(reduced) != 2:
+        raise _incompatible("validation error reduction has an incompatible shape")
+    factory, arguments_object = reduced
+    if factory != ValidationError.from_exception_data or type(arguments_object) is not tuple:
+        raise _incompatible("validation error reduction has an incompatible shape")
+    arguments = cast(tuple[object, ...], arguments_object)
+    if len(arguments) != 4:
+        raise _incompatible("validation error reduction has an incompatible shape")
+    title, errors, input_type, hide_input = arguments
+    if (
+        title != error.title
+        or type(errors) is not list
+        or input_type not in ("python", "json", "string")
+        or type(hide_input) is not bool
+    ):
+        raise _incompatible("validation error reduction has incompatible values")
+    return hide_input
+
+
 def _relay_native_error(
     error: ValidationError, *, input_type: Literal["python", "json"]
 ) -> ValidationError:
@@ -59,13 +84,11 @@ def _relay_native_error(
             )
         cleaned.append(item)
 
-    native_render = ValidationError.__str__(error)
-    hide_input = "[type=" in native_render and "input_value=" not in native_render
     return ValidationError.from_exception_data(
         error.title,
         cleaned,
         input_type=input_type,
-        hide_input=hide_input,
+        hide_input=_native_hide_input(error),
     )
 
 
