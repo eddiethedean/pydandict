@@ -332,7 +332,7 @@ No persisted-data migration is required; see the [changelog](CHANGELOG.md).
 
 ## Documentation and development
 
-- [API reference](docs/api.md) and [mutation semantics](docs/mutation-semantics.md)
+- [Getting started](docs/getting-started.md), [API reference](docs/api.md) and [mutation semantics](docs/mutation-semantics.md)
 - [Nested ownership](docs/nested-values.md), [compatibility](docs/compatibility.md) and [typing](docs/typing.md)
 - [Phase 0.3 contract](docs/phase-0.3-plan.md), [passed review](docs/reviews/phase-0.3-rereview-5.md) and [release record](docs/release.md#030-release-record)
 - [Documentation index](docs/README.md), [roadmap](ROADMAP.md) and [contributing](CONTRIBUTING.md)

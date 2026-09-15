@@ -9,6 +9,7 @@ for the immutable tag, workflow evidence and PyPI package.
 
 ## Start here
 
+- [Getting started](getting-started.md)
 - [Product goals](product.md)
 - [Architecture](architecture.md)
 - [API reference](api.md)

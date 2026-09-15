@@ -1,7 +1,8 @@
 # API specification
 
-This is the Phase 0.2 package API, governed by the reviewed
-[implementation contract](phase-0.2-plan.md). The original executable prototype remains under
+This is the published 0.3.0 package API, governed by the reviewed
+[Phase 0.3 implementation contract](phase-0.3-plan.md) and the retained
+[Phase 0.2 contract](phase-0.2-plan.md). The original executable prototype remains under
 `prototypes/pydandict_prototype`; its [findings](research/prototype-findings.md)
 identify tested behavior and deliberate limitations. See [decision status](decisions/README.md)
 for the finalized support boundary and later roadmap work.
@@ -88,7 +89,7 @@ the ABC typeshed contracts. Values are accepted as `object` and validated at run
 | `m.popitem()` | `tuple[str, object]` | Attempt last key in defined order; reject if protected; `KeyError` if empty |
 | `m.clear()` | None | Remove all entries atomically; reject if any declared fields exist |
 | `m.reset(*field_names)` | None | Restore named defaults atomically; no arguments means no-op |
-| `m.model_copy(update=None, deep=False)` | New `Self` | Proposed validated copy; no mutation of original |
+| `m.model_copy(update=None, deep=False)` | New `Self` | Validated independent copy; no mutation of original |
 
 Successful `pop`/`popitem` returns of mutable values are detached and usable;
 previously borrowed handles into removed state become stale. Preparing the return

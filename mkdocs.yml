@@ -17,6 +17,7 @@ validation:
 
 nav:
   - Overview: index.md
+  - Getting started: getting-started.md
   - Product and architecture:
       - Product: product.md
       - Architecture: architecture.md
