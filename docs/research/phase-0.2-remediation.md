@@ -207,14 +207,20 @@ from tools import benchmark as b
 model = b.Chain.model_validate(b._chain_input(5))
 before = b._root_calls
 model.left = 1
-assert b._root_calls - before == 2
+delta = b._root_calls - before
+print(delta)
 ```
 
-Evidence: this reproducer was executed with candidate source and with unmodified
-baseline source in a separate Python process; both returned two calls. A distinct
-root class (`RootChain`) returned one call and is used for the required linear
-benchmark fixture. No production fix for the separate recursive-validator defect
-was implemented; Sol should triage it independently.
+Current 0.3.0 output:
+
+```text
+1
+```
+
+The historical remediation run recorded two calls on both the unmodified baseline
+and its candidate. The current 0.3.0 source returns one call for the same probe;
+the snippet is retained as a historical control and now reports the observed
+current value instead of asserting the older result.
 
 ## Quality gate report
 

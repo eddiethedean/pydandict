@@ -213,6 +213,13 @@ class Settings(DictModel):
 
 
 settings = Settings(retries=[1], groups={"primary": [2]}, flags={"ready"})
+print(dict(settings))
+```
+
+Observed output:
+
+```text
+{'retries': [1], 'groups': {'primary': [2]}, 'flags': {'ready'}}
 ```
 
 This is an intentional alpha compatibility break; document it prominently. Values

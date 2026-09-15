@@ -41,6 +41,13 @@ user = User(name="Eddie", age=40)
 assert user.age == user["age"] == 40
 assert isinstance(user, Mapping)
 assert dict(user) == {"name": "Eddie", "age": 40}
+print(dict(user))
+```
+
+Output:
+
+```text
+{'name': 'Eddie', 'age': 40}
 ```
 
 Mapping keys are canonical field names in declaration order, followed by allowed
@@ -77,6 +84,13 @@ try:
     bounds.update(low=9, high=4)
 except ValidationError:
     assert dict(bounds) == before
+print(dict(bounds))
+```
+
+Output:
+
+```text
+{'low': 5, 'high': 8}
 ```
 
 Input pairs are consumed completely before validation, so malformed or failing
@@ -105,6 +119,15 @@ clone = settings.model_copy()
 clone["environment"] = "staging"
 settings.reset("retries")
 assert settings["environment"] == "production"
+print(dict(settings))
+print(dict(clone))
+```
+
+Output:
+
+```text
+{'retries': 3, 'environment': 'production'}
+{'retries': 3, 'environment': 'staging'}
 ```
 
 `dict(model)` is a shallow mapping copy. Use `model_dump` or

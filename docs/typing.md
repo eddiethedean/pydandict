@@ -70,6 +70,13 @@ if isinstance(age, int):
     next_age: int = age + 1
 
 user["age"] = "41"  # Statically accepted object; Pydantic controls coercion.
+print(dict(user))
+```
+
+Observed output:
+
+```text
+{'name': 'Eddie', 'age': 41}
 ```
 
 Use `user.age += 1` for concise statically typed arithmetic. Without narrowing,

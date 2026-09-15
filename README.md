@@ -81,6 +81,13 @@ assert isinstance(user, Mapping)
 assert isinstance(user, MutableMapping)
 assert list(user) == ["name", "age"]
 assert dict(user) == {"name": "Eddie", "age": 41}
+print(dict(user))
+```
+
+Output:
+
+```text
+{'name': 'Eddie', 'age': 41}
 ```
 
 Pydantic supplies schemas and validation. PydanDict adds canonical key iteration
@@ -94,6 +101,17 @@ a `Mapping`:
 ```python
 from collections.abc import Mapping
 
+from pydantic import Field
+from pydandict import DictModel
+
+
+class User(DictModel):
+    name: str
+    age: int = Field(ge=0)
+
+
+user = User(name="Eddie", age=41)
+
 
 def describe(record: Mapping[str, object]) -> str:
     return ", ".join(f"{key}={value}" for key, value in record.items())
@@ -102,6 +120,15 @@ def describe(record: Mapping[str, object]) -> str:
 assert describe(user) == "name=Eddie, age=41"
 assert user.get("missing", "fallback") == "fallback"
 assert {**user} == {"name": "Eddie", "age": 41}
+print(describe(user))
+print(user.get("missing", "fallback"))
+```
+
+Output:
+
+```text
+name=Eddie, age=41
+fallback
 ```
 
 Keys are canonical field names in declaration order, followed by allowed extras
@@ -146,6 +173,13 @@ except ValidationError:
     assert dict(bounds) == before
 else:
     raise AssertionError("invalid batch was accepted")
+print(dict(bounds))
+```
+
+Output:
+
+```text
+{'low': 5, 'high': 8}
 ```
 
 `update` accepts mappings, pairs and keyword arguments. Later duplicates win;
@@ -160,6 +194,16 @@ See [validator and transaction semantics](docs/mutation-semantics.md).
 ## Defaults, extras and copies
 
 ```python
+from pydantic import Field
+from pydandict import DictModel
+
+
+class Bounds(DictModel):
+    low: int = Field(default=1, ge=0)
+    high: int = Field(default=3, ge=0)
+
+
+bounds = Bounds(low=5, high=8)
 clone = bounds.model_copy(update={"high": 10})
 assert clone is not bounds
 assert clone.high == 10 and bounds.high == 8
@@ -167,6 +211,15 @@ assert clone.high == 10 and bounds.high == 8
 bounds.reset("low", "high")
 assert dict(bounds) == {"low": 1, "high": 3}
 assert bounds.model_fields_set == set()
+print(dict(clone))
+print(dict(bounds))
+```
+
+Output:
+
+```text
+{'low': 5, 'high': 10}
+{'low': 1, 'high': 3}
 ```
 
 Declared fields cannot be deleted—even when optional or defaulted. Use `reset`
@@ -227,6 +280,13 @@ except ValidationError:
     assert list(cart.costs) == [2, 3, 4]
 else:
     raise AssertionError("parent constraint was bypassed")
+print(list(cart.costs))
+```
+
+Output:
+
+```text
+[2, 3, 4]
 ```
 
 `MutableMapping`, `MutableSet` and nested `DictModel` fields follow the existing
@@ -253,6 +313,13 @@ account = Account(userId=7, token="private")
 assert account["user_id"] == 7 and "userId" not in account
 assert "token" in account
 assert account.model_dump(by_alias=True) == {"userId": 7}
+print(account.model_dump(by_alias=True))
+```
+
+Output:
+
+```text
+{'userId': 7}
 ```
 
 Standard supported serializers, filters and serialization context remain
@@ -266,6 +333,14 @@ use ordinary model annotations. This example uses `User` from the quick start:
 
 ```python
 from fastapi import FastAPI
+from fastapi.testclient import TestClient
+from pydantic import Field
+from pydandict import DictModel
+
+
+class User(DictModel):
+    name: str
+    age: int = Field(ge=0)
 
 app = FastAPI()
 
@@ -274,6 +349,16 @@ app = FastAPI()
 def create_user(user: User) -> User:
     user.update(age=user.age + 1)
     return user
+
+
+response = TestClient(app).post("/users", json={"name": "Eddie", "age": 40})
+print(response.status_code, response.json())
+```
+
+Output:
+
+```text
+200 {'name': 'Eddie', 'age': 41}
 ```
 
 Request validation, response serialization and OpenAPI are covered by the pinned
@@ -343,9 +428,10 @@ After installing `.[dev]`, run from the repository root:
 PYTHONPATH=src PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 python -m pytest -q
 python tools/check_typing.py
 PYTHONPATH=src python -m pyright --verifytypes pydandict --ignoreexternal
-ruff check src tests tools/check_typing.py tools/qualify_package.py tools/benchmark.py
-ruff format --check src tests tools/check_typing.py tools/qualify_package.py tools/benchmark.py
+ruff check src tests tools/check_typing.py tools/qualify_package.py tools/benchmark.py tools/check_doc_examples.py
+ruff format --check src tests tools/check_typing.py tools/qualify_package.py tools/benchmark.py tools/check_doc_examples.py
 python tools/check_docs.py
+python tools/check_doc_examples.py
 ```
 
 Artifact qualification is a separate clean, committed-source check:

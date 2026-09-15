@@ -152,7 +152,7 @@ a process RSS sample alone cannot establish an ownership leak.
 
 | Lane | Planned checks | Gate |
 | --- | --- | --- |
-| Documentation change | Local links/fences/Python syntax; released examples if changed | Required |
+| Documentation change | Local links/fences/Python syntax; every released Python example executes and prints output | Required |
 | Implementation PR | Lint, strict types, relevant unit/integration cases, stateful smoke and branch coverage | Required |
 | Scheduled dependency check | Supported boundary matrix, extended stateful cases, upstream prerelease warning lane | Supported versions required; prereleases advisory |
 | Release candidate | Full T1–T12, extended stateful/fault cases, all supported Python versions, dependency boundaries, artifact consumers and benchmark budgets | Required for publication |
@@ -166,7 +166,10 @@ interpreters or prerelease runtimes. See the [compatibility matrix](compatibilit
 ## Documentation checks now
 
 `python3 tools/check_docs.py` verifies local Markdown links and fragments, Python
-example syntax, and closed code fences. It does not execute planned PydanDict
-examples or prove their behavior. `tools/probe_upstream.py` records upstream
-facts on installed dependencies. `tools/probe_typing.py` is a deliberately minimal
+example syntax, and closed code fences. `python3 tools/check_doc_examples.py`
+executes every Python fence in the root README and `docs/` in an isolated
+subprocess, requires each example to print its observed output, and reports the
+captured values. The documentation CI job installs the development dependencies
+before running both checks. `tools/probe_upstream.py` records upstream facts on
+installed dependencies. `tools/probe_typing.py` is a deliberately minimal
 inheritance fixture; see [evidence](research/upstream-behavior.md).
