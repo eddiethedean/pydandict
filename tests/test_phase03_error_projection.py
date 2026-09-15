@@ -63,8 +63,8 @@ from pydandict import DictModel
 class Child(DictModel):
     value: int
 
-for validate in (Envelope.model_validate, old_adapter.validate_python,
-                 TypeAdapter(Envelope).validate_python):
+for validate in (lambda value: Envelope(**value), Envelope.model_validate,
+                 old_adapter.validate_python, TypeAdapter(Envelope).validate_python):
     try:
         validate({'value': 1})
     except ValidationError as error:

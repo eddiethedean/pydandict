@@ -114,6 +114,20 @@ def _install_public_error_projection() -> None:
         wrapped._pydandict_error_projection = True  # pyright: ignore[reportAttributeAccessIssue]
         setattr(BaseModel, name, classmethod(wrapped))
 
+    original_init = BaseModel.__init__
+    if not getattr(original_init, "_pydandict_error_projection", False):
+
+        @wraps(original_init)
+        def wrapped_init(self: BaseModel, /, **data: Any) -> None:
+            try:
+                original_init(self, **data)
+            except ValidationError as error:
+                _project_native_error(error)
+                raise
+
+        wrapped_init._pydandict_error_projection = True  # pyright: ignore[reportAttributeAccessIssue]
+        BaseModel.__init__ = wrapped_init
+
     from pydantic import TypeAdapter
 
     adapter_methods = ("validate_python", "validate_json", "validate_strings")
